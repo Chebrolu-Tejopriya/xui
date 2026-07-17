@@ -148,6 +148,13 @@
   cursor: not-allowed;
 }
 
+/* Flush variant (Amount, Mobile Number): the field has no padding so a
+   leading badge can sit flush against its edges as a segmented cell.
+   Figma nodes 918:6634 (Amount) / 918:5601 (Mobile Number). */
+.fieldFlush {
+  padding: 0;
+}
+
 .value {
   flex: 1;
   min-width: 0;
@@ -183,13 +190,15 @@
   cursor: not-allowed;
 }
 
-/* Compound leading segment (country code / currency) used by PhoneInput, AmountInput. */
+/* Compound leading segment (country code / currency) used by PhoneInput,
+   AmountInput. Sits flush inside a `.fieldFlush` container: full 48px height,
+   own border/bg, radius 6 — reads as a segmented left cell. */
 .leadingBadge {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xxs);
   flex: none;
-  height: 100%;
+  align-self: stretch;
   padding: 0 10px;
   border-radius: var(--radius-sm);
   border: var(--border-width-regular) solid var(--border-primary);
@@ -200,6 +209,12 @@
 .leadingBadgeMuted {
   color: var(--content-tertiary);
   border-color: var(--border-tertiary);
+}
+
+/* The typed value in a flush field: it supplies its own right padding since
+   the field container has none. */
+.flushInput {
+  padding-right: 12px;
 }
 
 .leadingIcon {

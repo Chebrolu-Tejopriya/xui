@@ -75,7 +75,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
           </label>
         )}
         <div
-          className={[styles.field, error && styles.error, disabled && styles.disabled]
+          className={[styles.field, styles.fieldFlush, error && styles.error, disabled && styles.disabled]
             .filter(Boolean)
             .join(' ')}
         >
@@ -112,7 +112,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
             readOnly={isStatic || readOnly}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
-            className={[styles.input, isStatic && styles.placeholder].filter(Boolean).join(' ')}
+            className={[styles.input, styles.flushInput, isStatic && styles.placeholder].filter(Boolean).join(' ')}
           />
         </div>
         {helperText != null && (

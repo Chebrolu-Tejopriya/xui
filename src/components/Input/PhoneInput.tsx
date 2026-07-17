@@ -71,7 +71,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
           </label>
         )}
         <div
-          className={[styles.field, error && styles.error, disabled && styles.disabled]
+          className={[styles.field, styles.fieldFlush, error && styles.error, disabled && styles.disabled]
             .filter(Boolean)
             .join(' ')}
         >
@@ -101,7 +101,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
             disabled={disabled}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
-            className={styles.input}
+            className={[styles.input, styles.flushInput].join(' ')}
           />
         </div>
         {helperText != null && (
