@@ -9,9 +9,13 @@
 
 .label {
   display: inline-flex;
-  gap: 2px;
+  gap: 6px;
   font: var(--type-subtitle-2);
   color: var(--content-primary);
+}
+
+.labelDisabled {
+  color: var(--content-tertiary);
 }
 
 .mandatory {
@@ -30,22 +34,33 @@
   transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
 }
 
+/* Figma renders focus/error as a double ring: a 2px colored border, a 2px
+   gap of surface color, then the field's own 1px border-primary border.
+   Reproduced with a layered box-shadow so it doesn't affect layout. */
 .field:focus-within {
   background: var(--surface-raised);
-  border-color: var(--surface-brand-primary);
-  box-shadow: 0 0 0 1px var(--surface-brand-primary);
+  border-color: var(--border-primary);
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 4px var(--surface-brand-primary);
 }
 
 .error {
-  border-color: var(--border-error);
+  border-color: var(--border-primary);
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 4px var(--border-error);
 }
 .error:focus-within {
-  border-color: var(--border-error);
-  box-shadow: 0 0 0 1px var(--border-error);
+  background: var(--surface-raised);
+  border-color: var(--border-primary);
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 4px var(--border-error);
 }
 
 .disabled {
-  background: var(--surface-tertiary);
+  background: var(--surface-primary);
   border-color: var(--border-secondary);
 }
 
@@ -97,4 +112,167 @@
 .helperIcon > svg {
   width: 16px;
   height: 16px;
+}
+
+/* ---- Shared by Input-family variants (Dropdown, Otp, PhoneInput, etc.) ---- */
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.forgotLink {
+  font: var(--type-body-3);
+  color: var(--content-brand-primary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+/* Trigger button reset so `.field`/`.error`/`.disabled` can be reused on a <button>. */
+.trigger {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.trigger:disabled {
+  cursor: not-allowed;
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--type-body-1);
+  color: var(--content-primary);
+}
+
+.placeholder {
+  color: var(--content-tertiary);
+}
+
+.toggleButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--content-tertiary);
+  cursor: pointer;
+}
+.toggleButton > svg {
+  width: 24px;
+  height: 24px;
+}
+.toggleButton:disabled {
+  cursor: not-allowed;
+}
+
+/* Compound leading segment (country code / currency) used by PhoneInput, AmountInput. */
+.leadingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  flex: none;
+  height: 100%;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-primary);
+  font: var(--type-body-1);
+  color: var(--content-primary);
+}
+.leadingBadgeMuted {
+  color: var(--content-tertiary);
+  border-color: var(--border-tertiary);
+}
+
+.leadingIcon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.leadingIcon > svg,
+.leadingIcon > img {
+  width: 100%;
+  height: 100%;
+}
+
+.leadingChevron {
+  display: inline-flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--content-tertiary);
+}
+.leadingChevron > svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Dropdown menu (reuses the same shape as Select's menu). */
+.menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow: auto;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border-radius: var(--radius-sm);
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-raised);
+  box-shadow: var(--elevation-md);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  font: var(--type-body-2);
+  color: var(--content-primary);
+  text-align: left;
+  cursor: pointer;
+}
+.option:hover:not(:disabled) {
+  background: var(--surface-secondary);
+}
+.option:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+.optionSelected {
+  color: var(--content-brand-primary);
+  font: var(--type-subtitle-3);
+}
+
+.dropdownRoot {
+  position: relative;
+  width: 100%;
 }

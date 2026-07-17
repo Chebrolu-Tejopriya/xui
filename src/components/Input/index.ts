@@ -1,2 +1,16 @@
 export { Input } from './Input';
 export type { InputProps } from './Input';
+export { PasswordInput } from './PasswordInput';
+export type { PasswordInputProps } from './PasswordInput';
+export { SecretInput } from './SecretInput';
+export type { SecretInputProps } from './SecretInput';
+export { DateInput } from './DateInput';
+export type { DateInputProps } from './DateInput';
+export { Dropdown } from './Dropdown';
+export type { DropdownProps, DropdownOption } from './Dropdown';
+export { PhoneInput } from './PhoneInput';
+export type { PhoneInputProps } from './PhoneInput';
+export { AmountInput } from './AmountInput';
+export type { AmountInputProps } from './AmountInput';
+export { Otp } from './Otp';
+export type { OtpProps } from './Otp';

@@ -2,8 +2,15 @@ import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import styles from './Input.module.css';
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+const CalendarIcon = (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" />
+    <path d="M4 9.5h16M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+  </svg>
+);
+
+export interface DateInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
   /** Field label. */
   label?: ReactNode;
   /** Marks the field as mandatory (red asterisk next to the label). */
@@ -12,15 +19,19 @@ export interface InputProps
   helperText?: ReactNode;
   /** Icon shown before the helper text. */
   helperIcon?: ReactNode;
-  /** Error state: red border + red helper text. */
+  /** Error state: red ring + red helper text. */
   error?: boolean;
-  /** Element rendered at the end of the field (icon, button…). */
-  trailing?: ReactNode;
-  /** Element rendered at the start of the field. */
-  leading?: ReactNode;
+  /** Called when the calendar icon is clicked — wire this to your own date-picker overlay. */
+  onCalendarClick?: () => void;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+/**
+ * XUI Input — `type=Date` variant. This renders the field chrome and calendar
+ * icon from Figma but does not include a calendar picker overlay — wire
+ * `onCalendarClick` to your own picker (e.g. a positioned popover) and pass
+ * the formatted date in as `value`.
+ */
+export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
       label,
@@ -28,8 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       helperText,
       helperIcon,
       error = false,
-      trailing,
-      leading,
+      onCalendarClick,
       className,
       id,
       disabled,
@@ -61,17 +71,25 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             .filter(Boolean)
             .join(' ')}
         >
-          {leading && <span className={styles.adornment}>{leading}</span>}
           <input
             {...rest}
             ref={ref}
             id={inputId}
+            type="text"
             disabled={disabled}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
             className={styles.input}
           />
-          {trailing && <span className={styles.adornment}>{trailing}</span>}
+          <button
+            type="button"
+            className={styles.toggleButton}
+            disabled={disabled}
+            onClick={onCalendarClick}
+            aria-label="Open calendar"
+          >
+            {CalendarIcon}
+          </button>
         </div>
         {helperText != null && (
           <p id={helperId} className={[styles.helper, error && styles.helperError].filter(Boolean).join(' ')}>
@@ -84,4 +102,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'Input';
+DateInput.displayName = 'DateInput';

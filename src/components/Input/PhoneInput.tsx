@@ -2,8 +2,14 @@ import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import styles from './Input.module.css';
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+const ChevronDownIcon = (
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export interface PhoneInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
   /** Field label. */
   label?: ReactNode;
   /** Marks the field as mandatory (red asterisk next to the label). */
@@ -12,15 +18,22 @@ export interface InputProps
   helperText?: ReactNode;
   /** Icon shown before the helper text. */
   helperIcon?: ReactNode;
-  /** Error state: red border + red helper text. */
+  /** Error state: red ring + red helper text. */
   error?: boolean;
-  /** Element rendered at the end of the field (icon, button…). */
-  trailing?: ReactNode;
-  /** Element rendered at the start of the field. */
-  leading?: ReactNode;
+  /** Country flag/icon shown in the leading badge. */
+  countryFlag?: ReactNode;
+  /** Dialing code text, e.g. "+91". */
+  countryCode: string;
+  /**
+   * Called when the country badge is clicked. This renders the badge as a
+   * static display by default (matching Figma) — pass this to wire your own
+   * country picker; the chevron is purely a visual affordance either way.
+   */
+  onCountryClick?: () => void;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+/** XUI Input — `type=Mobile Number` variant: country-code badge + number field. */
+export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
   (
     {
       label,
@@ -28,8 +41,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       helperText,
       helperIcon,
       error = false,
-      trailing,
-      leading,
+      countryFlag,
+      countryCode,
+      onCountryClick,
       className,
       id,
       disabled,
@@ -61,17 +75,34 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             .filter(Boolean)
             .join(' ')}
         >
-          {leading && <span className={styles.adornment}>{leading}</span>}
+          {onCountryClick ? (
+            <button
+              type="button"
+              className={[styles.leadingBadge, styles.trigger].filter(Boolean).join(' ')}
+              disabled={disabled}
+              onClick={onCountryClick}
+            >
+              {countryFlag && <span className={styles.leadingIcon}>{countryFlag}</span>}
+              {countryCode}
+              <span className={styles.leadingChevron}>{ChevronDownIcon}</span>
+            </button>
+          ) : (
+            <span className={styles.leadingBadge}>
+              {countryFlag && <span className={styles.leadingIcon}>{countryFlag}</span>}
+              {countryCode}
+            </span>
+          )}
           <input
             {...rest}
             ref={ref}
             id={inputId}
+            type="tel"
+            inputMode="numeric"
             disabled={disabled}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
             className={styles.input}
           />
-          {trailing && <span className={styles.adornment}>{trailing}</span>}
         </div>
         {helperText != null && (
           <p id={helperId} className={[styles.helper, error && styles.helperError].filter(Boolean).join(' ')}>
@@ -84,4 +115,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'Input';
+PhoneInput.displayName = 'PhoneInput';

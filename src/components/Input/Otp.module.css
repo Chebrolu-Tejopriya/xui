@@ -1,0 +1,80 @@
+/* XUI Input — type=OTP. Boxes are visually joined: adjacent 1px borders
+   overlap via negative margin so they read as one continuous group,
+   matching the z-index-layered boxes in Figma. */
+
+.row {
+  display: flex;
+  isolation: isolate;
+}
+
+.box {
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-primary);
+  font: var(--type-heading-5);
+  color: var(--content-primary);
+  text-align: center;
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.box:not(:first-child) {
+  margin-left: -1px;
+}
+.box:first-child {
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
+}
+.box:last-child {
+  border-top-right-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.box:focus {
+  position: relative;
+  z-index: 1;
+  background: var(--surface-raised);
+  border-color: var(--border-primary);
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 4px var(--surface-brand-primary);
+}
+
+.rowError .box {
+  border-color: var(--border-primary);
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 4px var(--border-error);
+  position: relative;
+  z-index: 1;
+}
+
+.box:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+
+.helper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font: var(--type-body-2);
+  color: var(--content-secondary);
+}
+
+.resend {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font: var(--type-subtitle-3);
+  color: var(--content-brand-primary);
+  text-decoration: underline;
+}
+.resend:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+  text-decoration: none;
+}
