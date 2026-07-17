@@ -1,0 +1,86 @@
+/* Fibon Badge — pill, px 8 / py 2 (large py 6), Subtitle/3 text */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px 8px;
+  border-radius: var(--radius-max);
+  border: var(--border-width-regular) solid transparent;
+  font: var(--type-subtitle-3);
+  white-space: nowrap;
+}
+
+.large {
+  padding: 6px 8px;
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+.icon > svg {
+  width: 12px;
+  height: 12px;
+}
+.large .icon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Solid variants */
+.primary {
+  background: var(--surface-brand-primary);
+  color: var(--content-absolute-white);
+}
+
+.secondary {
+  background: var(--surface-tertiary);
+  color: var(--content-primary);
+}
+
+.outline {
+  background: transparent;
+  border-color: var(--border-primary);
+  color: var(--content-primary);
+}
+
+.destructive {
+  background: var(--surface-error-primary);
+  color: var(--content-absolute-white);
+}
+
+/* Accent (tinted) variants */
+.accentPrimary {
+  background: var(--surface-brand-secondary);
+  color: var(--content-primary);
+}
+.accentPrimary.bordered {
+  border-color: var(--surface-brand-primary);
+}
+
+.accentSecondary {
+  background: var(--surface-primary);
+  color: var(--content-primary);
+}
+.accentSecondary.bordered {
+  border-color: var(--border-primary);
+}
+
+.accentPositive {
+  background: var(--surface-success-tertiary);
+  color: var(--content-primary);
+}
+.accentPositive.bordered {
+  border-color: var(--surface-success-primary);
+}
+
+.accentNegative {
+  background: var(--surface-error-tertiary);
+  color: var(--content-primary);
+}
+.accentNegative.bordered {
+  border-color: var(--surface-error-primary);
+}

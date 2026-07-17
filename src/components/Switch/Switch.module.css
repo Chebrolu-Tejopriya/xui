@@ -1,0 +1,134 @@
+/* Fibon Switch — M3-style track 52×32 (48×28 icon variant), brand fill when on */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+  user-select: none;
+}
+
+.root:has(.input:disabled) {
+  cursor: not-allowed;
+  color: var(--content-tertiary);
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 32px;
+  flex: none;
+  border-radius: var(--radius-max);
+  background: var(--surface-raised);
+  border: 2px solid var(--fibon-gray-08);
+  box-sizing: border-box;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.withIcon {
+  width: 48px;
+  height: 28px;
+}
+
+.handle {
+  position: absolute;
+  left: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--fibon-gray-08);
+  color: var(--content-secondary);
+  transition: all 150ms ease;
+}
+
+.withIcon .handle {
+  width: 20px;
+  height: 20px;
+  left: 2px;
+}
+
+.iconOn,
+.iconOff {
+  width: 14px;
+  height: 14px;
+}
+
+.iconOn {
+  display: none;
+}
+
+/* Hover (off) */
+.root:hover .input:not(:disabled):not(:checked) + .track {
+  background: var(--fibon-gray-06);
+  border-color: var(--content-tertiary);
+}
+.root:hover .input:not(:disabled):not(:checked) + .track .handle {
+  background: var(--content-secondary);
+}
+
+/* Checked */
+.input:checked + .track {
+  background: var(--surface-brand-primary);
+  border-color: var(--surface-brand-primary);
+}
+.input:checked + .track .handle {
+  left: auto;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  background: var(--content-absolute-white);
+  color: var(--surface-brand-primary);
+}
+.input:checked + .withIcon .handle {
+  width: 20px;
+  height: 20px;
+  right: 2px;
+}
+.input:checked + .track .iconOn {
+  display: block;
+}
+.input:checked + .track .iconOff {
+  display: none;
+}
+
+/* Focus */
+.input:focus-visible + .track {
+  outline: 2px solid var(--surface-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled */
+.input:disabled + .track {
+  background: var(--surface-raised);
+  border-color: var(--surface-tertiary);
+}
+.input:disabled + .track .handle {
+  background: var(--content-tertiary);
+  opacity: 0.38;
+}
+.input:disabled:checked + .track {
+  background: var(--surface-tertiary);
+  border-color: var(--surface-tertiary);
+}
+.input:disabled:checked + .track .handle {
+  background: var(--surface-primary);
+  opacity: 1;
+}
+
+.label {
+  white-space: nowrap;
+}

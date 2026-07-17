@@ -1,0 +1,100 @@
+/* Fibon Input_v2 — 48px field, radius 6, Body/1 text, Subtitle/2 label */
+
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.label {
+  display: inline-flex;
+  gap: 2px;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.mandatory {
+  color: var(--content-error);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-primary);
+  transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.field:focus-within {
+  background: var(--surface-raised);
+  border-color: var(--surface-brand-primary);
+  box-shadow: 0 0 0 1px var(--surface-brand-primary);
+}
+
+.error {
+  border-color: var(--border-error);
+}
+.error:focus-within {
+  border-color: var(--border-error);
+  box-shadow: 0 0 0 1px var(--border-error);
+}
+
+.disabled {
+  background: var(--surface-tertiary);
+  border-color: var(--border-secondary);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: var(--type-body-1);
+  color: var(--content-primary);
+}
+
+.input::placeholder {
+  color: var(--content-tertiary);
+}
+
+.input:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+
+.adornment {
+  display: inline-flex;
+  align-items: center;
+  color: var(--content-tertiary);
+}
+.adornment > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.helper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  font: var(--type-body-2);
+  color: var(--content-tertiary);
+}
+
+.helperError {
+  color: var(--content-error);
+}
+
+.helperIcon {
+  display: inline-flex;
+}
+.helperIcon > svg {
+  width: 16px;
+  height: 16px;
+}

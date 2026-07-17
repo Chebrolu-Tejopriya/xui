@@ -1,0 +1,49 @@
+/* Fibon Breadcrumbs — items px 12 / py 6, Subtitle/1, hover surface tint */
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+  color: var(--content-primary);
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+a.item:hover {
+  background: var(--surface-primary);
+}
+
+.current {
+  background: var(--surface-primary);
+}
+
+.disabled {
+  background: var(--surface-secondary);
+  color: var(--content-tertiary);
+}
+
+.separator {
+  color: var(--content-tertiary);
+  font: var(--type-subtitle-1);
+}
+
+.icon {
+  display: inline-flex;
+}
+.icon > svg {
+  width: 20px;
+  height: 20px;
+}

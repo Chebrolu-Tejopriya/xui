@@ -1,0 +1,64 @@
+/* Fibon Avatar — circle, white ring, label-tint fallback with initials */
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: var(--radius-max);
+  border: var(--border-width-regular) solid var(--surface-raised);
+  background: #e3fcef; /* Label/Background/S */
+  color: #00ae78; /* Label/Foreground/S */
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fallback {
+  font-weight: 600;
+  line-height: 1;
+}
+
+.xs {
+  width: 20px;
+  height: 20px;
+}
+.xs .fallback {
+  font: var(--type-label-4);
+}
+
+.sm {
+  width: 24px;
+  height: 24px;
+}
+.sm .fallback {
+  font: var(--type-subtitle-3);
+}
+
+.md {
+  width: 32px;
+  height: 32px;
+}
+.md .fallback {
+  font: var(--type-heading-5);
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+}
+.lg .fallback {
+  font: var(--type-heading-2);
+}
+
+.xl {
+  width: 64px;
+  height: 64px;
+}
+.xl .fallback {
+  font: var(--type-heading-1);
+}

@@ -1,0 +1,104 @@
+/* Fibon Pagination — segmented control, border-secondary, 4px end radii */
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.rows {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.rowsLabel {
+  font: var(--type-body-2);
+  color: var(--content-primary);
+}
+
+.rowsSelect {
+  padding: 8px 12px;
+  border: var(--border-width-regular) solid var(--border-secondary);
+  border-radius: var(--radius-xs);
+  background: var(--surface-raised);
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.group {
+  display: flex;
+  align-items: stretch;
+}
+
+.group > * {
+  margin-right: -1px;
+  border: var(--border-width-regular) solid var(--border-secondary);
+  background: var(--surface-raised);
+}
+
+.pageCell {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-xs) 0 0 var(--radius-xs);
+}
+
+.pageSelect {
+  border: none;
+  background: transparent;
+  padding: 8px 6px 8px 12px;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.pageCount {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  cursor: pointer;
+  color: var(--content-secondary);
+}
+
+.arrow:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+
+.arrow:hover:not(:disabled) {
+  background: var(--surface-primary);
+}
+
+.arrow > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.arrowLast {
+  margin-right: 0;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+
+/* Compact (mobile) */
+.compact .rowsLabel,
+.compact .pageCount,
+.compact .pageSelect,
+.compact .rowsSelect {
+  font: var(--type-subtitle-3);
+}
+
+.compact .arrow {
+  width: 32px;
+  height: 32px;
+}

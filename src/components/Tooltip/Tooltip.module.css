@@ -1,0 +1,70 @@
+/* Fibon Tooltip — dark bubble (content-primary bg), radius 8, px 12 / py 8, Body/3 text */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.bubble {
+  position: absolute;
+  z-index: 10;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--content-primary);
+  color: var(--surface-raised);
+  font: var(--type-body-3);
+  white-space: nowrap;
+}
+
+.top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.left {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--content-primary);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+.arrow-top {
+  bottom: -4px;
+  left: calc(50% - 6px);
+}
+
+.arrow-bottom {
+  top: -4px;
+  left: calc(50% - 6px);
+}
+
+.arrow-left {
+  right: -4px;
+  top: calc(50% - 6px);
+}
+
+.arrow-right {
+  left: -4px;
+  top: calc(50% - 6px);
+}

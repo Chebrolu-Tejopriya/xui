@@ -1,0 +1,54 @@
+/* Fibon Accordion — items divided by border-secondary, Subtitle/1 titles */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.item {
+  background: var(--surface-raised);
+  border-bottom: var(--border-width-regular) solid var(--border-secondary);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 16px 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--surface-brand-primary);
+  outline-offset: -2px;
+}
+
+.title {
+  flex: 1;
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+  color: var(--content-primary);
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--content-secondary);
+  transition: transform 150ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.content {
+  padding-bottom: 16px;
+  font: var(--type-body-1);
+  color: var(--content-secondary);
+}

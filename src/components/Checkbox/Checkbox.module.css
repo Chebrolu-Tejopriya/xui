@@ -1,0 +1,80 @@
+/* Fibon Checkbox — 20px box, 4px gap, Subtitle/2 label */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  cursor: pointer;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+  user-select: none;
+}
+
+.root:has(.input:disabled) {
+  cursor: not-allowed;
+  color: var(--content-tertiary);
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border-radius: var(--radius-xs);
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-raised);
+  color: var(--content-absolute-white);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.check,
+.dash {
+  width: 12px;
+  height: 12px;
+  display: none;
+}
+
+.input:checked + .box,
+.input:indeterminate + .box {
+  background: var(--surface-brand-primary);
+  border-color: var(--surface-brand-primary);
+}
+
+.input:checked:not(:indeterminate) + .box .check {
+  display: block;
+}
+
+.input:indeterminate + .box .dash {
+  display: block;
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid var(--surface-brand-primary);
+  outline-offset: 2px;
+}
+
+.input:disabled + .box {
+  background: var(--surface-tertiary);
+  border-color: var(--border-secondary);
+}
+
+.input:disabled:checked + .box,
+.input:disabled:indeterminate + .box {
+  background: var(--surface-brand-disabled);
+  border-color: var(--surface-brand-disabled);
+}
+
+.label {
+  white-space: nowrap;
+}

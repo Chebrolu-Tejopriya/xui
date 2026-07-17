@@ -1,0 +1,55 @@
+/* Fibon Radio Button — 16px control, 8px gap, Subtitle/2 label */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+  user-select: none;
+}
+
+.root:has(.input:disabled) {
+  cursor: not-allowed;
+  color: var(--content-tertiary);
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border-radius: 50%;
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-raised);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.input:checked + .circle {
+  border: 5px solid var(--surface-brand-primary);
+}
+
+.input:focus-visible + .circle {
+  outline: 2px solid var(--surface-brand-primary);
+  outline-offset: 2px;
+}
+
+.input:disabled + .circle {
+  background: var(--surface-tertiary);
+  border-color: var(--border-secondary);
+}
+
+.input:disabled:checked + .circle {
+  border-color: var(--surface-brand-disabled);
+}
+
+.label {
+  white-space: nowrap;
+}

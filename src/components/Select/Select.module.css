@@ -1,0 +1,117 @@
+/* Fibon Select — white field, radius 6, p 12, brand border when open,
+   selected value in brand color */
+
+.root {
+  position: relative;
+  display: inline-block;
+  min-width: 255px;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width-regular) solid var(--border-primary);
+  background: var(--surface-raised);
+  cursor: pointer;
+  font: var(--type-body-2);
+  color: var(--content-primary);
+  text-align: left;
+  transition: border-color 120ms ease;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  color: var(--content-tertiary);
+}
+
+.open {
+  border-color: var(--border-brand);
+}
+
+.hasValue .value {
+  font: var(--type-subtitle-2);
+  color: var(--content-brand);
+}
+
+.loading .value {
+  color: var(--fibon-gray-08);
+}
+
+.value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--content-secondary);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--fibon-blue-05);
+  border-right-color: var(--surface-brand-primary);
+  animation: fibon-select-spin 0.7s linear infinite;
+}
+
+@keyframes fibon-select-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--surface-raised);
+  border: var(--border-width-regular) solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-md);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  cursor: pointer;
+  font: var(--type-body-2);
+  color: var(--content-primary);
+  text-align: left;
+}
+
+.option:hover:not(:disabled) {
+  background: var(--surface-primary);
+}
+
+.option:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+
+.optionSelected {
+  font: var(--type-subtitle-2);
+  color: var(--content-brand);
+}

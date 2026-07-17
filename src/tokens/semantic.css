@@ -1,0 +1,80 @@
+/**
+ * Fibon Design System — Semantic tokens.
+ * Maps Figma semantic variables (Surface/*, Content/*, Border/*,
+ * BorderRadius/*, BorderWidth/*, Scrims/*) onto the primitive scales,
+ * so both light and dark themes resolve automatically.
+ */
+
+:root {
+  /* Surface */
+  --surface-primary: var(--fibon-gray-02);
+  --surface-secondary: var(--fibon-gray-03);
+  --surface-tertiary: var(--fibon-gray-04);
+  --surface-raised: var(--fibon-gray-01);
+  --surface-brand-primary: var(--fibon-blue-09);
+  --surface-brand-hover: var(--fibon-blue-10);
+  --surface-brand-disabled: var(--fibon-blue-08);
+  --surface-brand-secondary: var(--fibon-blue-03);
+  --surface-error-primary: var(--fibon-red-09);
+  --surface-error-hover: var(--fibon-red-10);
+  --surface-error-disabled: var(--fibon-red-08);
+  --surface-error-tertiary: var(--fibon-red-03);
+  --surface-warning-primary: var(--fibon-orange-09);
+  --surface-warning-hover: var(--fibon-orange-10);
+  --surface-warning-disabled: var(--fibon-orange-08);
+  --surface-warning-tertiary: var(--fibon-orange-03);
+  --surface-success-primary: var(--fibon-green-09);
+  --surface-success-hover: var(--fibon-green-10);
+  --surface-success-disabled: var(--fibon-green-08);
+  --surface-success-tertiary: var(--fibon-green-03);
+
+  /* Content */
+  --content-primary: var(--fibon-gray-12);
+  --content-secondary: var(--fibon-gray-10);
+  --content-tertiary: var(--fibon-gray-09);
+  --content-brand: var(--fibon-blue-09);
+  --content-error: var(--fibon-red-09);
+  --content-warning: var(--fibon-orange-09);
+  --content-success: var(--fibon-green-09);
+  --content-absolute-white: var(--fibon-absolute-white);
+
+  /* Border */
+  --border-primary: var(--fibon-gray-07);
+  --border-secondary: var(--fibon-gray-05);
+  --border-brand: var(--fibon-blue-09);
+  --border-error: var(--fibon-red-09);
+
+  /* Scrims */
+  --overlay-sm: var(--fibon-overlay-sm);
+  --overlay-md: var(--fibon-overlay-md);
+  --overlay-lg: var(--fibon-overlay-lg);
+  --overlay-popup: var(--fibon-overlay-popup);
+
+  /* Border radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-max: 1000px;
+
+  /* Elevation */
+  --elevation-sm: 0px 2px 16px 0px rgba(30, 41, 59, 0.09);
+  --elevation-md: 0px 8px 24px 0px rgba(30, 41, 59, 0.12);
+  --elevation-lg: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+
+  /* Border width */
+  --border-width-regular: 1px;
+  --border-width-thick: 2px;
+
+  /* Spacing (4px base scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+}
