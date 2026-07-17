@@ -34,3 +34,31 @@ export const EthIcon = (
     <path d="M12 20v-4.6L6.5 12.4 12 20Z" fill="white" />
   </svg>
 );
+
+export const InrIcon = (
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="12" fill="#ff9933" />
+    <text x="12" y="16" fontSize="12" fill="white" textAnchor="middle" fontFamily="Inter, sans-serif">
+      ₹
+    </text>
+  </svg>
+);
+
+export const BtcIcon = (
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="12" fill="#f7931a" />
+    <text x="12" y="16" fontSize="12" fill="white" textAnchor="middle" fontFamily="Inter, sans-serif">
+      ₿
+    </text>
+  </svg>
+);
+
+export const UsFlag = (
+  <svg viewBox="0 0 24 24">
+    <rect width="24" height="24" fill="#B22234" />
+    {[0, 2, 4, 6, 8, 10].map((y) => (
+      <rect key={y} width="24" height="1.85" y={y * 1.85} fill="white" />
+    ))}
+    <rect width="10" height="12.9" fill="#3C3B6E" />
+  </svg>
+);
