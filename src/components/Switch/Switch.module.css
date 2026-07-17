@@ -1,4 +1,4 @@
-/* Fibon Switch — M3-style track 52×32 (48×28 icon variant), brand fill when on */
+/* XUI Switch — M3-style track 52×32 (48×28 icon variant), brand fill when on */
 
 .root {
   display: inline-flex;
@@ -31,7 +31,7 @@
   flex: none;
   border-radius: var(--radius-max);
   background: var(--surface-raised);
-  border: 2px solid var(--fibon-gray-08);
+  border: 2px solid var(--xui-gray-08);
   box-sizing: border-box;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
@@ -50,7 +50,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--fibon-gray-08);
+  background: var(--xui-gray-08);
   color: var(--content-secondary);
   transition: all 150ms ease;
 }
@@ -73,7 +73,7 @@
 
 /* Hover (off) */
 .root:hover .input:not(:disabled):not(:checked) + .track {
-  background: var(--fibon-gray-06);
+  background: var(--xui-gray-06);
   border-color: var(--content-tertiary);
 }
 .root:hover .input:not(:disabled):not(:checked) + .track .handle {

@@ -8,7 +8,7 @@ const items = [
     content:
       'Lorem ipsum dolor sit amet consectetur. Nibh elit malesuada eu amet orci maecenas interdum et. Nibh imperdiet sed volutpat vel turpis donec nec ridiculus interdum.',
   },
-  { value: 'styled', title: 'Is it styled', content: 'Yes, it matches the Fibon design system.' },
+  { value: 'styled', title: 'Is it styled', content: 'Yes, it matches the XUI design system.' },
   { value: 'animated', title: 'Is it animated', content: 'The chevron rotates on expand.' },
 ];
 

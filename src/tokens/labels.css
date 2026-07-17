@@ -1,0 +1,44 @@
+/**
+ * XUI Design System — Label color tokens.
+ * Source: Figma Label/Foreground/* and Label/Background/* (A–Z, 0–9).
+ * Paired fg/bg for tags, chips, and avatar fallbacks.
+ */
+
+:root {
+  --label-fg-a: #c40000; --label-bg-a: #ffeeee;
+  --label-fg-b: #0462c0; --label-bg-b: #e4f1ff;
+  --label-fg-c: #228b22; --label-bg-c: #e6ffe6;
+  --label-fg-d: #ff4500; --label-bg-d: #fff5e6;
+  --label-fg-e: #6a0dad; --label-bg-e: #f3e5f5;
+  --label-fg-f: #a6552d; --label-bg-f: #fcf2e6;
+  --label-fg-g: #4f4f4f; --label-bg-g: #f5f5f5;
+  --label-fg-h: #aa7502; --label-bg-h: #fff9e5;
+  --label-fg-i: #d02090; --label-bg-i: #ffe5f5;
+  --label-fg-j: #ea6703; --label-bg-j: #fff5ef;
+  --label-fg-k: #9400d3; --label-bg-k: #ffebff;
+  --label-fg-l: #0aa50a; --label-bg-l: #f0fff0;
+  --label-fg-m: #8b0000; --label-bg-m: #ffe6e6;
+  --label-fg-n: #00008b; --label-bg-n: #ebf0ff;
+  --label-fg-o: #808000; --label-bg-o: #f5f5dc;
+  --label-fg-p: #ff6347; --label-bg-p: #fff2e6;
+  --label-fg-q: #3c78aa; --label-bg-q: #f0f8ff;
+  --label-fg-r: #b22222; --label-bg-r: #fff1f1;
+  --label-fg-s: #00ae78; --label-bg-s: #e3fcef;
+  --label-fg-t: #008080; --label-bg-t: #e6ffff;
+  --label-fg-u: #8b4513; --label-bg-u: #fff6e5;
+  --label-fg-v: #8a2be2; --label-bg-v: #f3e5ff;
+  --label-fg-w: #6d6d6d; --label-bg-w: #ededed;
+  --label-fg-x: #c39b00; --label-bg-x: #fff8e5;
+  --label-fg-y: #72a50a; --label-bg-y: #f5ffe5;
+  --label-fg-z: #6c6c8c; --label-bg-z: #eaeff5;
+  --label-fg-0: #008000; --label-bg-0: #e6ffe6;
+  --label-fg-1: #4b0082; --label-bg-1: #f0e6ff;
+  --label-fg-2: #ff1493; --label-bg-2: #ffe6f5;
+  --label-fg-3: #2e4053; --label-bg-3: #ecf0f1;
+  --label-fg-4: #cd5c5c; --label-bg-4: #ffecec;
+  --label-fg-5: #00688b; --label-bg-5: #e6f9ff;
+  --label-fg-6: #9932cc; --label-bg-6: #f5e6ff;
+  --label-fg-7: #dc143c; --label-bg-7: #ffebe8;
+  --label-fg-8: #696969; --label-bg-8: #f0f0f0;
+  --label-fg-9: #b8860b; --label-bg-9: #fff5dc;
+}

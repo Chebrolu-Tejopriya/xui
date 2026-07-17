@@ -1,4 +1,4 @@
-/* Fibon Avatar — circle, white ring, label-tint fallback with initials */
+/* XUI Avatar — circle, white ring, label-tint fallback with initials */
 
 .avatar {
   display: inline-flex;
@@ -8,8 +8,8 @@
   overflow: hidden;
   border-radius: var(--radius-max);
   border: var(--border-width-regular) solid var(--surface-raised);
-  background: #e3fcef; /* Label/Background/S */
-  color: #00ae78; /* Label/Foreground/S */
+  background: var(--label-bg-s);
+  color: var(--label-fg-s);
 }
 
 .image {

@@ -1,4 +1,4 @@
-/* Fibon Button — source: Figma ⚛️ Primary Components → Button */
+/* XUI Button — source: Figma ⚛️ Primary Components → Button */
 
 .button {
   display: inline-flex;
@@ -177,10 +177,10 @@
   border-radius: 50%;
   border: 2px solid currentColor;
   border-right-color: transparent;
-  animation: fibon-spin 0.7s linear infinite;
+  animation: xui-spin 0.7s linear infinite;
 }
 
-@keyframes fibon-spin {
+@keyframes xui-spin {
   to {
     transform: rotate(360deg);
   }

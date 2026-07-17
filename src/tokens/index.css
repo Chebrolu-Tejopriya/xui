@@ -2,6 +2,7 @@
 
 @import './primitives.css';
 @import './semantic.css';
+@import './labels.css';
 @import './typography.css';
 
 body {

@@ -14,7 +14,7 @@ export type ButtonVariant =
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Visual style. Maps to Fibon Button `type` variants. */
+  /** Visual style. Maps to XUI Button `type` variants. */
   variant?: ButtonVariant;
   /** Control height: large 42px, medium 36px, small 32px. */
   size?: ButtonSize;

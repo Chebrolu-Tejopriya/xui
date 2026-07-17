@@ -1,5 +1,5 @@
 /**
- * Fibon Design System — Semantic tokens.
+ * XUI Design System — Semantic tokens.
  * Mirrors the Figma semantic variable collections (Surface/*, Content/*,
  * Border/*, BorderRadius/*, BorderWidth/*, Spacing/*, Padding/*, Scrims/*)
  * mapped onto the primitive scales so light and dark themes resolve
@@ -8,54 +8,54 @@
 
 :root {
   /* ---- Surface ---- */
-  --surface-primary: var(--fibon-gray-02);
-  --surface-secondary: var(--fibon-gray-03);
-  --surface-tertiary: var(--fibon-gray-04);
-  --surface-raised: var(--fibon-gray-01);
+  --surface-primary: var(--xui-gray-02);
+  --surface-secondary: var(--xui-gray-03);
+  --surface-tertiary: var(--xui-gray-04);
+  --surface-raised: var(--xui-gray-01);
 
-  --surface-brand-primary: var(--fibon-blue-09);
-  --surface-brand-secondary: var(--fibon-blue-03);
-  --surface-brand-hover: var(--fibon-blue-10);
-  --surface-brand-disabled: var(--fibon-blue-08);
+  --surface-brand-primary: var(--xui-blue-09);
+  --surface-brand-secondary: var(--xui-blue-03);
+  --surface-brand-hover: var(--xui-blue-10);
+  --surface-brand-disabled: var(--xui-blue-08);
 
-  --surface-error-primary: var(--fibon-red-09);
-  --surface-error-tertiary: var(--fibon-red-03);
-  --surface-error-hover: var(--fibon-red-10);
-  --surface-error-disabled: var(--fibon-red-08);
+  --surface-error-primary: var(--xui-red-09);
+  --surface-error-tertiary: var(--xui-red-03);
+  --surface-error-hover: var(--xui-red-10);
+  --surface-error-disabled: var(--xui-red-08);
 
-  --surface-warning-primary: var(--fibon-orange-09);
-  --surface-warning-tertiary: var(--fibon-orange-03);
-  --surface-warning-hover: var(--fibon-orange-10);
-  --surface-warning-disabled: var(--fibon-orange-08);
+  --surface-warning-primary: var(--xui-orange-09);
+  --surface-warning-tertiary: var(--xui-orange-03);
+  --surface-warning-hover: var(--xui-orange-10);
+  --surface-warning-disabled: var(--xui-orange-08);
 
-  --surface-success-primary: var(--fibon-green-09);
-  --surface-success-tertiary: var(--fibon-green-03);
-  --surface-success-disabled: var(--fibon-green-08);
+  --surface-success-primary: var(--xui-green-09);
+  --surface-success-tertiary: var(--xui-green-03);
+  --surface-success-disabled: var(--xui-green-08);
 
   /* ---- Content ---- */
-  --content-primary: var(--fibon-gray-12);
-  --content-secondary: var(--fibon-gray-10);
-  --content-tertiary: var(--fibon-gray-09);
-  --content-quaternary: var(--fibon-gray-08);
-  --content-disabled: var(--fibon-gray-09);
-  --content-brand-primary: var(--fibon-blue-09);
-  --content-brand-secondary: var(--fibon-blue-08);
-  --content-error-primary: var(--fibon-red-09);
-  --content-warning-primary: var(--fibon-orange-09);
-  --content-absolute-white: var(--fibon-absolute-white);
+  --content-primary: var(--xui-gray-12);
+  --content-secondary: var(--xui-gray-10);
+  --content-tertiary: var(--xui-gray-09);
+  --content-quaternary: var(--xui-gray-08);
+  --content-disabled: var(--xui-gray-09);
+  --content-brand-primary: var(--xui-blue-09);
+  --content-brand-secondary: var(--xui-blue-08);
+  --content-error-primary: var(--xui-red-09);
+  --content-warning-primary: var(--xui-orange-09);
+  --content-absolute-white: var(--xui-absolute-white);
 
   /* ---- Border ---- */
-  --border-primary: var(--fibon-gray-07);
-  --border-secondary: var(--fibon-gray-05);
-  --border-tertiary: var(--fibon-gray-04);
-  --border-brand: var(--fibon-blue-09);
-  --border-error: var(--fibon-red-09);
+  --border-primary: var(--xui-gray-07);
+  --border-secondary: var(--xui-gray-05);
+  --border-tertiary: var(--xui-gray-04);
+  --border-brand: var(--xui-blue-09);
+  --border-error: var(--xui-red-09);
 
   /* ---- Scrims / overlays ---- */
-  --overlay-sm: var(--fibon-overlay-sm);
-  --overlay-md: var(--fibon-overlay-md);
-  --overlay-lg: var(--fibon-overlay-lg);
-  --overlay-popup: var(--fibon-overlay-popup);
+  --overlay-sm: var(--xui-overlay-sm);
+  --overlay-md: var(--xui-overlay-md);
+  --overlay-lg: var(--xui-overlay-lg);
+  --overlay-popup: var(--xui-overlay-popup);
   --overlay-locked: #ffffff80;
   --blur-locked: 16px;
 
@@ -67,6 +67,7 @@
   --modal-shadow: 0px 0px 8px 0px #09112129;
 
   /* ---- Border radius ---- */
+  --radius-none: 0;
   --radius-xxs: 2px;
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -103,4 +104,12 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
+}
+
+/* Dark theme: elevation scrims are transparent in XUI dark mode
+   (Figma: Scrims/Elevation/sm = #eff5ff00 in the dark collection). */
+[data-theme='dark'] {
+  --elevation-sm: 0px 2px 16px 0px #eff5ff00;
+  --elevation-md: 0px 8px 24px 0px #eff5ff00;
+  --elevation-low-raised: 0px 2px 16px 0px #eff5ff00;
 }

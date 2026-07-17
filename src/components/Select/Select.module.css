@@ -1,4 +1,4 @@
-/* Fibon Select — white field, radius 6, p 12, brand border when open,
+/* XUI Select — white field, radius 6, p 12, brand border when open,
    selected value in brand color */
 
 .root {
@@ -61,12 +61,12 @@
   height: 16px;
   flex: none;
   border-radius: 50%;
-  border: 2px solid var(--fibon-blue-05);
+  border: 2px solid var(--xui-blue-05);
   border-right-color: var(--surface-brand-primary);
-  animation: fibon-select-spin 0.7s linear infinite;
+  animation: xui-select-spin 0.7s linear infinite;
 }
 
-@keyframes fibon-select-spin {
+@keyframes xui-select-spin {
   to {
     transform: rotate(360deg);
   }

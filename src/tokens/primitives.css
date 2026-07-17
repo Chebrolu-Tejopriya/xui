@@ -1,5 +1,5 @@
 /**
- * Fibon Design System — Primitive color tokens.
+ * XUI Design System — Primitive color tokens.
  * Source: Figma "XUI" → 🎨 Colors page (Light & Dark variable collections).
  * Do not reference these directly in components — use the semantic tokens
  * defined in semantic.css instead.
@@ -8,161 +8,161 @@
 :root,
 [data-theme='light'] {
   /* Gray */
-  --fibon-gray-01: #ffffff; /* 01-Surface */
-  --fibon-gray-02: #f1f5f9; /* 02-Background */
-  --fibon-gray-03: #ecf1f7;
-  --fibon-gray-04: #e2e8f0;
-  --fibon-gray-05: #dbe2ec;
-  --fibon-gray-06: #d2dbe7;
-  --fibon-gray-07: #cbd5e1;
-  --fibon-gray-08: #aebdd2;
-  --fibon-gray-09: #64748b;
-  --fibon-gray-10: #334155;
-  --fibon-gray-11: #1e293b;
-  --fibon-gray-12: #0f172a;
+  --xui-gray-01: #ffffff; /* 01-Surface */
+  --xui-gray-02: #f1f5f9; /* 02-Background */
+  --xui-gray-03: #ecf1f7;
+  --xui-gray-04: #e2e8f0;
+  --xui-gray-05: #dbe2ec;
+  --xui-gray-06: #d2dbe7;
+  --xui-gray-07: #cbd5e1;
+  --xui-gray-08: #aebdd2;
+  --xui-gray-09: #64748b;
+  --xui-gray-10: #334155;
+  --xui-gray-11: #1e293b;
+  --xui-gray-12: #0f172a;
 
   /* Blue */
-  --fibon-blue-01: #fcfdff;
-  --fibon-blue-02: #f5faff;
-  --fibon-blue-03: #eaf2ff;
-  --fibon-blue-04: #dceaff;
-  --fibon-blue-05: #cbe0ff;
-  --fibon-blue-06: #b4d2ff;
-  --fibon-blue-07: #98c0ff;
-  --fibon-blue-08: #73a5ff;
-  --fibon-blue-09: #0052fe; /* Base */
-  --fibon-blue-10: #0148df;
-  --fibon-blue-11: #0141cf;
-  --fibon-blue-12: #0e2b6c;
+  --xui-blue-01: #fcfdff;
+  --xui-blue-02: #f5faff;
+  --xui-blue-03: #eaf2ff;
+  --xui-blue-04: #dceaff;
+  --xui-blue-05: #cbe0ff;
+  --xui-blue-06: #b4d2ff;
+  --xui-blue-07: #98c0ff;
+  --xui-blue-08: #73a5ff;
+  --xui-blue-09: #0052fe; /* Base */
+  --xui-blue-10: #0148df;
+  --xui-blue-11: #0141cf;
+  --xui-blue-12: #0e2b6c;
 
   /* Orange */
-  --fibon-orange-01: #fefcfb;
-  --fibon-orange-02: #fff5ef;
-  --fibon-orange-03: #ffebdf;
-  --fibon-orange-04: #ffd9c4;
-  --fibon-orange-05: #ffcbae;
-  --fibon-orange-06: #ffbb96;
-  --fibon-orange-07: #fca87f;
-  --fibon-orange-08: #f1905f;
-  --fibon-orange-09: #fb6f04; /* Base */
-  --fibon-orange-10: #ea6703;
-  --fibon-orange-11: #c35a00;
-  --fibon-orange-12: #572e18;
+  --xui-orange-01: #fefcfb;
+  --xui-orange-02: #fff5ef;
+  --xui-orange-03: #ffebdf;
+  --xui-orange-04: #ffd9c4;
+  --xui-orange-05: #ffcbae;
+  --xui-orange-06: #ffbb96;
+  --xui-orange-07: #fca87f;
+  --xui-orange-08: #f1905f;
+  --xui-orange-09: #fb6f04; /* Base */
+  --xui-orange-10: #ea6703;
+  --xui-orange-11: #c35a00;
+  --xui-orange-12: #572e18;
 
   /* Green */
-  --fibon-green-01: #fafefc;
-  --fibon-green-02: #f2fcf7;
-  --fibon-green-03: #e1f8ec;
-  --fibon-green-04: #cef3e0;
-  --fibon-green-05: #b8ecd2;
-  --fibon-green-06: #9ce2c0;
-  --fibon-green-07: #74d4a9;
-  --fibon-green-08: #1ebf88;
-  --fibon-green-09: #0fba83; /* Base */
-  --fibon-green-10: #00ae78;
-  --fibon-green-11: #008255;
-  --fibon-green-12: #0c3d2a;
+  --xui-green-01: #fafefc;
+  --xui-green-02: #f2fcf7;
+  --xui-green-03: #e1f8ec;
+  --xui-green-04: #cef3e0;
+  --xui-green-05: #b8ecd2;
+  --xui-green-06: #9ce2c0;
+  --xui-green-07: #74d4a9;
+  --xui-green-08: #1ebf88;
+  --xui-green-09: #0fba83; /* Base */
+  --xui-green-10: #00ae78;
+  --xui-green-11: #008255;
+  --xui-green-12: #0c3d2a;
 
   /* Red */
-  --fibon-red-01: #fffcfc;
-  --fibon-red-02: #fff7f7;
-  --fibon-red-03: #ffeae9;
-  --fibon-red-04: #ffdad8;
-  --fibon-red-05: #ffcbc9;
-  --fibon-red-06: #ffbab8;
-  --fibon-red-07: #fca5a4;
-  --fibon-red-08: #ff6a7c;
-  --fibon-red-09: #f7324c; /* Base */
-  --fibon-red-10: #e9193f;
-  --fibon-red-11: #d90034;
-  --fibon-red-12: #6b0819;
+  --xui-red-01: #fffcfc;
+  --xui-red-02: #fff7f7;
+  --xui-red-03: #ffeae9;
+  --xui-red-04: #ffdad8;
+  --xui-red-05: #ffcbc9;
+  --xui-red-06: #ffbab8;
+  --xui-red-07: #fca5a4;
+  --xui-red-08: #ff6a7c;
+  --xui-red-09: #f7324c; /* Base */
+  --xui-red-10: #e9193f;
+  --xui-red-11: #d90034;
+  --xui-red-12: #6b0819;
 
   /* Absolutes — same in both themes */
-  --fibon-absolute-white: #ffffff;
-  --fibon-absolute-black: #000000;
+  --xui-absolute-white: #ffffff;
+  --xui-absolute-black: #000000;
 
   /* Scrims / overlays */
-  --fibon-overlay-sm: #00000014;
-  --fibon-overlay-md: #00000029;
-  --fibon-overlay-lg: #0000003d;
-  --fibon-overlay-popup: #00000080;
+  --xui-overlay-sm: #00000014;
+  --xui-overlay-md: #00000029;
+  --xui-overlay-lg: #0000003d;
+  --xui-overlay-popup: #00000080;
 
   /* Secondary accents */
-  --fibon-accent-blue: #0082ff;
-  --fibon-accent-yellow: #faa002;
-  --fibon-accent-green: #0fba83;
-  --fibon-accent-purple: #9b51e0;
-  --fibon-accent-gray: #b0c5d4;
+  --xui-accent-blue: #0082ff;
+  --xui-accent-yellow: #faa002;
+  --xui-accent-green: #0fba83;
+  --xui-accent-purple: #9b51e0;
+  --xui-accent-gray: #b0c5d4;
 }
 
 [data-theme='dark'] {
   /* Gray */
-  --fibon-gray-01: #171a26;
-  --fibon-gray-02: #0a0a12;
-  --fibon-gray-03: #212538;
-  --fibon-gray-04: #2d3246;
-  --fibon-gray-05: #3a3f54;
-  --fibon-gray-06: #484e63;
-  --fibon-gray-07: #595f75;
-  --fibon-gray-08: #6d7389;
-  --fibon-gray-09: #a9afc5;
-  --fibon-gray-10: #bdc3d9;
-  --fibon-gray-11: #eff5ff;
-  --fibon-gray-12: #ffffff;
+  --xui-gray-01: #171a26;
+  --xui-gray-02: #0a0a12;
+  --xui-gray-03: #212538;
+  --xui-gray-04: #2d3246;
+  --xui-gray-05: #3a3f54;
+  --xui-gray-06: #484e63;
+  --xui-gray-07: #595f75;
+  --xui-gray-08: #6d7389;
+  --xui-gray-09: #a9afc5;
+  --xui-gray-10: #bdc3d9;
+  --xui-gray-11: #eff5ff;
+  --xui-gray-12: #ffffff;
 
   /* Blue */
-  --fibon-blue-01: #0b111e;
-  --fibon-blue-02: #101728;
-  --fibon-blue-03: #121d3a;
-  --fibon-blue-04: #172c6b;
-  --fibon-blue-05: #1f377f;
-  --fibon-blue-06: #284390;
-  --fibon-blue-07: #3150a6;
-  --fibon-blue-08: #3a5ec4;
-  --fibon-blue-09: #4a78ff;
-  --fibon-blue-10: #6290ff;
-  --fibon-blue-11: #8db3ff;
-  --fibon-blue-12: #d1e1ff;
+  --xui-blue-01: #0b111e;
+  --xui-blue-02: #101728;
+  --xui-blue-03: #121d3a;
+  --xui-blue-04: #172c6b;
+  --xui-blue-05: #1f377f;
+  --xui-blue-06: #284390;
+  --xui-blue-07: #3150a6;
+  --xui-blue-08: #3a5ec4;
+  --xui-blue-09: #4a78ff;
+  --xui-blue-10: #6290ff;
+  --xui-blue-11: #8db3ff;
+  --xui-blue-12: #d1e1ff;
 
   /* Orange */
-  --fibon-orange-01: #16100d;
-  --fibon-orange-02: #1f1510;
-  --fibon-orange-03: #351c0f;
-  --fibon-orange-04: #4b1c00;
-  --fibon-orange-05: #592504;
-  --fibon-orange-06: #693315;
-  --fibon-orange-07: #80431c;
-  --fibon-orange-08: #a45723;
-  --fibon-orange-09: #ff8c40;
-  --fibon-orange-10: #ffa054;
-  --fibon-orange-11: #f5af69;
-  --fibon-orange-12: #ffdbc7;
+  --xui-orange-01: #16100d;
+  --xui-orange-02: #1f1510;
+  --xui-orange-03: #351c0f;
+  --xui-orange-04: #4b1c00;
+  --xui-orange-05: #592504;
+  --xui-orange-06: #693315;
+  --xui-orange-07: #80431c;
+  --xui-orange-08: #a45723;
+  --xui-orange-09: #ff8c40;
+  --xui-orange-10: #ffa054;
+  --xui-orange-11: #f5af69;
+  --xui-orange-12: #ffdbc7;
 
   /* Green */
-  --fibon-green-01: #0b130f;
-  --fibon-green-02: #111b16;
-  --fibon-green-03: #102d21;
-  --fibon-green-04: #0a3c29;
-  --fibon-green-05: #0e4a33;
-  --fibon-green-06: #17583f;
-  --fibon-green-07: #29684f;
-  --fibon-green-08: #317d60;
-  --fibon-green-09: #21d39a;
-  --fibon-green-10: #3ff1b8;
-  --fibon-green-11: #70f5ca;
-  --fibon-green-12: #aef0d2;
+  --xui-green-01: #0b130f;
+  --xui-green-02: #111b16;
+  --xui-green-03: #102d21;
+  --xui-green-04: #0a3c29;
+  --xui-green-05: #0e4a33;
+  --xui-green-06: #17583f;
+  --xui-green-07: #29684f;
+  --xui-green-08: #317d60;
+  --xui-green-09: #21d39a;
+  --xui-green-10: #3ff1b8;
+  --xui-green-11: #70f5ca;
+  --xui-green-12: #aef0d2;
 
   /* Red */
-  --fibon-red-01: #170e0e;
-  --fibon-red-02: #211212;
-  --fibon-red-03: #3e0e12;
-  --fibon-red-04: #560411;
-  --fibon-red-05: #670a18;
-  --fibon-red-06: #791924;
-  --fibon-red-07: #8f2e3a;
-  --fibon-red-08: #bb3c4c;
-  --fibon-red-09: #ff5a6e;
-  --fibon-red-10: #ff6e82;
-  --fibon-red-11: #ff98a0;
-  --fibon-red-12: #ffd1d2;
+  --xui-red-01: #170e0e;
+  --xui-red-02: #211212;
+  --xui-red-03: #3e0e12;
+  --xui-red-04: #560411;
+  --xui-red-05: #670a18;
+  --xui-red-06: #791924;
+  --xui-red-07: #8f2e3a;
+  --xui-red-08: #bb3c4c;
+  --xui-red-09: #ff5a6e;
+  --xui-red-10: #ff6e82;
+  --xui-red-11: #ff98a0;
+  --xui-red-12: #ffd1d2;
 }

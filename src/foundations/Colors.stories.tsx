@@ -45,7 +45,7 @@ export const Primitives: StoryObj = {
           </h3>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {steps.map((s) => (
-              <Swatch key={s} token={`--fibon-${scale}-${s}`} name={s} />
+              <Swatch key={s} token={`--xui-${scale}-${s}`} name={s} />
             ))}
           </div>
         </div>

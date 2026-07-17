@@ -1,4 +1,4 @@
-/* Fibon Toast — tinted 02-surface, 1px status border, radius 6, elevation-sm */
+/* XUI Toast — tinted 02-surface, 1px status border, radius 6, elevation-sm */
 
 .toast {
   position: relative;
@@ -19,22 +19,22 @@
 }
 
 .default {
-  background: var(--fibon-blue-02);
+  background: var(--xui-blue-02);
   border-color: var(--surface-brand-primary);
 }
 
 .success {
-  background: var(--fibon-green-02);
+  background: var(--xui-green-02);
   border-color: var(--surface-success-primary);
 }
 
 .warning {
-  background: var(--fibon-orange-02);
+  background: var(--xui-orange-02);
   border-color: var(--surface-warning-primary);
 }
 
 .error {
-  background: var(--fibon-red-02);
+  background: var(--xui-red-02);
   border-color: var(--surface-error-primary);
 }
 
