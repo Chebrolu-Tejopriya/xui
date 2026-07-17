@@ -9,12 +9,20 @@ const meta: Meta<typeof Button> = {
     variant: 'primary',
     size: 'large',
   },
+  argTypes: {
+    iconLeft: { control: false },
+    iconRight: { control: false },
+  },
 };
 export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  args: {
+    size: "medium"
+  }
+};
 
 const PlusIcon = (
   <svg viewBox="0 0 20 20" fill="none">

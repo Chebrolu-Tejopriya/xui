@@ -5,6 +5,10 @@ const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
   component: Badge,
   args: { children: 'Badge', variant: 'primary', size: 'default' },
+  argTypes: {
+    iconLeft: { control: false },
+    iconRight: { control: false },
+  },
 };
 export default meta;
 

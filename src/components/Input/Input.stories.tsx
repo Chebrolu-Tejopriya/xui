@@ -17,6 +17,11 @@ const meta: Meta<typeof Input> = {
     helperText: 'Enter your email address',
     helperIcon: InfoIcon,
   },
+  argTypes: {
+    helperIcon: { control: false },
+    trailing: { control: false },
+    leading: { control: false },
+  },
 };
 export default meta;
 
