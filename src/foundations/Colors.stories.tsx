@@ -10,10 +10,13 @@ const steps = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
 
 const semantic = [
   ['surface-primary', 'surface-secondary', 'surface-tertiary', 'surface-raised'],
-  ['surface-brand-primary', 'surface-brand-hover', 'surface-brand-disabled', 'surface-brand-secondary'],
-  ['surface-success-primary', 'surface-warning-primary', 'surface-error-primary'],
-  ['content-primary', 'content-secondary', 'content-tertiary', 'content-brand', 'content-error'],
-  ['border-primary', 'border-secondary', 'border-brand', 'border-error'],
+  ['surface-brand-primary', 'surface-brand-secondary', 'surface-brand-hover', 'surface-brand-disabled'],
+  ['surface-error-primary', 'surface-error-tertiary', 'surface-error-hover', 'surface-error-disabled'],
+  ['surface-warning-primary', 'surface-warning-tertiary', 'surface-warning-hover', 'surface-warning-disabled'],
+  ['surface-success-primary', 'surface-success-tertiary', 'surface-success-disabled'],
+  ['content-primary', 'content-secondary', 'content-tertiary', 'content-quaternary', 'content-disabled'],
+  ['content-brand-primary', 'content-brand-secondary', 'content-error-primary', 'content-warning-primary'],
+  ['border-primary', 'border-secondary', 'border-tertiary', 'border-brand', 'border-error'],
 ];
 
 function Swatch({ token, name }: { token: string; name: string }) {

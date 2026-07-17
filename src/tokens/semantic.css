@@ -1,73 +1,91 @@
 /**
  * Fibon Design System — Semantic tokens.
- * Maps Figma semantic variables (Surface/*, Content/*, Border/*,
- * BorderRadius/*, BorderWidth/*, Scrims/*) onto the primitive scales,
- * so both light and dark themes resolve automatically.
+ * Mirrors the Figma semantic variable collections (Surface/*, Content/*,
+ * Border/*, BorderRadius/*, BorderWidth/*, Spacing/*, Padding/*, Scrims/*)
+ * mapped onto the primitive scales so light and dark themes resolve
+ * automatically. Names are normalized to kebab-case (Figma mixes `_` and `-`).
  */
 
 :root {
-  /* Surface */
+  /* ---- Surface ---- */
   --surface-primary: var(--fibon-gray-02);
   --surface-secondary: var(--fibon-gray-03);
   --surface-tertiary: var(--fibon-gray-04);
   --surface-raised: var(--fibon-gray-01);
+
   --surface-brand-primary: var(--fibon-blue-09);
+  --surface-brand-secondary: var(--fibon-blue-03);
   --surface-brand-hover: var(--fibon-blue-10);
   --surface-brand-disabled: var(--fibon-blue-08);
-  --surface-brand-secondary: var(--fibon-blue-03);
+
   --surface-error-primary: var(--fibon-red-09);
+  --surface-error-tertiary: var(--fibon-red-03);
   --surface-error-hover: var(--fibon-red-10);
   --surface-error-disabled: var(--fibon-red-08);
-  --surface-error-tertiary: var(--fibon-red-03);
+
   --surface-warning-primary: var(--fibon-orange-09);
+  --surface-warning-tertiary: var(--fibon-orange-03);
   --surface-warning-hover: var(--fibon-orange-10);
   --surface-warning-disabled: var(--fibon-orange-08);
-  --surface-warning-tertiary: var(--fibon-orange-03);
-  --surface-success-primary: var(--fibon-green-09);
-  --surface-success-hover: var(--fibon-green-10);
-  --surface-success-disabled: var(--fibon-green-08);
-  --surface-success-tertiary: var(--fibon-green-03);
 
-  /* Content */
+  --surface-success-primary: var(--fibon-green-09);
+  --surface-success-tertiary: var(--fibon-green-03);
+  --surface-success-disabled: var(--fibon-green-08);
+
+  /* ---- Content ---- */
   --content-primary: var(--fibon-gray-12);
   --content-secondary: var(--fibon-gray-10);
   --content-tertiary: var(--fibon-gray-09);
-  --content-brand: var(--fibon-blue-09);
-  --content-error: var(--fibon-red-09);
-  --content-warning: var(--fibon-orange-09);
-  --content-success: var(--fibon-green-09);
+  --content-quaternary: var(--fibon-gray-08);
+  --content-disabled: var(--fibon-gray-09);
+  --content-brand-primary: var(--fibon-blue-09);
+  --content-brand-secondary: var(--fibon-blue-08);
+  --content-error-primary: var(--fibon-red-09);
+  --content-warning-primary: var(--fibon-orange-09);
   --content-absolute-white: var(--fibon-absolute-white);
 
-  /* Border */
+  /* ---- Border ---- */
   --border-primary: var(--fibon-gray-07);
   --border-secondary: var(--fibon-gray-05);
+  --border-tertiary: var(--fibon-gray-04);
   --border-brand: var(--fibon-blue-09);
   --border-error: var(--fibon-red-09);
 
-  /* Scrims */
+  /* ---- Scrims / overlays ---- */
   --overlay-sm: var(--fibon-overlay-sm);
   --overlay-md: var(--fibon-overlay-md);
   --overlay-lg: var(--fibon-overlay-lg);
   --overlay-popup: var(--fibon-overlay-popup);
 
-  /* Border radius */
+  /* ---- Elevation ---- */
+  --elevation-sm: 0px 2px 16px 0px #1e293b17;
+  --elevation-md: 0px 8px 24px 0px #1e293b1f;
+  --shadow-lg: 0px 10px 15px -3px #0000001a, 0px 4px 6px -4px #1018281a;
+  --modal-shadow: 0px 0px 8px 0px #09112129;
+
+  /* ---- Border radius ---- */
+  --radius-xxs: 2px;
   --radius-xs: 4px;
   --radius-sm: 6px;
-  --radius-md: 8px;
+  --radius-mid: 8px;
+  --radius-md: 8px; /* alias of --radius-mid */
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-max: 1000px;
 
-  /* Elevation */
-  --elevation-sm: 0px 2px 16px 0px rgba(30, 41, 59, 0.09);
-  --elevation-md: 0px 8px 24px 0px rgba(30, 41, 59, 0.12);
-  --elevation-lg: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(16, 24, 40, 0.1);
-
-  /* Border width */
+  /* ---- Border width ---- */
   --border-width-regular: 1px;
-  --border-width-thick: 2px;
+  --border-width-thick: 1.5px;
 
-  /* Spacing (4px base scale) */
+  /* ---- Spacing / padding / size ---- */
+  --spacing-2xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-lg: 16px;
+  --padding-6: 24px;
+  --padding-8: 32px;
+  --size-button-sm: 36px;
+
+  /* Legacy 4px-scale aliases (kept for component CSS) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;

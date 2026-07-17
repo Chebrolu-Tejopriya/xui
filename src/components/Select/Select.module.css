@@ -34,11 +34,11 @@
 
 .hasValue .value {
   font: var(--type-subtitle-2);
-  color: var(--content-brand);
+  color: var(--content-brand-primary);
 }
 
 .loading .value {
-  color: var(--fibon-gray-08);
+  color: var(--content-quaternary);
 }
 
 .value {
@@ -113,5 +113,5 @@
 
 .optionSelected {
   font: var(--type-subtitle-2);
-  color: var(--content-brand);
+  color: var(--content-brand-primary);
 }
