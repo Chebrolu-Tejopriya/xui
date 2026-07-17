@@ -108,6 +108,10 @@
 
 .helperIcon {
   display: inline-flex;
+  /* Figma's Icons/Info asset (node 918:6645) is fill #AEBDD2 = --gray-08 /
+     --content-quaternary — one step lighter than the helper text's own
+     --content-tertiary. Set explicitly so it doesn't inherit the text color. */
+  color: var(--content-quaternary);
 }
 .helperIcon > svg {
   width: 16px;
@@ -209,6 +213,21 @@
 .leadingBadgeMuted {
   color: var(--content-tertiary);
   border-color: var(--border-tertiary);
+}
+
+/* Figma nodes 918:6683 (Amount, disabled) / 918:5640 (Mobile Number,
+   disabled): the badge itself mutes along with the field, not just the
+   outer ring. */
+.leadingBadgeDisabled {
+  color: var(--content-tertiary);
+  border-color: var(--border-secondary);
+}
+
+/* Mobile Number's flag specifically dims to 70% opacity when disabled
+   (918:5640); Amount's currency logo does not (918:6683) — applied
+   per-component, not by default on .leadingIcon. */
+.leadingIconMuted {
+  opacity: 0.7;
 }
 
 /* The typed value in a flush field: it supplies its own right padding since

@@ -5,6 +5,15 @@
 @import './labels.css';
 @import './typography.css';
 
+/* Without this, an element with both an explicit height and a border
+   renders (height + 2*border) tall under the browser default (content-box)
+   instead of exactly `height`, which is what every Figma frame assumes. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-family-base);
   color: var(--content-primary);

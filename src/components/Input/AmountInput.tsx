@@ -80,14 +80,20 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
             .join(' ')}
         >
           {isStatic ? (
-            <span className={[styles.leadingBadge, styles.leadingBadgeMuted].filter(Boolean).join(' ')}>
+            <span
+              className={[styles.leadingBadge, disabled ? styles.leadingBadgeDisabled : styles.leadingBadgeMuted]
+                .filter(Boolean)
+                .join(' ')}
+            >
               {currencyIcon && <span className={styles.leadingIcon}>{currencyIcon}</span>}
               {currencyCode}
             </span>
           ) : onCurrencyClick ? (
             <button
               type="button"
-              className={[styles.leadingBadge, styles.trigger].filter(Boolean).join(' ')}
+              className={[styles.leadingBadge, styles.trigger, disabled && styles.leadingBadgeDisabled]
+                .filter(Boolean)
+                .join(' ')}
               disabled={disabled}
               onClick={onCurrencyClick}
             >
@@ -96,7 +102,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
               <span className={styles.leadingChevron}>{ChevronDownIcon}</span>
             </button>
           ) : (
-            <span className={styles.leadingBadge}>
+            <span className={[styles.leadingBadge, disabled && styles.leadingBadgeDisabled].filter(Boolean).join(' ')}>
               {currencyIcon && <span className={styles.leadingIcon}>{currencyIcon}</span>}
               {currencyCode}
               <span className={styles.leadingChevron}>{ChevronDownIcon}</span>

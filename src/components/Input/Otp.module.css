@@ -2,6 +2,18 @@
    overlap via negative margin so they read as one continuous group,
    matching the z-index-layered boxes in Figma. */
 
+/* Figma (2717:13359) wraps the whole box row in one shared 2px ring on
+   error — not a ring per box. Undecorated by default so it doesn't affect
+   layout in the non-error case. */
+.ring {
+  display: inline-flex;
+  border-radius: var(--radius-mid);
+}
+.ringError {
+  border: 2px solid var(--border-error);
+  padding: var(--spacing-xxxs);
+}
+
 .row {
   display: flex;
   isolation: isolate;
@@ -42,18 +54,22 @@
     0 0 0 4px var(--surface-brand-primary);
 }
 
-.rowError .box {
-  border-color: var(--border-primary);
-  box-shadow:
-    0 0 0 2px var(--surface-raised),
-    0 0 0 4px var(--border-error);
-  position: relative;
-  z-index: 1;
-}
-
 .box:disabled {
+  border-color: var(--border-secondary);
   color: var(--content-tertiary);
   cursor: not-allowed;
+}
+
+.errorMessage {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  color: var(--content-error-primary);
+}
+.errorMessage > svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
 }
 
 .helper {

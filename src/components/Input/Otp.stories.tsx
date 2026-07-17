@@ -31,3 +31,16 @@ export const Playground: Story = {
 export const Expiry: Story = {
   args: { defaultValue: '1234', expiresInLabel: 'Expires in 5 minutes' },
 };
+
+export const Error: Story = {
+  args: {
+    defaultValue: '136194',
+    error: true,
+    errorText: "OTP Doesn't match",
+    onResend: () => {},
+  },
+};
+
+export const Disabled: Story = {
+  args: { defaultValue: '1234', disabled: true, onResend: () => {} },
+};

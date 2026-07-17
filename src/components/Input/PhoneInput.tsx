@@ -78,17 +78,27 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
           {onCountryClick ? (
             <button
               type="button"
-              className={[styles.leadingBadge, styles.trigger].filter(Boolean).join(' ')}
+              className={[styles.leadingBadge, styles.trigger, disabled && styles.leadingBadgeDisabled]
+                .filter(Boolean)
+                .join(' ')}
               disabled={disabled}
               onClick={onCountryClick}
             >
-              {countryFlag && <span className={styles.leadingIcon}>{countryFlag}</span>}
+              {countryFlag && (
+                <span className={[styles.leadingIcon, disabled && styles.leadingIconMuted].filter(Boolean).join(' ')}>
+                  {countryFlag}
+                </span>
+              )}
               {countryCode}
               <span className={styles.leadingChevron}>{ChevronDownIcon}</span>
             </button>
           ) : (
-            <span className={styles.leadingBadge}>
-              {countryFlag && <span className={styles.leadingIcon}>{countryFlag}</span>}
+            <span className={[styles.leadingBadge, disabled && styles.leadingBadgeDisabled].filter(Boolean).join(' ')}>
+              {countryFlag && (
+                <span className={[styles.leadingIcon, disabled && styles.leadingIconMuted].filter(Boolean).join(' ')}>
+                  {countryFlag}
+                </span>
+              )}
               {countryCode}
             </span>
           )}
