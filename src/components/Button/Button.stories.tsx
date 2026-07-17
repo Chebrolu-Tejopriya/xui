@@ -8,6 +8,9 @@ const meta: Meta<typeof Button> = {
     children: 'Continue',
     variant: 'primary',
     size: 'large',
+    loading: false,
+    iconOnly: false,
+    circle: false,
   },
   argTypes: {
     iconLeft: { control: false },
