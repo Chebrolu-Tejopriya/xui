@@ -61,12 +61,12 @@
   height: 16px;
   flex: none;
   border-radius: 50%;
-  border: 2px solid var(--xui-blue-05);
+  border: 2px solid var(--blue-05);
   border-right-color: var(--surface-brand-primary);
-  animation: xui-select-spin 0.7s linear infinite;
+  animation: select-spin 0.7s linear infinite;
 }
 
-@keyframes xui-select-spin {
+@keyframes select-spin {
   to {
     transform: rotate(360deg);
   }

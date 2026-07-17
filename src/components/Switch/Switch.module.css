@@ -3,7 +3,7 @@
 .root {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--spacing-xs);
   cursor: pointer;
   font: var(--type-subtitle-2);
   color: var(--content-primary);
@@ -31,7 +31,7 @@
   flex: none;
   border-radius: var(--radius-max);
   background: var(--surface-raised);
-  border: 2px solid var(--xui-gray-08);
+  border: 2px solid var(--gray-08);
   box-sizing: border-box;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
@@ -50,7 +50,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--xui-gray-08);
+  background: var(--gray-08);
   color: var(--content-secondary);
   transition: all 150ms ease;
 }
@@ -73,7 +73,7 @@
 
 /* Hover (off) */
 .root:hover .input:not(:disabled):not(:checked) + .track {
-  background: var(--xui-gray-06);
+  background: var(--gray-06);
   border-color: var(--content-tertiary);
 }
 .root:hover .input:not(:disabled):not(:checked) + .track .handle {

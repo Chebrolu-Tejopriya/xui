@@ -19,22 +19,22 @@
 }
 
 .default {
-  background: var(--xui-blue-02);
+  background: var(--blue-02);
   border-color: var(--surface-brand-primary);
 }
 
 .success {
-  background: var(--xui-green-02);
+  background: var(--green-02);
   border-color: var(--surface-success-primary);
 }
 
 .warning {
-  background: var(--xui-orange-02);
+  background: var(--orange-02);
   border-color: var(--surface-warning-primary);
 }
 
 .error {
-  background: var(--xui-red-02);
+  background: var(--red-02);
   border-color: var(--surface-error-primary);
 }
 
@@ -56,7 +56,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--spacing-xxs);
 }
 
 .title {

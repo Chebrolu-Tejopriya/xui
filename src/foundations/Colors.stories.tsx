@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta = {
@@ -8,31 +9,150 @@ export default meta;
 const scales = ['gray', 'blue', 'orange', 'green', 'red'] as const;
 const steps = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
-const semantic = [
-  ['surface-primary', 'surface-secondary', 'surface-tertiary', 'surface-raised'],
-  ['surface-brand-primary', 'surface-brand-secondary', 'surface-brand-hover', 'surface-brand-disabled'],
-  ['surface-error-primary', 'surface-error-tertiary', 'surface-error-hover', 'surface-error-disabled'],
-  ['surface-warning-primary', 'surface-warning-tertiary', 'surface-warning-hover', 'surface-warning-disabled'],
-  ['surface-success-primary', 'surface-success-tertiary', 'surface-success-disabled'],
-  ['content-primary', 'content-secondary', 'content-tertiary', 'content-quaternary', 'content-disabled'],
-  ['content-brand-primary', 'content-brand-secondary', 'content-error-primary', 'content-warning-primary'],
-  ['border-primary', 'border-secondary', 'border-tertiary', 'border-brand', 'border-error'],
-];
+const accents = ['blue', 'yellow', 'green', 'purple', 'gray'] as const;
+const labelKeys = [...'abcdefghijklmnopqrstuvwxyz0123456789'];
 
-function Swatch({ token, name }: { token: string; name: string }) {
+// Mirrors src/tokens/semantic.css — semantic token -> primitive it maps to.
+const semanticValueMap: Record<string, string> = {
+  'surface-primary': 'gray-02',
+  'surface-primary-hover': 'gray-03',
+  'surface-secondary': 'gray-03',
+  'surface-tertiary': 'gray-04',
+  'surface-raised': 'gray-01',
+  'surface-raised-hover': 'gray-02',
+  'surface-brand-primary': 'blue-09',
+  'surface-brand-secondary': 'blue-03',
+  'surface-brand-hover': 'blue-10',
+  'surface-brand-disabled': 'blue-08',
+  'surface-error-primary': 'red-09',
+  'surface-error-hover': 'red-10',
+  'surface-error-secondary': 'red-03',
+  'surface-error-tertiary': 'red-03',
+  'surface-error-disabled': 'red-08',
+  'surface-warning-primary': 'orange-09',
+  'surface-warning-hover': 'orange-10',
+  'surface-warning-secondary': 'orange-03',
+  'surface-warning-tertiary': 'orange-03',
+  'surface-warning-quaternary': 'orange-02',
+  'surface-warning-disabled': 'orange-08',
+  'surface-absolute': 'absolute-white',
+  'surface-success-primary': 'green-09',
+  'surface-success-hover': 'green-10',
+  'surface-success-secondary': 'green-03',
+  'surface-success-tertiary': 'green-03',
+  'surface-success-disabled': 'green-08',
+  'content-primary': 'gray-12',
+  'content-secondary': 'gray-10',
+  'content-tertiary': 'gray-09',
+  'content-quaternary': 'gray-08',
+  'content-brand-primary': 'blue-09',
+  'content-brand-secondary': 'blue-08',
+  'content-success-primary': 'green-09',
+  'content-success-primary-solid': 'green-10',
+  'content-error-primary': 'red-09',
+  'content-warning-primary': 'orange-09',
+  'content-absolute-white': 'absolute-white',
+  'content-absolute-black': 'absolute-black',
+  'content-on-solid': 'gray-01',
+  'border-primary': 'gray-07',
+  'border-secondary': 'gray-05',
+  'border-tertiary': 'gray-04',
+  'border-brand': 'blue-09',
+  'border-error': 'red-09',
+  'border-warning': 'orange-06',
+  'border-pure': 'gray-01',
+};
+
+const semanticGroups = {
+  Surface: [
+    'surface-primary', 'surface-primary-hover', 'surface-secondary', 'surface-tertiary', 'surface-raised', 'surface-raised-hover',
+    'surface-brand-primary', 'surface-brand-hover', 'surface-brand-secondary', 'surface-brand-disabled',
+    'surface-error-primary', 'surface-error-hover', 'surface-error-secondary', 'surface-error-tertiary', 'surface-error-disabled',
+    'surface-warning-primary', 'surface-warning-hover', 'surface-warning-secondary', 'surface-warning-tertiary', 'surface-warning-quaternary', 'surface-warning-disabled',
+    'surface-success-primary', 'surface-success-hover', 'surface-success-secondary', 'surface-success-tertiary', 'surface-success-disabled',
+    'surface-absolute',
+  ],
+  Content: [
+    'content-primary', 'content-secondary', 'content-tertiary', 'content-quaternary',
+    'content-brand-primary', 'content-brand-secondary',
+    'content-success-primary', 'content-success-primary-solid',
+    'content-error-primary',
+    'content-warning-primary',
+    'content-absolute-white', 'content-absolute-black',
+    'content-on-solid',
+  ],
+  Border: [
+    'border-primary', 'border-secondary', 'border-tertiary',
+    'border-brand',
+    'border-error',
+    'border-warning',
+    'border-pure',
+  ],
+};
+
+function SwatchCard({ token, name, subtext }: { token: string; name: string; subtext: string }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, width: 84 }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: 10,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: '10px 12px',
+        borderRadius: 8,
+        background: 'var(--surface-raised)',
+        border: '1px solid var(--border-primary)',
+      }}
+    >
       <div
         style={{
-          height: 48,
+          width: 36,
+          height: 36,
           borderRadius: 6,
           background: `var(${token})`,
           border: '1px solid var(--border-secondary)',
+          flex: 'none',
         }}
       />
-      <span style={{ font: 'var(--type-body-3)', color: 'var(--content-tertiary)' }}>{name}</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
+        <div
+          style={{
+            font: 'var(--type-subtitle-2)',
+            color: 'var(--content-primary)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {name}
+        </div>
+        <div
+          style={{
+            font: 'var(--type-body-3)',
+            color: 'var(--content-tertiary)',
+            fontFamily: 'monospace',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {subtext}
+        </div>
+      </div>
     </div>
   );
+}
+
+function Swatch({ token, name }: { token: string; name: string }) {
+  const [hexValue, setHexValue] = React.useState('');
+
+  React.useEffect(() => {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+    setHexValue(value || `var(${token})`);
+  }, [token]);
+
+  return <SwatchCard token={token} name={name} subtext={hexValue} />;
+}
+
+function SemanticSwatch({ name }: { name: string }) {
+  const mapped = semanticValueMap[name];
+  return <SwatchCard token={`--${name}`} name={name} subtext={mapped ? `var(--${mapped})` : ''} />;
 }
 
 export const Primitives: StoryObj = {
@@ -45,23 +165,61 @@ export const Primitives: StoryObj = {
           </h3>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {steps.map((s) => (
-              <Swatch key={s} token={`--xui-${scale}-${s}`} name={s} />
+              <Swatch key={s} token={`--${scale}-${s}`} name={s} />
             ))}
           </div>
         </div>
       ))}
+
+      <div>
+        <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 8px' }}>
+          Accent
+        </h3>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {accents.map((a) => (
+            <Swatch key={a} token={`--accent-${a}`} name={a} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 8px' }}>
+          Label — Foreground
+        </h3>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {labelKeys.map((k) => (
+            <Swatch key={k} token={`--label-fg-${k}`} name={k.toUpperCase()} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 8px' }}>
+          Label — Background
+        </h3>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {labelKeys.map((k) => (
+            <Swatch key={k} token={`--label-bg-${k}`} name={k.toUpperCase()} />
+          ))}
+        </div>
+      </div>
     </div>
   ),
 };
 
 export const Semantic: StoryObj = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {semantic.map((row, i) => (
-        <div key={i} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {row.map((name) => (
-            <Swatch key={name} token={`--${name}`} name={name} />
-          ))}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+      {Object.entries(semanticGroups).map(([category, tokens]) => (
+        <div key={category}>
+          <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 12px' }}>
+            {category}
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 10 }}>
+            {tokens.map((name) => (
+              <SemanticSwatch key={name} name={name} />
+            ))}
+          </div>
         </div>
       ))}
     </div>

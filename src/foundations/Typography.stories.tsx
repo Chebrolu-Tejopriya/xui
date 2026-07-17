@@ -24,6 +24,8 @@ const styles = [
   ['Button 1', '--type-button-1', 'Medium 16/26'],
   ['Button 2', '--type-button-2', 'Medium 14/20'],
   ['Button 3', '--type-button-3', 'Medium 12/16'],
+  ['Label 1', '--type-label-1', 'Regular 14/20'],
+  ['Label 2', '--type-label-2', 'Regular 12/16'],
   ['Label 3', '--type-label-3', 'Medium 12/16'],
   ['Label 4', '--type-label-4', 'Regular 10/12'],
 ];

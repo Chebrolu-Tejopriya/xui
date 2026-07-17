@@ -8,54 +8,68 @@
 
 :root {
   /* ---- Surface ---- */
-  --surface-primary: var(--xui-gray-02);
-  --surface-secondary: var(--xui-gray-03);
-  --surface-tertiary: var(--xui-gray-04);
-  --surface-raised: var(--xui-gray-01);
+  --surface-primary: var(--gray-02);
+  --surface-primary-hover: var(--gray-03);
+  --surface-secondary: var(--gray-03);
+  --surface-tertiary: var(--gray-04);
+  --surface-raised: var(--gray-01);
+  --surface-raised-hover: var(--gray-02);
 
-  --surface-brand-primary: var(--xui-blue-09);
-  --surface-brand-secondary: var(--xui-blue-03);
-  --surface-brand-hover: var(--xui-blue-10);
-  --surface-brand-disabled: var(--xui-blue-08);
+  --surface-brand-primary: var(--blue-09);
+  --surface-brand-secondary: var(--blue-03);
+  --surface-brand-hover: var(--blue-10);
+  --surface-brand-disabled: var(--blue-08);
 
-  --surface-error-primary: var(--xui-red-09);
-  --surface-error-tertiary: var(--xui-red-03);
-  --surface-error-hover: var(--xui-red-10);
-  --surface-error-disabled: var(--xui-red-08);
+  --surface-error-primary: var(--red-09);
+  --surface-error-hover: var(--red-10);
+  --surface-error-secondary: var(--red-03);
+  --surface-error-tertiary: var(--red-03);
+  --surface-error-disabled: var(--red-08);
 
-  --surface-warning-primary: var(--xui-orange-09);
-  --surface-warning-tertiary: var(--xui-orange-03);
-  --surface-warning-hover: var(--xui-orange-10);
-  --surface-warning-disabled: var(--xui-orange-08);
+  --surface-warning-primary: var(--orange-09);
+  --surface-warning-hover: var(--orange-10);
+  --surface-warning-secondary: var(--orange-03);
+  --surface-warning-tertiary: var(--orange-03);
+  --surface-warning-quaternary: var(--orange-02);
+  --surface-warning-disabled: var(--orange-08);
 
-  --surface-success-primary: var(--xui-green-09);
-  --surface-success-tertiary: var(--xui-green-03);
-  --surface-success-disabled: var(--xui-green-08);
+  --surface-absolute: var(--absolute-white);
+
+  --surface-success-primary: var(--green-09);
+  --surface-success-hover: var(--green-10);
+  --surface-success-secondary: var(--green-03);
+  --surface-success-tertiary: var(--green-03);
+  --surface-success-disabled: var(--green-08);
 
   /* ---- Content ---- */
-  --content-primary: var(--xui-gray-12);
-  --content-secondary: var(--xui-gray-10);
-  --content-tertiary: var(--xui-gray-09);
-  --content-quaternary: var(--xui-gray-08);
-  --content-disabled: var(--xui-gray-09);
-  --content-brand-primary: var(--xui-blue-09);
-  --content-brand-secondary: var(--xui-blue-08);
-  --content-error-primary: var(--xui-red-09);
-  --content-warning-primary: var(--xui-orange-09);
-  --content-absolute-white: var(--xui-absolute-white);
+  --content-primary: var(--gray-12);
+  --content-secondary: var(--gray-10);
+  --content-tertiary: var(--gray-09);
+  --content-quaternary: var(--gray-08);
+  --content-brand-primary: var(--blue-09);
+  --content-brand-secondary: var(--blue-08);
+  --content-success-primary: var(--green-09);
+  --content-success-primary-solid: var(--green-10);
+  --content-error-primary: var(--red-09);
+  --content-warning-primary: var(--orange-09);
+  --content-absolute-white: var(--absolute-white);
+  --content-absolute-black: var(--absolute-black);
+  --content-on-solid: var(--gray-01);
 
   /* ---- Border ---- */
-  --border-primary: var(--xui-gray-07);
-  --border-secondary: var(--xui-gray-05);
-  --border-tertiary: var(--xui-gray-04);
-  --border-brand: var(--xui-blue-09);
-  --border-error: var(--xui-red-09);
+  --border-primary: var(--gray-07);
+  --border-secondary: var(--gray-05);
+  --border-tertiary: var(--gray-04);
+  --border-brand: var(--blue-09);
+  --border-error: var(--red-09);
+  --border-warning: var(--orange-06);
+  --border-pure: var(--gray-01);
 
   /* ---- Scrims / overlays ---- */
-  --overlay-sm: var(--xui-overlay-sm);
-  --overlay-md: var(--xui-overlay-md);
-  --overlay-lg: var(--xui-overlay-lg);
-  --overlay-popup: var(--xui-overlay-popup);
+  --overlay-sm: var(--overlay-sm);
+  --overlay-md: var(--overlay-md);
+  --overlay-lg: var(--overlay-lg);
+  --overlay-popup: var(--overlay-popup);
   --overlay-locked: #ffffff80;
   --blur-locked: 16px;
 
@@ -72,38 +86,27 @@
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-mid: 8px;
-  --radius-md: 8px; /* alias of --radius-mid */
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-xxl: 24px;
   --radius-max: 1000px;
-  --radius-full: 9999px;
 
   /* ---- Border width ---- */
+  --border-width-none: 0;
+  --border-width-thin: 0.5px;
   --border-width-regular: 1px;
   --border-width-thick: 1.5px;
+  --border-width-thicker: 2px;
 
-  /* ---- Spacing / padding / size ---- */
-  --spacing-2xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-lg: 16px;
-  /* second Spacing collection (Figma: Spacing/sm|mid|lg) */
-  --space-sm: 12px;
-  --space-mid: 16px;
-  --space-lg: 24px;
-  --padding-6: 24px;
-  --padding-8: 32px;
-  --size-button-sm: 36px;
-
-  /* Legacy 4px-scale aliases (kept for component CSS) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
+  /* ---- Spacing ---- */
+  --spacing-xxxs: 2px;
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-mid: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 64px;
 }
 
 /* Dark theme: elevation scrims are transparent in XUI dark mode
