@@ -56,10 +56,13 @@
   --overlay-md: var(--fibon-overlay-md);
   --overlay-lg: var(--fibon-overlay-lg);
   --overlay-popup: var(--fibon-overlay-popup);
+  --overlay-locked: #ffffff80;
+  --blur-locked: 16px;
 
   /* ---- Elevation ---- */
   --elevation-sm: 0px 2px 16px 0px #1e293b17;
   --elevation-md: 0px 8px 24px 0px #1e293b1f;
+  --elevation-low-raised: 0px 2px 16px 0px #19283917;
   --shadow-lg: 0px 10px 15px -3px #0000001a, 0px 4px 6px -4px #1018281a;
   --modal-shadow: 0px 0px 8px 0px #09112129;
 
@@ -72,6 +75,7 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-max: 1000px;
+  --radius-full: 9999px;
 
   /* ---- Border width ---- */
   --border-width-regular: 1px;
@@ -81,6 +85,10 @@
   --spacing-2xs: 4px;
   --spacing-sm: 8px;
   --spacing-lg: 16px;
+  /* second Spacing collection (Figma: Spacing/sm|mid|lg) */
+  --space-sm: 12px;
+  --space-mid: 16px;
+  --space-lg: 24px;
   --padding-6: 24px;
   --padding-8: 32px;
   --size-button-sm: 36px;

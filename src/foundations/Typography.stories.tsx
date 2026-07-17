@@ -17,12 +17,14 @@ const styles = [
   ['Subtitle 2', '--type-subtitle-2', 'Medium 14/20'],
   ['Subtitle 3', '--type-subtitle-3', 'Medium 12/16'],
   ['Subtitle 4', '--type-subtitle-4', 'Medium 11/14'],
+  ['Body 0', '--type-body-0', 'Regular 18/28'],
   ['Body 1', '--type-body-1', 'Regular 16/24'],
   ['Body 2', '--type-body-2', 'Regular 14/20'],
   ['Body 3', '--type-body-3', 'Regular 12/16'],
   ['Button 1', '--type-button-1', 'Medium 16/26'],
   ['Button 2', '--type-button-2', 'Medium 14/20'],
   ['Button 3', '--type-button-3', 'Medium 12/16'],
+  ['Label 3', '--type-label-3', 'Medium 12/16'],
   ['Label 4', '--type-label-4', 'Regular 10/12'],
 ];
 
