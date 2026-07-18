@@ -47,7 +47,7 @@
 }
 
 .input:disabled:checked + .circle {
-  border-color: var(--surface-brand-disabled);
+  border-color: var(--surface-brand-subtle);
 }
 
 .label {

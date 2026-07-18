@@ -71,8 +71,8 @@
 
 .input:disabled:checked + .box,
 .input:disabled:indeterminate + .box {
-  background: var(--surface-brand-disabled);
-  border-color: var(--surface-brand-disabled);
+  background: var(--surface-brand-subtle);
+  border-color: var(--surface-brand-subtle);
 }
 
 .label {

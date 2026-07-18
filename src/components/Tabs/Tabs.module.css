@@ -45,7 +45,7 @@
 }
 
 .active:disabled {
-  background: var(--surface-brand-disabled);
+  background: var(--surface-brand-subtle);
   color: var(--content-absolute-white);
   opacity: 0.9;
 }

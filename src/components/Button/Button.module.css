@@ -51,10 +51,10 @@
   color: var(--content-absolute-white);
 }
 .primary:hover:not(:disabled) {
-  background: var(--surface-brand-hover);
+  background: var(--surface-brand-solid);
 }
 .primary:disabled {
-  background: var(--surface-brand-disabled);
+  background: var(--surface-brand-subtle);
   color: var(--content-absolute-white);
 }
 
@@ -63,10 +63,10 @@
   color: var(--content-absolute-white);
 }
 .secondary:hover:not(:disabled) {
-  background: var(--surface-warning-hover);
+  background: var(--surface-warning-solid);
 }
 .secondary:disabled {
-  background: var(--surface-warning-disabled);
+  background: var(--surface-warning-subtle);
   color: var(--content-absolute-white);
 }
 
@@ -75,10 +75,10 @@
   color: var(--content-absolute-white);
 }
 .destructive:hover:not(:disabled) {
-  background: var(--surface-error-hover);
+  background: var(--surface-error-solid);
 }
 .destructive:disabled {
-  background: var(--surface-error-disabled);
+  background: var(--surface-error-subtle);
   color: var(--content-absolute-white);
 }
 

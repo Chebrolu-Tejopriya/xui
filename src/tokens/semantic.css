@@ -7,41 +7,39 @@
  */
 
 :root {
-  /* ---- Surface ---- */
+  /* ---- Surface ---- (exact mirror of Figma Semantics/Surface) */
   --surface-primary: var(--gray-02);
-  --surface-primary-hover: var(--gray-03);
+  --surface-raised: var(--gray-01);
   --surface-secondary: var(--gray-03);
   --surface-tertiary: var(--gray-04);
-  --surface-raised: var(--gray-01);
-  --surface-raised-hover: var(--gray-02);
 
   --surface-brand-primary: var(--blue-09);
+  --surface-brand-solid: var(--blue-10);
+  --surface-brand-subtle: var(--blue-08);
   --surface-brand-secondary: var(--blue-03);
-  --surface-brand-hover: var(--blue-10);
-  --surface-brand-disabled: var(--blue-08);
+
+  --surface-success-primary: var(--green-09);
+  --surface-success-solid: var(--green-10);
+  --surface-success-subtle: var(--green-08);
+  --surface-success-secondary: var(--green-04);
+  --surface-success-tertiary: var(--green-03);
 
   --surface-error-primary: var(--red-09);
-  --surface-error-hover: var(--red-10);
-  --surface-error-secondary: var(--red-03);
+  --surface-error-solid: var(--red-10);
+  --surface-error-subtle: var(--red-08);
+  --surface-error-secondary: var(--red-04);
   --surface-error-tertiary: var(--red-03);
-  --surface-error-disabled: var(--red-08);
 
   --surface-warning-primary: var(--orange-09);
-  --surface-warning-hover: var(--orange-10);
-  --surface-warning-secondary: var(--orange-03);
+  --surface-warning-solid: var(--orange-10);
+  --surface-warning-subtle: var(--orange-08);
+  --surface-warning-secondary: var(--orange-04);
   --surface-warning-tertiary: var(--orange-03);
   --surface-warning-quaternary: var(--orange-02);
-  --surface-warning-disabled: var(--orange-08);
 
   --surface-absolute: var(--absolute-white);
 
-  --surface-success-primary: var(--green-09);
-  --surface-success-hover: var(--green-10);
-  --surface-success-secondary: var(--green-03);
-  --surface-success-tertiary: var(--green-03);
-  --surface-success-disabled: var(--green-08);
-
-  /* ---- Content ---- */
+  /* ---- Content ---- (exact mirror of Figma Semantics/Content) */
   --content-primary: var(--gray-12);
   --content-secondary: var(--gray-10);
   --content-tertiary: var(--gray-09);
@@ -49,7 +47,7 @@
   --content-brand-primary: var(--blue-09);
   --content-brand-secondary: var(--blue-08);
   --content-success-primary: var(--green-09);
-  --content-success-primary-solid: var(--green-10);
+  --content-success-secondary: var(--green-10);
   --content-error-primary: var(--red-09);
   --content-warning-primary: var(--orange-09);
   --content-absolute-white: var(--absolute-white);
