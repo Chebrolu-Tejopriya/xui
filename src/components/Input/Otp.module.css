@@ -7,6 +7,11 @@
    layout in the non-error case. */
 .ring {
   display: inline-flex;
+  /* Hug the boxes. Without this, a flex-column parent (the story showcase, or
+     the Otp root) stretches the ring to full width via align-items:stretch,
+     so the error border would extend well past the last box. */
+  align-self: flex-start;
+  width: fit-content;
   border-radius: var(--radius-mid);
 }
 .ringError {
