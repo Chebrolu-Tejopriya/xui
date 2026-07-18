@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Dropdown } from './Dropdown';
-import { InfoIcon, EthIcon } from './storyIcons';
+import { InfoIcon, EthIcon, BtcIcon } from './storyIcons';
+import { StateShowcase } from './storyLayout';
 
 const options = [
   { value: 'btc', label: 'Bitcoin' },
@@ -9,19 +10,18 @@ const options = [
 ];
 
 const optionsWithIcons = [
-  { value: 'btc', label: 'Bitcoin', icon: EthIcon },
+  { value: 'btc', label: 'Bitcoin', icon: BtcIcon },
   { value: 'eth', label: 'Ethereum', icon: EthIcon },
-  { value: 'sol', label: 'Solana', icon: EthIcon },
 ];
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Components/Input/Dropdown',
+  title: 'Components/Input',
   component: Dropdown,
   args: {
     label: 'Select',
     placeholder: 'Select an option',
     options,
-    helperText: 'Enter your email address',
+    helperText: 'Choose a network',
     helperIcon: InfoIcon,
     mandatory: true,
     error: false,
@@ -33,14 +33,23 @@ const meta: Meta<typeof Dropdown> = {
     helperIcon: { control: false },
     options: { control: false },
   },
-  decorators: [(Story) => <div style={{ width: 384 }}><Story /></div>],
+  parameters: { controls: { expanded: true } },
 };
 export default meta;
 
 type Story = StoryObj<typeof Dropdown>;
 
-export const Playground: Story = {};
-
-export const WithIcon: Story = {
-  args: { options: optionsWithIcons, defaultValue: 'eth' },
+export const Dropdown_: Story = {
+  name: 'Dropdown',
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default', node: <Dropdown {...args} /> },
+        { label: 'Selected', node: <Dropdown {...args} defaultValue="eth" /> },
+        { label: 'With icon', node: <Dropdown {...args} options={optionsWithIcons} defaultValue="eth" /> },
+        { label: 'Error', node: <Dropdown {...args} error helperText="Please select a network" /> },
+        { label: 'Disabled', node: <Dropdown {...args} defaultValue="eth" disabled /> },
+      ]}
+    />
+  ),
 };

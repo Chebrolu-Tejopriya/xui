@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PasswordInput } from './PasswordInput';
 import { InfoIcon } from './storyIcons';
+import { StateShowcase } from './storyLayout';
 
 const meta: Meta<typeof PasswordInput> = {
-  title: 'Components/Input/Password',
+  title: 'Components/Input',
   component: PasswordInput,
   args: {
     label: 'Password',
@@ -21,10 +22,22 @@ const meta: Meta<typeof PasswordInput> = {
     forgotPasswordLabel: { control: 'text' },
     helperIcon: { control: false },
   },
-  decorators: [(Story) => <div style={{ width: 384 }}><Story /></div>],
+  parameters: { controls: { expanded: true } },
 };
 export default meta;
 
 type Story = StoryObj<typeof PasswordInput>;
 
-export const Playground: Story = {};
+export const Password: Story = {
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default', node: <PasswordInput {...args} /> },
+        { label: 'Focused', node: <PasswordInput {...args} autoFocus /> },
+        { label: 'Completed', node: <PasswordInput {...args} defaultValue="hunter2-swordfish" /> },
+        { label: 'Error', node: <PasswordInput {...args} error helperText="Incorrect password" /> },
+        { label: 'Disabled', node: <PasswordInput {...args} disabled /> },
+      ]}
+    />
+  ),
+};

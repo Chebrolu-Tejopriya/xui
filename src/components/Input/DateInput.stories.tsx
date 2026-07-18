@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DateInput } from './DateInput';
 import { InfoIcon } from './storyIcons';
+import { StateShowcase } from './storyLayout';
 
 const meta: Meta<typeof DateInput> = {
-  title: 'Components/Input/Date',
+  title: 'Components/Input',
   component: DateInput,
   args: {
     label: 'Date',
-    defaultValue: 'Jan 24th, 2024',
+    placeholder: 'Select a date',
     helperText: 'Enter transaction date',
     helperIcon: InfoIcon,
     mandatory: true,
@@ -19,10 +20,22 @@ const meta: Meta<typeof DateInput> = {
     helperText: { control: 'text' },
     helperIcon: { control: false },
   },
-  decorators: [(Story) => <div style={{ width: 384 }}><Story /></div>],
+  parameters: { controls: { expanded: true } },
 };
 export default meta;
 
 type Story = StoryObj<typeof DateInput>;
 
-export const Playground: Story = {};
+export const Date: Story = {
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default', node: <DateInput {...args} /> },
+        { label: 'Focused', node: <DateInput {...args} autoFocus /> },
+        { label: 'Completed', node: <DateInput {...args} defaultValue="Jan 24th, 2024" /> },
+        { label: 'Error', node: <DateInput {...args} error defaultValue="Jan 35th, 2024" helperText="Invalid date" /> },
+        { label: 'Disabled', node: <DateInput {...args} defaultValue="Jan 24th, 2024" disabled /> },
+      ]}
+    />
+  ),
+};

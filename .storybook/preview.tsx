@@ -10,6 +10,35 @@ const preview: Preview = {
       },
     },
 
+    options: {
+      // NOTE: as of Storybook 10.5 this nested order did not visibly reorder
+      // the sidebar (it falls back to filename-glob order). Kept as the
+      // documented-correct intent; revisit if SB ordering behavior changes.
+      storySort: {
+        method: 'alphabetical',
+        // Within a component group, list explicitly-ordered stories first
+        // (e.g. Input's variant leaves), then anything else alphabetically.
+        order: [
+          'Foundations',
+          'Components',
+          [
+            'Input',
+            [
+              'Default',
+              'Password',
+              'Secret Key',
+              'Date',
+              'Dropdown',
+              'Mobile Number',
+              'Amount',
+              'Amount-Static',
+              'OTP',
+            ],
+          ],
+        ],
+      },
+    },
+
     backgrounds: { disable: true },
 
     a11y: {

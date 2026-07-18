@@ -1,12 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Input } from './Input';
-
-const InfoIcon = (
-  <svg viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeWidth="1.3" />
-    <path d="M8 7.5V11M8 5.4v.1" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-  </svg>
-);
+import { InfoIcon } from './storyIcons';
+import { StateShowcase } from './storyLayout';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -25,21 +20,31 @@ const meta: Meta<typeof Input> = {
     trailing: { control: false },
     leading: { control: false },
   },
+  parameters: { controls: { expanded: true } },
 };
 export default meta;
 
 type Story = StoryObj<typeof Input>;
 
-export const Playground: Story = {};
-
-export const States: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 384 }}>
-      <Input label="Email" placeholder="Email" helperText="Enter your email address" helperIcon={InfoIcon} />
-      <Input label="Email" mandatory placeholder="Email" helperText="Mandatory field" helperIcon={InfoIcon} />
-      <Input label="Email" defaultValue="pietro.schirano@gmail.com" helperText="Completed" helperIcon={InfoIcon} />
-      <Input label="Email" error defaultValue="not-an-email" helperText="Please enter a valid email" helperIcon={InfoIcon} />
-      <Input label="Email" disabled placeholder="Email" helperText="Disabled" helperIcon={InfoIcon} />
-    </div>
+// The primary view for this variant: every state, labelled and stacked.
+// `args` is threaded into each row, so the Controls panel stays live —
+// tweaking `label`, `placeholder`, `mandatory`, etc. updates all states at once.
+export const Default: Story = {
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default', node: <Input {...args} /> },
+        { label: 'Focused', node: <Input {...args} autoFocus /> },
+        {
+          label: 'Completed',
+          node: <Input {...args} defaultValue="pietro.schirano@gmail.com" />,
+        },
+        {
+          label: 'Error',
+          node: <Input {...args} error helperText="Please enter a valid email" />,
+        },
+        { label: 'Disabled', node: <Input {...args} disabled /> },
+      ]}
+    />
   ),
 };

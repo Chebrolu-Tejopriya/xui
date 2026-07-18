@@ -2,11 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { AmountInput } from './AmountInput';
 import { InfoIcon, UsdIcon, EthIcon, InrIcon, BtcIcon } from './storyIcons';
+import { StateShowcase } from './storyLayout';
 
 const currencyIconMap = { USD: UsdIcon, ETH: EthIcon, INR: InrIcon, BTC: BtcIcon };
 
 const meta: Meta<typeof AmountInput> = {
-  title: 'Components/Input/Amount',
+  title: 'Components/Input',
   component: AmountInput,
   args: {
     label: 'Amount',
@@ -34,20 +35,35 @@ const meta: Meta<typeof AmountInput> = {
       description: 'Icon shown in the currency badge — pick a preset to preview.',
     },
   },
-  decorators: [(Story) => <div style={{ width: 384 }}><Story /></div>],
+  parameters: { controls: { expanded: true } },
 };
 export default meta;
 
 type Story = StoryObj<typeof AmountInput>;
 
-export const Playground: Story = {};
+export const Amount: Story = {
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default', node: <AmountInput {...args} /> },
+        { label: 'Focused', node: <AmountInput {...args} autoFocus /> },
+        { label: 'Completed', node: <AmountInput {...args} defaultValue="123.45" /> },
+        { label: 'Error', node: <AmountInput {...args} error helperText="Amount exceeds your balance" /> },
+        { label: 'Disabled', node: <AmountInput {...args} defaultValue="123.45" disabled /> },
+      ]}
+    />
+  ),
+};
 
-export const Static: Story = {
+export const AmountStatic: Story = {
   name: 'Amount-Static',
-  args: {
-    interactive: false,
-    currencyCode: 'ETH',
-    currencyIcon: 'ETH' as unknown as ReactNode,
-    defaultValue: '123.45',
-  },
+  args: { interactive: false, currencyCode: 'ETH', currencyIcon: 'ETH' as unknown as ReactNode },
+  render: (args) => (
+    <StateShowcase
+      rows={[
+        { label: 'Default (read-only)', node: <AmountInput {...args} defaultValue="123.45" /> },
+        { label: 'Disabled', node: <AmountInput {...args} defaultValue="123.45" disabled /> },
+      ]}
+    />
+  ),
 };
