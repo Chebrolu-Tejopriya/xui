@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Input } from './Input';
-import { InfoIcon } from './storyIcons';
+import { InfoIcon, WarningIcon } from './storyIcons';
 import { StateShowcase } from './storyLayout';
 
 const meta: Meta<typeof Input> = {
@@ -41,7 +41,7 @@ export const Default: Story = {
         },
         {
           label: 'Error',
-          node: <Input {...args} error helperText="Please enter a valid email" />,
+          node: <Input {...args} error helperText="Please enter a valid email" helperIcon={WarningIcon} />,
         },
         { label: 'Disabled', node: <Input {...args} disabled /> },
       ]}

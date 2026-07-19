@@ -7,6 +7,17 @@ export const InfoIcon = (
   </svg>
 );
 
+/** Figma Icons/warning_amber — filled triangle used by error-state helper rows. */
+export const WarningIcon = (
+  <svg viewBox="0 0 16 16" fill="none">
+    <path
+      d="M7.33 2.66 12.35 11.33H2.31L7.33 2.66ZM7.33 0 0 12.67h14.67L7.33 0ZM8 9.33H6.67v1.34H8V9.33ZM8 5.33H6.67V8H8V5.33Z"
+      transform="translate(0.667 1.667)"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 export const IndiaFlag = (
   <svg viewBox="0 0 24 24">
     <rect width="24" height="8" y="0" fill="#FF9933" />

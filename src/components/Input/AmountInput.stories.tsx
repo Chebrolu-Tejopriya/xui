@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { AmountInput } from './AmountInput';
-import { InfoIcon, UsdIcon, EthIcon, InrIcon, BtcIcon } from './storyIcons';
+import { InfoIcon, UsdIcon, EthIcon, InrIcon, BtcIcon, WarningIcon } from './storyIcons';
 import { StateShowcase } from './storyLayout';
 
 const currencyIconMap = { USD: UsdIcon, ETH: EthIcon, INR: InrIcon, BTC: BtcIcon };
@@ -48,7 +48,7 @@ export const Amount: Story = {
         { label: 'Default', node: <AmountInput {...args} /> },
         { label: 'Focused', node: <AmountInput {...args} autoFocus /> },
         { label: 'Completed', node: <AmountInput {...args} defaultValue="123.45" /> },
-        { label: 'Error', node: <AmountInput {...args} error helperText="Amount exceeds your balance" /> },
+        { label: 'Error', node: <AmountInput {...args} error helperText="Amount exceeds your balance" helperIcon={WarningIcon} /> },
         { label: 'Disabled', node: <AmountInput {...args} defaultValue="123.45" disabled /> },
       ]}
     />
@@ -61,7 +61,21 @@ export const AmountStatic: Story = {
   render: (args) => (
     <StateShowcase
       rows={[
-        { label: 'Default (read-only)', node: <AmountInput {...args} defaultValue="123.45" /> },
+        { label: 'Default', node: <AmountInput {...args} /> },
+        { label: 'Focused', node: <AmountInput {...args} defaultValue="123.45" autoFocus /> },
+        { label: 'Completed', node: <AmountInput {...args} defaultValue="123.45" /> },
+        {
+          label: 'Error',
+          node: (
+            <AmountInput
+              {...args}
+              defaultValue="123.45.6"
+              error
+              helperText="Invalid Input"
+              helperIcon={WarningIcon}
+            />
+          ),
+        },
         { label: 'Disabled', node: <AmountInput {...args} defaultValue="123.45" disabled /> },
       ]}
     />

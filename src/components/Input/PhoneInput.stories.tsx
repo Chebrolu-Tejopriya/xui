@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { PhoneInput } from './PhoneInput';
-import { InfoIcon, IndiaFlag, UsFlag } from './storyIcons';
+import { InfoIcon, IndiaFlag, UsFlag, WarningIcon } from './storyIcons';
 import { StateShowcase } from './storyLayout';
 
 const countryFlagMap = { IN: IndiaFlag, US: UsFlag };
@@ -46,7 +46,7 @@ export const MobileNumber: Story = {
         { label: 'Default', node: <PhoneInput {...args} /> },
         { label: 'Focused', node: <PhoneInput {...args} autoFocus /> },
         { label: 'Completed', node: <PhoneInput {...args} defaultValue="9678384383" /> },
-        { label: 'Error', node: <PhoneInput {...args} error helperText="Enter a valid 10-digit number" /> },
+        { label: 'Error', node: <PhoneInput {...args} error helperText="Enter a valid 10-digit number" helperIcon={WarningIcon} /> },
         { label: 'Disabled', node: <PhoneInput {...args} defaultValue="9678384383" disabled /> },
       ]}
     />

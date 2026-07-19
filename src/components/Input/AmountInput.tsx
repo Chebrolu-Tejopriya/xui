@@ -26,8 +26,8 @@ export interface AmountInputProps
   currencyCode: string;
   /**
    * `false` renders the Figma "Amount-Static" variant: no chevron, muted
-   * badge/value colors, and the field is forced read-only — for displaying
-   * a computed/converted amount rather than collecting input.
+   * badge text, lighter field border, and the field is forced read-only —
+   * for displaying a computed/converted amount rather than collecting input.
    */
   interactive?: boolean;
   onCurrencyClick?: () => void;
@@ -75,7 +75,13 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
           </label>
         )}
         <div
-          className={[styles.field, styles.fieldFlush, error && styles.error, disabled && styles.disabled]
+          className={[
+            styles.field,
+            styles.fieldFlush,
+            isStatic && styles.fieldStatic,
+            error && styles.error,
+            disabled && styles.disabled,
+          ]
             .filter(Boolean)
             .join(' ')}
         >
@@ -85,7 +91,15 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
                 .filter(Boolean)
                 .join(' ')}
             >
-              {currencyIcon && <span className={styles.leadingIcon}>{currencyIcon}</span>}
+              {currencyIcon && (
+                <span
+                  className={[styles.leadingIcon, disabled && styles.leadingIconMuted]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {currencyIcon}
+                </span>
+              )}
               {currencyCode}
             </span>
           ) : onCurrencyClick ? (
@@ -118,7 +132,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
             readOnly={isStatic || readOnly}
             aria-invalid={error || undefined}
             aria-describedby={helperId}
-            className={[styles.input, styles.flushInput, isStatic && styles.placeholder].filter(Boolean).join(' ')}
+            className={[styles.input, styles.flushInput].filter(Boolean).join(' ')}
           />
         </div>
         {helperText != null && (

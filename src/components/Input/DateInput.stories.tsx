@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DateInput } from './DateInput';
-import { InfoIcon } from './storyIcons';
+import { InfoIcon, WarningIcon } from './storyIcons';
 import { StateShowcase } from './storyLayout';
 
 const meta: Meta<typeof DateInput> = {
@@ -33,7 +33,7 @@ export const Date: Story = {
         { label: 'Default', node: <DateInput {...args} /> },
         { label: 'Focused', node: <DateInput {...args} autoFocus /> },
         { label: 'Completed', node: <DateInput {...args} defaultValue="Jan 24th, 2024" /> },
-        { label: 'Error', node: <DateInput {...args} error defaultValue="Jan 35th, 2024" helperText="Invalid date" /> },
+        { label: 'Error', node: <DateInput {...args} error defaultValue="Jan 35th, 2024" helperText="Invalid date" helperIcon={WarningIcon} /> },
         { label: 'Disabled', node: <DateInput {...args} defaultValue="Jan 24th, 2024" disabled /> },
       ]}
     />

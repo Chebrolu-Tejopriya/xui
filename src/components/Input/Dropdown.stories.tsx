@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Dropdown } from './Dropdown';
-import { InfoIcon, EthIcon, BtcIcon } from './storyIcons';
+import { InfoIcon, EthIcon, BtcIcon, WarningIcon } from './storyIcons';
 import { StateShowcase } from './storyLayout';
 
 const options = [
@@ -47,7 +47,7 @@ export const Dropdown_: Story = {
         { label: 'Default', node: <Dropdown {...args} /> },
         { label: 'Selected', node: <Dropdown {...args} defaultValue="eth" /> },
         { label: 'With icon', node: <Dropdown {...args} options={optionsWithIcons} defaultValue="eth" /> },
-        { label: 'Error', node: <Dropdown {...args} error helperText="Please select a network" /> },
+        { label: 'Error', node: <Dropdown {...args} error helperText="Please select a network" helperIcon={WarningIcon} /> },
         { label: 'Disabled', node: <Dropdown {...args} defaultValue="eth" disabled /> },
       ]}
     />

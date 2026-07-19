@@ -18,6 +18,12 @@
   color: var(--content-tertiary);
 }
 
+/* Disabled inputs hide the mandatory asterisk but keep its space
+   (Figma renders it at opacity 0 — 918:5108, 918:6686, 924:9103). */
+.labelDisabled .mandatory {
+  visibility: hidden;
+}
+
 .mandatory {
   color: var(--content-error-primary);
 }
@@ -46,6 +52,9 @@
 }
 
 .error {
+  /* Figma error state (918:6708): the field interior lifts to surface-raised,
+     matching focused — only default/disabled keep surface-primary. */
+  background: var(--surface-raised);
   border-color: var(--border-primary);
   box-shadow:
     0 0 0 2px var(--surface-raised),
@@ -116,6 +125,13 @@
 .helperIcon > svg {
   width: 16px;
   height: 16px;
+}
+
+/* Error helper rows use Icons/warning_amber filled with the error color
+   (#F7324C = content-error-primary, per the downloaded Figma asset) — the
+   icon follows the text color instead of the info icon's quaternary. */
+.helperError .helperIcon {
+  color: inherit;
 }
 
 /* ---- Shared by Input-family variants (Dropdown, Otp, PhoneInput, etc.) ---- */
@@ -203,6 +219,13 @@
   gap: var(--spacing-xxs);
   flex: none;
   align-self: stretch;
+  /* In Figma the badge's stroke overlaps the field's stroke (strokes take no
+     layout space there), so the two read as one line. In CSS the badge starts
+     inside the field's border; pull it out by the border width on the three
+     flush sides so the borders coincide — without this the left cap shows a
+     double line / double rounded corner. */
+  margin: calc(-1 * var(--border-width-regular));
+  margin-right: 0;
   padding: 0 10px;
   border-radius: var(--radius-sm);
   border: var(--border-width-regular) solid var(--border-primary);
@@ -210,9 +233,21 @@
   font: var(--type-body-1);
   color: var(--content-primary);
 }
+/* Amount-Static badge: text mutes but the border STAYS border-primary —
+   in Figma (924:9054/9072) it's the static FIELD that goes lighter
+   (border-tertiary), never the badge. */
 .leadingBadgeMuted {
   color: var(--content-tertiary);
+}
+
+/* Amount-Static field (924:9053): border-tertiary in default/completed/error
+   (924:9125 keeps it even inside the red error ring). Focus returns to
+   border-primary via .field:focus-within (924:9089), which outranks this. */
+.fieldStatic {
   border-color: var(--border-tertiary);
+}
+.fieldStatic.disabled {
+  border-color: var(--border-secondary);
 }
 
 /* Figma nodes 918:6683 (Amount, disabled) / 918:5640 (Mobile Number,
