@@ -1,10 +1,12 @@
-/* XUI Button — source: Figma ⚛️ Primary Components → Button */
+/* XUI Button — source: Figma ⚛️ Primary Components → Button (536:5758).
+   Sizes: Large 42 / Medium 36 / Small 32 (px 16, py 8, radius 6).
+   Icon gap 6px (hardcoded in Figma, not a spacing token); loading gap 4px. */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: 6px;
   border: none;
   border-radius: var(--radius-sm);
   background: transparent;
@@ -26,7 +28,8 @@
   cursor: not-allowed;
 }
 
-/* ---- Sizes (heights 42 / 36 / 32) ---- */
+/* ---- Sizes (heights 42 / 36 / 32) ----
+   Icon sizes per Figma "with icon" variants: 18 / 16 / 14. */
 
 .large {
   padding: 8px 16px;
@@ -44,13 +47,29 @@
   font: var(--type-button-3);
 }
 
-/* ---- Variants ---- */
+.large .icon > svg {
+  width: 18px;
+  height: 18px;
+}
+.medium .icon > svg {
+  width: 16px;
+  height: 16px;
+}
+.small .icon > svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---- Variants ----
+   Every :hover selector has a [data-hover] twin so Storybook state rows can
+   render the hover treatment statically. */
 
 .primary {
   background: var(--surface-brand-primary);
   color: var(--content-absolute-white);
 }
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled),
+.primary[data-hover] {
   background: var(--surface-brand-solid);
 }
 .primary:disabled {
@@ -62,7 +81,8 @@
   background: var(--surface-warning-primary);
   color: var(--content-absolute-white);
 }
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled),
+.secondary[data-hover] {
   background: var(--surface-warning-solid);
 }
 .secondary:disabled {
@@ -74,7 +94,8 @@
   background: var(--surface-error-primary);
   color: var(--content-absolute-white);
 }
-.destructive:hover:not(:disabled) {
+.destructive:hover:not(:disabled),
+.destructive[data-hover] {
   background: var(--surface-error-solid);
 }
 .destructive:disabled {
@@ -82,12 +103,16 @@
   color: var(--content-absolute-white);
 }
 
+/* Border is inside the 42/36/32 height in Figma (strokes take no layout
+   space there), so the padding gives back 1px on each side. */
 .outline {
   background: var(--surface-raised);
   border: var(--border-width-regular) solid var(--border-primary);
+  padding: 7px 15px;
   color: var(--content-primary);
 }
-.outline:hover:not(:disabled) {
+.outline:hover:not(:disabled),
+.outline[data-hover] {
   background: var(--surface-primary);
 }
 .outline:disabled {
@@ -98,7 +123,8 @@
   background: var(--surface-secondary);
   color: var(--content-primary);
 }
-.subtle:hover:not(:disabled) {
+.subtle:hover:not(:disabled),
+.subtle[data-hover] {
   background: var(--surface-tertiary);
 }
 .subtle:disabled {
@@ -109,7 +135,8 @@
   background: transparent;
   color: var(--content-primary);
 }
-.ghost:hover:not(:disabled) {
+.ghost:hover:not(:disabled),
+.ghost[data-hover] {
   background: var(--surface-primary);
 }
 .ghost:disabled {
@@ -120,12 +147,50 @@
   background: transparent;
   color: var(--content-primary);
 }
-.link:hover:not(:disabled) .label {
+.link:hover:not(:disabled) .label,
+.link[data-hover] .label {
   text-decoration: underline;
   text-decoration-thickness: from-font;
   text-underline-position: from-font;
 }
 .link:disabled {
+  color: var(--content-tertiary);
+}
+
+/* ---- Loading (Figma state=Loading) ----
+   Per-variant fills are NOT one rule in Figma: primary darkens to solid,
+   secondary/destructive lighten to subtle, outline mutes border+text,
+   subtle drops to surface-primary, ghost/link only mute text.
+   These sit after the :disabled rules because loading also sets disabled. */
+
+.button[data-loading] {
+  gap: var(--spacing-xxs);
+}
+
+.primary[data-loading] {
+  background: var(--surface-brand-solid);
+  color: var(--content-absolute-white);
+}
+.secondary[data-loading] {
+  background: var(--surface-warning-subtle);
+  color: var(--content-absolute-white);
+}
+.destructive[data-loading] {
+  background: var(--surface-error-subtle);
+  color: var(--content-absolute-white);
+}
+.outline[data-loading] {
+  background: var(--surface-raised);
+  border-color: var(--border-secondary);
+  color: var(--content-tertiary);
+}
+.subtle[data-loading] {
+  background: var(--surface-primary);
+  color: var(--content-tertiary);
+}
+.ghost[data-loading],
+.link[data-loading] {
+  background: transparent;
   color: var(--content-tertiary);
 }
 
@@ -135,22 +200,71 @@
   width: 100%;
 }
 
+/* Figma "just icon" is its own type with a fixed outline treatment (white
+   surface + border-primary), not the active variant squared off.
+   Squares 36/32/30, icons 20/16/14. Declared after the variant blocks so
+   it overrides their colors. */
 .iconOnly {
   padding: 0;
-  aspect-ratio: 1;
+  background: var(--surface-raised);
+  border: var(--border-width-regular) solid var(--border-primary);
+  color: var(--content-primary);
 }
 .iconOnly.large {
-  width: 42px;
+  width: 36px;
+  height: 36px;
 }
 .iconOnly.medium {
-  width: 36px;
+  width: 32px;
+  height: 32px;
 }
 .iconOnly.small {
-  width: 32px;
+  width: 30px;
+  height: 30px;
+}
+.iconOnly.large svg {
+  width: 20px;
+  height: 20px;
+}
+.iconOnly.medium svg {
+  width: 16px;
+  height: 16px;
+}
+.iconOnly.small svg {
+  width: 14px;
+  height: 14px;
+}
+.iconOnly:hover:not(:disabled),
+.iconOnly[data-hover] {
+  background: var(--surface-primary);
+}
+.iconOnly:disabled {
+  background: var(--surface-raised);
+  color: var(--content-tertiary);
+  border-color: var(--border-secondary);
+}
+.iconOnly[data-loading] {
+  background: var(--surface-raised);
+  border-color: var(--border-secondary);
+  color: var(--content-tertiary);
 }
 
+/* Figma "just icon circle": 44/40/38, radius max. Placed after .iconOnly
+   size rules so the circle dimensions win. */
 .circle {
   border-radius: var(--radius-max);
+}
+.circle.large {
+  width: 44px;
+  height: 44px;
+}
+.circle.medium {
+  width: 40px;
+  height: 40px;
+}
+.circle.small {
+  width: 38px;
+  height: 38px;
 }
 
 .icon {
@@ -158,30 +272,43 @@
   align-items: center;
   justify-content: center;
 }
-.icon > svg {
-  width: 1.25em;
-  height: 1.25em;
-}
 
 .label {
   white-space: nowrap;
   word-break: break-word;
 }
 
-/* ---- Loading ---- */
+/* ---- Loading spinner (Figma Icons/Loading: 270° arc, ~2px stroke;
+        20/16/14 per size, matching the icon scale) ---- */
 
 .spinner {
-  width: 1em;
-  height: 1em;
   flex: none;
   border-radius: 50%;
   border: 2px solid currentColor;
   border-right-color: transparent;
   animation: spin 0.7s linear infinite;
 }
+.large .spinner {
+  width: 20px;
+  height: 20px;
+}
+.medium .spinner {
+  width: 16px;
+  height: 16px;
+}
+.small .spinner {
+  width: 14px;
+  height: 14px;
+}
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
   }
 }

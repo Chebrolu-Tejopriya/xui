@@ -175,6 +175,16 @@
   padding: 0;
 }
 
+/* Selected icon + value inside a dropdown trigger: Figma groups them at
+   gap-xxs (4px) — tighter than the field's own 8px gap (918:7289). */
+.valueGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  flex: 1;
+  min-width: 0;
+}
+
 .value {
   flex: 1;
   min-width: 0;

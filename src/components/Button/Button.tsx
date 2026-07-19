@@ -16,17 +16,21 @@ export type ButtonSize = 'small' | 'medium' | 'large';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style. Maps to XUI Button `type` variants. */
   variant?: ButtonVariant;
-  /** Control height: large 42px, medium 36px, small 32px. */
+  /** Control height: large 42px, medium 36px, small 32px (icon-only squares: 36/32/30). */
   size?: ButtonSize;
-  /** Shows a spinner and disables interaction. */
+  /** Shows a spinner (replacing any icons) and disables interaction. */
   loading?: boolean;
-  /** Icon rendered before the label. */
+  /** Icon rendered before the label (18/16/14px per size, 6px gap). */
   iconLeft?: ReactNode;
   /** Icon rendered after the label. */
   iconRight?: ReactNode;
-  /** Square icon-only button. Pass the icon as `children`. */
+  /**
+   * Figma "just icon" type: a fixed outline-styled square (white surface,
+   * border, 36/32/30px per size) regardless of `variant`. Pass the icon as
+   * `children`.
+   */
   iconOnly?: boolean;
-  /** With `iconOnly`, renders a fully-rounded (circle) button. */
+  /** Figma "just icon circle": fully-rounded, 44/40/38px per size. */
   circle?: boolean;
   /** Stretch to fill the container width. */
   fullWidth?: boolean;
@@ -74,9 +78,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         {loading && <span className={styles.spinner} aria-hidden="true" />}
-        {!iconOnly && iconLeft && <span className={styles.icon}>{iconLeft}</span>}
-        {children != null && <span className={styles.label}>{children}</span>}
-        {!iconOnly && iconRight && <span className={styles.icon}>{iconRight}</span>}
+        {!loading && !iconOnly && iconLeft && <span className={styles.icon}>{iconLeft}</span>}
+        {(iconOnly ? !loading : children != null) && (
+          <span className={styles.label}>{children}</span>
+        )}
+        {!loading && !iconOnly && iconRight && <span className={styles.icon}>{iconRight}</span>}
       </button>
     );
   },

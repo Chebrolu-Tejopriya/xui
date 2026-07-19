@@ -111,9 +111,11 @@ export function Dropdown({
           aria-describedby={helperId}
           onClick={() => setOpen((o) => !o)}
         >
-          {selected?.icon && <span className={styles.leadingIcon}>{selected.icon}</span>}
-          <span className={[styles.value, !selected && styles.placeholder].filter(Boolean).join(' ')}>
-            {selected ? selected.label : placeholder}
+          <span className={styles.valueGroup}>
+            {selected?.icon && <span className={styles.leadingIcon}>{selected.icon}</span>}
+            <span className={[styles.value, !selected && styles.placeholder].filter(Boolean).join(' ')}>
+              {selected ? selected.label : placeholder}
+            </span>
           </span>
           <span className={styles.leadingChevron}>{ChevronDownIcon}</span>
         </button>

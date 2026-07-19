@@ -22,6 +22,8 @@ const preview: Preview = {
           'Foundations',
           'Components',
           [
+            'Button',
+            ['Primary', 'Secondary', 'Destructive', 'Outline', 'Subtle', 'Ghost', 'Link', 'Icon Only'],
             'Input',
             [
               'Default',
@@ -29,6 +31,7 @@ const preview: Preview = {
               'Secret Key',
               'Date',
               'Dropdown',
+              'Dropdown with icon',
               'Mobile Number',
               'Amount',
               'Amount-Static',
