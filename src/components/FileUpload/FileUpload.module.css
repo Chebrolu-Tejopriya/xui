@@ -1,0 +1,188 @@
+/* XUI File Upload — Figma Default (947:5469-5471) and Compact (948:5359-5413) */
+
+/* ---- Default variant: white card, radius 16, dashed dropzone ---- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  padding-bottom: var(--spacing-sm);
+  background: var(--surface-raised);
+  border-radius: 16px;
+  max-width: 609px;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 28px 24px 36px;
+  background: var(--surface-raised);
+  border: var(--border-width-regular) dashed var(--border-primary);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+}
+
+.dropzone:disabled {
+  cursor: not-allowed;
+}
+
+.dragOver {
+  border-color: var(--border-brand);
+  background: var(--surface-primary);
+}
+
+.cloud {
+  display: inline-flex;
+  color: var(--content-brand-primary);
+}
+.cloud > svg {
+  width: 56px;
+  height: 56px;
+}
+
+.title {
+  font: var(--type-heading-4);
+  color: var(--content-primary);
+  text-align: center;
+}
+
+.description {
+  font: var(--type-body-2);
+  color: var(--content-secondary);
+  text-align: center;
+}
+
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.fileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-xxs);
+  border-radius: var(--radius-xs);
+}
+
+.fileMain {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.attachIcon {
+  display: inline-flex;
+  flex: none;
+  color: var(--content-tertiary);
+}
+.attachIcon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.fileName {
+  font: var(--type-body-1);
+  color: var(--content-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deleteButton {
+  display: inline-flex;
+  flex: none;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--content-error-primary);
+  cursor: pointer;
+}
+.deleteButton:disabled {
+  color: var(--content-tertiary);
+  cursor: not-allowed;
+}
+.deleteButton > svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---- Compact variant: label + 48px row ---- */
+
+.compactRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.label {
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.compactBox {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  padding: 0 var(--spacing-sm);
+  background: var(--surface-raised);
+  border-radius: 8px;
+  font-family: var(--font-family-base);
+}
+
+.compactDrop {
+  gap: var(--spacing-xs);
+  border: var(--border-width-regular) dashed var(--border-primary);
+  cursor: pointer;
+}
+.compactDrop:disabled {
+  cursor: not-allowed;
+}
+
+.compactCloud {
+  display: inline-flex;
+  flex: none;
+  color: var(--content-brand-primary);
+}
+.compactCloud > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.compactText {
+  font: var(--type-body-2);
+  color: var(--content-primary);
+}
+
+/* Uploaded single file: solid border in content-tertiary (948:5372). */
+.compactUploaded {
+  border: var(--border-width-regular) solid var(--content-tertiary);
+  padding-right: var(--spacing-mid);
+}
+
+.compactUploaded .fileName,
+.compactList .fileName {
+  font: var(--type-body-2);
+}
+
+.compactList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.compactList .fileRow {
+  padding: 6px var(--spacing-xxs);
+}

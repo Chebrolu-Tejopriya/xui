@@ -1,4 +1,7 @@
-/* XUI Pagination — segmented control, border-secondary, 4px end radii */
+/* XUI Pagination — segmented control, border-secondary, 4px end radii.
+   Figma variants: Desktop/v1 (36px), Desktop/v2 (rows + group, 36px),
+   Desktop/v2-small (rows + group, 32px/12px text), Mobile/v1 (32px),
+   Mobile/v2 (rows + short label + borderless arrows). */
 
 .root {
   display: flex;
@@ -90,15 +93,37 @@
   border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
 }
 
-/* Compact (mobile) */
-.compact .rowsLabel,
-.compact .pageCount,
-.compact .pageSelect,
-.compact .rowsSelect {
+/* ---- Small (32px cells, 12px type — Figma v2-small / Mobile) ----
+   The rows label stays REGULAR weight (Body/3), only cell values are
+   Medium (Subtitle/3). */
+
+.small .rowsLabel {
+  font: var(--type-body-3);
+}
+
+.small .pageCount,
+.small .pageSelect,
+.small .rowsSelect {
   font: var(--type-subtitle-3);
 }
 
-.compact .arrow {
-  width: 32px;
+.small .rowsSelect {
+  padding: 6px 12px;
+}
+
+/* v2-small keeps 36px-wide arrows at 32px height (1920:23013). */
+.small .arrow {
+  width: 36px;
   height: 32px;
 }
+
+/* ---- Mobile/v2 (801:4430): 32px square, borderless arrow cells ---- */
+
+.mobile .arrow {
+  width: 32px;
+  border-color: transparent;
+}
+
+/* Mobile/v1 arrows are 32px squares WITH borders; the mobile class only
+   models Mobile/v2. Mobile/v1 = size small without rows control, where
+   arrows inherit the bordered small style. */

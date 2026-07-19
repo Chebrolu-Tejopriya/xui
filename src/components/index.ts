@@ -5,6 +5,7 @@ export * from './Breadcrumbs';
 export * from './Button';
 export * from './Checkbox';
 export * from './Dialog';
+export * from './FileUpload';
 export * from './Input';
 export * from './Pagination';
 export * from './Radio';

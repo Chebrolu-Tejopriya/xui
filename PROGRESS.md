@@ -33,7 +33,7 @@ All values pulled from the Figma variable collections — light **and** dark.
 Theme switching works by setting `data-theme="light" | "dark"` on the root element —
 semantics resolve automatically.
 
-### 3. Components (`src/components/`) — 15 built
+### 3. Components (`src/components/`) — 16 built
 Each has `Component.tsx`, `Component.module.css` (CSS Modules), stories, and a barrel export.
 
 | Component | Coverage |
@@ -45,14 +45,15 @@ Each has `Component.tsx`, `Component.module.css` (CSS Modules), stories, and a b
 | Radio | Default, selected, disabled |
 | Switch | M3-style 52×32 (48×28 icon variant), hover/disabled states, check/close glyphs |
 | Badge | Solid (primary/secondary/outline/destructive) + accent tints (primary/secondary/positive/negative) ± border, default + large |
-| Tabs | Bordered container, brand-filled active item, hover, disabled |
+| Tabs | Boxed (brand-filled active) + underline variants, with-icons, hover, disabled |
 | Accordion | Single/multiple expand, rotating chevron |
 | Tooltip | 4 placements, with/without arrow |
 | Dialog | default / destructive / alert variants with exact Figma button layouts, portal + scrim + Esc |
 | Toast | default/success/warning/error tinted variants, action button, dismissible |
 | Avatar | 5 sizes (20–64px), image with initials fallback on Label tint |
 | Breadcrumbs | Icons, hover, disabled, current-page state |
-| Pagination | Page select, "of N Pages", prev/next, rows-per-page, compact mode |
+| FileUpload | Figma Default (dropzone card, single/multi lists) + Compact (48px labelled row) |
+| Pagination | All 5 Figma variants: Desktop v1/v2/v2-small, Mobile v1/v2 (short label, borderless arrows) |
 
 ### 4. Storybook
 - `Foundations/Colors` — primitive scales + full semantic swatches.
@@ -88,7 +89,7 @@ Each has `Component.tsx`, `Component.module.css` (CSS Modules), stories, and a b
    `main` permalink = public URL, GitHub Actions auto-publish. Waiting on the user to
    sign up at chromatic.com (as Chebrolu-Tejopriya) and provide the `chpt_…` project token.
 3. **Second-pass components** (in Figma, not yet built): Drawer, Stepper, Slider, Menu,
-   Filter, File Upload, Date/Calendar pickers, Amount, Locked, Widgets (charts),
+   Filter, Date/Calendar pickers, Amount, Locked, Widgets (charts),
    Scrollbar, Info, and the 🌟 Icon Library page.
 4. **Input error-state spec** — the Figma fetch for it errored; standard red border +
    red helper was applied. Verify against Figma when convenient.

@@ -5,15 +5,21 @@ export interface PaginationProps {
   page: number;
   pageCount: number;
   onPageChange: (page: number) => void;
-  /** Optional rows-per-page control. */
+  /** Optional rows-per-page control (Figma Desktop/v2, v2-small, Mobile/v2). */
   rowsPerPage?: number;
   rowsPerPageOptions?: number[];
   onRowsPerPageChange?: (rows: number) => void;
-  /** Compact (mobile) sizing. */
-  compact?: boolean;
+  /** Cell height: medium 36px (Desktop v1/v2), small 32px (v2-small, Mobile). */
+  size?: 'medium' | 'small';
+  /**
+   * Figma Mobile/v2 treatment: short "of N" label and borderless arrow
+   * cells. Implies nothing about width — pair with `size="small"`.
+   */
+  mobile?: boolean;
   className?: string;
 }
 
+/** XUI Pagination — Figma variants Desktop/v1, Desktop/v2, Desktop/v2-small, Mobile/v1, Mobile/v2. */
 export function Pagination({
   page,
   pageCount,
@@ -21,13 +27,16 @@ export function Pagination({
   rowsPerPage,
   rowsPerPageOptions = [10, 25, 50],
   onRowsPerPageChange,
-  compact = false,
+  size = 'medium',
+  mobile = false,
   className,
 }: PaginationProps) {
   return (
     <nav
       aria-label="Pagination"
-      className={[styles.root, compact && styles.compact, className].filter(Boolean).join(' ')}
+      className={[styles.root, size === 'small' && styles.small, mobile && styles.mobile, className]
+        .filter(Boolean)
+        .join(' ')}
     >
       {rowsPerPage != null && (
         <div className={styles.rows}>
@@ -60,7 +69,7 @@ export function Pagination({
             ))}
           </select>
         </label>
-        <span className={styles.pageCount}>of {pageCount} Pages</span>
+        <span className={styles.pageCount}>{mobile ? `of ${pageCount}` : `of ${pageCount} Pages`}</span>
         <button
           type="button"
           className={styles.arrow}
