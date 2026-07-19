@@ -48,7 +48,7 @@ const preview: Preview = {
 
   globalTypes: {
     theme: {
-      description: 'Fibon color theme',
+      description: 'XUI color theme',
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',

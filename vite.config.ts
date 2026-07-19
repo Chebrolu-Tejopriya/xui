@@ -26,6 +26,11 @@ export default defineConfig({
       storybookTest({
         configDir: path.join(dirname, '.storybook')
       })],
+      optimizeDeps: {
+        // These transitive deps of the addon-vitest setup file are CJS;
+        // without pre-bundling their exports break in browser mode.
+        include: ['aria-query', 'lz-string', 'pretty-format', 'dom-accessibility-api']
+      },
       test: {
         name: 'storybook',
         browser: {
