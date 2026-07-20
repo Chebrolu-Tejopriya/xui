@@ -307,49 +307,7 @@
   height: 100%;
 }
 
-/* Dropdown menu (reuses the same shape as Select's menu). */
-.menu {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  max-height: 260px;
-  overflow: auto;
-  margin: 0;
-  padding: 4px;
-  list-style: none;
-  border-radius: var(--radius-sm);
-  border: var(--border-width-regular) solid var(--border-primary);
-  background: var(--surface-raised);
-  box-shadow: var(--elevation-md);
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  width: 100%;
-  padding: 8px 10px;
-  border: none;
-  border-radius: var(--radius-xs);
-  background: transparent;
-  font: var(--type-body-2);
-  color: var(--content-primary);
-  text-align: left;
-  cursor: pointer;
-}
-.option:hover:not(:disabled) {
-  background: var(--surface-secondary);
-}
-.option:disabled {
-  color: var(--content-tertiary);
-  cursor: not-allowed;
-}
-.optionSelected {
-  color: var(--content-brand-primary);
-  font: var(--type-subtitle-3);
-}
+/* Dropdown menu styles live in src/components/Menu.module.css (Figma Select spec). */
 
 .dropdownRoot {
   position: relative;

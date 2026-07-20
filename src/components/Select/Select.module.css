@@ -72,46 +72,4 @@
   }
 }
 
-.menu {
-  position: absolute;
-  z-index: 20;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 4px;
-  list-style: none;
-  background: var(--surface-raised);
-  border: var(--border-width-regular) solid var(--border-secondary);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--elevation-md);
-  max-height: 280px;
-  overflow-y: auto;
-}
-
-.option {
-  display: block;
-  width: 100%;
-  padding: 8px 12px;
-  border: none;
-  border-radius: var(--radius-xs);
-  background: transparent;
-  cursor: pointer;
-  font: var(--type-body-2);
-  color: var(--content-primary);
-  text-align: left;
-}
-
-.option:hover:not(:disabled) {
-  background: var(--surface-primary);
-}
-
-.option:disabled {
-  color: var(--content-tertiary);
-  cursor: not-allowed;
-}
-
-.optionSelected {
-  font: var(--type-subtitle-2);
-  color: var(--content-brand-primary);
-}
+/* Menu styles live in src/components/Menu.module.css (Figma Select spec). */

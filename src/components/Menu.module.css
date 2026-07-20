@@ -1,0 +1,89 @@
+/* XUI dropdown menu — exact mirror of the Figma "Select" component
+   (section 583:3525): container 583:4488, item states 583:3654 (default),
+   583:3668 (hover), 600:8066 (selected), 583:3660 (disabled).
+   Shared by Select, Dropdown (Input family), and Pagination.
+
+   Beyond-Figma additions, user-approved 2026-07-20: 300px max-height with
+   internal scroll, keyboard focus reuses the hover treatment, menus open
+   4px below the trigger. */
+
+.menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  background: var(--surface-raised);
+  border: var(--border-width-regular) solid var(--surface-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-sm);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Full-width variant: menu spans exactly the trigger width (Select/Dropdown
+   fields, where the Figma canvas shows menu width = trigger width). */
+.menuFullWidth {
+  right: 0;
+  width: auto;
+}
+
+/* Menu item: 6px vertical / 8px horizontal padding, Subtitle/2,
+   content-secondary. Unselected items pad left 32px (spacing-xl) so labels
+   align with the checked item's label (16px check + 8px gap + 8px pad). */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+  padding: 6px 8px 6px var(--spacing-xl);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font: var(--type-subtitle-2);
+  line-height: 20px;
+  color: var(--content-secondary);
+  text-align: left;
+}
+
+.item:hover:not(:disabled),
+.item:focus-visible {
+  background: var(--surface-primary);
+  outline: none;
+}
+
+.item:disabled {
+  color: var(--content-quaternary);
+  cursor: not-allowed;
+}
+
+/* Selected: surface-primary fill + leading 16px check (600:8066). */
+.itemSelected {
+  padding-left: 8px;
+  background: var(--surface-primary);
+}
+
+.check {
+  display: inline-flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--content-secondary);
+}
+.check > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.itemLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import styles from './Select.module.css';
+import menuStyles from '../Menu.module.css';
+
+/* Figma Icons/Check (585:2470). */
+const CheckIcon = (
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="m2.5 8.5 3.5 3.5 7.5-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 export interface SelectOption {
   value: string;
@@ -79,23 +87,27 @@ export function Select({
         )}
       </button>
       {open && (
-        <ul role="listbox" className={styles.menu}>
-          {options.map((opt) => (
-            <li key={opt.value}>
-              <button
-                type="button"
-                role="option"
-                aria-selected={opt.value === selectedValue}
-                disabled={opt.disabled}
-                className={[styles.option, opt.value === selectedValue && styles.optionSelected]
-                  .filter(Boolean)
-                  .join(' ')}
-                onClick={() => pick(opt.value)}
-              >
-                {opt.label}
-              </button>
-            </li>
-          ))}
+        <ul role="listbox" className={[menuStyles.menu, menuStyles.menuFullWidth].join(' ')}>
+          {options.map((opt) => {
+            const isSelected = opt.value === selectedValue;
+            return (
+              <li key={opt.value}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={isSelected}
+                  disabled={opt.disabled}
+                  className={[menuStyles.item, isSelected && menuStyles.itemSelected]
+                    .filter(Boolean)
+                    .join(' ')}
+                  onClick={() => pick(opt.value)}
+                >
+                  {isSelected && <span className={menuStyles.check}>{CheckIcon}</span>}
+                  <span className={menuStyles.itemLabel}>{opt.label}</span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
