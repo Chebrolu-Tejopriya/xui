@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
+import { CopyImportChip, PACKAGE_NAME } from './CopyImportChip';
 import '../src/tokens/index.css';
 
 const preview: Preview = {
@@ -72,7 +73,23 @@ const preview: Preview = {
       const theme = context.globals.theme ?? 'light';
       document.documentElement.setAttribute('data-theme', theme);
       document.body.style.background = 'var(--surface-primary)';
-      return <Story />;
+
+      // Copy-import chip: derived from the story's component, overridable
+      // via parameters.copyImport (string), suppressible with `false`.
+      const override = context.parameters.copyImport;
+      const component = context.component as { displayName?: string; name?: string } | undefined;
+      const componentName = component?.displayName || component?.name;
+      const importCode =
+        override === false
+          ? null
+          : (override ?? (componentName ? `import { ${componentName} } from '${PACKAGE_NAME}';` : null));
+
+      return (
+        <>
+          {importCode && <CopyImportChip code={importCode} />}
+          <Story />
+        </>
+      );
     },
   ],
 };

@@ -89,9 +89,33 @@ const semanticGroups = {
   ],
 };
 
+async function copyText(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+}
+
 function SwatchCard({ token, name, subtext }: { token: string; name: string; subtext: string }) {
+  const [copied, setCopied] = React.useState(false);
+
+  const copy = async () => {
+    await copyText(`var(${token})`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   return (
-    <div
+    <button
+      type="button"
+      onClick={copy}
+      title={`Copy var(${token})`}
       style={{
         display: 'flex',
         gap: 10,
@@ -101,6 +125,9 @@ function SwatchCard({ token, name, subtext }: { token: string; name: string; sub
         borderRadius: 8,
         background: 'var(--surface-raised)',
         border: '1px solid var(--border-primary)',
+        cursor: 'pointer',
+        textAlign: 'left',
+        font: 'inherit',
       }}
     >
       <div
@@ -126,15 +153,15 @@ function SwatchCard({ token, name, subtext }: { token: string; name: string; sub
         <div
           style={{
             font: 'var(--type-body-3)',
-            color: 'var(--content-tertiary)',
+            color: copied ? 'var(--content-success-primary)' : 'var(--content-tertiary)',
             fontFamily: 'monospace',
             whiteSpace: 'nowrap',
           }}
         >
-          {subtext}
+          {copied ? 'Copied!' : subtext}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
