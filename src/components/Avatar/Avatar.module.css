@@ -8,8 +8,8 @@
   overflow: hidden;
   border-radius: var(--radius-max);
   border: var(--border-width-regular) solid var(--surface-raised);
-  background: var(--label-bg-s);
-  color: var(--label-fg-s);
+  background: var(--label-positive-bg);
+  color: var(--label-positive-content);
 }
 
 .image {

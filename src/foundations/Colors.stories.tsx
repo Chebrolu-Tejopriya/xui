@@ -10,7 +10,6 @@ const scales = ['gray', 'blue', 'orange', 'green', 'red'] as const;
 const steps = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 const accents = ['blue', 'yellow', 'green', 'purple', 'gray'] as const;
-const labelKeys = [...'abcdefghijklmnopqrstuvwxyz0123456789'];
 
 // Mirrors src/tokens/semantic.css — semantic token -> primitive it maps to.
 // Exact mirror of the Figma "Semantics" variable collection (45 tokens).
@@ -219,27 +218,6 @@ export const Primitives: StoryObj = {
         </div>
       </div>
 
-      <div>
-        <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 8px' }}>
-          Label — Foreground
-        </h3>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {labelKeys.map((k) => (
-            <Swatch key={k} token={`--label-fg-${k}`} name={k.toUpperCase()} />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 style={{ font: 'var(--type-heading-5)', color: 'var(--content-primary)', margin: '0 0 8px' }}>
-          Label — Background
-        </h3>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {labelKeys.map((k) => (
-            <Swatch key={k} token={`--label-bg-${k}`} name={k.toUpperCase()} />
-          ))}
-        </div>
-      </div>
     </div>
   ),
 };
