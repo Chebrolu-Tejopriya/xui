@@ -1,10 +1,28 @@
 /**
  * XUI Design System — Label color tokens.
- * Source: Figma Label/Foreground/* and Label/Background/* (A–Z, 0–9).
- * Paired fg/bg for tags, chips, and avatar fallbacks.
+ *
+ * Two systems live here:
+ *  1. Named semantic categories (positive/negative/warning/info/accent/
+ *     accent-2/accent-3/neutral × bg/content) — the current Figma
+ *     "Colors-Semantics/Label" group, backed 1:1 by "Label/*" primitives.
+ *     Theme-aware. Use these for status tags/chips/badges.
+ *  2. A–Z / 0–9 fg/bg pairs — the older per-initial palette, still used by
+ *     Avatar fallbacks. Not in the current Figma file's variables; kept until
+ *     Avatar is migrated to the named categories. Light-only.
  */
 
 :root {
+  /* ---- Named label categories (Figma Colors-Semantics/Label, Light) ---- */
+  --label-positive-bg: #e0faee;  --label-positive-content: #167e4d;
+  --label-negative-bg: #fae1e0;  --label-negative-content: #c32822;
+  --label-warning-bg: #faeee0;   --label-warning-content: #985d1b;
+  --label-info-bg: #e0ebfa;      --label-info-content: #2267c1;
+  --label-accent-bg: #eee0fa;    --label-accent-content: #7b23c7;
+  --label-accent-2-bg: #fae0f9;  --label-accent-2-content: #b21fad;
+  --label-accent-3-bg: #fae0ee;  --label-accent-3-content: #bf2275;
+  --label-neutral-bg: #ebecf0;   --label-neutral-content: #60697b;
+
+  /* ---- A–Z / 0–9 fg/bg pairs (legacy, Avatar fallbacks) ---- */
   --label-fg-a: #c40000; --label-bg-a: #ffeeee;
   --label-fg-b: #0462c0; --label-bg-b: #e4f1ff;
   --label-fg-c: #228b22; --label-bg-c: #e6ffe6;
@@ -41,4 +59,16 @@
   --label-fg-7: #dc143c; --label-bg-7: #ffebe8;
   --label-fg-8: #696969; --label-bg-8: #f0f0f0;
   --label-fg-9: #b8860b; --label-bg-9: #fff5dc;
+}
+
+/* ---- Named label categories (Figma Colors-Semantics/Label, Dark) ---- */
+[data-theme='dark'] {
+  --label-positive-bg: #1e382c;  --label-positive-content: #5ce0a2;
+  --label-negative-bg: #381f1e;  --label-negative-content: #e26965;
+  --label-warning-bg: #382c1e;   --label-warning-content: #e0a25c;
+  --label-info-bg: #1e2a38;      --label-info-content: #5c95e0;
+  --label-accent-bg: #2c1e38;    --label-accent-content: #af72e4;
+  --label-accent-2-bg: #381e37;  --label-accent-2-content: #e05cdc;
+  --label-accent-3-bg: #381e2c;  --label-accent-3-content: #e160a5;
+  --label-neutral-bg: #262a31;   --label-neutral-content: #929aaa;
 }
