@@ -28,11 +28,12 @@
   cursor: not-allowed;
 }
 
-/* ---- Sizes (heights 42 / 36 / 32) ----
-   Icon sizes per Figma "with icon" variants: 18 / 16 / 14. */
+/* ---- Sizes (heights 44 / 36 / 32) ----
+   Icon sizes per Figma "with icon" variants: 18 / 16 / 14.
+   Large is py 9 (26 line + 18 = 44); medium/small py 8 (20+16 / 16+16). */
 
 .large {
-  padding: 8px 16px;
+  padding: 9px 16px;
   font: var(--type-button-1);
   letter-spacing: var(--tracking-button-1);
 }
@@ -103,13 +104,18 @@
   color: var(--content-absolute-white);
 }
 
-/* Border is inside the 42/36/32 height in Figma (strokes take no layout
-   space there), so the padding gives back 1px on each side. */
+/* Border is inside the 44/36/32 height in Figma (strokes take no layout
+   space there), so the padding gives back 1px on each side. This blanket
+   rule sizes medium (36) and small (32); large gets its own +1px below. */
 .outline {
   background: var(--surface-raised);
   border: var(--border-width-regular) solid var(--border-primary);
   padding: 7px 15px;
   color: var(--content-primary);
+}
+/* Large outline: 26 line + 2×8 pad + 2×1 border = 44. */
+.outline.large {
+  padding: 8px 15px;
 }
 .outline:hover:not(:disabled),
 .outline[data-hover] {
@@ -158,9 +164,9 @@
 }
 
 /* ---- Loading (Figma state=Loading) ----
-   Per-variant fills are NOT one rule in Figma: primary darkens to solid,
-   secondary/destructive lighten to subtle, outline mutes border+text,
-   subtle drops to surface-primary, ghost/link only mute text.
+   Per-variant fills are NOT one rule in Figma: brand/secondary/destructive
+   all lighten to their `subtle` step, outline mutes border+text, subtle
+   drops to surface-primary, ghost/link only mute text.
    These sit after the :disabled rules because loading also sets disabled. */
 
 .button[data-loading] {
@@ -168,7 +174,7 @@
 }
 
 .primary[data-loading] {
-  background: var(--surface-brand-solid);
+  background: var(--surface-brand-subtle);
   color: var(--content-absolute-white);
 }
 .secondary[data-loading] {

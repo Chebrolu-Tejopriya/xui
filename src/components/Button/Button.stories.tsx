@@ -104,7 +104,7 @@ function variantRows(variant: ButtonVariant, args: ButtonProps) {
     { label: 'Loading', node: <Row><Button {...args} variant={variant} loading /></Row> },
     { label: 'Disabled', node: <Row><Button {...args} variant={variant} disabled /></Row> },
     {
-      label: 'Sizes (42 / 36 / 32)',
+      label: 'Sizes (44 / 36 / 32)',
       node: (
         <Row>
           {sizes.map((s) => (
