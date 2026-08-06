@@ -152,6 +152,13 @@ content-secondary radius 6, unselected indent 32px; selected = surface-primary f
    but aren't bound to layers; waiting on a Variables-panel screenshot to add them.
 6. **Chromatic publishing** — waiting on the user's `chpt_…` project token.
 7. **Push to GitHub** — local `main` is several commits ahead; push when user says so.
+8. **Badge accent variants → label semantic tokens.** Badge's accent variants
+   currently use `surface-*` tokens. The canonical file now has a proper
+   `label-*` semantic group (8 named categories × bg/content, in `labels.css`).
+   Decide whether Figma's badges/tags/chips should bind to these `label-*`
+   tokens and rewire Badge (and any other tag/chip consumers) accordingly.
+   Check the Figma Badge/tag components for which category each variant maps to
+   before changing — don't invent the mapping.
 
 ---
 
