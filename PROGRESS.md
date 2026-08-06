@@ -159,6 +159,19 @@ content-secondary radius 6, unselected indent 32px; selected = surface-primary f
    tokens and rewire Badge (and any other tag/chip consumers) accordingly.
    Check the Figma Badge/tag components for which category each variant maps to
    before changing — don't invent the mapping.
+9. **Automated Figma→code token sync (scheduled drift-check).** A scheduled
+   agent/routine that periodically runs the `figma-variable-parity` procedure
+   (dump Figma Colors-Semantics/Primitives/Tokens via the Plugin API → diff
+   against `src/tokens/*.css` + Colors story → reconcile), and opens a PR when
+   it finds drift (human merges — never silent). Tokens only; components always
+   need a manual build pass. Poll-based, not instant.
+   - **Blocker to resolve first:** verify the Figma MCP (`use_figma`) is
+     reachable from a scheduled/cloud context. The Variables REST API is
+     Enterprise-only (KoinX is Professional), so the Plugin API via MCP is the
+     only read that works — if that's local-only, a cloud cron can't see Figma
+     and would false-green forever. Fallbacks if cloud isn't viable: a local
+     scheduled task (runs on this machine when on), or a one-word manual
+     "sync tokens" trigger (zero infra).
 
 ---
 
