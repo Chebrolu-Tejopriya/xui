@@ -70,4 +70,9 @@ export const iconRegistry: IconMeta[] = [
   { name: 'VerifiedIcon', category: 'Status & Feedback', Icon: VerifiedIcon },
 ];
 
-export const ICON_VARIANTS: IconVariant[] = ['outlined', 'solid', 'dualtone'];
+export const ICON_VARIANTS: { value: IconVariant; label: string }[] = [
+  { value: 'outlined', label: 'Outlined' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'dualtone', label: 'Dual-tone' },
+  { value: 'dualtone-selected', label: 'Selected' },
+];

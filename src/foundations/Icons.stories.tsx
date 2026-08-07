@@ -81,22 +81,22 @@ function Gallery() {
         <div style={{ display: 'inline-flex', gap: 4, padding: 4, borderRadius: 'var(--radius-sm)', background: 'var(--surface-secondary)' }}>
           {ICON_VARIANTS.map((v) => (
             <button
-              key={v}
+              key={v.value}
               type="button"
-              onClick={() => setVariant(v)}
+              onClick={() => setVariant(v.value)}
               style={{
                 padding: '6px 12px',
                 borderRadius: 'var(--radius-xs)',
                 border: 'none',
                 cursor: 'pointer',
                 font: 'var(--type-subtitle-3)',
-                textTransform: 'capitalize',
-                background: variant === v ? 'var(--surface-raised)' : 'transparent',
-                color: variant === v ? 'var(--content-brand-primary)' : 'var(--content-secondary)',
-                boxShadow: variant === v ? 'var(--elevation-sm)' : 'none',
+                whiteSpace: 'nowrap',
+                background: variant === v.value ? 'var(--surface-raised)' : 'transparent',
+                color: variant === v.value ? 'var(--content-brand-primary)' : 'var(--content-secondary)',
+                boxShadow: variant === v.value ? 'var(--elevation-sm)' : 'none',
               }}
             >
-              {v}
+              {v.label}
             </button>
           ))}
         </div>
