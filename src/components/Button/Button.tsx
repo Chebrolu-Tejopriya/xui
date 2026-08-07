@@ -16,7 +16,7 @@ export type ButtonSize = 'small' | 'medium' | 'large';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style. Maps to XUI Button `type` variants. */
   variant?: ButtonVariant;
-  /** Control height: large 42px, medium 36px, small 32px (icon-only squares: 36/32/30). */
+  /** Control height: large 44px, medium 36px, small 32px (icon-only squares: 36/32/30). */
   size?: ButtonSize;
   /** Shows a spinner (replacing any icons) and disables interaction. */
   loading?: boolean;
