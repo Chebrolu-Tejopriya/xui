@@ -79,6 +79,40 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
+/**
+ * A single live Button to experiment with — every prop is editable in the
+ * Controls panel: variant, size, the two icon booleans (Figma "Show left/right
+ * icon"), icon-only / circle, loading, disabled, full width, and the label.
+ * The per-variant leaves below fix `variant`; this one unlocks it.
+ */
+export const Playground: Story = {
+  args: { variant: 'primary' },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'destructive', 'outline', 'subtle', 'ghost', 'link'],
+      description: 'Visual style (Figma `type`). Ignored when `iconOnly` is on.',
+    },
+    iconOnly: {
+      control: 'boolean',
+      description: 'Figma "just icon" — a fixed outline square; pass the icon as `iconLeft`.',
+    },
+    circle: { control: 'boolean', description: 'Figma "just icon circle" (with `iconOnly`).' },
+    fullWidth: { control: 'boolean' },
+  },
+  render: (args) => {
+    // In icon-only mode the icon goes in children; otherwise use the label + icon slots.
+    const { iconOnly, iconLeft, children, ...rest } = args;
+    return iconOnly ? (
+      <Button {...rest} iconOnly aria-label="Action">
+        {iconLeft ?? children}
+      </Button>
+    ) : (
+      <Button {...args} />
+    );
+  },
+};
+
 const sizes = ['large', 'medium', 'small'] as const;
 
 /* Buttons hug their content in Figma; without this wrapper the showcase

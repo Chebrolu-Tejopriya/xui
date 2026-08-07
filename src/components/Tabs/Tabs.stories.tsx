@@ -80,6 +80,20 @@ export default meta;
 
 type Story = StoryObj<typeof Tabs>;
 
+/** Live Tabs — switch the variant (boxed / underline) and toggle disabled. */
+export const Playground: Story = {
+  args: { variant: 'boxed', disabled: false },
+  argTypes: {
+    variant: {
+      control: 'inline-radio',
+      options: ['boxed', 'underline'],
+      description: 'Figma boxed (brand-filled active) / underline (brand underline).',
+    },
+    disabled: { control: 'boolean', description: 'Disable the whole tablist.' },
+  },
+  render: (args) => <Tabs {...args} />,
+};
+
 /* Figma Tabs/Default (1128:16565 / 16685 / 16649). */
 export const Default: Story = {
   render: (args) => (

@@ -59,6 +59,17 @@ export default meta;
 
 type Story = StoryObj<typeof FileUpload>;
 
+/** Live File Upload — switch the variant (default / compact), toggle multiple,
+ *  and edit the copy. Picking or dropping files is interactive. */
+export const Playground: Story = {
+  args: { variant: 'default', multiple: false },
+  argTypes: {
+    variant: { control: 'inline-radio', options: ['default', 'compact'] },
+    multiple: { control: 'boolean', description: 'Allow multiple files (also switches the Figma layout).' },
+  },
+  render: (args) => <Demo {...args} />,
+};
+
 /* Figma Default frame (947:5469 / 5509 / 5471). */
 export const Default: Story = {
   render: (args) => (

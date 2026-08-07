@@ -48,3 +48,13 @@ export const Default: Story = {
     />
   ),
 };
+
+/** A single live Input to experiment with — edit the label, placeholder,
+ *  helper text, and toggle mandatory / error / disabled. */
+export const Playground: Story = {
+  render: (args) => (
+    <div style={{ width: 384 }}>
+      <Input {...args} />
+    </div>
+  ),
+};

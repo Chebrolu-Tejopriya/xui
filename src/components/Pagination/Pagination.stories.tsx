@@ -45,6 +45,23 @@ export default meta;
 
 type Story = StoryObj<typeof Pagination>;
 
+/** Live Pagination — change page count, cell size, rows-per-page, and the
+ *  mobile treatment; the paging itself is interactive. */
+export const Playground: Story = {
+  args: { pageCount: 10, size: 'medium', mobile: false, rowsPerPage: 10 },
+  argTypes: {
+    size: { control: 'inline-radio', options: ['medium', 'small'], description: 'Cell height 36 / 32.' },
+    mobile: { control: 'boolean', description: 'Mobile v2: short "of N" + borderless arrows.' },
+    rowsPerPage: {
+      control: { type: 'number', min: 1 },
+      description: 'Shows the rows-per-page selector (Desktop v2). Clear for v1.',
+    },
+  },
+  render: (args) => (
+    <Demo pageCount={args.pageCount} size={args.size} mobile={args.mobile} rowsPerPage={args.rowsPerPage} />
+  ),
+};
+
 /* One row per Figma variant (801:4413-4430, 1920:22973). */
 export const Pagination_: Story = {
   name: 'Pagination',
