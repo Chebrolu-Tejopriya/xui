@@ -14,3 +14,4 @@ export * from './Switch';
 export * from './Tabs';
 export * from './Toast';
 export * from './Tooltip';
+export * from '../icons';
