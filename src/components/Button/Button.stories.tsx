@@ -48,7 +48,7 @@ const meta: Meta<typeof Button> = {
     size: {
       control: 'inline-radio',
       options: ['large', 'medium', 'small'],
-      description: 'Heights 42/36/32px (Figma Size=Large/Medium/Small).',
+      description: 'Heights 44/36/32px (Figma Size=Large/Medium/Small).',
     },
     iconLeft: {
       control: 'select',
