@@ -1,15 +1,16 @@
 /* XUI Table — flex-based data table.
+   Container: surface-primary, border-secondary, 8px radius, clipped.
    Header: surface-secondary + border-secondary underline, cells px 12 / py 16,
-   Subtitle/2 text. Body rows: surface-raised -> surface-secondary on
-   hover/selected, cells px 8 / py 16, Body/2 text, border-tertiary divider,
-   52px row height (16 + 20 line + 16). */
+   Subtitle/2 text. Body rows: surface-raised; surface-secondary on hover;
+   surface-brand-secondary when selected. Cells px 8 / py 16, Body/2 text,
+   border-secondary divider, 52px row height (16 + 20 line + 16). */
 
 .table {
   display: flex;
   flex-direction: column;
   width: 100%;
   background: var(--surface-primary);
-  border: var(--border-width-regular) solid var(--border-tertiary);
+  border: var(--border-width-regular) solid var(--border-secondary);
   border-radius: var(--radius-mid);
   /* Clip rows/header to the rounded corners (Figma clipsContent). */
   overflow: hidden;
@@ -31,9 +32,13 @@
   background: var(--surface-raised);
 }
 
-.body .row:hover,
-.body .row[data-selected] {
+/* Hover = grey wash; selected = brand-secondary (blue tint). Selected is
+   listed after hover so it wins when a selected row is also hovered. */
+.body .row:hover {
   background: var(--surface-secondary);
+}
+.body .row[data-selected] {
+  background: var(--surface-brand-secondary);
 }
 
 /* The container's own bottom border replaces the last row's divider. */
@@ -60,7 +65,7 @@
   font: var(--type-body-2);
   color: var(--content-primary);
   /* Inset shadow divider (see .head) — keeps the row at exactly 52px. */
-  box-shadow: inset 0 -1px 0 var(--border-tertiary);
+  box-shadow: inset 0 -1px 0 var(--border-secondary);
 }
 
 .headerCell {

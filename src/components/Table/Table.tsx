@@ -34,8 +34,9 @@ const alignClass: Record<TableAlign, string> = {
  *
  * Cells with a `width` are fixed; cells without one share the remaining space
  * equally (flex: 1). Tokens: header `surface-secondary` + `border-secondary`
- * underline, rows `surface-raised` → `surface-secondary` on hover/selected,
- * dividers `border-tertiary`, 52px row height.
+ * underline; rows `surface-raised`, `surface-secondary` on hover,
+ * `surface-brand-secondary` when selected; `border-secondary` container border
+ * + dividers; 8px radius; 52px row height.
  */
 export function Table({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
@@ -62,7 +63,8 @@ export function TableBody({ className, children, ...rest }: HTMLAttributes<HTMLD
 }
 
 export interface TableRowProps extends HTMLAttributes<HTMLDivElement> {
-  /** Selected row — paints `surface-secondary`, same as hover. */
+  /** Selected row — paints `surface-brand-secondary` (blue tint), distinct
+   *  from the grey hover state. */
   selected?: boolean;
 }
 
