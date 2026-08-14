@@ -30,10 +30,19 @@ export function createIcon(displayName: string, paths: Record<IconShape, string>
   function Icon({ variant = 'outlined', size = 24, style, ...props }: IconProps) {
     const labelled = props['aria-label'] != null;
     const shape: IconShape = variant === 'dualtone-selected' ? 'dualtone' : variant;
-    const mergedStyle =
+    // The dual-tone tones carry the Figma design colors by default: grey
+    // (content-tertiary = Gray/09, the DualTone-Default swatch) for `dualtone`,
+    // brand for `dualtone-selected`. Outlined/solid inherit currentColor.
+    // All are overridable via `color`/`style`. Knockout cut-outs inside the
+    // markup use --xui-icon-knockout (defaults to --surface-raised) so badges
+    // and rings match the surface the icon sits on in either theme.
+    const toneColor =
       variant === 'dualtone-selected'
-        ? { color: 'var(--content-brand-primary)', ...style }
-        : style;
+        ? 'var(--content-brand-primary)'
+        : variant === 'dualtone'
+          ? 'var(--content-tertiary)'
+          : undefined;
+    const mergedStyle = toneColor ? { color: toneColor, ...style } : style;
     return (
       <svg
         width={size}

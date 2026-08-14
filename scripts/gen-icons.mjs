@@ -24,6 +24,24 @@ const pascal = (s) =>
     .map((w) => w[0].toUpperCase() + w.slice(1))
     .join('');
 
+// SVG presentation attributes can't resolve CSS var(), so theme-reactive paints
+// are emitted as inline `style`. The extracted data keeps Figma's raw values
+// (white knockouts, a currentColor notification dot); this maps them to tokens:
+//   - A currentColor dot ringed by white (only the Notification badge matches
+//     this signature) -> red dot (surface-error-primary) + surface ring.
+//   - Any remaining white fill/stroke is a cut-out -> the surface the icon sits
+//     on (--xui-icon-knockout, default --surface-raised), so it blends in both
+//     themes instead of rendering as a white blob on dark.
+const KNOCKOUT = 'var(--xui-icon-knockout, var(--surface-raised))';
+const themePaints = (svg) =>
+  svg
+    .replaceAll(
+      'fill="currentColor" stroke="white" stroke-width="1.5"',
+      `style="fill:var(--surface-error-primary);stroke:${KNOCKOUT}" stroke-width="1.5"`,
+    )
+    .replaceAll('fill="white"', `style="fill:${KNOCKOUT}"`)
+    .replaceAll('stroke="white"', `style="stroke:${KNOCKOUT}"`);
+
 const files = fs
   .readdirSync(dataDir)
   .filter((f) => f.endsWith('.json'))
@@ -48,7 +66,10 @@ for (const file of files) {
         name = `${pascal(label)}${i}Icon`;
       }
       seen.add(name);
-      body += `export const ${name} = createIcon(${JSON.stringify(name)}, ${JSON.stringify(shapes)});\n`;
+      const themed = Object.fromEntries(
+        Object.entries(shapes).map(([k, v]) => [k, themePaints(v)]),
+      );
+      body += `export const ${name} = createIcon(${JSON.stringify(name)}, ${JSON.stringify(themed)});\n`;
       registry.push({ name, category });
     }
     body += `\n`;
