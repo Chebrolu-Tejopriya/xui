@@ -1,5 +1,5 @@
 /* XUI Button — source: Figma ⚛️ Primary Components → Button (536:5758).
-   Sizes: Large 42 / Medium 36 / Small 32 (px 16, py 8, radius 6).
+   Sizes: Large 44 / Medium 36 / Small 32 (px 16, py 8/9, radius 6).
    Icon gap 6px (hardcoded in Figma, not a spacing token); loading gap 4px. */
 
 .button {
@@ -126,7 +126,7 @@
 }
 
 .subtle {
-  background: var(--surface-secondary);
+  background: var(--surface-primary);
   color: var(--content-primary);
 }
 .subtle:hover:not(:disabled),
