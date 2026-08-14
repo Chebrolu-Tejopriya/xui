@@ -27,7 +27,7 @@ type Filing = {
   id: string;
   client: string;
   plan: string;
-  status: 'Pending' | 'In Progress' | 'Done' | 'KoinX Report Issue';
+  status: 'Pending' | 'In Progress' | 'Done' | 'Report Issue';
   priority: PriorityLevel;
   filingType: 'Only Spot' | 'Derivatives';
   assignedTo: string;
@@ -41,7 +41,7 @@ const FILINGS: Filing[] = [
   { id: '4', client: 'James Chen', plan: 'Salary ITR Filing', status: 'Pending', priority: 4, filingType: 'Only Spot', assignedTo: 'Arjun Mehta', assignedOn: '22 Jul 2026' },
   { id: '5', client: 'Natalie Brooks', plan: 'Crypto ITR Filing', status: 'Done', priority: 1, filingType: 'Derivatives', assignedTo: 'Vikram Patel', assignedOn: '05 Sep 2026' },
   { id: '6', client: 'Olivia Patel', plan: 'Comprehensive ITR Filing', status: 'Pending', priority: 3, filingType: 'Only Spot', assignedTo: 'James Smith', assignedOn: '30 Jul 2026' },
-  { id: '7', client: 'Elena Rodriguez', plan: 'Comprehensive ITR Filing', status: 'KoinX Report Issue', priority: 4, filingType: 'Only Spot', assignedTo: 'Rahul Verma', assignedOn: '11 Aug 2026' },
+  { id: '7', client: 'Elena Rodriguez', plan: 'Comprehensive ITR Filing', status: 'Report Issue', priority: 4, filingType: 'Only Spot', assignedTo: 'Rahul Verma', assignedOn: '11 Aug 2026' },
   { id: '8', client: 'David Kim', plan: 'Crypto ITR Filing', status: 'Pending', priority: 2, filingType: 'Only Spot', assignedTo: 'Anita Desai', assignedOn: '27 Aug 2026' },
   { id: '9', client: 'Sarah Mitchell', plan: 'Salary ITR Filing', status: 'Pending', priority: 1, filingType: 'Only Spot', assignedTo: 'Priya Sharma', assignedOn: '15 Aug 2026' },
 ];
@@ -50,7 +50,7 @@ const STATUS_VARIANT: Record<Filing['status'], BadgeVariant> = {
   Pending: 'label-neutral',
   'In Progress': 'label-info',
   Done: 'label-positive',
-  'KoinX Report Issue': 'label-negative',
+  'Report Issue': 'label-negative',
 };
 
 const FILING_VARIANT: Record<Filing['filingType'], BadgeVariant> = {
@@ -149,7 +149,7 @@ function FilingRow({
 
 // —— Stories ————————————————————————————————————————————————————————————
 
-function KoinXFilingsDemo() {
+function FilingsDemo() {
   const [sel, setSel] = useState<Set<string>>(() => new Set(['2', '8']));
   const allChecked = sel.size === FILINGS.length;
   const someChecked = sel.size > 0;
@@ -174,10 +174,10 @@ function KoinXFilingsDemo() {
   );
 }
 
-/** The KoinX filings table — header, selectable rows, status & filing-type
- *  label pills, escalating priority meters, row actions. */
-export const KoinXFilings: StoryObj = {
-  render: () => <KoinXFilingsDemo />,
+/** A data table — header, selectable rows, status & type label pills,
+ *  escalating priority meters, and row actions. */
+export const Default: StoryObj = {
+  render: () => <FilingsDemo />,
   parameters: { docs: { source: { type: 'code' } } },
 };
 
@@ -195,7 +195,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
     priority: { control: { type: 'inline-radio' }, options: [1, 2, 3, 4] },
     status: {
       control: { type: 'select' },
-      options: ['Pending', 'In Progress', 'Done', 'KoinX Report Issue'],
+      options: ['Pending', 'In Progress', 'Done', 'Report Issue'],
     },
     filingType: { control: { type: 'inline-radio' }, options: ['Only Spot', 'Derivatives'] },
   },

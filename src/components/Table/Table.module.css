@@ -8,7 +8,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-x: auto;
+  background: var(--surface-primary);
+  border: var(--border-width-regular) solid var(--border-tertiary);
+  border-radius: var(--radius-mid);
+  /* Clip rows/header to the rounded corners (Figma clipsContent). */
+  overflow: hidden;
 }
 
 .head {
@@ -30,6 +34,11 @@
 .body .row:hover,
 .body .row[data-selected] {
   background: var(--surface-secondary);
+}
+
+/* The container's own bottom border replaces the last row's divider. */
+.body .row:last-child .cell {
+  box-shadow: none;
 }
 
 .row {
