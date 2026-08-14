@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   Table,
@@ -22,7 +21,6 @@ const meta: Meta<typeof Table> = {
 };
 export default meta;
 
-// —— sample data (KoinX filings) ————————————————————————————————————————
 type Filing = {
   id: string;
   client: string;
@@ -33,18 +31,6 @@ type Filing = {
   assignedTo: string;
   assignedOn: string;
 };
-
-const FILINGS: Filing[] = [
-  { id: '1', client: 'Amir Hassan', plan: 'Comprehensive ITR Filing', status: 'Pending', priority: 3, filingType: 'Derivatives', assignedTo: 'Meera Iyer', assignedOn: '18 Aug 2026' },
-  { id: '2', client: 'Laura Fitzgerald', plan: 'Crypto ITR Filing', status: 'In Progress', priority: 1, filingType: 'Only Spot', assignedTo: 'Karan Nair', assignedOn: '12 Jul 2026' },
-  { id: '3', client: 'Marcus Johnson', plan: 'Salary ITR Filing', status: 'Done', priority: 2, filingType: 'Only Spot', assignedTo: 'Sneha Kapoor', assignedOn: '03 Sep 2026' },
-  { id: '4', client: 'James Chen', plan: 'Salary ITR Filing', status: 'Pending', priority: 4, filingType: 'Only Spot', assignedTo: 'Arjun Mehta', assignedOn: '22 Jul 2026' },
-  { id: '5', client: 'Natalie Brooks', plan: 'Crypto ITR Filing', status: 'Done', priority: 1, filingType: 'Derivatives', assignedTo: 'Vikram Patel', assignedOn: '05 Sep 2026' },
-  { id: '6', client: 'Olivia Patel', plan: 'Comprehensive ITR Filing', status: 'Pending', priority: 3, filingType: 'Only Spot', assignedTo: 'James Smith', assignedOn: '30 Jul 2026' },
-  { id: '7', client: 'Elena Rodriguez', plan: 'Comprehensive ITR Filing', status: 'Report Issue', priority: 4, filingType: 'Only Spot', assignedTo: 'Rahul Verma', assignedOn: '11 Aug 2026' },
-  { id: '8', client: 'David Kim', plan: 'Crypto ITR Filing', status: 'Pending', priority: 2, filingType: 'Only Spot', assignedTo: 'Anita Desai', assignedOn: '27 Aug 2026' },
-  { id: '9', client: 'Sarah Mitchell', plan: 'Salary ITR Filing', status: 'Pending', priority: 1, filingType: 'Only Spot', assignedTo: 'Priya Sharma', assignedOn: '15 Aug 2026' },
-];
 
 const STATUS_VARIANT: Record<Filing['status'], BadgeVariant> = {
   Pending: 'label-neutral',
@@ -58,12 +44,13 @@ const FILING_VARIANT: Record<Filing['filingType'], BadgeVariant> = {
   Derivatives: 'label-accent',
 };
 
-const COLS = {
-  select: 40,
-  client: 174,
-  plan: 238,
-  actions: 100,
-} as const;
+const COLS = { select: 40, client: 174, plan: 238, actions: 100 } as const;
+
+/** Two context rows so the playground reads as a real table. */
+const SAMPLE: Filing[] = [
+  { id: 'a', client: 'Amir Hassan', plan: 'Comprehensive ITR Filing', status: 'Pending', priority: 3, filingType: 'Derivatives', assignedTo: 'Meera Iyer', assignedOn: '18 Aug 2026' },
+  { id: 'b', client: 'Marcus Johnson', plan: 'Salary ITR Filing', status: 'Done', priority: 2, filingType: 'Only Spot', assignedTo: 'Sneha Kapoor', assignedOn: '03 Sep 2026' },
+];
 
 /** Vertical 3-dot "more" affordance (no exact match in the icon set yet). */
 function MoreVert() {
@@ -85,20 +72,12 @@ function RowActions() {
   );
 }
 
-function FilingHeader({
-  allChecked,
-  someChecked,
-  onToggleAll,
-}: {
-  allChecked: boolean;
-  someChecked: boolean;
-  onToggleAll: () => void;
-}) {
+function FilingHeader({ someChecked }: { someChecked: boolean }) {
   return (
     <TableHead>
       <TableRow>
         <TableHeaderCell width={COLS.select} align="center">
-          <Checkbox checked={allChecked} indeterminate={someChecked && !allChecked} onChange={onToggleAll} aria-label="Select all" />
+          <Checkbox indeterminate={someChecked} aria-label="Select all" readOnly />
         </TableHeaderCell>
         <TableHeaderCell width={COLS.client}>Client Name</TableHeaderCell>
         <TableHeaderCell width={COLS.plan}>Plan</TableHeaderCell>
@@ -113,19 +92,11 @@ function FilingHeader({
   );
 }
 
-function FilingRow({
-  row,
-  checked,
-  onToggle,
-}: {
-  row: Filing;
-  checked: boolean;
-  onToggle: () => void;
-}) {
+function FilingRow({ row, checked }: { row: Filing; checked: boolean }) {
   return (
     <TableRow selected={checked}>
       <TableCell width={COLS.select} align="center">
-        <Checkbox checked={checked} onChange={onToggle} aria-label={`Select ${row.client}`} />
+        <Checkbox checked={checked} readOnly aria-label={`Select ${row.client}`} />
       </TableCell>
       <TableCell width={COLS.client}>{row.client}</TableCell>
       <TableCell width={COLS.plan}>{row.plan}</TableCell>
@@ -147,40 +118,6 @@ function FilingRow({
   );
 }
 
-// —— Stories ————————————————————————————————————————————————————————————
-
-function FilingsDemo() {
-  const [sel, setSel] = useState<Set<string>>(() => new Set(['2', '8']));
-  const allChecked = sel.size === FILINGS.length;
-  const someChecked = sel.size > 0;
-  const toggleAll = () =>
-    setSel((s) => (s.size === FILINGS.length ? new Set() : new Set(FILINGS.map((f) => f.id))));
-  const toggle = (id: string) =>
-    setSel((s) => {
-      const n = new Set(s);
-      if (n.has(id)) n.delete(id);
-      else n.add(id);
-      return n;
-    });
-  return (
-    <Table>
-      <FilingHeader allChecked={allChecked} someChecked={someChecked} onToggleAll={toggleAll} />
-      <TableBody>
-        {FILINGS.map((row) => (
-          <FilingRow key={row.id} row={row} checked={sel.has(row.id)} onToggle={() => toggle(row.id)} />
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
-
-/** A data table — header, selectable rows, status & type label pills,
- *  escalating priority meters, and row actions. */
-export const Default: StoryObj = {
-  render: () => <FilingsDemo />,
-  parameters: { docs: { source: { type: 'code' } } },
-};
-
 type PlaygroundArgs = {
   selected: boolean;
   priority: PriorityLevel;
@@ -188,21 +125,19 @@ type PlaygroundArgs = {
   filingType: Filing['filingType'];
 };
 
-/** Configure a single row live — selection, priority level, status pill. */
+/** Configure the first row live — selection (blue), priority level, status &
+ *  filing pills — with two context rows below it. */
 export const Playground: StoryObj<PlaygroundArgs> = {
   argTypes: {
     selected: { control: 'boolean' },
     priority: { control: { type: 'inline-radio' }, options: [1, 2, 3, 4] },
-    status: {
-      control: { type: 'select' },
-      options: ['Pending', 'In Progress', 'Done', 'Report Issue'],
-    },
+    status: { control: { type: 'select' }, options: ['Pending', 'In Progress', 'Done', 'Report Issue'] },
     filingType: { control: { type: 'inline-radio' }, options: ['Only Spot', 'Derivatives'] },
   },
-  args: { selected: true, priority: 3, status: 'In Progress', filingType: 'Derivatives' },
+  args: { selected: true, priority: 1, status: 'In Progress', filingType: 'Derivatives' },
   render: (args) => (
     <Table>
-      <FilingHeader allChecked={false} someChecked={args.selected} onToggleAll={() => {}} />
+      <FilingHeader someChecked={args.selected} />
       <TableBody>
         <FilingRow
           row={{
@@ -216,15 +151,17 @@ export const Playground: StoryObj<PlaygroundArgs> = {
             assignedOn: '30 Jul 2026',
           }}
           checked={args.selected}
-          onToggle={() => {}}
         />
+        {SAMPLE.map((row) => (
+          <FilingRow key={row.id} row={row} checked={false} />
+        ))}
       </TableBody>
     </Table>
   ),
   parameters: { docs: { source: { type: 'code' } } },
 };
 
-/** Every row state + the four priority levels + empty & loading, stacked. */
+/** Row states + the four priority levels + empty & loading, stacked. */
 export const States: StoryObj = {
   render: () => {
     const label = (t: string) => (
@@ -234,7 +171,7 @@ export const States: StoryObj = {
       <TableHead>
         <TableRow>
           <TableHeaderCell width={COLS.select} align="center">
-            <Checkbox aria-label="Select all" />
+            <Checkbox aria-label="Select all" readOnly />
           </TableHeaderCell>
           <TableHeaderCell width={COLS.client}>Client Name</TableHeaderCell>
           <TableHeaderCell>Status</TableHeaderCell>
@@ -258,12 +195,13 @@ export const States: StoryObj = {
     );
     return (
       <div style={{ maxWidth: 560 }}>
-        {label('Default · Selected · (hover the first row)')}
+        {label('Default · Selected (blue) · hover a row for the grey state')}
         <Table>
           {miniHeader}
           <TableBody>
             {miniRow({})}
             {miniRow({ selected: true })}
+            {miniRow({})}
           </TableBody>
         </Table>
 
