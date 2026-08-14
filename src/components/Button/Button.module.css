@@ -215,6 +215,8 @@
   background: var(--surface-raised);
   border: var(--border-width-regular) solid var(--border-primary);
   color: var(--content-primary);
+  /* Icon-only holds a single icon; clip so a stray text label can't spill. */
+  overflow: hidden;
 }
 .iconOnly.large {
   width: 36px;

@@ -100,17 +100,18 @@ export const Playground: Story = {
     circle: { control: 'boolean', description: 'Figma "just icon circle" (with `iconOnly`).' },
     fullWidth: { control: 'boolean' },
   },
-  render: (args) => {
-    // In icon-only mode the icon goes in children; otherwise use the label + icon slots.
-    const { iconOnly, iconLeft, children, ...rest } = args;
-    return iconOnly ? (
+  render: ({ iconOnly, iconLeft, children, ...rest }) =>
+    // Icon-only expects an icon, not the text label — default to a plus if the
+    // icon control is left on "None", else the label spills out of the square.
+    iconOnly ? (
       <Button {...rest} iconOnly aria-label="Action">
-        {iconLeft ?? children}
+        {iconLeft ?? PlusIcon}
       </Button>
     ) : (
-      <Button {...args} />
-    );
-  },
+      <Button {...rest} iconLeft={iconLeft}>
+        {children}
+      </Button>
+    ),
 };
 
 const sizes = ['large', 'medium', 'small'] as const;
