@@ -9,7 +9,17 @@ export type BadgeVariant =
   | 'accent-primary'
   | 'accent-secondary'
   | 'accent-positive'
-  | 'accent-negative';
+  | 'accent-negative'
+  // Label/tag pills — bordered tinted pills in the 8 named label colors
+  // (Label foreground/background token pairs). Used for status & category tags.
+  | 'label-positive'
+  | 'label-negative'
+  | 'label-warning'
+  | 'label-info'
+  | 'label-accent'
+  | 'label-accent-2'
+  | 'label-accent-3'
+  | 'label-neutral';
 
 export type BadgeSize = 'default' | 'large';
 
@@ -32,6 +42,14 @@ const variantClass: Record<BadgeVariant, string> = {
   'accent-secondary': styles.accentSecondary,
   'accent-positive': styles.accentPositive,
   'accent-negative': styles.accentNegative,
+  'label-positive': styles.labelPositive,
+  'label-negative': styles.labelNegative,
+  'label-warning': styles.labelWarning,
+  'label-info': styles.labelInfo,
+  'label-accent': styles.labelAccent,
+  'label-accent-2': styles.labelAccent2,
+  'label-accent-3': styles.labelAccent3,
+  'label-neutral': styles.labelNeutral,
 };
 
 export function Badge({

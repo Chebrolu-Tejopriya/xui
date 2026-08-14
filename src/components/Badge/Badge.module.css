@@ -4,7 +4,9 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xxs);
-  padding: 2px 8px;
+  /* Figma is px 8 / py 2 with a stroke that takes no layout space; the CSS
+     border does, so py is 1 (not 2) to keep the pill at its 20px Figma height. */
+  padding: 1px 8px;
   border-radius: var(--radius-max);
   border: var(--border-width-regular) solid transparent;
   font: var(--type-subtitle-3);
@@ -83,4 +85,48 @@
 }
 .accentNegative.bordered {
   border-color: var(--surface-error-primary);
+}
+
+/* Label/tag variants — tinted pill + border & text in the label's foreground.
+   Border is intrinsic (no `bordered` needed); these map to the 8 Label token
+   pairs used for status/category tags. */
+.labelPositive {
+  background: var(--label-positive-bg);
+  border-color: var(--label-positive-content);
+  color: var(--label-positive-content);
+}
+.labelNegative {
+  background: var(--label-negative-bg);
+  border-color: var(--label-negative-content);
+  color: var(--label-negative-content);
+}
+.labelWarning {
+  background: var(--label-warning-bg);
+  border-color: var(--label-warning-content);
+  color: var(--label-warning-content);
+}
+.labelInfo {
+  background: var(--label-info-bg);
+  border-color: var(--label-info-content);
+  color: var(--label-info-content);
+}
+.labelAccent {
+  background: var(--label-accent-bg);
+  border-color: var(--label-accent-content);
+  color: var(--label-accent-content);
+}
+.labelAccent2 {
+  background: var(--label-accent-2-bg);
+  border-color: var(--label-accent-2-content);
+  color: var(--label-accent-2-content);
+}
+.labelAccent3 {
+  background: var(--label-accent-3-bg);
+  border-color: var(--label-accent-3-content);
+  color: var(--label-accent-3-content);
+}
+.labelNeutral {
+  background: var(--label-neutral-bg);
+  border-color: var(--label-neutral-content);
+  color: var(--label-neutral-content);
 }
