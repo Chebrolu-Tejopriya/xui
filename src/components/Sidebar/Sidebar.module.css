@@ -1,0 +1,178 @@
+/* XUI Sidebar — app navigation rail.
+   224px expanded / 61px collapsed, surface-raised with a 1px border-tertiary
+   right edge. Items 36px tall, radius-xs; selected paints
+   surface-brand-secondary + a 3x22.5px content-brand-primary rail at the left
+   edge, with the label and icon in brand. */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 224px;
+  height: 100%;
+  flex: none;
+  background: var(--surface-raised);
+  border-right: var(--border-width-regular) solid var(--border-tertiary);
+  box-sizing: border-box;
+  transition: width 160ms ease;
+}
+
+.collapsed {
+  width: 61px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 16px 12px;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+  padding: var(--spacing-sm);
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-top: var(--border-width-regular) solid var(--border-tertiary);
+}
+
+/* ---- Item ---- */
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  flex: none;
+  padding: 0 4px 0 0;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: var(--surface-raised);
+  color: var(--content-primary);
+  font: var(--type-subtitle-2);
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.item:hover:not([data-selected]) {
+  background: var(--surface-secondary);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: -2px;
+}
+
+.itemSelected {
+  background: var(--surface-brand-secondary);
+  color: var(--content-brand-primary);
+}
+
+/* The active rail — 3 x 22.5px at the left edge, brand. Figma draws it as a
+   vector; an absolutely-positioned pseudo-element keeps it out of layout. */
+.itemSelected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 22.5px;
+  background: var(--content-brand-primary);
+}
+
+/* Icon sits in a 40px slot in the expanded rail; centred when collapsed. */
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 36px;
+  flex: none;
+}
+
+.collapsed .iconSlot {
+  width: 100%;
+}
+
+.collapsed .item {
+  width: 36px;
+  padding: 0;
+  justify-content: center;
+}
+
+/* The rail stays at the item's left edge when collapsed too — Figma positions
+   it at calc(50% - 16.5px) on a 36px item, which resolves to 0. */
+
+.label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: var(--content-tertiary);
+  transition: transform 140ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* ---- Sub-items ---- */
+
+.subList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0 8px 24px;
+}
+
+.subItem {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--content-secondary);
+  font: var(--type-body-2);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.subItem:hover:not([data-selected]) {
+  background: var(--surface-secondary);
+}
+
+.subItem:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: -2px;
+}
+
+.subItemSelected {
+  color: var(--content-brand-primary);
+  background: var(--surface-brand-secondary);
+}

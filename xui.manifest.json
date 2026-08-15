@@ -1210,6 +1210,100 @@
       ],
       "variants": {}
     },
+    "Sidebar": {
+      "group": "Sidebar",
+      "import": "import { Sidebar } from 'xui';",
+      "props": [
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "required": false,
+          "description": "Rail mode — 61px, icons only. Expanded is 224px."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLElement>",
+      "variants": {}
+    },
+    "SidebarHeader": {
+      "group": "Sidebar",
+      "import": "import { SidebarHeader } from 'xui';",
+      "props": [],
+      "variants": {}
+    },
+    "SidebarNav": {
+      "group": "Sidebar",
+      "import": "import { SidebarNav } from 'xui';",
+      "props": [],
+      "variants": {}
+    },
+    "SidebarFooter": {
+      "group": "Sidebar",
+      "import": "import { SidebarFooter } from 'xui';",
+      "props": [],
+      "variants": {}
+    },
+    "SidebarItem": {
+      "group": "Sidebar",
+      "import": "import { SidebarItem } from 'xui';",
+      "props": [
+        {
+          "name": "icon",
+          "type": "ComponentType<IconProps>",
+          "required": false,
+          "description": "The icon component itself (not an element) — the item picks the tone: `dualtone` normally, `dualtone-selected` when selected."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Sub-items. Renders a chevron and an indented list when expanded."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Start with the sub-list open."
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLButtonElement>, 'children'>",
+      "variants": {}
+    },
+    "SidebarSubItem": {
+      "group": "Sidebar",
+      "import": "import { SidebarSubItem } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLButtonElement>, 'children'>",
+      "variants": {}
+    },
     "Switch": {
       "group": "Switch",
       "import": "import { Switch } from 'xui';",

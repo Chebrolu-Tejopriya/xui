@@ -41,3 +41,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0007](0007-composable-primitives-over-configured-components.md) | Composable primitives over configured components | accepted |
 | [0008](0008-theming-lives-in-the-generator.md) | Theming lives in the generator, extracted data stays faithful | accepted |
 | [0009](0009-repo-owns-reference-notion-owns-narrative.md) | Repo owns reference, Notion owns narrative | accepted |
+| [0010](0010-one-icon-set-for-navigation.md) | One icon set for navigation, tone carries selection | accepted |

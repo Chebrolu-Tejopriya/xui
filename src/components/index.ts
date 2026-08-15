@@ -10,6 +10,7 @@ export * from './Input';
 export * from './Pagination';
 export * from './Radio';
 export * from './Select';
+export * from './Sidebar';
 export * from './Switch';
 export * from './Table';
 export * from './Tabs';
