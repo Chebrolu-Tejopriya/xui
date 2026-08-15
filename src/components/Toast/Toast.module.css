@@ -24,17 +24,17 @@
 }
 
 .success {
-  background: var(--green-02);
+  background: var(--surface-success-tertiary);
   border-color: var(--surface-success-primary);
 }
 
 .warning {
-  background: var(--orange-02);
+  background: var(--surface-warning-tertiary);
   border-color: var(--surface-warning-primary);
 }
 
 .error {
-  background: var(--red-02);
+  background: var(--surface-error-tertiary);
   border-color: var(--surface-error-primary);
 }
 

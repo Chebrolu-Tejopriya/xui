@@ -1,0 +1,1678 @@
+{
+  "$schema": "https://xui.dev/manifest.schema.json",
+  "generated": "scripts/gen-manifest.mjs — derived from source, do not edit by hand",
+  "name": "xui",
+  "version": "0.0.0",
+  "description": "XUI design system. Import components from \"xui\"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.",
+  "usage": {
+    "install": "import { Button, Table, Badge } from 'xui';",
+    "tokens": "Reference tokens in CSS as var(--surface-primary); never a raw hex or a --gray-* primitive.",
+    "theming": "Set data-theme=\"dark\" on the root element; every semantic token re-resolves automatically."
+  },
+  "tokens": {
+    "surface": [
+      "surface-absolute",
+      "surface-brand-primary",
+      "surface-brand-secondary",
+      "surface-brand-solid",
+      "surface-brand-subtle",
+      "surface-error-primary",
+      "surface-error-secondary",
+      "surface-error-solid",
+      "surface-error-subtle",
+      "surface-error-tertiary",
+      "surface-primary",
+      "surface-raised",
+      "surface-secondary",
+      "surface-success-primary",
+      "surface-success-secondary",
+      "surface-success-solid",
+      "surface-success-subtle",
+      "surface-success-tertiary",
+      "surface-tertiary",
+      "surface-warning-primary",
+      "surface-warning-secondary",
+      "surface-warning-solid",
+      "surface-warning-subtle",
+      "surface-warning-tertiary"
+    ],
+    "content": [
+      "content-absolute-black",
+      "content-absolute-white",
+      "content-brand-primary",
+      "content-brand-secondary",
+      "content-error-primary",
+      "content-on-solid",
+      "content-primary",
+      "content-quaternary",
+      "content-secondary",
+      "content-success-primary",
+      "content-success-primary-solid",
+      "content-tertiary",
+      "content-warning-primary"
+    ],
+    "border": [
+      "border-brand",
+      "border-error",
+      "border-primary",
+      "border-pure",
+      "border-secondary",
+      "border-success",
+      "border-tertiary",
+      "border-warning"
+    ],
+    "label": [
+      "label-accent-2-bg",
+      "label-accent-2-content",
+      "label-accent-3-bg",
+      "label-accent-3-content",
+      "label-accent-bg",
+      "label-accent-content",
+      "label-info-bg",
+      "label-info-content",
+      "label-negative-bg",
+      "label-negative-content",
+      "label-neutral-bg",
+      "label-neutral-content",
+      "label-positive-bg",
+      "label-positive-content",
+      "label-warning-bg",
+      "label-warning-content"
+    ],
+    "radius": [
+      "radius-lg",
+      "radius-max",
+      "radius-mid",
+      "radius-none",
+      "radius-sm",
+      "radius-xl",
+      "radius-xs",
+      "radius-xxl",
+      "radius-xxs"
+    ],
+    "spacing": [
+      "spacing-lg",
+      "spacing-mid",
+      "spacing-sm",
+      "spacing-xl",
+      "spacing-xs",
+      "spacing-xxl",
+      "spacing-xxs",
+      "spacing-xxxs"
+    ],
+    "borderWidth": [
+      "border-width-none",
+      "border-width-regular",
+      "border-width-thick",
+      "border-width-thicker",
+      "border-width-thin"
+    ],
+    "typography": [
+      "type-body-0",
+      "type-body-1",
+      "type-body-2",
+      "type-body-3",
+      "type-button-1",
+      "type-button-2",
+      "type-button-3",
+      "type-heading-0",
+      "type-heading-1",
+      "type-heading-2",
+      "type-heading-3",
+      "type-heading-4",
+      "type-heading-5",
+      "type-heading-6",
+      "type-label-1",
+      "type-label-2",
+      "type-label-3",
+      "type-label-4",
+      "type-subtitle-1",
+      "type-subtitle-2",
+      "type-subtitle-3",
+      "type-subtitle-4"
+    ]
+  },
+  "components": {
+    "Accordion": {
+      "group": "Accordion",
+      "import": "import { Accordion } from 'xui';",
+      "props": [
+        {
+          "name": "items",
+          "type": "AccordionItemData[]",
+          "required": true
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow multiple panels open at once."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "description": "Values expanded by default."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Avatar": {
+      "group": "Avatar",
+      "import": "import { Avatar } from 'xui';",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "description": "Image source; falls back to initials when missing or broken."
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Initials (or name — first letters of the first two words are used)."
+        },
+        {
+          "name": "size",
+          "type": "AvatarSize",
+          "required": false,
+          "options": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ]
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLSpanElement>",
+      "variants": {
+        "AvatarSize": [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl"
+        ]
+      }
+    },
+    "Badge": {
+      "group": "Badge",
+      "import": "import { Badge } from 'xui';",
+      "props": [
+        {
+          "name": "variant",
+          "type": "BadgeVariant",
+          "required": false,
+          "options": [
+            "primary",
+            "secondary",
+            "outline",
+            "destructive",
+            "accent-primary",
+            "accent-secondary",
+            "accent-positive",
+            "accent-negative",
+            "label-positive",
+            "label-negative",
+            "label-warning",
+            "label-info",
+            "label-accent",
+            "label-accent-2",
+            "label-accent-3",
+            "label-neutral"
+          ],
+          "default": "primary"
+        },
+        {
+          "name": "size",
+          "type": "BadgeSize",
+          "required": false,
+          "options": [
+            "default",
+            "large"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Adds a border in the accent's primary color (accent variants only)."
+        },
+        {
+          "name": "iconLeft",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "iconRight",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLSpanElement>",
+      "variants": {
+        "BadgeVariant": [
+          "primary",
+          "secondary",
+          "outline",
+          "destructive",
+          "accent-primary",
+          "accent-secondary",
+          "accent-positive",
+          "accent-negative",
+          "label-positive",
+          "label-negative",
+          "label-warning",
+          "label-info",
+          "label-accent",
+          "label-accent-2",
+          "label-accent-3",
+          "label-neutral"
+        ],
+        "BadgeSize": [
+          "default",
+          "large"
+        ]
+      }
+    },
+    "Breadcrumbs": {
+      "group": "Breadcrumbs",
+      "import": "import { Breadcrumbs } from 'xui';",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Button": {
+      "group": "Button",
+      "import": "import { Button } from 'xui';",
+      "props": [
+        {
+          "name": "variant",
+          "type": "ButtonVariant",
+          "required": false,
+          "options": [
+            "primary",
+            "secondary",
+            "destructive",
+            "outline",
+            "subtle",
+            "ghost",
+            "link"
+          ],
+          "default": "primary",
+          "description": "Visual style. Maps to XUI Button `type` variants."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "options": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium",
+          "description": "Control height: large 44px, medium 36px, small 32px (icon-only squares: 36/32/30)."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows a spinner (replacing any icons) and disables interaction."
+        },
+        {
+          "name": "iconLeft",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon rendered before the label (18/16/14px per size, 6px gap)."
+        },
+        {
+          "name": "iconRight",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon rendered after the label."
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Figma \"just icon\" type: a fixed outline-styled square (white surface, border, 36/32/30px per size) regardless of `variant`. Pass the icon as `children`."
+        },
+        {
+          "name": "circle",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Figma \"just icon circle\": fully-rounded, 44/40/38px per size."
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Stretch to fill the container width."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false
+        }
+      ],
+      "extends": "ButtonHTMLAttributes<HTMLButtonElement>",
+      "variants": {
+        "ButtonVariant": [
+          "primary",
+          "secondary",
+          "destructive",
+          "outline",
+          "subtle",
+          "ghost",
+          "link"
+        ],
+        "ButtonSize": [
+          "small",
+          "medium",
+          "large"
+        ]
+      }
+    },
+    "Checkbox": {
+      "group": "Checkbox",
+      "import": "import { Checkbox } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label rendered beside the box."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "description": "Renders the partially-selected (indeterminate) state."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>",
+      "variants": {}
+    },
+    "Dialog": {
+      "group": "Dialog",
+      "import": "import { Dialog } from 'xui';",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Body copy."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Extra content below the description."
+        },
+        {
+          "name": "variant",
+          "type": "DialogVariant",
+          "required": false,
+          "options": [
+            "default",
+            "destructive",
+            "alert"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "confirmLabel",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Continue"
+        },
+        {
+          "name": "cancelLabel",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Cancel"
+        },
+        {
+          "name": "onConfirm",
+          "type": "() => void",
+          "required": false
+        },
+        {
+          "name": "hideClose",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Hide the top-right close icon."
+        }
+      ],
+      "variants": {
+        "DialogVariant": [
+          "default",
+          "destructive",
+          "alert"
+        ]
+      }
+    },
+    "FileUpload": {
+      "group": "FileUpload",
+      "import": "import { FileUpload } from 'xui';",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'compact'",
+          "required": false,
+          "default": "default",
+          "description": "Figma variants: `default` — large dropzone card (947:5469-5471); `compact` — labelled 48px row (948:5359-5413)."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label above the compact box."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Click or drag file to this area to upload",
+          "description": "Dropzone heading (default variant)."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supported-files line under the heading (default variant)."
+        },
+        {
+          "name": "compactText",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Click to upload",
+          "description": "Compact dropzone text."
+        },
+        {
+          "name": "files",
+          "type": "UploadedFile[]",
+          "required": false,
+          "description": "Uploaded files to display."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow selecting multiple files; also switches the Figma layouts."
+        },
+        {
+          "name": "accept",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "onFilesSelected",
+          "type": "(files: File[]) => void",
+          "required": false
+        },
+        {
+          "name": "onRemove",
+          "type": "(index: number) => void",
+          "required": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "AmountInput": {
+      "group": "Input",
+      "import": "import { AmountInput } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        },
+        {
+          "name": "currencyIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Currency/crypto logo shown in the leading badge."
+        },
+        {
+          "name": "currencyCode",
+          "type": "string",
+          "required": true,
+          "description": "Currency code text, e.g. \"USD\" or \"ETH\"."
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "`false` renders the Figma \"Amount-Static\" variant: no chevron, muted badge text, lighter field border, and the field is forced read-only — for displaying a computed/converted amount rather than collecting input."
+        },
+        {
+          "name": "onCurrencyClick",
+          "type": "() => void",
+          "required": false
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>",
+      "variants": {}
+    },
+    "DateInput": {
+      "group": "Input",
+      "import": "import { DateInput } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        },
+        {
+          "name": "onCalendarClick",
+          "type": "() => void",
+          "required": false,
+          "description": "Called when the calendar icon is clicked — wire this to your own date-picker overlay."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>",
+      "variants": {}
+    },
+    "Dropdown": {
+      "group": "Input",
+      "import": "import { Dropdown } from 'xui';",
+      "props": [
+        {
+          "name": "options",
+          "type": "DropdownOption[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "Select an option"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Input": {
+      "group": "Input",
+      "import": "import { Input } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red border + red helper text."
+        },
+        {
+          "name": "trailing",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Element rendered at the end of the field (icon, button…)."
+        },
+        {
+          "name": "leading",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Element rendered at the start of the field."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>",
+      "variants": {}
+    },
+    "Otp": {
+      "group": "Input",
+      "import": "import { Otp } from 'xui';",
+      "props": [
+        {
+          "name": "length",
+          "type": "number",
+          "required": false,
+          "default": "6",
+          "description": "Number of digit boxes."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false
+        },
+        {
+          "name": "onComplete",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Called when all boxes are filled."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Draws the shared error ring around the box row (Figma 2717:13359)."
+        },
+        {
+          "name": "errorText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Error message shown above the resend/expiry row when `error` is set (Figma: \"OTP Doesn't match\"). Figma keeps the resend link visible alongside this — it doesn't replace it."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "expiresInLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "When set, replaces the \"Didn't Receive? Resend OTP\" row with this countdown text — matches Figma's \"Expiry OTP\" state."
+        },
+        {
+          "name": "onResend",
+          "type": "() => void",
+          "required": false
+        },
+        {
+          "name": "resendLabel",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Resend OTP"
+        },
+        {
+          "name": "resendPrefixLabel",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "PasswordInput": {
+      "group": "Input",
+      "import": "import { PasswordInput } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "forgotPasswordLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "\"Forgot password?\" link rendered opposite the label. Omit to hide it."
+        },
+        {
+          "name": "onForgotPassword",
+          "type": "() => void",
+          "required": false
+        },
+        {
+          "name": "forgotPasswordHref",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>",
+      "variants": {}
+    },
+    "PhoneInput": {
+      "group": "Input",
+      "import": "import { PhoneInput } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        },
+        {
+          "name": "countryFlag",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Country flag/icon shown in the leading badge."
+        },
+        {
+          "name": "countryCode",
+          "type": "string",
+          "required": true,
+          "description": "Dialing code text, e.g. \"+91\"."
+        },
+        {
+          "name": "onCountryClick",
+          "type": "() => void",
+          "required": false,
+          "description": "Called when the country badge is clicked. This renders the badge as a static display by default (matching Figma) — pass this to wire your own country picker; the chevron is purely a visual affordance either way."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>",
+      "variants": {}
+    },
+    "SecretInput": {
+      "group": "Input",
+      "import": "import { SecretInput } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Field label."
+        },
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Marks the field as mandatory (red asterisk next to the label)."
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field; rendered in error color when `error` is set."
+        },
+        {
+          "name": "helperIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon shown before the helper text."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state: red ring + red helper text."
+        },
+        {
+          "name": "revealed",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled reveal state. Omit to let the component manage it internally."
+        },
+        {
+          "name": "defaultRevealed",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "onRevealChange",
+          "type": "(revealed: boolean) => void",
+          "required": false
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>",
+      "variants": {}
+    },
+    "Pagination": {
+      "group": "Pagination",
+      "import": "import { Pagination } from 'xui';",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "description": "Current page (1-based)."
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": true
+        },
+        {
+          "name": "rowsPerPage",
+          "type": "number",
+          "required": false,
+          "description": "Optional rows-per-page control (Figma Desktop/v2, v2-small, Mobile/v2)."
+        },
+        {
+          "name": "rowsPerPageOptions",
+          "type": "number[]",
+          "required": false
+        },
+        {
+          "name": "onRowsPerPageChange",
+          "type": "(rows: number) => void",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'small'",
+          "required": false,
+          "default": "medium",
+          "description": "Cell height: medium 36px (Desktop v1/v2), small 32px (v2-small, Mobile)."
+        },
+        {
+          "name": "mobile",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Figma Mobile/v2 treatment: short \"of N\" label and borderless arrow cells. Implies nothing about width — pair with `size=\"small\"`."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Radio": {
+      "group": "Radio",
+      "import": "import { Radio } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label rendered beside the control."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>",
+      "variants": {}
+    },
+    "Select": {
+      "group": "Select",
+      "import": "import { Select } from 'xui';",
+      "props": [
+        {
+          "name": "options",
+          "type": "SelectOption[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string | null",
+          "required": false,
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | null",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "Select an option"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Switch": {
+      "group": "Switch",
+      "import": "import { Switch } from 'xui';",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label rendered beside the switch."
+        },
+        {
+          "name": "icon",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows check / close glyphs inside the handle (compact 48×28 variant)."
+        }
+      ],
+      "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>",
+      "variants": {}
+    },
+    "Table": {
+      "group": "Table",
+      "import": "import { Table } from 'xui';",
+      "props": [],
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "TableHead": {
+      "group": "Table",
+      "import": "import { TableHead } from 'xui';",
+      "props": [],
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "TableBody": {
+      "group": "Table",
+      "import": "import { TableBody } from 'xui';",
+      "props": [],
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "TableRow": {
+      "group": "Table",
+      "import": "import { TableRow } from 'xui';",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "description": "Selected row — paints `surface-brand-secondary` (blue tint), distinct from the grey hover state."
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLDivElement>",
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "TableCell": {
+      "group": "Table",
+      "import": "import { TableCell } from 'xui';",
+      "props": [
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "description": "Fixed column width in px. Omit for a flexible column (equal share)."
+        },
+        {
+          "name": "align",
+          "type": "TableAlign",
+          "required": false,
+          "options": [
+            "start",
+            "center",
+            "end"
+          ],
+          "description": "Horizontal alignment of the content. Defaults to `start`."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLDivElement>",
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "TableHeaderCell": {
+      "group": "Table",
+      "import": "import { TableHeaderCell } from 'xui';",
+      "props": [],
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "PriorityMeter": {
+      "group": "Table",
+      "import": "import { PriorityMeter } from 'xui';",
+      "props": [
+        {
+          "name": "level",
+          "type": "PriorityLevel",
+          "required": false
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'children'>",
+      "variants": {
+        "TableAlign": [
+          "start",
+          "center",
+          "end"
+        ]
+      }
+    },
+    "Tabs": {
+      "group": "Tabs",
+      "import": "import { Tabs } from 'xui';",
+      "props": [
+        {
+          "name": "items",
+          "type": "TabItem[]",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled selected value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'boxed' | 'underline'",
+          "required": false,
+          "default": "boxed",
+          "description": "Figma variants: `boxed` — white bordered container with brand-filled active item (Tabs/Default, Tabs/WithIcons); `underline` — bottom-border container, active item underlined in brand (Tabs 1128:16638)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the whole tablist (Figma Property 1=Disabled)."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {}
+    },
+    "Toast": {
+      "group": "Toast",
+      "import": "import { Toast } from 'xui';",
+      "props": [
+        {
+          "name": "variant",
+          "type": "ToastVariant",
+          "required": false,
+          "options": [
+            "default",
+            "success",
+            "warning",
+            "error"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "40px illustration/icon at the start."
+        },
+        {
+          "name": "actionLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Action button label; rendered as an outline button."
+        },
+        {
+          "name": "onAction",
+          "type": "() => void",
+          "required": false
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the close (×) control."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "required": false
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
+      "variants": {
+        "ToastVariant": [
+          "default",
+          "success",
+          "warning",
+          "error"
+        ]
+      }
+    },
+    "Tooltip": {
+      "group": "Tooltip",
+      "import": "import { Tooltip } from 'xui';",
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Tooltip text."
+        },
+        {
+          "name": "placement",
+          "type": "TooltipPlacement",
+          "required": false,
+          "options": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "default": "top",
+          "description": "Where the bubble appears relative to the trigger."
+        },
+        {
+          "name": "withArrow",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Hide the beak/arrow."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The trigger element."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "variants": {
+        "TooltipPlacement": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ]
+      }
+    }
+  },
+  "icons": {
+    "count": 69,
+    "categories": [
+      "Navigation & Sections",
+      "Finance & Money",
+      "Communication",
+      "System & Settings",
+      "Users & People",
+      "Actions & Editing",
+      "Security",
+      "Data & Charts",
+      "Arrows",
+      "Chevrons",
+      "Status & Feedback"
+    ],
+    "tones": [
+      "outlined",
+      "solid",
+      "dualtone",
+      "dualtone-selected"
+    ],
+    "usage": "import { WalletIcon } from 'xui'; <WalletIcon variant=\"dualtone\" size={24} />",
+    "names": [
+      "OverviewIcon",
+      "PortfolioIcon",
+      "ExploreIcon",
+      "ResourcesIcon",
+      "JournalIcon",
+      "ItemsIcon",
+      "GuideListIcon",
+      "RulesIcon",
+      "TransactionsIcon",
+      "WalletIcon",
+      "TaxesIcon",
+      "PercentageIcon",
+      "PurchasesIcon",
+      "CashIcon",
+      "MoneyBagIcon",
+      "CoinsIcon",
+      "AddWalletIcon",
+      "SwapIcon",
+      "ReferEarnIcon",
+      "HelpdeskIcon",
+      "NotificationIcon",
+      "NotificationDotIcon",
+      "CallIcon",
+      "EmailIcon",
+      "BubbleIcon",
+      "SettingsIcon",
+      "DayIcon",
+      "NightIcon",
+      "ComputerIcon",
+      "CalendarIcon",
+      "UserIcon",
+      "AddUserIcon",
+      "UserGroupIcon",
+      "SyncIcon",
+      "DeleteIcon",
+      "EditIcon",
+      "DownloadIcon",
+      "AddPlusIcon",
+      "RemoveMinusIcon",
+      "CloseIcon",
+      "CopyIcon",
+      "ToolsIcon",
+      "LabelIcon",
+      "MergeIcon",
+      "ActionsIcon",
+      "Actions1Icon",
+      "LockedIcon",
+      "UnlockedIcon",
+      "BarChartIcon",
+      "GenerateReportIcon",
+      "GraphIcon",
+      "InsightsIcon",
+      "ReportsIcon",
+      "CalculatorIcon",
+      "ArrowForwardIcon",
+      "ArrowBackwardIcon",
+      "ArrowUpIcon",
+      "ArrowDownIcon",
+      "ChevronRightIcon",
+      "ChevronLeftIcon",
+      "ChevronUpIcon",
+      "ChevronDownIcon",
+      "InfoIcon",
+      "WarningAlertIcon",
+      "CheckIcon",
+      "CloseCircleIcon",
+      "TickCircleIcon",
+      "SpamIcon",
+      "VerifiedIcon"
+    ]
+  },
+  "principles": [
+    "Never use a raw hex, rgb(), or a primitive token (--gray-04) in product code. Always use a semantic token (--surface-tertiary). Primitives exist only to define semantics.",
+    "Semantic tokens are theme-reactive: the same token resolves light and dark automatically. Hardcoding a color breaks dark mode.",
+    "Compose from existing components before writing new markup. If a pattern needs a component that does not exist, flag it rather than hand-rolling a one-off.",
+    "Figma strokes take no layout space; CSS borders do. When a spec gives an explicit height AND a border, compensate the padding or draw the divider with an inset box-shadow.",
+    "Text sitting on a solid brand/status surface must use content-absolute-white, never a theme-reactive content token (it inverts in dark and disappears)."
+  ],
+  "tokenUsage": {
+    "page background": "surface-primary",
+    "card / panel / table row background": "surface-raised",
+    "table header, hovered row, subtle button": "surface-secondary",
+    "inset wells, disabled fills, inactive meter bars": "surface-tertiary",
+    "selected row / selected nav item": "surface-brand-secondary",
+    "primary action fill": "surface-brand-primary (hover surface-brand-solid, loading/disabled surface-brand-subtle)",
+    "destructive action fill": "surface-error-primary (hover surface-error-solid)",
+    "body & heading text": "content-primary",
+    "secondary / supporting text": "content-secondary",
+    "placeholder, meta, icon-beside-text": "content-tertiary",
+    "faintest icons & helper glyphs": "content-quaternary",
+    "text on a solid brand/status fill": "content-absolute-white",
+    "default control border": "border-primary",
+    "table container border + row dividers, muted/loading borders": "border-secondary",
+    "faintest separators": "border-tertiary",
+    "focus ring / active control border": "border-brand",
+    "status & category pills": "the label-* pairs (label-<tone>-bg with label-<tone>-content)"
+  },
+  "componentRules": {
+    "Table": [
+      "Header row uses surface-secondary with a border-secondary underline; header cells are Subtitle/2 (500 weight), padding 16px 12px.",
+      "Body rows are surface-raised, 52px tall; cells are Body/2, padding 16px 8px.",
+      "Row hover is surface-secondary (grey); row selected is surface-brand-secondary (blue tint). They are DIFFERENT states — selected wins when both apply.",
+      "Container has a border-secondary 1px border, radius-mid (8px), and overflow:hidden to clip rows to the corners.",
+      "Dividers are inset box-shadows, not borders, so rows stay exactly 52px.",
+      "Give a cell an explicit `width` for fixed columns; omit it for equal-share flexible columns."
+    ],
+    "Button": [
+      "Heights are 44 / 36 / 32 for large / medium / small; radius-sm (6px).",
+      "Icon-only is its own treatment (surface-raised + border-primary square 36/32/30 or circle 44/40/38), NOT the active variant squared off — pass the icon as children and always set aria-label.",
+      "Loading lightens the fill to the family's `subtle` step and disables interaction.",
+      "Secondary is the warning/orange family, not a grey — this is intentional in XUI."
+    ],
+    "Badge": [
+      "Use the label-* variants for status and category pills; the accent-* variants are for softer inline tags.",
+      "Badges are 20px tall; the pill's border is included in that height."
+    ],
+    "Icons": [
+      "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
+      "Set --xui-icon-knockout to the surface an icon sits on if its cut-outs need to blend with something other than surface-raised."
+    ]
+  },
+  "layoutPatterns": {
+    "data table page": "PageHeader (title + primary action) → filter/search toolbar → Table → Pagination. Selection surfaces a floating action bar.",
+    "form": "Label above field, helper or error text below, 20px between fields; primary action bottom-right, secondary to its left.",
+    "empty state": "Center a short message in a single full-width table cell using content-tertiary."
+  },
+  "antiPatterns": [
+    "Hardcoding #ffffff for a card background instead of surface-raised — it stays white in dark mode.",
+    "Using content-primary for a label on a brand-filled button — invisible in one of the two themes.",
+    "Adding a CSS border to a fixed-height element without shaving the padding — renders 2px taller than the spec.",
+    "Building a bespoke table with divs when Table/TableRow/TableCell already encode the spec.",
+    "Using surface-secondary for a selected row — that is the hover treatment; selected is surface-brand-secondary."
+  ]
+}

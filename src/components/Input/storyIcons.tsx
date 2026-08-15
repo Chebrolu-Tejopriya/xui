@@ -1,4 +1,10 @@
-/** Shared inline SVG icons for Input-family Storybook stories. */
+/**
+ * Shared inline SVG icons for Input-family Storybook stories.
+ *
+ * xui-lint-ignore-file — these carry brand artwork (currency logos, country
+ * flags) whose colours are fixed by the brand, not the design system. Same
+ * rule as xemantics' protected-artwork patterns in Figma.
+ */
 
 export const InfoIcon = (
   <svg viewBox="0 0 16 16" fill="none">

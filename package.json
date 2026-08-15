@@ -10,10 +10,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "lint:tokens": "node scripts/lint-tokens.mjs",
+    "lint:tokens:fix": "node scripts/lint-tokens.mjs --fix",
     "test": "vitest run",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-manifest.mjs",
+    "ds:check": "npm run ds:build && npm run lint:tokens"
   },
   "dependencies": {
     "react": "^19.2.7",
