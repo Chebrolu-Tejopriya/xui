@@ -113,8 +113,11 @@
   color: var(--content-brand-primary);
 }
 
-/* The active rail — 3 x 22.5px at the left edge, brand. Figma draws it as a
-   vector; an absolutely-positioned pseudo-element keeps it out of layout. */
+/* The active rail — 3 x 22.5px at the left edge, brand.
+   Not a rectangle: Figma draws a vector that tapers to the right
+   (`M2.5 2.73 V19.77 L0.5 21.43 V1.07 Z`) — full height on the outer edge,
+   inset ~8% top and bottom on the inner one. clip-path reproduces that while
+   keeping it a pseudo-element, out of layout. */
 .itemSelected::before {
   content: '';
   position: absolute;
@@ -124,6 +127,7 @@
   width: 3px;
   height: 22.5px;
   background: var(--content-brand-primary);
+  clip-path: polygon(0 0, 100% 8.2%, 100% 91.8%, 0 100%);
 }
 
 /* Icon sits in a 40px slot in the expanded rail; centred when collapsed. */
