@@ -19,7 +19,7 @@
 }
 
 .default {
-  background: var(--blue-02);
+  background: var(--surface-brand-secondary);
   border-color: var(--surface-brand-primary);
 }
 

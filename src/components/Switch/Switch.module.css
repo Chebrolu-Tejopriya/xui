@@ -31,7 +31,7 @@
   flex: none;
   border-radius: var(--radius-max);
   background: var(--surface-raised);
-  border: 2px solid var(--gray-08);
+  border: 2px solid var(--content-quaternary);
   box-sizing: border-box;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
@@ -50,7 +50,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--gray-08);
+  background: var(--content-quaternary);
   color: var(--content-secondary);
   transition: all 150ms ease;
 }
@@ -73,6 +73,8 @@
 
 /* Hover (off) */
 .root:hover .input:not(:disabled):not(:checked) + .track {
+  /* Figma's Switch binds this hover fill to the raw Gray/06 primitive — no
+     semantic token exists at that step. xui-lint-ignore */
   background: var(--gray-06);
   border-color: var(--content-tertiary);
 }

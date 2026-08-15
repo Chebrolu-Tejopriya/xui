@@ -76,6 +76,22 @@ function stripComments(src) {
 /** Files carrying brand artwork (logos, flags) keep their own fixed colours. */
 const IGNORE_FILE = /xui-lint-ignore-file/;
 
+/**
+ * `xui-lint-ignore` in a comment suppresses findings on that line and the next
+ * few — for colours Figma itself binds to a raw primitive because no semantic
+ * exists at that step. Always comment WHY, same discipline as xemantics'
+ * preserve list. Scanned on the raw source, since comments are stripped.
+ */
+const IGNORE_WINDOW = 4;
+function ignoredLines(rawSrc) {
+  const set = new Set();
+  rawSrc.split('\n').forEach((line, i) => {
+    if (!/xui-lint-ignore\b/.test(line)) return;
+    for (let k = 0; k <= IGNORE_WINDOW; k++) set.add(i + 1 + k);
+  });
+  return set;
+}
+
 const normHex = (h) => {
   let v = h.trim().toLowerCase();
   if (/^#[0-9a-f]{3}$/.test(v)) v = '#' + [...v.slice(1)].map((c) => c + c).join('');
@@ -112,8 +128,10 @@ const findings = [];
 for (const file of files) {
   const raw = fs.readFileSync(file, 'utf8');
   if (IGNORE_FILE.test(raw)) continue;
+  const skipLine = ignoredLines(raw);
   const lines = stripComments(raw).split('\n');
   lines.forEach((line, i) => {
+    if (skipLine.has(i + 1)) return;
 
     // 1. raw hex
     for (const m of line.matchAll(/#[0-9a-fA-F]{3,8}\b/g)) {
