@@ -211,16 +211,3 @@ copies. ([0009](decisions/0009-repo-owns-reference-notion-owns-narrative.md))
 | [`.claude/skills/`](../.claude/skills/) | The six procedures, with their known failure modes |
 | [`PROGRESS.md`](../PROGRESS.md) | Current state and open items |
 | `scripts/` | The generators and the token linter |
-
----
-
-# 5. Case study: Reconciliation
-
-*Not started — awaiting requirements.*
-
-The design system was the workflow's first proof. Reconciliation is the second
-and more interesting one: **does this generalise beyond a design system?**
-
-To be documented live as it happens, including false starts and the points where
-the agent needed correcting. Reconstructed case studies read too clean, and
-readers can tell.
