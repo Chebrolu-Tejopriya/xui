@@ -177,13 +177,18 @@ content-secondary radius 6, unselected indent 32px; selected = surface-primary f
     `xui.manifest.json` (30 components + props/variants, 105 tokens, 69 icons,
     composition rules) and `scripts/lint-tokens.mjs` (the code-side mirror of the
     xemantics Figma plugin). `npm run ds:check` rebuilds and lints.
-    *Open follow-ups from the first lint run — genuine token gaps needing a design
-    decision, not code bugs:*
-    - `Toast.default` uses `blue-02`; success/warning/error all have a
-      `surface-*-tertiary` token but there is no `surface-brand-tertiary`.
-    - `Switch` uses `gray-08` (track/thumb) and `gray-06` (hover) — no Surface
-      token exists at those steps; only `content-quaternary` aliases `gray-08`.
-    - `Select` focus ring uses `blue-05` — no semantic token at that step.
+    ✅ **All findings resolved from the design** (commit `5d3baa2`) — read the bound
+    variables off the Figma components rather than inventing tokens:
+    - `Toast.default` → `surface-brand-secondary` (semantic set `1848:18943`
+      supersedes the older primitive-bound sets that used Blue/02).
+    - `Switch` off-track border + thumb → `content-quaternary` (semantic set
+      `1723:25944`); the hover fill stays `gray-06` — Figma binds it to that raw
+      primitive too, no semantic exists at that step.
+    - `Select` spinner head → `content-brand-primary` (was `surface-`, wrong
+      group, same Blue/09); its faded arc stays `blue-05`, raw in Figma as well.
+    Colours the design itself leaves on a primitive are marked `xui-lint-ignore`
+    with the reason. `npm run lint:tokens` is clean — zero raw colours or stray
+    primitives in product code.
 
 11. **Next patterns (Tier 2)** — Table shipped as the pilot. Deferred pieces of the
     table surface: row kebab menu, filter/search toolbar, "N selected" action bar,
