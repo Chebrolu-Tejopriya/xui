@@ -1218,7 +1218,20 @@
           "name": "collapsed",
           "type": "boolean",
           "required": false,
+          "default": "false",
           "description": "Rail mode — 61px, icons only. Expanded is 224px."
+        },
+        {
+          "name": "onToggleCollapsed",
+          "type": "() => void",
+          "required": false,
+          "description": "Show the collapse/expand pull-tab on the right edge. Omit it and no tab renders — some apps drive collapse from elsewhere."
+        },
+        {
+          "name": "defaultOpenId",
+          "type": "string",
+          "required": false,
+          "description": "Label of the sub-list open on first render (e.g. deep-linking a section)."
         },
         {
           "name": "children",
@@ -1272,14 +1285,7 @@
           "name": "children",
           "type": "ReactNode",
           "required": false,
-          "description": "Sub-items. Renders a chevron and an indented list when expanded."
-        },
-        {
-          "name": "defaultOpen",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Start with the sub-list open."
+          "description": "Sub-items. Expanded: an indented list. Collapsed: a hover flyout."
         }
       ],
       "extends": "Omit<HTMLAttributes<HTMLButtonElement>, 'children'>",

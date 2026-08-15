@@ -163,12 +163,12 @@ export const Collapsed: StoryObj = {
 export const States: StoryObj = {
   render: () => (
     <div style={{ display: 'flex', gap: 32, padding: 24, background: 'var(--surface-primary)' }}>
-      <Sidebar style={{ height: 'auto' }}>
+      <Sidebar defaultOpenId="With sub-items" style={{ height: 'auto' }}>
         <SidebarNav>
           <SidebarItem icon={OverviewIcon} label="Default" />
           <SidebarItem icon={OverviewIcon} label="Selected" selected />
           <SidebarItem icon={OverviewIcon} label="Hover me" />
-          <SidebarItem icon={PurchasesIcon} label="With sub-items" defaultOpen>
+          <SidebarItem icon={PurchasesIcon} label="With sub-items">
             <SidebarSubItem label="Bills" selected />
             <SidebarSubItem label="Vendors" />
           </SidebarItem>
@@ -178,7 +178,10 @@ export const States: StoryObj = {
         <SidebarNav>
           <SidebarItem icon={OverviewIcon} label="Default" />
           <SidebarItem icon={WalletIcon} label="Selected" selected />
-          <SidebarItem icon={TransactionsIcon} label="Another" />
+          <SidebarItem icon={TransactionsIcon} label="Hover for flyout">
+            <SidebarSubItem label="Integrations" selected />
+            <SidebarSubItem label="Treasury Accounts" />
+          </SidebarItem>
         </SidebarNav>
       </Sidebar>
     </div>

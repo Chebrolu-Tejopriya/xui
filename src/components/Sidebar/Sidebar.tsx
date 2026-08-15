@@ -1,12 +1,22 @@
-import { createContext, useContext, useId, useState } from 'react';
-import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
+import { createContext, useContext, useId, useRef, useState } from 'react';
+import type { ComponentType, Dispatch, HTMLAttributes, ReactNode, SetStateAction } from 'react';
 import styles from './Sidebar.module.css';
 import type { IconProps } from '../../icons';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '../../icons';
 
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(' ');
 
-const SidebarContext = createContext<{ collapsed: boolean }>({ collapsed: false });
+type Ctx = {
+  collapsed: boolean;
+  openId: string | null;
+  setOpenId: (id: string | null) => void;
+  /** Which item is currently showing a collapsed overlay — at most one. */
+  hoverId: string | null;
+  setHoverId: Dispatch<SetStateAction<string | null>>;
+};
+const SidebarContext = createContext<Ctx>({
+  collapsed: false, openId: null, setOpenId: () => {}, hoverId: null, setHoverId: () => {},
+});
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   /** Rail mode — 61px, icons only. Expanded is 224px. */
@@ -16,18 +26,20 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
    * renders — some apps drive collapse from elsewhere.
    */
   onToggleCollapsed?: () => void;
+  /** Label of the sub-list open on first render (e.g. deep-linking a section). */
+  defaultOpenId?: string;
   children?: ReactNode;
 }
 
 /**
  * App navigation rail.
  *
- *   <Sidebar collapsed={collapsed}>
+ *   <Sidebar collapsed={collapsed} onToggleCollapsed={toggle}>
  *     <SidebarHeader>…logo…</SidebarHeader>
  *     <SidebarNav>
  *       <SidebarItem icon={OverviewIcon} label="Home" selected />
  *       <SidebarItem icon={WalletIcon} label="Data Sources">
- *         <SidebarSubItem label="Connected" />
+ *         <SidebarSubItem label="Integrations" />
  *       </SidebarItem>
  *     </SidebarNav>
  *     <SidebarFooter>…</SidebarFooter>
@@ -35,17 +47,24 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
  *
  * 224px expanded / 61px collapsed, `surface-raised` with a `border-tertiary`
  * right edge. Items are 36px tall; selected paints `surface-brand-secondary`
- * with a 3px `content-brand-primary` rail and a brand-toned icon.
+ * with a tapered `content-brand-primary` rail and a brand-toned icon.
+ *
+ * Sub-lists behave as an accordion — opening one closes the others. When
+ * collapsed, an item with sub-items shows them in a hover flyout, and an item
+ * without shows a tooltip.
  */
 export function Sidebar({
   collapsed = false,
   onToggleCollapsed,
+  defaultOpenId,
   className,
   children,
   ...rest
 }: SidebarProps) {
+  const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? null);
+  const [hoverId, setHoverId] = useState<string | null>(null);
   return (
-    <SidebarContext.Provider value={{ collapsed }}>
+    <SidebarContext.Provider value={{ collapsed, openId, setOpenId, hoverId, setHoverId }}>
       <nav
         className={cx(styles.sidebar, collapsed && styles.collapsed, className)}
         data-collapsed={collapsed || undefined}
@@ -101,10 +120,8 @@ export interface SidebarItemProps extends Omit<HTMLAttributes<HTMLButtonElement>
   icon?: ComponentType<IconProps>;
   label: string;
   selected?: boolean;
-  /** Sub-items. Renders a chevron and an indented list when expanded. */
+  /** Sub-items. Expanded: an indented list. Collapsed: a hover flyout. */
   children?: ReactNode;
-  /** Start with the sub-list open. */
-  defaultOpen?: boolean;
 }
 
 export function SidebarItem({
@@ -112,45 +129,101 @@ export function SidebarItem({
   label,
   selected = false,
   children,
-  defaultOpen = false,
   className,
   onClick,
   ...rest
 }: SidebarItemProps) {
-  const { collapsed } = useContext(SidebarContext);
-  const [open, setOpen] = useState(defaultOpen);
+  const { collapsed, openId, setOpenId, hoverId, setHoverId } = useContext(SidebarContext);
+  const ref = useRef<HTMLButtonElement>(null);
+  /**
+   * Collapsed overlays are positioned `fixed` from the trigger's rect rather
+   * than absolutely. The nav is a scroll container, and an absolutely
+   * positioned child cannot escape one — which is also why the shared Tooltip
+   * component isn't reused here. The bubble below uses its tokens so the two
+   * look identical.
+   */
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const show = () => {
+    setRect(ref.current?.getBoundingClientRect() ?? null);
+    setHoverId(label);
+  };
+  const hide = () => setHoverId((cur) => (cur === label ? null : cur));
+  // Only the item the sidebar says is hovered renders an overlay, so a stale
+  // one can never linger if a mouseleave is missed.
+  const anchor = hoverId === label ? rect : null;
+
   const listId = useId();
-  const expandable = children != null && !collapsed;
+  const hasSub = children != null;
+  // Accordion: the sidebar tracks a single open item, keyed by label.
+  const open = hasSub && !collapsed && openId === label;
+
+  const button = (
+    <button
+      ref={ref}
+      type="button"
+      className={cx(styles.item, selected && styles.itemSelected, className)}
+      data-selected={selected || undefined}
+      aria-current={selected ? 'page' : undefined}
+      aria-expanded={hasSub && !collapsed ? open : undefined}
+      aria-controls={open ? listId : undefined}
+      onClick={(e) => {
+        if (hasSub && !collapsed) setOpenId(open ? null : label);
+        onClick?.(e);
+      }}
+      {...rest}
+    >
+      {Icon && (
+        <span className={styles.iconSlot}>
+          <Icon variant={selected ? 'dualtone-selected' : 'dualtone'} size={20} />
+        </span>
+      )}
+      {!collapsed && <span className={styles.label}>{label}</span>}
+      {hasSub && !collapsed && (
+        <span className={cx(styles.chevron, open && styles.chevronOpen)}>
+          <ChevronDownIcon size={16} />
+        </span>
+      )}
+    </button>
+  );
+
+  if (collapsed) {
+    return (
+      <div
+        className={styles.collapsedWrap}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onFocus={show}
+        onBlur={hide}
+      >
+        {button}
+        {anchor && hasSub && (
+          <div
+            className={styles.flyout}
+            role="group"
+            aria-label={label}
+            style={{ top: anchor.top - 12, left: anchor.right + 8 }}
+          >
+            <div className={styles.flyoutTitle}>{label}</div>
+            <div className={styles.flyoutList}>{children}</div>
+          </div>
+        )}
+        {anchor && !hasSub && (
+          <span
+            role="tooltip"
+            className={styles.tip}
+            style={{ top: anchor.top + anchor.height / 2, left: anchor.right + 8 }}
+          >
+            {label}
+          </span>
+        )}
+      </div>
+    );
+  }
 
   return (
     <>
-      <button
-        type="button"
-        className={cx(styles.item, selected && styles.itemSelected, className)}
-        data-selected={selected || undefined}
-        aria-current={selected ? 'page' : undefined}
-        aria-expanded={expandable ? open : undefined}
-        aria-controls={expandable ? listId : undefined}
-        title={collapsed ? label : undefined}
-        onClick={(e) => {
-          if (expandable) setOpen((o) => !o);
-          onClick?.(e);
-        }}
-        {...rest}
-      >
-        {Icon && (
-          <span className={styles.iconSlot}>
-            <Icon variant={selected ? 'dualtone-selected' : 'dualtone'} size={20} />
-          </span>
-        )}
-        {!collapsed && <span className={styles.label}>{label}</span>}
-        {expandable && (
-          <span className={cx(styles.chevron, open && styles.chevronOpen)}>
-            <ChevronDownIcon size={16} />
-          </span>
-        )}
-      </button>
-      {expandable && open && (
+      {button}
+      {open && (
         <div className={styles.subList} id={listId}>
           {children}
         </div>
