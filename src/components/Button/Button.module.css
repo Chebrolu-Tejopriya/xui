@@ -286,6 +286,17 @@
   word-break: break-word;
 }
 
+/* Icon-only puts the icon inside .label. Left as a block, the <svg> stays
+   `display: inline` and sits on the TEXT BASELINE — the descender gap below it
+   pushes the icon ~2-3.5px above centre. Making the wrapper a flex container
+   blockifies the svg so it centres on the box, matching Figma's even padding
+   (8px square / 12px circle on all four sides). */
+.iconOnly .label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ---- Loading spinner (Figma Icons/Loading: 270° arc, ~2px stroke;
         20/16/14 per size, matching the icon scale) ---- */
 
