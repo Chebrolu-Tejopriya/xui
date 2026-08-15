@@ -2,7 +2,7 @@ import { createContext, useContext, useId, useState } from 'react';
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
 import styles from './Sidebar.module.css';
 import type { IconProps } from '../../icons';
-import { ChevronDownIcon } from '../../icons';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '../../icons';
 
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(' ');
 
@@ -11,6 +11,11 @@ const SidebarContext = createContext<{ collapsed: boolean }>({ collapsed: false 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   /** Rail mode — 61px, icons only. Expanded is 224px. */
   collapsed?: boolean;
+  /**
+   * Show the collapse/expand pull-tab on the right edge. Omit it and no tab
+   * renders — some apps drive collapse from elsewhere.
+   */
+  onToggleCollapsed?: () => void;
   children?: ReactNode;
 }
 
@@ -32,7 +37,13 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
  * right edge. Items are 36px tall; selected paints `surface-brand-secondary`
  * with a 3px `content-brand-primary` rail and a brand-toned icon.
  */
-export function Sidebar({ collapsed = false, className, children, ...rest }: SidebarProps) {
+export function Sidebar({
+  collapsed = false,
+  onToggleCollapsed,
+  className,
+  children,
+  ...rest
+}: SidebarProps) {
   return (
     <SidebarContext.Provider value={{ collapsed }}>
       <nav
@@ -41,6 +52,17 @@ export function Sidebar({ collapsed = false, className, children, ...rest }: Sid
         {...rest}
       >
         {children}
+        {onToggleCollapsed && (
+          <button
+            type="button"
+            className={styles.toggle}
+            onClick={onToggleCollapsed}
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-expanded={!collapsed}
+          >
+            {collapsed ? <ChevronRightIcon size={19} /> : <ChevronLeftIcon size={19} />}
+          </button>
+        )}
       </nav>
     </SidebarContext.Provider>
   );

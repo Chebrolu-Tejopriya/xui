@@ -5,6 +5,7 @@
    edge, with the label and icon in brand. */
 
 .sidebar {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 224px;
@@ -14,6 +15,36 @@
   border-right: var(--border-width-regular) solid var(--border-tertiary);
   box-sizing: border-box;
   transition: width 160ms ease;
+}
+
+/* Collapse pull-tab — 20x48 on the right edge, rounded on its outer side only,
+   overhanging the rail (Figma places it at x = container width - 1). */
+.toggle {
+  position: absolute;
+  left: 100%;
+  top: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 48px;
+  padding: 0;
+  border: var(--border-width-regular) solid var(--border-secondary);
+  border-left: none;
+  border-radius: 0 var(--radius-mid) var(--radius-mid) 0;
+  background: var(--surface-raised);
+  color: var(--content-primary);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.toggle:hover {
+  background: var(--surface-secondary);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: 1px;
 }
 
 .collapsed {

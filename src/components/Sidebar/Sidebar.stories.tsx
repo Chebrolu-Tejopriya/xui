@@ -8,7 +8,7 @@ import {
   SidebarItem,
   SidebarSubItem,
 } from './Sidebar';
-import { Button } from '../Button';
+import { KoinXWordmark, KoinXMark } from '../../assets/brand';
 import {
   OverviewIcon,
   WalletIcon,
@@ -21,8 +21,6 @@ import {
   TaxesIcon,
   RulesIcon,
   SettingsIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   SyncIcon,
   DayIcon,
   NightIcon,
@@ -52,31 +50,7 @@ const NAV = [
 ] as const;
 
 function Logo({ collapsed }: { collapsed: boolean }) {
-  return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
-      <span
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 24,
-          height: 24,
-          borderRadius: 'var(--radius-xs)',
-          background: 'var(--surface-brand-primary)',
-          color: 'var(--content-absolute-white)',
-          font: 'var(--type-subtitle-2)',
-          flex: 'none',
-        }}
-      >
-        X
-      </span>
-      {!collapsed && (
-        <span style={{ font: 'var(--type-subtitle-1)', color: 'var(--content-primary)', whiteSpace: 'nowrap' }}>
-          KoinX Books
-        </span>
-      )}
-    </span>
-  );
+  return collapsed ? <KoinXMark /> : <KoinXWordmark />;
 }
 
 function ThemeSwitch() {
@@ -127,18 +101,9 @@ function Demo({ startCollapsed = false }: { startCollapsed?: boolean }) {
   const [active, setActive] = useState<string>('home');
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--surface-primary)' }}>
-      <Sidebar collapsed={collapsed}>
+      <Sidebar collapsed={collapsed} onToggleCollapsed={() => setCollapsed((c) => !c)}>
         <SidebarHeader>
           <Logo collapsed={collapsed} />
-          <Button
-            iconOnly
-            size="small"
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            onClick={() => setCollapsed((c) => !c)}
-            style={{ marginLeft: 'auto' }}
-          >
-            {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </Button>
         </SidebarHeader>
 
         <SidebarNav>
@@ -176,13 +141,13 @@ function Demo({ startCollapsed = false }: { startCollapsed?: boolean }) {
       </Sidebar>
 
       <main style={{ flex: 1, padding: 24, font: 'var(--type-body-2)', color: 'var(--content-secondary)' }}>
-        Page content — the sidebar collapses with the button in its header.
+        Page content — use the tab on the sidebar edge to collapse it.
       </main>
     </div>
   );
 }
 
-/** Full navigation rail — click items to select, use the header button to collapse. */
+/** Full navigation rail — click items to select, use the edge tab to collapse. */
 export const Playground: StoryObj = {
   render: () => <Demo />,
   parameters: { docs: { source: { type: 'code' } } },
