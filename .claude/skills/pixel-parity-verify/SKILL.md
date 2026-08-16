@@ -1,13 +1,13 @@
 ---
 name: pixel-parity-verify
-description: Mandatory final gate before declaring any XUI component (or variant) done — proves the render matches Figma by comparing a Figma PNG export against a same-scale Storybook screenshot plus computed-style numbers, and applies the known browser-vs-Figma correction checklist (native form controls, border box model, docs-source hang). Run whenever a component is added or visually reworked; a coarse screenshot review is NOT sufficient.
+description: Mandatory final gate before declaring any XUI component (or variant) done — proves the render matches Figma by comparing a Figma PNG export against a same-scale Storybook screenshot plus computed-style numbers, and applies the known browser-vs-Figma correction checklist (native form controls, border box model, VECTOR nodes whose bounding box is not their shape, behaviour assertions for interactive parts, docs-source hang). Run whenever a component is added or visually reworked; a coarse screenshot review is NOT sufficient.
 ---
 
 # Pixel parity verify (XUI gate)
 
 Every visual miss the user has caught in this project passed a casual
 screenshot review and failed the checks below. The failure pattern is
-always one of three things — check for all three, every time:
+always one of four things — check for all four, every time:
 
 1. **Figma specs describe static rectangles; the implementation uses live
    HTML.** Native controls carry invisible user-agent styling that the
@@ -17,6 +17,8 @@ always one of three things — check for all three, every time:
    compensated.
 3. **Screenshot review at 1x hides 1–2px drift and wrong assets.** Only
    numbers and same-scale image comparison catch it.
+4. **A `VECTOR` node's bounding box is not its shape.** Width, height and
+   fill describe the box the geometry sits in, never the geometry. See §4.
 
 ## The gate (run before saying "done")
 
@@ -67,7 +69,64 @@ row), icon colors (download the SVG asset and read the hex — never
 assume the token; this project has had #334155 vs #64748B and
 #e2e8f0-vs-#cbd5e1 inversions that "looked fine").
 
-### 4. Story-infra guards (both have bitten this repo)
+### 4. Vector nodes: export the path, never infer it
+
+**If `get_metadata` reports `type: "VECTOR"`, the numbers next to it are a
+bounding box. Stop and export the geometry.** Building from width, height
+and fill produces a rectangle, and a rectangle is the one shape a vector
+node is least likely to be — anything genuinely rectangular is a `RECTANGLE`
+or a frame.
+
+This shipped wrong once already. The Sidebar's selected-item rail reads as
+`3 × 22.5`, brand fill, so it went in as a `width: 3px` block. The design is
+a trapezoid tapering to the right:
+
+```
+M2.5 2.7334 V19.7656 L0.5 21.4326 V1.06738 Z
+```
+
+Full height on the outer edge, inset ~8% top and bottom on the inner one.
+At 3px wide the difference is a few pixels of slope — invisible in a 1x
+review, obvious to the designer who drew it.
+
+Export it (Plugin API; `get_design_context` will not give you path data):
+
+```js
+mcp__figma__use_figma({ /* … */ })   // node.exportAsync({ format: 'SVG_STRING' })
+```
+
+Then reproduce the geometry rather than approximating it:
+
+- a pseudo-element with `clip-path: polygon(…)` when it must stay out of
+  layout (what the rail uses)
+- an inline `<svg>` with the path when it is content
+- never a `border-radius` guess at a curve you have not read
+
+Applies equally to `BOOLEAN_OPERATION`, `STAR`, `POLYGON` and any node
+whose name suggests artwork. When in doubt, export — it costs one call.
+
+### 5. Behaviour is outside this gate — verify it separately
+
+This gate proves a component *looks* right and says nothing about whether
+it still works. An icon-only button that renders perfectly at every frame
+was silently dropping every click (ADR 0011): the icon rewrote its own DOM
+on each render, so mousedown and mouseup landed on different nodes and the
+browser never synthesised `click`. Every screenshot and computed-style
+assertion passed throughout.
+
+So for anything interactive, add assertions on behaviour, not appearance:
+
+```js
+el.addEventListener('click', …)     // count events actually received
+new MutationObserver(…)             // DOM churn during an interaction
+```
+
+Drive it with real input (`locator.click()`, `.hover()`), not `el.click()` —
+a direct DOM call bypasses the hit-testing and event sequence where these
+faults live. Assert the resulting state (`aria-expanded`, which overlay is
+present) rather than eyeballing a screenshot of it.
+
+### 6. Story-infra guards (both have bitten this repo)
 
 - Matrix/showcase stories MUST set
   `parameters: { docs: { source: { type: 'code' } } }` — the dynamic JSX
@@ -77,7 +136,7 @@ assume the token; this project has had #334155 vs #64748B and
   the dev iframe but passes vitest, suspect the serializer above, not
   the component.
 
-### 5. Scope
+### 7. Scope
 
 Run the full gate for: new components, new variants, any CSS rework of
 an existing component. The gate is per-VARIANT, per-STATE — a component

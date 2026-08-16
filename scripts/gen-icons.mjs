@@ -3,8 +3,10 @@
 // Each file in scripts/icon-data/*.json is:
 //   { "Category Name": { "Icon Label": { outlined, solid, dualtone }, ... }, ... }
 // where each shape value is the *inner* SVG markup (no <svg> wrapper), already
-// normalized to currentColor. Files are read in sorted filename order so the
-// gallery's category order is controlled by the numeric filename prefix.
+// normalized to currentColor. It is converted to JSX children here — see
+// markupToJsx below for why it is not passed through as raw markup. Files are
+// read in sorted filename order so the gallery's category order is controlled
+// by the numeric filename prefix.
 //
 // Run: node scripts/gen-icons.mjs
 import fs from 'node:fs';
@@ -42,6 +44,68 @@ const themePaints = (svg) =>
     .replaceAll('fill="white"', `style="fill:${KNOCKOUT}"`)
     .replaceAll('stroke="white"', `style="stroke:${KNOCKOUT}"`);
 
+// ---- SVG markup -> JSX ------------------------------------------------------
+//
+// The shapes are emitted as real JSX children rather than handed to
+// `dangerouslySetInnerHTML`. React compares that prop by *reference*, so a
+// fresh `{ __html }` per render made every icon rewrite its own subtree —
+// replacing the node under the pointer mid-click, which stopped the browser
+// firing `click` at all (ADR 0011). As elements built once at module scope,
+// the subtree is referentially stable and React skips it outright.
+//
+// The markup is machine-generated and narrow: 6 element types, ~20 attributes,
+// no text nodes, no comments. A tokeniser is sufficient and keeps the
+// generator dependency-free.
+
+/** `stroke-width` -> `strokeWidth`; `data-*`/`aria-*` stay as authored. */
+const camel = (n) => (/^(data|aria)-/.test(n) ? n : n.replace(/-([a-z])/g, (_, c) => c.toUpperCase()));
+
+/** `fill:red;stroke:blue` -> `{{ fill: "red", stroke: "blue" }}` */
+function styleProp(css) {
+  const decls = css
+    .split(';')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((decl) => {
+      const i = decl.indexOf(':');
+      // Values carry commas (`var(--a, var(--b))`) but never colons, so
+      // splitting on the first colon is safe.
+      return `${camel(decl.slice(0, i).trim())}: ${JSON.stringify(decl.slice(i + 1).trim())}`;
+    });
+  return `{{ ${decls.join(', ')} }}`;
+}
+
+function attrsToProps(raw) {
+  let out = '';
+  for (const [, name, value] of raw.matchAll(/([a-zA-Z-]+)="([^"]*)"/g)) {
+    out += name === 'style' ? ` style=${styleProp(value)}` : ` ${camel(name)}=${JSON.stringify(value)}`;
+  }
+  return out;
+}
+
+const TAG = /<(\/)?([a-zA-Z][a-zA-Z0-9]*)((?:\s+[a-zA-Z-]+="[^"]*")*)\s*(\/)?>/g;
+
+function markupToJsx(markup, pad) {
+  const lines = [];
+  let depth = 0;
+  for (const [, closing, name, attrs, selfClose] of markup.matchAll(TAG)) {
+    if (closing) {
+      lines.push(pad + '  '.repeat(--depth) + `</${name}>`);
+      continue;
+    }
+    const open = pad + '  '.repeat(depth) + `<${name}${attrsToProps(attrs)}`;
+    if (selfClose) lines.push(open + ' />');
+    else {
+      lines.push(open + '>');
+      depth++;
+    }
+  }
+  if (depth !== 0) throw new Error(`unbalanced SVG markup: ${markup.slice(0, 80)}`);
+  return lines.join('\n');
+}
+
+const SHAPES = ['outlined', 'solid', 'dualtone'];
+
 const files = fs
   .readdirSync(dataDir)
   .filter((f) => f.endsWith('.json'))
@@ -66,10 +130,13 @@ for (const file of files) {
         name = `${pascal(label)}${i}Icon`;
       }
       seen.add(name);
-      const themed = Object.fromEntries(
-        Object.entries(shapes).map(([k, v]) => [k, themePaints(v)]),
-      );
-      body += `export const ${name} = createIcon(${JSON.stringify(name)}, ${JSON.stringify(themed)});\n`;
+      const missing = SHAPES.filter((s) => !shapes[s]);
+      if (missing.length) throw new Error(`${label}: missing shape(s) ${missing.join(', ')}`);
+      body += `export const ${name} = createIcon(${JSON.stringify(name)}, {\n`;
+      for (const shape of SHAPES) {
+        body += `  ${shape}: (\n    <>\n${markupToJsx(themePaints(shapes[shape]), '      ')}\n    </>\n  ),\n`;
+      }
+      body += `});\n`;
       registry.push({ name, category });
     }
     body += `\n`;

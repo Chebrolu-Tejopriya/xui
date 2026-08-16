@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react';
+import type { ReactNode, SVGProps } from 'react';
 
 /**
  * The four Figma "Icons v2" tones:
@@ -25,24 +25,18 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'children'> {
   'aria-label'?: string;
 }
 
-/** Builds a named, tree-shakeable icon component from its 3 tone-shape path markups. */
-export function createIcon(displayName: string, paths: Record<IconShape, string>) {
-  /**
-   * One frozen `{ __html }` per shape, built once.
-   *
-   * React compares `dangerouslySetInnerHTML` by *reference*, not by comparing
-   * `__html`. A fresh object literal per render therefore makes it rewrite the
-   * <svg>'s children on every re-render — even when the markup is identical.
-   * That is not just wasted work: it replaces the node the pointer is over, so
-   * mousedown and mouseup land on different elements and the browser never
-   * fires `click`. Icon-only buttons silently stopped responding.
-   */
-  const html: Record<IconShape, { __html: string }> = {
-    outlined: { __html: paths.outlined },
-    solid: { __html: paths.solid },
-    dualtone: { __html: paths.dualtone },
-  };
-
+/**
+ * Builds a named, tree-shakeable icon component from its 3 tone shapes.
+ *
+ * `shapes` holds JSX elements built once at module scope by
+ * `scripts/gen-icons.mjs`, not markup strings. Because each is referentially
+ * stable, React skips the subtree entirely on re-render and the icon's DOM
+ * nodes persist. That is load-bearing, not an optimisation: the previous
+ * `dangerouslySetInnerHTML` version rewrote the <svg>'s children every render
+ * (React compares that prop by reference), replacing the node under the
+ * pointer mid-click so the browser never fired `click` — see ADR 0011.
+ */
+export function createIcon(displayName: string, shapes: Record<IconShape, ReactNode>) {
   function Icon({ variant = 'outlined', size = 24, style, ...props }: IconProps) {
     const labelled = props['aria-label'] != null;
     const shape: IconShape = variant === 'dualtone-selected' ? 'dualtone' : variant;
@@ -69,9 +63,10 @@ export function createIcon(displayName: string, paths: Record<IconShape, string>
         role={labelled ? 'img' : undefined}
         aria-hidden={labelled ? undefined : true}
         style={mergedStyle}
-        dangerouslySetInnerHTML={html[shape]}
         {...props}
-      />
+      >
+        {shapes[shape]}
+      </svg>
     );
   }
   Icon.displayName = displayName;

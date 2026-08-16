@@ -76,6 +76,7 @@ measured DOM mutations for one hover-and-click pass went from unbounded to 8.
   because it means teaching `gen-icons.mjs` to parse SVG into React elements and
   re-generating all 69 icons — a change to the generator ([0002](0002-derive-artefacts-never-hand-maintain.md))
   and a much larger diff than the defect warrants. Recorded as follow-up.
+  **Adopted 2026-08-16** — see the update below.
 - **`pointer-events: none` on the icon.** Would stop the `<path>` from ever
   being an event target, so mousedown and mouseup would both resolve to the
   button. Rejected as a disguise: the DOM churn, and its cost, would remain, and
@@ -91,9 +92,50 @@ measured DOM mutations for one hover-and-click pass went from unbounded to 8.
 - `dangerouslySetInnerHTML` is compared by reference. That is not obvious and it
   fails *silently and remotely* — the symptom surfaced two components away from
   the cause. The hoisting carries a comment saying so.
-- Open follow-up: move `gen-icons.mjs` to emitting JSX children and drop
-  `dangerouslySetInnerHTML` from `createIcon` entirely.
 - A parity gate would not have caught this. It is a behaviour defect, not a
   visual one — the icon rendered perfectly at every moment. Worth remembering
   when weighing [0004](0004-parity-gates-assert-numbers-first.md): screenshots
   and computed styles say nothing about whether a control still works.
+
+## Update — 2026-08-16: `dangerouslySetInnerHTML` removed entirely
+
+The follow-up above is done. `gen-icons.mjs` now converts the extracted SVG
+markup to JSX children, and `createIcon` takes `Record<IconShape, ReactNode>`:
+
+```tsx
+export const OverviewIcon = createIcon('OverviewIcon', {
+  outlined: (
+    <>
+      <path fillRule="evenodd" d="…" stroke="currentColor" strokeWidth="1.5" />
+    </>
+  ),
+  // …
+});
+```
+
+The converter is a ~40-line tokeniser in the generator, no dependency added.
+It handles the whole vocabulary the extracted data uses — 6 element types, ~20
+attributes, no text nodes — kebab-to-camel attribute names, `style` strings to
+objects, and nested `defs`/`clipPath`. It throws on unbalanced markup rather
+than emitting something that will not compile.
+
+This is strictly better than hoisting the `{ __html }` object: the shapes are
+now element trees built once at module scope, so React compares them by
+reference and skips the subtree outright, and there is no raw-HTML sink in the
+component at all.
+
+Verified by walking the rendered DOM against the source markup for all 69 icons
+in all 4 variants — tag names and full attribute maps, order-insensitive — plus
+the interaction assertions from
+[0012](0012-collapsed-sidebar-overlay-model.md):
+
+```
+Outlined   icons=69  nodes=214  mismatches=0
+Solid      icons=69  nodes=122  mismatches=0
+Dual-tone  icons=69  nodes=187  mismatches=0
+Selected   icons=69  nodes=187  mismatches=0
+```
+
+One benign difference the comparison surfaced: switching variants leaves an
+empty `style=""` on nodes React previously styled, because clearing a style
+property empties the attribute rather than removing it. No rendering effect.
