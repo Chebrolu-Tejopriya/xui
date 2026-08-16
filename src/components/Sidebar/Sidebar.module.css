@@ -266,7 +266,7 @@
   z-index: 20;
   transform: translateY(-50%);
   padding: 8px 12px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-mid);
   background: var(--content-primary);
   color: var(--surface-raised);
   font: var(--type-body-3);

@@ -1,4 +1,6 @@
-/* XUI Tooltip — dark bubble (content-primary bg), radius 8, px 12 / py 8, Body/3 text */
+/* XUI Tooltip — dark bubble (content-primary bg), radius-mid (8), px 12 / py 8,
+   Body/3 text. Beak is 6 deep x 12 along the edge in Figma; a square rotated
+   45deg has a diagonal of side*sqrt2, so side 8.5 gives exactly 12 x 6. */
 
 .wrapper {
   position: relative;
@@ -9,7 +11,7 @@
   position: absolute;
   z-index: 10;
   padding: 8px 12px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-mid);
   background: var(--content-primary);
   color: var(--surface-raised);
   font: var(--type-body-3);
@@ -42,29 +44,29 @@
 
 .arrow {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 8.5px;
+  height: 8.5px;
   background: var(--content-primary);
   transform: rotate(45deg);
   border-radius: 2px;
 }
 
 .arrow-top {
-  bottom: -4px;
-  left: calc(50% - 6px);
+  bottom: -4.25px;
+  left: calc(50% - 4.25px);
 }
 
 .arrow-bottom {
-  top: -4px;
-  left: calc(50% - 6px);
+  top: -4.25px;
+  left: calc(50% - 4.25px);
 }
 
 .arrow-left {
-  right: -4px;
-  top: calc(50% - 6px);
+  right: -4.25px;
+  top: calc(50% - 4.25px);
 }
 
 .arrow-right {
-  left: -4px;
-  top: calc(50% - 6px);
+  left: -4.25px;
+  top: calc(50% - 4.25px);
 }
