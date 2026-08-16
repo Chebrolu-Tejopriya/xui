@@ -27,6 +27,22 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'children'> {
 
 /** Builds a named, tree-shakeable icon component from its 3 tone-shape path markups. */
 export function createIcon(displayName: string, paths: Record<IconShape, string>) {
+  /**
+   * One frozen `{ __html }` per shape, built once.
+   *
+   * React compares `dangerouslySetInnerHTML` by *reference*, not by comparing
+   * `__html`. A fresh object literal per render therefore makes it rewrite the
+   * <svg>'s children on every re-render — even when the markup is identical.
+   * That is not just wasted work: it replaces the node the pointer is over, so
+   * mousedown and mouseup land on different elements and the browser never
+   * fires `click`. Icon-only buttons silently stopped responding.
+   */
+  const html: Record<IconShape, { __html: string }> = {
+    outlined: { __html: paths.outlined },
+    solid: { __html: paths.solid },
+    dualtone: { __html: paths.dualtone },
+  };
+
   function Icon({ variant = 'outlined', size = 24, style, ...props }: IconProps) {
     const labelled = props['aria-label'] != null;
     const shape: IconShape = variant === 'dualtone-selected' ? 'dualtone' : variant;
@@ -53,7 +69,7 @@ export function createIcon(displayName: string, paths: Record<IconShape, string>
         role={labelled ? 'img' : undefined}
         aria-hidden={labelled ? undefined : true}
         style={mergedStyle}
-        dangerouslySetInnerHTML={{ __html: paths[shape] }}
+        dangerouslySetInnerHTML={html[shape]}
         {...props}
       />
     );

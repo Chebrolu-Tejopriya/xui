@@ -1,4 +1,4 @@
-import { createContext, useContext, useId, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useId, useRef, useState } from 'react';
 import type { ComponentType, Dispatch, HTMLAttributes, ReactNode, SetStateAction } from 'react';
 import styles from './Sidebar.module.css';
 import type { IconProps } from '../../icons';
@@ -63,9 +63,22 @@ export function Sidebar({
 }: SidebarProps) {
   const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? null);
   const [hoverId, setHoverId] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  // A collapsed flyout is click-opened, so it needs a click-away to close.
+  // Clicks inside the panel don't count: it renders within the nav subtree.
+  useEffect(() => {
+    if (!collapsed || openId === null) return;
+    const onDown = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setOpenId(null);
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [collapsed, openId]);
   return (
     <SidebarContext.Provider value={{ collapsed, openId, setOpenId, hoverId, setHoverId }}>
       <nav
+        ref={navRef}
         className={cx(styles.sidebar, collapsed && styles.collapsed, className)}
         data-collapsed={collapsed || undefined}
         {...rest}
@@ -143,19 +156,23 @@ export function SidebarItem({
    * look identical.
    */
   const [rect, setRect] = useState<DOMRect | null>(null);
+  // Idempotent on purpose. `getBoundingClientRect()` returns a fresh object
+  // every call, so an unguarded setRect re-renders on every mouseenter — and
+  // the browser re-fires mouseenter whenever the DOM under the cursor changes.
   const show = () => {
+    if (hoverId === label) return;
     setRect(ref.current?.getBoundingClientRect() ?? null);
     setHoverId(label);
   };
   const hide = () => setHoverId((cur) => (cur === label ? null : cur));
-  // Only the item the sidebar says is hovered renders an overlay, so a stale
-  // one can never linger if a mouseleave is missed.
-  const anchor = hoverId === label ? rect : null;
+  // The tooltip is gated on the sidebar's single hoverId, so a stale one can
+  // never linger if a mouseleave is missed.
 
   const listId = useId();
   const hasSub = children != null;
   // Accordion: the sidebar tracks a single open item, keyed by label.
-  const open = hasSub && !collapsed && openId === label;
+  // One open item at a time — inline when expanded, a flyout when collapsed.
+  const open = hasSub && openId === label;
 
   const button = (
     <button
@@ -164,10 +181,16 @@ export function SidebarItem({
       className={cx(styles.item, selected && styles.itemSelected, className)}
       data-selected={selected || undefined}
       aria-current={selected ? 'page' : undefined}
-      aria-expanded={hasSub && !collapsed ? open : undefined}
+      aria-expanded={hasSub ? open : undefined}
       aria-controls={open ? listId : undefined}
       onClick={(e) => {
-        if (hasSub && !collapsed) setOpenId(open ? null : label);
+        if (hasSub) {
+          setRect(ref.current?.getBoundingClientRect() ?? null);
+          setOpenId(open ? null : label);
+        } else {
+          // Navigating to a leaf dismisses whatever section was open.
+          setOpenId(null);
+        }
         onClick?.(e);
       }}
       {...rest}
@@ -187,6 +210,9 @@ export function SidebarItem({
   );
 
   if (collapsed) {
+    const showFlyout = Boolean(open && rect);
+    // The tooltip yields to the flyout, so the two never show together.
+    const showTip = Boolean(hoverId === label && rect && !showFlyout);
     return (
       <div
         className={styles.collapsedWrap}
@@ -196,22 +222,22 @@ export function SidebarItem({
         onBlur={hide}
       >
         {button}
-        {anchor && hasSub && (
+        {showFlyout && rect && (
           <div
             className={styles.flyout}
             role="group"
             aria-label={label}
-            style={{ top: anchor.top - 12, left: anchor.right + 8 }}
+            style={{ top: rect.top - 12, left: rect.right + 8 }}
           >
             <div className={styles.flyoutTitle}>{label}</div>
             <div className={styles.flyoutList}>{children}</div>
           </div>
         )}
-        {anchor && !hasSub && (
+        {showTip && rect && (
           <span
             role="tooltip"
             className={styles.tip}
-            style={{ top: anchor.top + anchor.height / 2, left: anchor.right + 8 }}
+            style={{ top: rect.top + rect.height / 2, left: rect.right + 8 }}
           >
             {label}
           </span>

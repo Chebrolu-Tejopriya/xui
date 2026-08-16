@@ -42,3 +42,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0008](0008-theming-lives-in-the-generator.md) | Theming lives in the generator, extracted data stays faithful | accepted |
 | [0009](0009-repo-owns-reference-notion-owns-narrative.md) | Repo owns reference, Notion owns narrative | accepted |
 | [0010](0010-one-icon-set-for-navigation.md) | One icon set for navigation, tone carries selection | accepted |
+| [0011](0011-icon-markup-is-hoisted-per-shape.md) | Icon markup is hoisted per shape, not rebuilt per render | accepted |
