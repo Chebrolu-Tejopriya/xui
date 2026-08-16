@@ -79,7 +79,7 @@ export function Sidebar({
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             aria-expanded={!collapsed}
           >
-            {collapsed ? <ChevronRightIcon size={19} /> : <ChevronLeftIcon size={19} />}
+            {collapsed ? <ChevronRightIcon size={14} /> : <ChevronLeftIcon size={14} />}
           </button>
         )}
       </nav>
