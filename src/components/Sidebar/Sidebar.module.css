@@ -260,7 +260,10 @@
   font: var(--type-subtitle-2);
 }
 
-/* Same tokens as the Tooltip component's bubble, so they read identically. */
+/* Same tokens and geometry as the Tooltip component, beak included — this is
+   the `right` placement (bubble to the right of the trigger, beak on its left
+   edge). Rendered here rather than with <Tooltip> only because that positions
+   absolutely and the nav is a scroll container. */
 .tip {
   position: fixed;
   z-index: 20;
@@ -272,4 +275,17 @@
   font: var(--type-body-3);
   white-space: nowrap;
   pointer-events: none;
+}
+
+/* 8.5px square rotated 45deg == Figma's 6-deep x 12-along beak. */
+.tip::before {
+  content: '';
+  position: absolute;
+  left: -4.25px;
+  top: calc(50% - 4.25px);
+  width: 8.5px;
+  height: 8.5px;
+  background: var(--content-primary);
+  border-radius: 2px;
+  transform: rotate(45deg);
 }
