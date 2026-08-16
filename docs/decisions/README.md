@@ -43,3 +43,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0009](0009-repo-owns-reference-notion-owns-narrative.md) | Repo owns reference, Notion owns narrative | accepted |
 | [0010](0010-one-icon-set-for-navigation.md) | One icon set for navigation, tone carries selection | accepted |
 | [0011](0011-icon-markup-is-hoisted-per-shape.md) | Icon markup is hoisted per shape, not rebuilt per render | accepted |
+| [0012](0012-collapsed-sidebar-overlay-model.md) | Collapsed sidebar: hover names, click opens, never both | accepted |

@@ -214,9 +214,10 @@
 }
 
 /* ---- Collapsed affordances ----
-   An item with sub-items opens a flyout panel on hover (Figma "Overlay/*");
-   one without gets a tooltip naming it. Both are positioned `fixed` from the
-   trigger's rect so they escape the nav's scroll container. */
+   Hovering an item names it in a tooltip; clicking one that has sub-items
+   opens them in a flyout panel (Figma "Overlay/*"). Never both at once. Both
+   are positioned `fixed` from the trigger's rect so they escape the nav's
+   scroll container. */
 
 .collapsedWrap {
   display: block;

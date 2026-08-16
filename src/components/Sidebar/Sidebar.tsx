@@ -49,9 +49,10 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
  * right edge. Items are 36px tall; selected paints `surface-brand-secondary`
  * with a tapered `content-brand-primary` rail and a brand-toned icon.
  *
- * Sub-lists behave as an accordion — opening one closes the others. When
- * collapsed, an item with sub-items shows them in a hover flyout, and an item
- * without shows a tooltip.
+ * Sub-lists behave as an accordion — opening one closes the others. Collapsed,
+ * hovering any item names it in a tooltip, and clicking one that has sub-items
+ * opens them in a flyout panel. The two are mutually exclusive: the flyout
+ * dismisses on click-away, on moving to another item, or on leaving the rail.
  */
 export function Sidebar({
   collapsed = false,
@@ -59,6 +60,7 @@ export function Sidebar({
   defaultOpenId,
   className,
   children,
+  onMouseLeave,
   ...rest
 }: SidebarProps) {
   const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? null);
@@ -81,6 +83,14 @@ export function Sidebar({
         ref={navRef}
         className={cx(styles.sidebar, collapsed && styles.collapsed, className)}
         data-collapsed={collapsed || undefined}
+        onMouseLeave={(e) => {
+          // A collapsed flyout is click-opened, so leaving the rail dismisses
+          // it — otherwise returning to that item shows a stale overlay where
+          // its tooltip belongs. The panel is `fixed` but still a DOM
+          // descendant, so this does not fire while the pointer is inside it.
+          if (collapsed) setOpenId(null);
+          onMouseLeave?.(e);
+        }}
         {...rest}
       >
         {children}
@@ -133,7 +143,7 @@ export interface SidebarItemProps extends Omit<HTMLAttributes<HTMLButtonElement>
   icon?: ComponentType<IconProps>;
   label: string;
   selected?: boolean;
-  /** Sub-items. Expanded: an indented list. Collapsed: a hover flyout. */
+  /** Sub-items. Expanded: an indented list. Collapsed: a click-opened flyout. */
   children?: ReactNode;
 }
 
@@ -161,6 +171,9 @@ export function SidebarItem({
   // the browser re-fires mouseenter whenever the DOM under the cursor changes.
   const show = () => {
     if (hoverId === label) return;
+    // Moving onto a different item dismisses a click-opened flyout, so a
+    // tooltip and an overlay are never on screen at the same time.
+    if (collapsed && openId !== null && openId !== label) setOpenId(null);
     setRect(ref.current?.getBoundingClientRect() ?? null);
     setHoverId(label);
   };
