@@ -1,6 +1,6 @@
 # Derived design spec — MCP Training page
 
-**Status:** awaiting confirmation from teja · **Derived:** 2026-08-16
+**Status:** confirmed by teja 2026-08-16 · **Derived:** 2026-08-16
 **Source:** Figma `KoinX-Fidisys-Internal` → page **MCP Training** (`9677:261004`)
 **Scope read:** 26,325 frames · 19,532 auto-layout frames · 8,107 text nodes · 3 product sections
 
@@ -112,29 +112,72 @@ carry their own inner padding instead. Two Taxes screens use a **collapsed rail 
 
 ---
 
-## Conflicts — need your ruling
+## Rulings (teja, 2026-08-16)
 
-1. **`Subtitle/2` line-height.** Figma says Medium 14/**20**; XUI ships `500 14px/18px`.
-   This is the second most-used style in the file (1,458 nodes) and it is what
-   `SidebarItem` renders its labels in, so XUI is currently 2px tight on every nav item.
-2. **`Heading/0`.** Figma says **Regular 36/48** (weight 400); XUI ships `700 40px/48px`
-   — wrong weight *and* wrong size. Only 2 uses in the file, so low blast radius, but
-   XUI is plainly wrong.
-3. **Letter-spacing is absent from XUI entirely.** Three styles carry it:
-   `Subtitle/1` +0.10, `Button/1` +0.10, `Label/1` −0.24. Add it to those tokens?
-4. **Missing spacing tokens: 6, 10, 20, 40.** 6px and 10px are the two most common
-   non-zero gaps in the entire file (5,072 uses between them) and have no token, so any
-   faithful build has to hard-code them. Add them to the scale? And should 32/64 stay?
-5. **Missing radius token: 32px** (78 uses).
-6. **Collapsed rail: 61 or 62px?** XUI has 61 (taken from Books); two Taxes screens show 62.
-7. **Content width per product.** Professionals is a clean 1168 with a 24px gutter.
-   Books runs the content flush to the rail. Is `AppShell` one component with a gutter
-   prop, or is Professionals' 24px gutter the house standard everything moves to?
+| # | Item | Ruling | State |
+|---|---|---|---|
+| A1 | `Subtitle/2` 14/18 vs 14/20 | Figma wins — XUI was wrong | **fixed** |
+| A2 | `Heading/0` | XUI already correct — see correction below | **closed, no change** |
+| B1-B5 | Spacing 6/10/20/40, radius 32 | Add them | **done** |
+| B6 | Letter-spacing | not yet ruled | open |
+| C1 | Collapsed rail | **61px** | already correct |
+| C2 | Content gutter | **24px**, as Professionals and Taxes. Books moves to it | feeds `AppShell` |
+| D | Foreign text styles | **Do not edit Figma.** Map them in code when generating | mapping below |
+| E | Component generations | Tables: **Professionals** standard. Tabs + inputs: **use the existing XUI components**. Icons: **XUI v2** | settled |
 
-## Contamination worth a cleanup pass (file-side, not code)
+### Correction on A2
 
-- **Foreign text styles**: `BuyProperly/Heading/5`, `BuyProperly/Subtitle/1` (4 nodes),
-  `Text sm/Regular`, `Text xs/Regular`, `Text xs/Medium` (31), `Label`, `Regular`,
-  `Typography/Subtitle/3` (26). All from other systems.
-- **Duplicate KoinX styles**: `Heading/6` exists twice; `Subtitle/4` exists twice
-  (11/14 and 11/AUTO).
+The spec first reported `Heading/0` as `Regular 36/48` against XUI's `700 40px/48px`
+and called XUI wrong on both weight and size. That was a misread: those values came
+from two **stale nodes**, not from the library. Re-importing the style by key returns
+the published definition:
+
+```
+KoinX/Heading/0   in-file: Inter Regular 36/48   PUBLISHED: Inter Bold 40/48
+```
+
+`Bold 40/48` is exactly what XUI ships. **XUI was right; the flag was wrong.** Reading
+a bound instance is not the same as reading the style — `importStyleByKeyAsync` is, and
+it is what settles this class of question.
+
+### A1 impact, measured
+
+`--type-subtitle-2` 14/18 → 14/20, A/B'd by overriding the token at runtime:
+
+| Component | Effect |
+|---|---|
+| Table, Select, Pagination, FileUpload | nothing moved — fixed heights absorb it |
+| Sidebar | 11 text boxes +2px; the 36px item height is unchanged |
+| Checkbox, Radio, Switch | 1-2 label boxes +2px |
+| Input | 3 elements +1-2px |
+
+No container geometry changed. Sidebar item stays 36px, table row stays 52px.
+
+### D — foreign style mapping, for code generation only
+
+The Figma file keeps these as-is. When generating from a screen that uses one, resolve
+it to the KoinX style — and therefore to the XUI token — on this table:
+
+| Foreign style | Definition | KoinX equivalent | XUI token | Exact? |
+|---|---|---|---|---|
+| `BuyProperly/Heading/5` | Semi Bold 16/22 | `Heading/5` | `--type-heading-5` | yes |
+| `BuyProperly/Subtitle/1` | Medium 16/22 ls0.10 | `Subtitle/1` | `--type-subtitle-1` | yes |
+| `Text sm/Regular` | Regular 14/20 | `Body/2` | `--type-body-2` | yes |
+| `Typography/Subtitle/3` | Medium 12/16 | `Subtitle/3` | `--type-subtitle-3` | yes |
+| `Blog/H3` | Semi Bold 24/122% | `Heading/2` | `--type-heading-2` | ~ (29.3 vs 30) |
+| `Text xs/Regular` | Regular 12/18 | `Body/3` | `--type-body-3` | no — lh 18→16 |
+| `Text xs/Medium` | Medium 12/18 | `Subtitle/3` | `--type-subtitle-3` | no — lh 18→16 |
+| `Label` | Medium 16/AUTO | `Subtitle/1` | `--type-subtitle-1` | no — AUTO→22 |
+| `Regular` | Regular 16/AUTO | `Body/1` | `--type-body-1` | no — AUTO→24 |
+
+### On the "duplicate" styles (D2, refined)
+
+They are not duplicates in the library — they are **stale local copies** of library
+styles. `Subtitle/4` appears as both `11/14` and `11/AUTO`, where published is `11/14`
+(XUI is correct). One `Heading/6` copy has a key that no longer resolves — the style it
+came from was deleted upstream. Both are file hygiene, not code issues.
+
+## Still open
+
+- **B6 — letter-spacing.** XUI has no letter-spacing at all; three styles carry it:
+  `Subtitle/1` +0.10, `Button/1` +0.10, `Label/1` -0.24. Add to those three tokens?
