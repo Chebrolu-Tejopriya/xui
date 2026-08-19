@@ -1285,7 +1285,7 @@
           "name": "children",
           "type": "ReactNode",
           "required": false,
-          "description": "Sub-items. Expanded: an indented list. Collapsed: a hover flyout."
+          "description": "Sub-items. Expanded: an indented list. Collapsed: a click-opened flyout."
         }
       ],
       "extends": "Omit<HTMLAttributes<HTMLButtonElement>, 'children'>",

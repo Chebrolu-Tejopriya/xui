@@ -207,7 +207,7 @@ for (const file of files) {
     }
 
     // 4. a primitive used directly instead of a semantic token
-    for (const m of line.matchAll(/var\(\s*--((?:gray|blue|red|orange|green)-\d+)\s*\)/g)) {
+    for (const m of line.matchAll(/var\(\s*--((?:gray|blue|red|orange|green|brand)-\d+)\s*\)/g)) {
       const property = propertyOf(line.slice(0, m.index));
       const s = suggest(m[1], property);
       findings.push({

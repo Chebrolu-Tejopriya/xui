@@ -161,20 +161,20 @@
       "dark": "gray-04"
     },
     "surface-brand-primary": {
-      "primitive": "blue-09",
-      "dark": "blue-09"
+      "primitive": "brand-09",
+      "dark": "brand-09"
     },
     "surface-brand-solid": {
-      "primitive": "blue-10",
-      "dark": "blue-10"
+      "primitive": "brand-10",
+      "dark": "brand-10"
     },
     "surface-brand-subtle": {
-      "primitive": "blue-08",
-      "dark": "blue-08"
+      "primitive": "brand-08",
+      "dark": "brand-08"
     },
     "surface-brand-secondary": {
-      "primitive": "blue-03",
-      "dark": "blue-03"
+      "primitive": "brand-03",
+      "dark": "brand-03"
     },
     "surface-success-primary": {
       "primitive": "green-09",
@@ -257,12 +257,12 @@
       "dark": "gray-08"
     },
     "content-brand-primary": {
-      "primitive": "blue-09",
-      "dark": "blue-09"
+      "primitive": "brand-09",
+      "dark": "brand-09"
     },
     "content-brand-secondary": {
-      "primitive": "blue-08",
-      "dark": "blue-08"
+      "primitive": "brand-08",
+      "dark": "brand-08"
     },
     "content-success-primary": {
       "primitive": "green-09",
@@ -305,8 +305,8 @@
       "dark": "gray-04"
     },
     "border-brand": {
-      "primitive": "blue-09",
-      "dark": "blue-09"
+      "primitive": "brand-09",
+      "dark": "brand-09"
     },
     "border-success": {
       "primitive": "green-09",
@@ -876,17 +876,32 @@
         "surface-tertiary",
         "border-tertiary"
       ],
+      "brand-09": [
+        "surface-brand-primary",
+        "content-brand-primary",
+        "border-brand"
+      ],
       "blue-09": [
         "surface-brand-primary",
         "content-brand-primary",
         "border-brand"
       ],
+      "brand-10": [
+        "surface-brand-solid"
+      ],
       "blue-10": [
         "surface-brand-solid"
+      ],
+      "brand-08": [
+        "surface-brand-subtle",
+        "content-brand-secondary"
       ],
       "blue-08": [
         "surface-brand-subtle",
         "content-brand-secondary"
+      ],
+      "brand-03": [
+        "surface-brand-secondary"
       ],
       "blue-03": [
         "surface-brand-secondary"

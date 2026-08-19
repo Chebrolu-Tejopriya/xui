@@ -1,0 +1,54 @@
+/**
+ * XUI Design System — Brand ramp.
+ *
+ * The one colour axis that is not fixed. Every brand-bearing semantic points at
+ * `--brand-NN` rather than a named hue, so swapping brand means redefining this
+ * ramp — a second runtime axis beside `[data-theme]`, not a rebuild or a fork.
+ *
+ *   <html data-theme="dark" data-brand="acme">
+ *
+ * Both attributes go on the same element (`document.documentElement`), because
+ * a brand's dark ramp is selected by `[data-theme='dark'][data-brand='acme']`
+ * and a compound selector cannot span two elements.
+ *
+ * ---- The default brand ----
+ *
+ * KoinX blue, expressed as aliases rather than hex. That is deliberate: the
+ * blue scale is already theme-reactive, so `--brand-09` inherits light/dark for
+ * free and an app that sets no `data-brand` behaves exactly as it did before
+ * this file existed. No second block needed here.
+ *
+ * ---- Adding a brand ----
+ *
+ * A brand needs BOTH themes. Brand x theme is a matrix, not a list: a ramp
+ * defined only for light renders wrong the moment someone flips to dark.
+ *
+ *   [data-brand='acme']                    { --brand-01: #…; … --brand-12: #…; }
+ *   [data-theme='dark'][data-brand='acme'] { --brand-01: #…; … --brand-12: #…; }
+ *
+ * Step roles must sit at the same index across every brand, because the
+ * semantics bind by number, not by name. Today's bindings — see semantic.css:
+ *
+ *   03  surface-brand-secondary   (tinted fill: selected rows, nav items)
+ *   08  surface-brand-subtle / content-brand-secondary
+ *   09  Base — surface-brand-primary, content-brand-primary, border-brand
+ *   10  surface-brand-solid       (pressed / solid button)
+ *
+ * The other eight steps are unused by semantics today and exist so a brand can
+ * be dropped in whole, the way Figma defines it.
+ */
+
+:root {
+  --brand-01: var(--blue-01);
+  --brand-02: var(--blue-02);
+  --brand-03: var(--blue-03);
+  --brand-04: var(--blue-04);
+  --brand-05: var(--blue-05);
+  --brand-06: var(--blue-06);
+  --brand-07: var(--blue-07);
+  --brand-08: var(--blue-08);
+  --brand-09: var(--blue-09); /* Base */
+  --brand-10: var(--blue-10);
+  --brand-11: var(--blue-11);
+  --brand-12: var(--blue-12);
+}

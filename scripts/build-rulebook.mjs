@@ -52,6 +52,7 @@ function vars(body) {
 }
 
 const primitivesCss = read('primitives.css');
+const brandCss = read('brand.css');
 const semanticCss = read('semantic.css');
 const labelsCss = read('labels.css');
 const typographyCss = read('typography.css');
@@ -59,6 +60,18 @@ const typographyCss = read('typography.css');
 // ---- primitives: name -> hex, per theme -------------------------------------
 const primLight = vars(block(primitivesCss, /^\s*(:root|\[data-theme='light'\])/));
 const primDark = vars(block(primitivesCss, /^\s*\[data-theme='dark'\]/));
+
+/**
+ * The brand ramp is an alias layer, not a scale of its own: `--brand-09`
+ * points at whatever hue the active brand uses. Merge it in so semantics
+ * binding to `--brand-NN` are recognised as colour semantics — without this
+ * the `alias in primLight` test below drops all seven brand tokens silently.
+ * Values are `var(...)`, not hex, so `onlyHex` keeps them out of the reverse
+ * hex map, which is correct: a hex resolves to the hue it literally is.
+ */
+const brandDefault = vars(block(brandCss, /^\s*:root/));
+Object.assign(primLight, brandDefault);
+Object.assign(primDark, brandDefault);
 
 // labels resolve to raw hex too (they are their own scale, not aliases)
 const labelLight = vars(block(labelsCss, /^\s*:root/));
@@ -116,6 +129,10 @@ const primitiveToSemantics = {};
 for (const [token, def] of Object.entries(semantics)) {
   if (!def.primitive) continue;
   (primitiveToSemantics[def.primitive] ||= []).push(token);
+  // Follow the default brand one hop, so a raw #0052fe still resolves to the
+  // brand semantics now that they name `--brand-09` rather than `--blue-09`.
+  const under = aliasOf(brandDefault[def.primitive] ?? '');
+  if (under) (primitiveToSemantics[under] ||= []).push(token);
 }
 
 /**
