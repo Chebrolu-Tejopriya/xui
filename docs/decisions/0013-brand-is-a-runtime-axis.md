@@ -1,6 +1,6 @@
 # 0013 — Brand is a runtime axis, not a fork
 
-**Status:** accepted · **Recorded:** 2026-08-16
+**Status:** superseded by [0014](0014-xui-stays-single-brand.md) · **Recorded:** 2026-08-16
 
 ## Context
 

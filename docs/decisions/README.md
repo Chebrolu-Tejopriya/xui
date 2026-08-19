@@ -44,4 +44,5 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0010](0010-one-icon-set-for-navigation.md) | One icon set for navigation, tone carries selection | accepted |
 | [0011](0011-icon-markup-is-hoisted-per-shape.md) | Icon markup is hoisted per shape, not rebuilt per render | accepted |
 | [0012](0012-collapsed-sidebar-overlay-model.md) | Collapsed sidebar: hover names, click opens, never both | accepted |
-| [0013](0013-brand-is-a-runtime-axis.md) | Brand is a runtime axis, not a fork | accepted |
+| [0013](0013-brand-is-a-runtime-axis.md) | Brand is a runtime axis, not a fork | superseded by 0014 |
+| [0014](0014-xui-stays-single-brand.md) | XUI stays single-brand — cool greys constrain the hue | accepted |

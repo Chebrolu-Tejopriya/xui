@@ -13,10 +13,10 @@
   --surface-secondary: var(--gray-03);
   --surface-tertiary: var(--gray-04);
 
-  --surface-brand-primary: var(--brand-09);
-  --surface-brand-solid: var(--brand-10);
-  --surface-brand-subtle: var(--brand-08);
-  --surface-brand-secondary: var(--brand-03);
+  --surface-brand-primary: var(--blue-09);
+  --surface-brand-solid: var(--blue-10);
+  --surface-brand-subtle: var(--blue-08);
+  --surface-brand-secondary: var(--blue-03);
 
   --surface-success-primary: var(--green-09);
   --surface-success-solid: var(--green-10);
@@ -43,8 +43,8 @@
   --content-secondary: var(--gray-10);
   --content-tertiary: var(--gray-09);
   --content-quaternary: var(--gray-08);
-  --content-brand-primary: var(--brand-09);
-  --content-brand-secondary: var(--brand-08);
+  --content-brand-primary: var(--blue-09);
+  --content-brand-secondary: var(--blue-08);
   --content-success-primary: var(--green-09);
   --content-success-primary-solid: var(--green-10);
   --content-error-primary: var(--red-09);
@@ -57,7 +57,7 @@
   --border-primary: var(--gray-07);
   --border-secondary: var(--gray-05);
   --border-tertiary: var(--gray-04);
-  --border-brand: var(--brand-09);
+  --border-brand: var(--blue-09);
   --border-success: var(--green-09);
   --border-error: var(--red-09);
   --border-warning: var(--orange-09);
