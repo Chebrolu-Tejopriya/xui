@@ -87,6 +87,7 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-xxl: 24px;
+  --radius-xxxl: 32px;
   --radius-max: 1000px;
 
   /* ---- Border width ---- */
@@ -97,14 +98,32 @@
   --border-width-thicker: 2px;
 
   /* ---- Spacing ---- */
-  --spacing-xxxs: 2px;
-  --spacing-xxs: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-mid: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-xxl: 64px;
+  /* Numeric scale — mirrors the gaps the designs actually use. 6 and 10 are the
+     two most common non-zero gaps in the KoinX files and had no token, which is
+     why the t-shirt names below became aliases: 6 falls between xxs (4) and
+     xs (8), so the old scheme had nowhere to put it. Prefer these in new code. */
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-64: 64px;
+
+  /* Retained aliases — every existing component references these. */
+  --spacing-xxxs: var(--spacing-2);
+  --spacing-xxs: var(--spacing-4);
+  --spacing-xs: var(--spacing-8);
+  --spacing-sm: var(--spacing-12);
+  --spacing-mid: var(--spacing-16);
+  --spacing-lg: var(--spacing-24);
+  --spacing-xl: var(--spacing-32);
+  --spacing-xxl: var(--spacing-64);
 }
 
 /* Dark theme: elevation scrims are transparent in XUI dark mode

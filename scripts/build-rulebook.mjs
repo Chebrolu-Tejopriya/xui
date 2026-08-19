@@ -92,8 +92,12 @@ for (const [token, value] of Object.entries(labelLight)) {
 /** Non-color scales, kept as literal values. */
 const scales = {};
 for (const [token, value] of Object.entries(semLight)) {
-  if (aliasOf(value)) continue;
-  if (/^(radius|spacing|border-width|padding)-/.test(token)) scales[token] = value;
+  if (!/^(radius|spacing|border-width|padding)-/.test(token)) continue;
+  // The t-shirt spacing names alias the numeric scale, so resolve one hop —
+  // otherwise every alias drops out of the rulebook and agents lose the
+  // spelling that 36 existing components actually use.
+  const alias = aliasOf(value);
+  scales[token] = alias ? (semLight[alias] ?? value) : value;
 }
 
 // ---- reverse map: hex -> the token(s) that resolve to it ---------------------
