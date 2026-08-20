@@ -175,6 +175,18 @@
       ],
       "variants": {}
     },
+    "AppShell": {
+      "group": "AppShell",
+      "import": "import { AppShell } from 'xui';",
+      "props": [],
+      "variants": {}
+    },
+    "AppShellMain": {
+      "group": "AppShell",
+      "import": "import { AppShellMain } from 'xui';",
+      "props": [],
+      "variants": {}
+    },
     "Avatar": {
       "group": "Avatar",
       "import": "import { Avatar } from 'xui';",

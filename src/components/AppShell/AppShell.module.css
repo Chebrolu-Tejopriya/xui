@@ -1,0 +1,33 @@
+/* XUI AppShell — the frame every KoinX product screen sits in.
+   Figma (Professionals `Frame 1973341304`, Taxes identical): a horizontal row,
+   gap 24, padding-right 24, holding the 224px nav rail and the content column.
+   At the 1440 design width that resolves to 224 + 24 + 1168 + 24, so `main`
+   flexes rather than hard-coding 1168 — the number falls out of the layout. */
+
+.shell {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  gap: var(--spacing-24);
+  padding-right: var(--spacing-24);
+  background: var(--surface-primary);
+  box-sizing: border-box;
+}
+
+/* Content column — Figma: VERTICAL, gap 8, padding 16 top and bottom, no
+   horizontal padding (the row's gap and right padding provide the gutters).
+   `min-width: 0` stops a wide table from forcing the rail to shrink. */
+.main {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  padding: var(--spacing-16) 0;
+  box-sizing: border-box;
+  /* Beyond the design: the rail stays put and the content scrolls on its own.
+     Figma cannot express this — flagged in the Sidebar docs and ADR 0012's
+     terms. The alternative, scrolling the whole page, loses the nav on long
+     tables like Transactions. */
+  overflow-y: auto;
+}

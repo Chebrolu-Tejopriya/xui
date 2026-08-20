@@ -46,3 +46,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0012](0012-collapsed-sidebar-overlay-model.md) | Collapsed sidebar: hover names, click opens, never both | accepted |
 | [0013](0013-brand-is-a-runtime-axis.md) | Brand is a runtime axis, not a fork | superseded by 0014 |
 | [0014](0014-xui-stays-single-brand.md) | XUI stays single-brand — cool greys constrain the hue | accepted |
+| [0015](0015-appshell-flexes-rail-fixed.md) | AppShell flexes; the rail is fixed and the content scrolls | accepted |

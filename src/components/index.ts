@@ -1,4 +1,5 @@
 export * from './Accordion';
+export * from './AppShell';
 export * from './Avatar';
 export * from './Badge';
 export * from './Breadcrumbs';
