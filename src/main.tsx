@@ -1,9 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import Playground from './playground.tsx';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Playground />
+    <App />
   </StrictMode>,
-);
+)

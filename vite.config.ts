@@ -14,10 +14,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(dirname, './src'),
-      // Consumers (and the playground) import the design system by name,
-      // exactly as the team will. Reaching past this entry is the smell.
-      xui: path.resolve(dirname, './src/index.ts')
+      '@': path.resolve(dirname, './src')
     }
   },
   test: {
