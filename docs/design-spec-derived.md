@@ -119,7 +119,7 @@ carry their own inner padding instead. Two Taxes screens use a **collapsed rail 
 | A1 | `Subtitle/2` 14/18 vs 14/20 | Figma wins — XUI was wrong | **fixed** |
 | A2 | `Heading/0` | XUI already correct — see correction below | **closed, no change** |
 | B1-B5 | Spacing 6/10/20/40, radius 32 | Add them | **done** |
-| B6 | Letter-spacing | not yet ruled | open |
+| B6 | Letter-spacing | Mirror the Figma styles exactly | **done** |
 | C1 | Collapsed rail | **61px** | already correct |
 | C2 | Content gutter | **24px**, as Professionals and Taxes. Books moves to it | feeds `AppShell` |
 | D | Foreign text styles | **Do not edit Figma.** Map them in code when generating | mapping below |
@@ -177,7 +177,35 @@ styles. `Subtitle/4` appears as both `11/14` and `11/AUTO`, where published is `
 (XUI is correct). One `Heading/6` copy has a key that no longer resolves — the style it
 came from was deleted upstream. Both are file hygiene, not code issues.
 
-## Still open
+## Correction — letter-spacing was never missing
 
-- **B6 — letter-spacing.** XUI has no letter-spacing at all; three styles carry it:
-  `Subtitle/1` +0.10, `Button/1` +0.10, `Label/1` -0.24. Add to those three tokens?
+The spec claimed XUI "has no letter-spacing at all". That was wrong. XUI already
+defined `--tracking-button-1` and `--tracking-subtitle-1` and applied them at all
+five consumers (Accordion, Badge, Breadcrumbs, Tabs, Button). The error came from
+grepping `--type-` only, which never showed the `/* Letter spacing */` block
+directly beneath it.
+
+The real gap was one token. Read from the design-system source file
+`CZHLKqp4fOchbR6FkTcPC8`, exactly three of the 22 KoinX styles carry letter
+spacing; the other 19 are `0%`:
+
+| Figma style | Letter spacing | XUI token | Was |
+|---|---|---|---|
+| `KoinX/Button/1` | +0.1px | `--tracking-button-1` | already correct |
+| `KoinX/Subtitle/1` | +0.1px | `--tracking-subtitle-1` | already correct |
+| `KoinX/Label/1` | −0.24px | `--tracking-label-1` | **added** |
+
+No new convention was introduced — `--tracking-*` already existed and is what the
+components use.
+
+## Source of truth for type
+
+The `KoinX/*` text styles are **local** to `CZHLKqp4fOchbR6FkTcPC8` and consumed as
+a remote library everywhere else. Read them there. The XUI file
+`4O4jP8lf2a2kl1XcQaXEqe` referenced by `figma-variable-parity` returns
+**"User does not have permission to access this file using MCP"** — that skill
+cannot currently run, and it needs either access granting or a corrected key.
+
+All 22 styles verified against XUI: **every one now matches**, including
+`Heading/0 = Inter Bold 40/48` (XUI `700 40px/48px`) and
+`Subtitle/2 = Medium 14/20`.
