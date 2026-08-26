@@ -78,7 +78,12 @@ const preview: Preview = {
       // via parameters.copyImport (string), suppressible with `false`.
       const override = context.parameters.copyImport;
       const component = context.component as { displayName?: string; name?: string } | undefined;
-      const componentName = component?.displayName || component?.name;
+      // `component.name` is the function's name, which minifies to junk in a
+      // production build — the deployed docs showed `import { D } from …`.
+      // The story title is a string literal and survives minification, so it
+      // is the reliable source; `.name` stays only as a last resort.
+      const fromTitle = context.title?.split('/').pop();
+      const componentName = component?.displayName || fromTitle || component?.name;
       const importCode =
         override === false
           ? null

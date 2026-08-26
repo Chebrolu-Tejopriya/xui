@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 /** Single source of truth for the package name shown in copy chips. */
-export const PACKAGE_NAME = 'xui';
+export const PACKAGE_NAME = '@koinx/xui';
 
 /**
  * Storybook-only chip rendered above every component story: shows the
