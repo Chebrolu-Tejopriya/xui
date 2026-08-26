@@ -49,3 +49,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0015](0015-appshell-flexes-rail-fixed.md) | AppShell flexes; the rail is fixed and the content scrolls | accepted |
 | [0016](0016-xui-ships-as-a-scoped-package.md) | XUI ships as a scoped package, built from source | accepted |
 | [0017](0017-version-by-generation.md) | Version by generation, not by change | accepted |
+| [0018](0018-governance.md) | Review concentrated in one or two owners, enforced by CI | accepted |

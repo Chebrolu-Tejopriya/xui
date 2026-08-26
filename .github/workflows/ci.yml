@@ -1,0 +1,52 @@
+# Runs on every PR and every push to main. These are the checks branch
+# protection should require — see docs/decisions/0018-governance.md.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # `tsc --noEmit` is a no-op in this repo — the root tsconfig is a
+      # solution file, so it checks nothing and always passes. -b is the real
+      # check, which is what `npm run typecheck` runs.
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tokens — no raw colours, stray primitives or undefined tokens
+        run: npm run lint:tokens
+
+      # The rulebook and manifest are generated from source and are the
+      # contract agents and the Figma plugin read. If a PR changes tokens or
+      # components without regenerating them, the contract silently lies.
+      - name: Derived artefacts are current
+        run: |
+          npm run ds:build
+          git diff --exit-code -- xui.rulebook.json xui.manifest.json \
+            || { echo "::error::Run 'npm run ds:build' and commit the result."; exit 1; }
+
+      - name: Library build
+        run: npm run build:lib
+
+      - name: Storybook build
+        run: npm run build-storybook

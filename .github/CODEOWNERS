@@ -1,0 +1,10 @@
+# Every change to XUI needs review from an owner. GitHub requests this
+# automatically on any PR touching a matching path.
+#
+# Keep this list to one or two people. The point is a consistent eye on the
+# system, not a committee.
+
+* @Chebrolu-Tejopriya
+
+# Add a second reviewer by appending their handle to the line above:
+#   * @Chebrolu-Tejopriya @teammate
