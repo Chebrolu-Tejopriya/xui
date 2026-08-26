@@ -15,7 +15,8 @@
     "xui.rulebook.json"
   ],
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "./src/index.ts"
   ],
   "exports": {
     ".": {
