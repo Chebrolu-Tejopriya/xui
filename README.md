@@ -1,32 +1,82 @@
-# React + TypeScript + Vite
+# XUI — the KoinX design system
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Components, tokens and icons, derived from Figma and verified against it.
+38 components, 69 icons, 118 tokens.
 
-Currently, two official plugins are available:
+## Install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+No registry account needed — install straight from GitHub. The package builds
+itself on install:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install github:Chebrolu-Tejopriya/xui
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Use
+
+Two imports: the components, and the stylesheet (tokens + every component's CSS).
+
+```tsx
+import { AppShell, AppShellMain, Sidebar, Button, Badge } from '@koinx/xui';
+import '@koinx/xui/styles.css';
+
+<AppShell>
+  <Sidebar>…</Sidebar>
+  <AppShellMain>
+    <Button>Save</Button>
+    <Badge variant="label-positive">License</Badge>
+  </AppShellMain>
+</AppShell>
+```
+
+Icons carry four tones:
+
+```tsx
+import { WalletIcon } from '@koinx/xui';
+<WalletIcon size={20} variant="dualtone" />  // outlined | solid | dualtone | dualtone-selected
+```
+
+React 19+ is a peer dependency — the package never bundles its own copy.
+
+## Styling
+
+**Use semantic tokens, never raw colours.** They are what makes dark mode work;
+a hex value silently does not follow the theme.
+
+```tsx
+// right
+<div style={{ background: 'var(--surface-raised)', color: 'var(--content-primary)' }} />
+// wrong
+<div style={{ background: '#ffffff' }} />
+```
+
+Spacing is `--spacing-2 … --spacing-64`, type is `font: var(--type-body-2)`.
+Dark mode is `document.documentElement.setAttribute('data-theme', 'dark')`.
+
+## For agents
+
+The package ships a machine-readable contract. It is generated from source, so
+it cannot drift:
+
+```js
+import manifest from '@koinx/xui/manifest';  // components, props, principles,
+                                             // componentRules, antiPatterns
+import rulebook from '@koinx/xui/rulebook';  // every token, and hex -> token
+```
+
+Point your project's `CLAUDE.md` at `@koinx/xui/manifest` and an agent building
+screens will use the right component and the right token instead of guessing.
+
+## Contributing
+
+XUI mirrors Figma. Nothing is invented here: if a value is not in the design
+file, it does not go in, and anything beyond the design is recorded as an ADR
+under `docs/decisions/` with the alternatives that were rejected.
+
+```bash
+npm install
+npm run storybook     # every component and state
+npm run ds:check      # regenerate the contract, lint the tokens
+npm run typecheck     # tsc -b (note: `tsc --noEmit` is a no-op in this repo)
+npm run build:lib     # the publishable package
+```

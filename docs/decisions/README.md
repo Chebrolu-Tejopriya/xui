@@ -47,3 +47,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0013](0013-brand-is-a-runtime-axis.md) | Brand is a runtime axis, not a fork | superseded by 0014 |
 | [0014](0014-xui-stays-single-brand.md) | XUI stays single-brand — cool greys constrain the hue | accepted |
 | [0015](0015-appshell-flexes-rail-fixed.md) | AppShell flexes; the rail is fixed and the content scrolls | accepted |
+| [0016](0016-xui-ships-as-a-scoped-package.md) | XUI ships as a scoped package, built from source | accepted |

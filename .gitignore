@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-app
 dist-ssr
 *.local
 
@@ -25,3 +26,9 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# packed library tarballs
+*.tgz
+
+# local tooling — contains credentials
+.jetro/
