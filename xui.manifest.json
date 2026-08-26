@@ -3,9 +3,9 @@
   "generated": "scripts/gen-manifest.mjs — derived from source, do not edit by hand",
   "name": "@koinx/xui",
   "version": "1.0.0",
-  "description": "XUI design system. Import components from \"xui\"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.",
+  "description": "XUI design system. Import components from \"@koinx/xui\"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.",
   "usage": {
-    "install": "import { Button, Table, Badge } from 'xui';",
+    "install": "import { Button, Table, Badge } from '@koinx/xui';",
     "tokens": "Reference tokens in CSS as var(--surface-primary); never a raw hex or a --gray-* primitive.",
     "theming": "Set data-theme=\"dark\" on the root element; every semantic token re-resolves automatically."
   },
@@ -148,7 +148,7 @@
   "components": {
     "Accordion": {
       "group": "Accordion",
-      "import": "import { Accordion } from 'xui';",
+      "import": "import { Accordion } from '@koinx/xui';",
       "props": [
         {
           "name": "items",
@@ -177,19 +177,19 @@
     },
     "AppShell": {
       "group": "AppShell",
-      "import": "import { AppShell } from 'xui';",
+      "import": "import { AppShell } from '@koinx/xui';",
       "props": [],
       "variants": {}
     },
     "AppShellMain": {
       "group": "AppShell",
-      "import": "import { AppShellMain } from 'xui';",
+      "import": "import { AppShellMain } from '@koinx/xui';",
       "props": [],
       "variants": {}
     },
     "Avatar": {
       "group": "Avatar",
-      "import": "import { Avatar } from 'xui';",
+      "import": "import { Avatar } from '@koinx/xui';",
       "props": [
         {
           "name": "src",
@@ -234,7 +234,7 @@
     },
     "Badge": {
       "group": "Badge",
-      "import": "import { Badge } from 'xui';",
+      "import": "import { Badge } from '@koinx/xui';",
       "props": [
         {
           "name": "variant",
@@ -321,7 +321,7 @@
     },
     "Breadcrumbs": {
       "group": "Breadcrumbs",
-      "import": "import { Breadcrumbs } from 'xui';",
+      "import": "import { Breadcrumbs } from '@koinx/xui';",
       "props": [
         {
           "name": "items",
@@ -338,7 +338,7 @@
     },
     "Button": {
       "group": "Button",
-      "import": "import { Button } from 'xui';",
+      "import": "import { Button } from '@koinx/xui';",
       "props": [
         {
           "name": "variant",
@@ -434,7 +434,7 @@
     },
     "Checkbox": {
       "group": "Checkbox",
-      "import": "import { Checkbox } from 'xui';",
+      "import": "import { Checkbox } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -454,7 +454,7 @@
     },
     "Dialog": {
       "group": "Dialog",
-      "import": "import { Dialog } from 'xui';",
+      "import": "import { Dialog } from '@koinx/xui';",
       "props": [
         {
           "name": "open",
@@ -529,7 +529,7 @@
     },
     "FileUpload": {
       "group": "FileUpload",
-      "import": "import { FileUpload } from 'xui';",
+      "import": "import { FileUpload } from '@koinx/xui';",
       "props": [
         {
           "name": "variant",
@@ -608,7 +608,7 @@
     },
     "AmountInput": {
       "group": "Input",
-      "import": "import { AmountInput } from 'xui';",
+      "import": "import { AmountInput } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -672,7 +672,7 @@
     },
     "DateInput": {
       "group": "Input",
-      "import": "import { DateInput } from 'xui';",
+      "import": "import { DateInput } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -718,7 +718,7 @@
     },
     "Dropdown": {
       "group": "Input",
-      "import": "import { Dropdown } from 'xui';",
+      "import": "import { Dropdown } from '@koinx/xui';",
       "props": [
         {
           "name": "options",
@@ -795,7 +795,7 @@
     },
     "Input": {
       "group": "Input",
-      "import": "import { Input } from 'xui';",
+      "import": "import { Input } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -847,7 +847,7 @@
     },
     "Otp": {
       "group": "Input",
-      "import": "import { Otp } from 'xui';",
+      "import": "import { Otp } from '@koinx/xui';",
       "props": [
         {
           "name": "length",
@@ -943,7 +943,7 @@
     },
     "PasswordInput": {
       "group": "Input",
-      "import": "import { PasswordInput } from 'xui';",
+      "import": "import { PasswordInput } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -999,7 +999,7 @@
     },
     "PhoneInput": {
       "group": "Input",
-      "import": "import { PhoneInput } from 'xui';",
+      "import": "import { PhoneInput } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -1057,7 +1057,7 @@
     },
     "SecretInput": {
       "group": "Input",
-      "import": "import { SecretInput } from 'xui';",
+      "import": "import { SecretInput } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -1114,7 +1114,7 @@
     },
     "Pagination": {
       "group": "Pagination",
-      "import": "import { Pagination } from 'xui';",
+      "import": "import { Pagination } from '@koinx/xui';",
       "props": [
         {
           "name": "page",
@@ -1172,7 +1172,7 @@
     },
     "Radio": {
       "group": "Radio",
-      "import": "import { Radio } from 'xui';",
+      "import": "import { Radio } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -1186,7 +1186,7 @@
     },
     "Select": {
       "group": "Select",
-      "import": "import { Select } from 'xui';",
+      "import": "import { Select } from '@koinx/xui';",
       "props": [
         {
           "name": "options",
@@ -1237,7 +1237,7 @@
     },
     "Sidebar": {
       "group": "Sidebar",
-      "import": "import { Sidebar } from 'xui';",
+      "import": "import { Sidebar } from '@koinx/xui';",
       "props": [
         {
           "name": "collapsed",
@@ -1269,25 +1269,25 @@
     },
     "SidebarHeader": {
       "group": "Sidebar",
-      "import": "import { SidebarHeader } from 'xui';",
+      "import": "import { SidebarHeader } from '@koinx/xui';",
       "props": [],
       "variants": {}
     },
     "SidebarNav": {
       "group": "Sidebar",
-      "import": "import { SidebarNav } from 'xui';",
+      "import": "import { SidebarNav } from '@koinx/xui';",
       "props": [],
       "variants": {}
     },
     "SidebarFooter": {
       "group": "Sidebar",
-      "import": "import { SidebarFooter } from 'xui';",
+      "import": "import { SidebarFooter } from '@koinx/xui';",
       "props": [],
       "variants": {}
     },
     "SidebarItem": {
       "group": "Sidebar",
-      "import": "import { SidebarItem } from 'xui';",
+      "import": "import { SidebarItem } from '@koinx/xui';",
       "props": [
         {
           "name": "icon",
@@ -1318,7 +1318,7 @@
     },
     "SidebarSubItem": {
       "group": "Sidebar",
-      "import": "import { SidebarSubItem } from 'xui';",
+      "import": "import { SidebarSubItem } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -1337,7 +1337,7 @@
     },
     "Switch": {
       "group": "Switch",
-      "import": "import { Switch } from 'xui';",
+      "import": "import { Switch } from '@koinx/xui';",
       "props": [
         {
           "name": "label",
@@ -1357,7 +1357,7 @@
     },
     "Table": {
       "group": "Table",
-      "import": "import { Table } from 'xui';",
+      "import": "import { Table } from '@koinx/xui';",
       "props": [],
       "variants": {
         "TableAlign": [
@@ -1369,7 +1369,7 @@
     },
     "TableHead": {
       "group": "Table",
-      "import": "import { TableHead } from 'xui';",
+      "import": "import { TableHead } from '@koinx/xui';",
       "props": [],
       "variants": {
         "TableAlign": [
@@ -1381,7 +1381,7 @@
     },
     "TableBody": {
       "group": "Table",
-      "import": "import { TableBody } from 'xui';",
+      "import": "import { TableBody } from '@koinx/xui';",
       "props": [],
       "variants": {
         "TableAlign": [
@@ -1393,7 +1393,7 @@
     },
     "TableRow": {
       "group": "Table",
-      "import": "import { TableRow } from 'xui';",
+      "import": "import { TableRow } from '@koinx/xui';",
       "props": [
         {
           "name": "selected",
@@ -1413,7 +1413,7 @@
     },
     "TableCell": {
       "group": "Table",
-      "import": "import { TableCell } from 'xui';",
+      "import": "import { TableCell } from '@koinx/xui';",
       "props": [
         {
           "name": "width",
@@ -1449,7 +1449,7 @@
     },
     "TableHeaderCell": {
       "group": "Table",
-      "import": "import { TableHeaderCell } from 'xui';",
+      "import": "import { TableHeaderCell } from '@koinx/xui';",
       "props": [],
       "variants": {
         "TableAlign": [
@@ -1461,7 +1461,7 @@
     },
     "PriorityMeter": {
       "group": "Table",
-      "import": "import { PriorityMeter } from 'xui';",
+      "import": "import { PriorityMeter } from '@koinx/xui';",
       "props": [
         {
           "name": "level",
@@ -1480,7 +1480,7 @@
     },
     "Tabs": {
       "group": "Tabs",
-      "import": "import { Tabs } from 'xui';",
+      "import": "import { Tabs } from '@koinx/xui';",
       "props": [
         {
           "name": "items",
@@ -1528,7 +1528,7 @@
     },
     "Toast": {
       "group": "Toast",
-      "import": "import { Toast } from 'xui';",
+      "import": "import { Toast } from '@koinx/xui';",
       "props": [
         {
           "name": "variant",
@@ -1594,7 +1594,7 @@
     },
     "Tooltip": {
       "group": "Tooltip",
-      "import": "import { Tooltip } from 'xui';",
+      "import": "import { Tooltip } from '@koinx/xui';",
       "props": [
         {
           "name": "content",
@@ -1665,7 +1665,7 @@
       "dualtone",
       "dualtone-selected"
     ],
-    "usage": "import { WalletIcon } from 'xui'; <WalletIcon variant=\"dualtone\" size={24} />",
+    "usage": "import { WalletIcon } from '@koinx/xui'; <WalletIcon variant=\"dualtone\" size={24} />",
     "names": [
       "OverviewIcon",
       "PortfolioIcon",

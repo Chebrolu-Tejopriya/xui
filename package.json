@@ -10,6 +10,7 @@
   },
   "files": [
     "dist",
+    "mcp",
     "xui.manifest.json",
     "xui.rulebook.json"
   ],
@@ -44,7 +45,8 @@
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "prepare": "npm run build:lib",
     "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs",
-    "check:xemantics": "node scripts/check-xemantics.mjs"
+    "check:xemantics": "node scripts/check-xemantics.mjs",
+    "mcp": "node mcp/server.mjs"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -71,5 +73,8 @@
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
     "vitest": "^4.1.10"
+  },
+  "bin": {
+    "xui-mcp": "./mcp/server.mjs"
   }
 }

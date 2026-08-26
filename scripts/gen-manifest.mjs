@@ -13,6 +13,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+// Never hardcode the package name — it went stale the moment @koinx/xui was
+// adopted, and the manifest is what tells agents where to import from.
+const PKG = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).name;
 const compDir = path.join(root, 'src/components');
 
 /** Body of a brace-delimited block starting at `from` (index of the `{`). */
@@ -113,7 +117,7 @@ for (const dir of fs.readdirSync(compDir)) {
       const propsKey = Object.keys(p).find((k) => k === `${name}Props`);
       components[name] = {
         group: dir,
-        import: `import { ${name} } from 'xui';`,
+        import: `import { ${name} } from '${PKG}';`,
         props: propsKey ? p[propsKey].props : [],
         extends: propsKey ? p[propsKey].extends : undefined,
         variants: Object.fromEntries(
@@ -141,12 +145,12 @@ const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 const manifest = {
   $schema: 'https://xui.dev/manifest.schema.json',
   generated: 'scripts/gen-manifest.mjs — derived from source, do not edit by hand',
-  name: pkg.name ?? 'xui',
+  name: PKG,
   version: pkg.version ?? '0.0.0',
   description:
-    'XUI design system. Import components from "xui"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.',
+    `XUI design system. Import components from "${PKG}"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.`,
   usage: {
-    install: "import { Button, Table, Badge } from 'xui';",
+    install: `import { Button, Table, Badge } from '${PKG}';`,
     tokens: "Reference tokens in CSS as var(--surface-primary); never a raw hex or a --gray-* primitive.",
     theming: "Set data-theme=\"dark\" on the root element; every semantic token re-resolves automatically.",
   },
@@ -165,7 +169,7 @@ const manifest = {
     count: iconNames.length,
     categories: iconCats,
     tones: ['outlined', 'solid', 'dualtone', 'dualtone-selected'],
-    usage: "import { WalletIcon } from 'xui'; <WalletIcon variant=\"dualtone\" size={24} />",
+    usage: `import { WalletIcon } from '${PKG}'; <WalletIcon variant="dualtone" size={24} />`,
     names: iconNames,
   },
   ...rules,
