@@ -2,7 +2,7 @@
   "$schema": "https://xui.dev/manifest.schema.json",
   "generated": "scripts/gen-manifest.mjs — derived from source, do not edit by hand",
   "name": "@koinx/xui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "XUI design system. Import components from \"xui\"; style with semantic CSS custom properties. Every token is theme-reactive (light/dark) — never hardcode a color.",
   "usage": {
     "install": "import { Button, Table, Badge } from 'xui';",

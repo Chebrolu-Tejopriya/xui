@@ -1,6 +1,6 @@
 {
   "name": "@koinx/xui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "KoinX design system \u2014 components, tokens and icons, derived from Figma.",
   "type": "module",
   "license": "UNLICENSED",
@@ -42,7 +42,8 @@
     "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-manifest.mjs",
     "ds:check": "npm run ds:build && npm run lint:tokens",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
-    "prepare": "npm run build:lib"
+    "prepare": "npm run build:lib",
+    "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs"
   },
   "peerDependencies": {
     "react": ">=19",
