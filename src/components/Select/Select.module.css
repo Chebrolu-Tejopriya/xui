@@ -4,7 +4,11 @@
 .root {
   position: relative;
   display: inline-block;
-  min-width: 255px;
+  /* Figma's default size, not a floor. A filter bar sizes these to 79-131px;
+     as a min-width the control overflowed its container and overlapped its
+     neighbours. max-width keeps it inside whatever it is placed in. */
+  width: 255px;
+  max-width: 100%;
 }
 
 .trigger {

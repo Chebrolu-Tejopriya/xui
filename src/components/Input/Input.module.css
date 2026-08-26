@@ -4,7 +4,10 @@
   display: inline-flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 240px;
+  /* Fills its container (width:auto). Was min-width:240px, which stopped it
+     shrinking into the 148px search slot the dashboard specifies. */
+  min-width: 0;
+  max-width: 100%;
 }
 
 .label {
@@ -30,6 +33,10 @@
 
 .field {
   display: flex;
+  /* A flex item defaults to min-width:auto, which here resolves to the native
+     <input>'s intrinsic size (~219px from size=20) and stops the field ever
+     shrinking into a narrow slot. */
+  min-width: 0;
   align-items: center;
   gap: var(--spacing-xs);
   height: 48px;
