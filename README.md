@@ -3,6 +3,15 @@
 Components, tokens and icons, derived from Figma and verified against it.
 38 components, 69 icons, 118 tokens.
 
+## Docs
+
+Every component and state lives in Storybook, published to Chromatic on each
+push to `main`; pull requests get their own preview URL and a visual diff.
+
+> Not on GitHub Pages: `*.github.io` is a shared domain, and Chrome Safe
+> Browsing flagged a brand-new subdomain serving nothing but a static
+> Storybook as a "Dangerous site". Reputation there is not ours to control.
+
 ## Install
 
 No registry account needed — install straight from GitHub. The package builds

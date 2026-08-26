@@ -1,0 +1,53 @@
+# Publishes Storybook to Chromatic on every push, and gives each PR a preview
+# URL plus a visual diff of what changed.
+#
+# Chosen over GitHub Pages because *.github.io is a shared domain: a new
+# subdomain has no reputation of its own and Chrome Safe Browsing flagged ours
+# as "Dangerous site" despite serving a plain static Storybook. Chromatic hosts
+# on its own domain, and a custom domain can sit in front of it later — which
+# is exactly how blade.razorpay.com is served.
+#
+# One-time setup: create the project at chromatic.com, then add its token as
+# the repo secret CHROMATIC_PROJECT_TOKEN. Until then this workflow fails at
+# the publish step; everything before it still runs.
+name: Chromatic
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: chromatic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Chromatic compares against history to decide what changed; a
+          # shallow clone makes every story look new.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # Same gate as CI: docs that disagree with the code should not publish.
+      - run: npm run ds:check
+
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Snapshot only stories affected by the change. The free tier is
+          # capped on snapshots and 30+ story files burn it quickly.
+          onlyChanged: true
+          # A visual change is information, not a build failure — the PR shows
+          # the diff for a human to accept or reject.
+          exitZeroOnChanges: true
+          autoAcceptChanges: main
