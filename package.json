@@ -43,7 +43,8 @@
     "ds:check": "npm run ds:build && npm run lint:tokens",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "prepare": "npm run build:lib",
-    "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs"
+    "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs",
+    "check:xemantics": "node scripts/check-xemantics.mjs"
   },
   "peerDependencies": {
     "react": ">=19",
