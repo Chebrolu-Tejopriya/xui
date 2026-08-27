@@ -50,7 +50,12 @@ for (const id of col.variableIds) {
 return { collection: col.name, mode: mode.name, count: out.length, vars: out };
 ```
 
-XUI file key: `4O4jP8lf2a2kl1XcQaXEqe`. The Semantics collection is 45 tokens
+XUI file key: `CZHLKqp4fOchbR6FkTcPC8`. (`4O4jP8lf2a2kl1XcQaXEqe` was recorded
+here and returns "User does not have permission to access this file using MCP" —
+the skill could not run. Verified 2026-08-16: the working file holds
+Colors-Primitives [Light|Dark] 92, Colors-Semantics [Light] 61, Tokens 38,
+Component Texts 2, plus the 22 KoinX/* text styles.)
+The Semantics collection is 61 tokens
 (25 Surface / 13 Content / 7 Border) and uses a `-solid`/`-subtle` naming
 scheme (NOT `-hover`/`-disabled`). Figma mixes `_` and `-` in leaf names
 (e.g. `surface-success_subtle`) — code normalizes all to kebab-case hyphens.

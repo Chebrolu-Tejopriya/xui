@@ -38,14 +38,23 @@ mobile   [ Menu (top bar)            390x48, padding 16 ]
 The 224px rail does not shrink — it **disappears**. Navigation becomes three
 separate things:
 
-| Element | Size | Role |
+| Element | Size | Detail |
 |---|---|---|
-| **Menu** | 390×48, 16px sides | logo left, bell + hamburger right |
-| **Bottom Nav** | 390×88 | primary tab navigation |
-| **Drawer** | 358×192, close icon | opened from the hamburger |
+| **Menu** (top bar) | 390x48, padding 16 | logo 72x48 left, actions 167x24 right (bell + hamburger) |
+| **Bottom Nav** | 390x88 | 58px of nav plus a 30px iPhone home indicator — ours is the 58 |
+| **Drawer** | 320x876, from the right | 48px header with a Close icon, then the nav list |
 
 `Sidebar` today has expanded (224) and collapsed (61). Mobile is neither: it is
-hidden, with its content relocated into a drawer and a bottom bar.
+hidden, with its content relocated into the drawer and the bottom bar.
+
+**The drawer is the desktop Sidebar in a different container.** Its items are
+36px tall and 8px apart, 288 wide, and the selected one carries the same
+`3 x 22.5` tapered brand rail (`Vector 567`) that `SidebarItem` already draws.
+Its footer holds the theme switcher and profile, exactly as the rail does.
+`SidebarItem` is reusable as-is; only the shell around it is new.
+
+Nav items: Overview, Portfolio, Transactions, Integrations, Taxes, Tax Reports,
+Refer & Earn, Settings, Resources.
 
 ## 3. Table — three strategies, chosen per table
 
@@ -67,11 +76,11 @@ way of rendering the same data.
 | `AppShell` | Mobile mode: no rail, top bar + bottom nav, content 358 with 16px padding |
 | `Sidebar` | Third mode — hidden, content served through a drawer |
 | **new** `TopBar` | 48px, logo / actions. Does not exist |
-| **new** `BottomNav` | 88px tab bar. Does not exist |
-| **new** `Drawer` | Overlay panel with close. `Dialog` is modal-centred, not a side panel |
+| **new** `BottomNav` | 58px tab bar (the extra 30px in the mock is the device home indicator) |
+| **new** `Drawer` | 320px overlay from the right, 48px header with close. Wraps existing `SidebarItem`s |
 | `Table` | The three strategies above |
 | `Pagination` | Already has `mobile` and `size="small"` — the one component that anticipated this |
-| `Dialog` | Check whether mobile wants a bottom sheet; the designs show a centred modal, so possibly nothing |
+| `Dialog` | **A mobile variant already exists** in the XUI file: `Mobile/Dialog with Icon`, 356x258, padding 24, radius 8, variants Default / Alert / Destructive. A size, not a new component — XUI hard-codes 609/490/471 and needs 356 |
 | `Select`, `Input` | Fixed defaults (255/240) now capped by `max-width: 100%`, so they already shrink |
 
 XUI currently has **one media query in the entire system** (Button) and no
