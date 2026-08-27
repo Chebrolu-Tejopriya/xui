@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "KoinX design system \u2014 components, tokens and icons, derived from Figma.",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "UNLICENSED",
   "repository": {
     "type": "git",

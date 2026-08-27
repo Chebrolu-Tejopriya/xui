@@ -5,12 +5,19 @@ Components, tokens and icons, derived from Figma and verified against it.
 
 ## Docs
 
-Every component and state lives in Storybook, published to Chromatic on each
-push to `main`; pull requests get their own preview URL and a visual diff.
+Storybook is the reference for every component and state.
 
-> Not on GitHub Pages: `*.github.io` is a shared domain, and Chrome Safe
-> Browsing flagged a brand-new subdomain serving nothing but a static
-> Storybook as a "Dangerous site". Reputation there is not ours to control.
+```bash
+npm run storybook
+```
+
+Deployed from `vercel.json` — build `npm run build-storybook`, serve
+`storybook-static`. Connect the repo once in the Vercel dashboard; no tokens
+and no workflow to maintain. Render takes the same two values.
+
+> Not GitHub Pages: every repo on an account shares one `*.github.io`
+> hostname, so one flagged project blocks them all. Chrome Safe Browsing
+> blocked ours.
 
 ## Install
 

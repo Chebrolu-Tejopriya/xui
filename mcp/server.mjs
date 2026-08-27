@@ -55,6 +55,9 @@ const TOOLS = [
         '',
         `${manifest.icons.count} icons across ${manifest.icons.categories.length} categories.`,
         `Icons: ${manifest.icons.usage}`,
+        // Names, not just a count. Without these an agent guesses SearchIcon
+        // or MoreIcon, which do not exist, and only finds out at typecheck.
+        (manifest.icons.names ?? []).join(', '),
         '',
         'Call get_xui_component for props and rules before using one.',
       ].join('\n');
