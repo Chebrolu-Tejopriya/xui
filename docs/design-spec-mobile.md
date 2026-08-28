@@ -73,11 +73,11 @@ way of rendering the same data.
 
 | Component | Change |
 |---|---|
-| `AppShell` | Mobile mode: no rail, top bar + bottom nav, content 358 with 16px padding |
+| `AppShell` | **built** — below 900 it becomes a column, hides the rail, and switches the content column to 16px sides / 16px gap |
 | `Sidebar` | Third mode — hidden, content served through a drawer |
-| **new** `TopBar` | 48px, logo / actions. Does not exist |
-| **new** `BottomNav` | 58px tab bar (the extra 30px in the mock is the device home indicator) |
-| **new** `Drawer` | 320px overlay from the right, 48px header with close. Wraps existing `SidebarItem`s |
+| `TopBar` | **built** — 48px, 16px sides, brand + actions, hides itself above 900 |
+| `BottomNav` | **built** — 58px tab bar, icon tone carries selection, hides itself above 900 |
+| `Drawer` | **built** — 320px from the right over an `overlay-popup` scrim; wraps `SidebarItem` unchanged |
 | `Table` | The three strategies above |
 | `Pagination` | Already has `mobile` and `size="small"` — the one component that anticipated this |
 | `Dialog` | **A mobile variant already exists** in the XUI file: `Mobile/Dialog with Icon`, 356x258, padding 24, radius 8, variants Default / Alert / Destructive. A size, not a new component — XUI hard-codes 609/490/471 and needs 356 |

@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AppShell, AppShellMain } from './AppShell';
+import { TopBar } from '../TopBar';
+import { BottomNav, BottomNavItem } from '../BottomNav';
+import { Drawer } from '../Drawer';
 import {
   Sidebar, SidebarHeader, SidebarNav, SidebarFooter, SidebarItem, SidebarSubItem,
 } from '../Sidebar';
 import { KoinXWordmark, KoinXMark } from '../../assets/brand';
 import {
   OverviewIcon, WalletIcon, TransactionsIcon, JournalIcon,
-  PurchasesIcon, TaxesIcon, SettingsIcon, SyncIcon,
+  PurchasesIcon, TaxesIcon, SettingsIcon, SyncIcon, NotificationIcon, ActionsIcon,
 } from '../../icons';
 
 const meta: Meta<typeof AppShell> = {
@@ -99,4 +102,79 @@ export const Playground: StoryObj = {
 export const Collapsed: StoryObj = {
   render: () => <Demo startCollapsed />,
   parameters: { docs: { source: { type: 'code' } } },
+};
+
+/* ---------------------------------------------------------------------------
+ * Mobile. Below 900px (ADR 0019) the rail disappears and navigation becomes a
+ * TopBar, a BottomNav and a Drawer. Resize the preview under 900 to see it —
+ * both layouts are rendered, and each hides itself at the wrong size, so a
+ * screen never needs a media query of its own.
+ * ------------------------------------------------------------------------ */
+function MobileDemo() {
+  const [active, setActive] = useState('home');
+  const [drawer, setDrawer] = useState(false);
+  return (
+    <AppShell style={{ height: '100vh' }}>
+      {/* web only */}
+      <Sidebar>
+        <SidebarHeader><KoinXWordmark /></SidebarHeader>
+        <SidebarNav>
+          {NAV.map((i) => (
+            <SidebarItem key={i.id} icon={i.icon} label={i.label} selected={active === i.id} onClick={() => setActive(i.id)} />
+          ))}
+        </SidebarNav>
+      </Sidebar>
+
+      {/* mobile only */}
+      <TopBar
+        actions={
+          <>
+            <NotificationIcon size={24} variant="dualtone" />
+            {/* GAP: Icons v2 has no hamburger. Standing in with ActionsIcon
+                rather than substituting a glyph from the older set (ADR 0010). */}
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => setDrawer(true)}
+              style={{ display: 'inline-flex', border: 'none', background: 'none', padding: 0, cursor: 'pointer', color: 'var(--content-primary)' }}
+            >
+              <ActionsIcon size={24} />
+            </button>
+          </>
+        }
+      >
+        <KoinXWordmark />
+      </TopBar>
+
+      <AppShellMain data-testid="main">
+        <Block h={44} label="Page header" />
+        <Block h={520} label="Content — 1168 on web, 358 on mobile" />
+        <Block h={300} label="More content" />
+      </AppShellMain>
+
+      <BottomNav>
+        {NAV.slice(0, 4).map((i) => (
+          <BottomNavItem key={i.id} icon={i.icon} label={i.label} selected={active === i.id} onClick={() => setActive(i.id)} />
+        ))}
+      </BottomNav>
+
+      <Drawer open={drawer} onClose={() => setDrawer(false)} title="Menu">
+        {NAV.map((i) => (
+          <SidebarItem
+            key={i.id}
+            icon={i.icon}
+            label={i.label}
+            selected={active === i.id}
+            onClick={() => { setActive(i.id); setDrawer(false); }}
+          />
+        ))}
+      </Drawer>
+    </AppShell>
+  );
+}
+
+/** The mobile shell — resize below 900px. */
+export const Mobile: StoryObj = {
+  render: () => <MobileDemo />,
+  parameters: { docs: { source: { type: 'code' } }, viewport: { defaultViewport: 'mobile1' } },
 };

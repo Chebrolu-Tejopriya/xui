@@ -2,10 +2,12 @@ export * from './Accordion';
 export * from './AppShell';
 export * from './Avatar';
 export * from './Badge';
+export * from './BottomNav';
 export * from './Breadcrumbs';
 export * from './Button';
 export * from './Checkbox';
 export * from './Dialog';
+export * from './Drawer';
 export * from './FileUpload';
 export * from './Input';
 export * from './Pagination';
@@ -18,3 +20,5 @@ export * from './Tabs';
 export * from './Toast';
 export * from './Tooltip';
 export * from '../icons';
+
+export * from './TopBar';

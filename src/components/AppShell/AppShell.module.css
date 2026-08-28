@@ -31,3 +31,34 @@
      tables like Transactions. */
   overflow-y: auto;
 }
+
+/* ---- Mobile ----
+   Below 900px (ADR 0019) the rail does not shrink, it disappears: the shell
+   becomes a column of TopBar / content / BottomNav, and navigation moves into
+   a Drawer. Written desktop-first with a max-width override, matching how
+   app.koinx.com authors its own.
+
+   900px is written literally on purpose — `var(--breakpoint-web)` is invalid
+   in a media condition and is dropped silently. */
+@media (max-width: 900px) {
+  .shell {
+    flex-direction: column;
+    gap: 0;
+    padding-right: 0;
+  }
+
+  /* The rail is web-only. Hidden here rather than inside Sidebar so the
+     component stays usable on its own at any width — this is the shell's
+     layout decision, not the rail's. BottomNav is the other <nav> child and
+     opts out by marker. */
+  .shell > nav:not([data-bottom-nav]) {
+    display: none;
+  }
+
+  /* Figma: content 390 wide with 16px sides (=358) and 16px between sections,
+     against 1168 / gap 8 on web. */
+  .main {
+    padding: 0 var(--spacing-16);
+    gap: var(--spacing-16);
+  }
+}

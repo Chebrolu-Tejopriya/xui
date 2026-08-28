@@ -1,0 +1,77 @@
+/* XUI Drawer — the mobile navigation panel. Figma: 320px wide, entering from
+   the right over a scrim, with a 48px header carrying a close control. The nav
+   inside it is the rail's, so SidebarItem is reused unchanged. */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--overlay-popup);
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-width: 100%;
+  background: var(--surface-raised);
+  box-shadow: var(--elevation-lg);
+  box-sizing: border-box;
+}
+
+/* Figma: 48px, title left, close right, 16px sides. */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  flex: none;
+  padding: 0 var(--spacing-16);
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+  color: var(--content-primary);
+  box-sizing: border-box;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--content-primary);
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Figma: items are 288 wide inside a 320 panel — 16px each side — 36px tall
+   and 8px apart, exactly as SidebarItem already draws them. */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 var(--spacing-16);
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  flex: none;
+  padding: var(--spacing-16);
+  border-top: var(--border-width-regular) solid var(--border-tertiary);
+}

@@ -1,0 +1,30 @@
+/* XUI TopBar — the mobile header. Figma "Menu": 390x48, 16px sides, brand on
+   the left and actions on the right. Replaces the rail below 900px; it has no
+   role on web, so it hides itself rather than making every screen guard it. */
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  height: 48px;
+  flex: none;
+  padding: 0 var(--spacing-16);
+  background: var(--surface-raised);
+  border-bottom: var(--border-width-regular) solid var(--border-tertiary);
+  box-sizing: border-box;
+}
+
+/* Right-hand cluster — Figma groups the bell and hamburger 12px apart. */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  flex: none;
+}
+
+@media (min-width: 901px) {
+  .topBar {
+    display: none;
+  }
+}

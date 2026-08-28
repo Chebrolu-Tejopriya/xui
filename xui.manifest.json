@@ -319,6 +319,37 @@
         ]
       }
     },
+    "BottomNav": {
+      "group": "BottomNav",
+      "import": "import { BottomNav } from '@koinx/xui';",
+      "props": [],
+      "variants": {}
+    },
+    "BottomNavItem": {
+      "group": "BottomNav",
+      "import": "import { BottomNavItem } from '@koinx/xui';",
+      "props": [
+        {
+          "name": "icon",
+          "type": "ComponentType<IconProps>",
+          "required": true,
+          "description": "The icon component itself, not an element — the item picks the tone."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLButtonElement>, 'children'>",
+      "variants": {}
+    },
     "Breadcrumbs": {
       "group": "Breadcrumbs",
       "import": "import { Breadcrumbs } from '@koinx/xui';",
@@ -526,6 +557,42 @@
           "alert"
         ]
       }
+    },
+    "Drawer": {
+      "group": "Drawer",
+      "import": "import { Drawer } from '@koinx/xui';",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "default": "Menu",
+          "description": "Header text. Figma shows \"Menu\"."
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Pinned below the list — the theme switcher and profile, as the rail has."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false
+        }
+      ],
+      "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
+      "variants": {}
     },
     "FileUpload": {
       "group": "FileUpload",
@@ -1642,6 +1709,20 @@
           "right"
         ]
       }
+    },
+    "TopBar": {
+      "group": "TopBar",
+      "import": "import { TopBar } from '@koinx/xui';",
+      "props": [
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Right-hand cluster — notifications, the drawer trigger."
+        }
+      ],
+      "extends": "HTMLAttributes<HTMLElement>",
+      "variants": {}
     }
   },
   "icons": {
