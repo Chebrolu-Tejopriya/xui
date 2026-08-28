@@ -74,6 +74,20 @@
   color: var(--content-primary);
 }
 
+/* ---- Checkbox column ----
+   Figma: 40 hug x 52 fill, padding 12/8 — the same cell in the header row and
+   in every body row. The generic paddings disagree (header 16/12, body 16/8),
+   which left the header's checkbox sitting 4px right of every other one down
+   the column. Measured, not eyeballed: header offset 12.0, body 8.0.
+
+   Matched on content rather than through a prop, so a consumer cannot forget
+   it and reintroduce the same 4px. */
+.headerCell:has(input[type='checkbox']),
+.cell:has(input[type='checkbox']) {
+  padding: 12px 8px;
+}
+
+
 .alignStart {
   justify-content: flex-start;
 }

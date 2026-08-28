@@ -36,7 +36,8 @@
       "Row hover is surface-secondary (grey); row selected is surface-brand-secondary (blue tint). They are DIFFERENT states — selected wins when both apply.",
       "Container has a border-secondary 1px border, radius-mid (8px), and overflow:hidden to clip rows to the corners.",
       "Dividers are inset box-shadows, not borders, so rows stay exactly 52px.",
-      "Give a cell an explicit `width` for fixed columns; omit it for equal-share flexible columns."
+      "Give a cell an explicit `width` for fixed columns; omit it for equal-share flexible columns.",
+      "A cell containing a checkbox is 40x52 with padding 12/8, in the header row and every body row alike — the component applies this on its own. Do not override it: the generic header (16/12) and body (16/8) paddings differ, which is what put the header checkbox 4px right of the column."
     ],
     "Button": [
       "Heights are 44 / 36 / 32 for large / medium / small; radius-sm (6px).",
