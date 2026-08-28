@@ -18,6 +18,25 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FIX = process.argv.includes('--fix');
+
+/**
+ * Which directory to check. Defaults to this repo's src/, but any project
+ * consuming XUI can point it at their own:
+ *
+ *   node ../xui/scripts/lint-tokens.mjs src
+ *
+ * The rule has to travel with the design system, not stay inside it. A raw
+ * hex in a consuming app is the same bug as a raw hex here -- it does not
+ * follow the theme -- and it was previously caught in one place only.
+ */
+const targetArg = process.argv.slice(2).find((a) => !a.startsWith('-'));
+const target = targetArg ? path.resolve(process.cwd(), targetArg) : path.join(root, 'src');
+const scanningSelf = target.startsWith(path.join(root, 'src'));
+
+if (!fs.existsSync(target)) {
+  console.error(`No such directory: ${target}`);
+  process.exit(2);
+}
 const rulebook = JSON.parse(fs.readFileSync(path.join(root, 'xui.rulebook.json'), 'utf8'));
 
 /** Token files legitimately hold raw hex — that is where colour is defined. */
@@ -36,10 +55,10 @@ const files = [];
       walk(full);
     } else if (/\.(css|tsx|ts)$/.test(entry.name)) {
       const rel = path.relative(root, full);
-      if (!SKIP.some((s) => rel.startsWith(s))) files.push(full);
+      if (!scanningSelf || !SKIP.some((s) => rel.startsWith(s))) files.push(full);
     }
   }
-})(path.join(root, 'src'));
+})(target);
 
 /**
  * Blank out comment CONTENT while preserving line/column positions, so a hex
@@ -114,6 +133,21 @@ const DEFINED = new Set();
     }
   }
 })(path.join(root, 'src'));
+// …and by any CSS in the scanned project, so a consumer's own properties
+// are not reported as undefined.
+if (!scanningSelf) {
+  (function collectTarget(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue;
+        collectTarget(full);
+      } else if (entry.name.endsWith('.css')) {
+        for (const m of fs.readFileSync(full, 'utf8').matchAll(/--([a-z0-9-]+)\s*:/gi)) DEFINED.add(m[1]);
+      }
+    }
+  })(target);
+}
 
 const normHex = (h) => {
   let v = h.trim().toLowerCase();
@@ -165,7 +199,7 @@ for (const file of files) {
       const prims = rulebook.reverse.hexToPrimitive.light[hex] ?? rulebook.reverse.hexToPrimitive.dark[hex] ?? [];
       const s = prims.length ? suggest(prims[0], property) : { candidates: [] };
       findings.push({
-        file: path.relative(root, file),
+        file: path.relative(process.cwd(), file),
         line: i + 1,
         kind: 'raw-hex',
         found: m[0],
@@ -180,7 +214,7 @@ for (const file of files) {
     // 2. rgb()/rgba() literals
     for (const m of line.matchAll(/\brgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+/g)) {
       findings.push({
-        file: path.relative(root, file),
+        file: path.relative(process.cwd(), file),
         line: i + 1,
         kind: 'raw-rgb',
         found: m[0] + '…)',
@@ -196,7 +230,7 @@ for (const file of files) {
       if (DEFINED.has(name) || localDefs.has(name)) continue;
       if (/,/.test(line.slice(m.index, m.index + m[0].length))) continue; // has a fallback
       findings.push({
-        file: path.relative(root, file),
+        file: path.relative(process.cwd(), file),
         line: i + 1,
         kind: 'undefined-token',
         found: `var(--${name})`,
@@ -211,7 +245,7 @@ for (const file of files) {
       const property = propertyOf(line.slice(0, m.index));
       const s = suggest(m[1], property);
       findings.push({
-        file: path.relative(root, file),
+        file: path.relative(process.cwd(), file),
         line: i + 1,
         kind: 'primitive',
         found: `var(--${m[1]})`,
@@ -231,7 +265,7 @@ if (FIX) {
   const byFile = {};
   for (const f of findings.filter((x) => x.fixable)) (byFile[f.file] ||= []).push(f);
   for (const [rel, list] of Object.entries(byFile)) {
-    const full = path.join(root, rel);
+    const full = path.resolve(process.cwd(), rel);
     const lines = fs.readFileSync(full, 'utf8').split('\n');
     for (const f of list) {
       const i = f.line - 1;
