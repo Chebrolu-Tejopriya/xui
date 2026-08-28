@@ -81,11 +81,17 @@
   --absolute-white: #ffffff;
   --absolute-black: #000000;
 
-  /* Scrims / overlays */
-  --overlay-sm: #00000014;
-  --overlay-md: #00000029;
-  --overlay-lg: #0000003d;
-  --overlay-popup: #00000080;
+  /* Scrims — Figma Colors-Primitives -> Scrims/*. Named `scrim-` so the
+     semantic layer can alias them; they used to share the semantic names,
+     which made `--overlay-x: var(--overlay-x)` a cycle and killed them. */
+  --scrim-overlay-sm: #00000014;
+  --scrim-overlay-md: #00000029;
+  --scrim-overlay-lg: #0000003d;
+  --scrim-overlay-popup: #00000080;
+  --scrim-locked-overlay: #ffffff80;
+  --scrim-elevation-sm: #1e293b17;
+  --scrim-elevation-md: #1e293b1f;
+  --scrim-elevation-lg: #1e293b2e;
 
   /* Secondary accents */
   --accent-blue: #0082ff;
@@ -96,6 +102,12 @@
 }
 
 [data-theme='dark'] {
+  /* Scrims — overlays are identical in both modes; these two are not. */
+  --scrim-locked-overlay: #00000080;
+  --scrim-elevation-sm: #eff5ff00;
+  --scrim-elevation-md: #eff5ff00;
+  --scrim-elevation-lg: #eff5ff00;
+
   /* Gray */
   --gray-01: #171a26;
   --gray-02: #0a0a12;

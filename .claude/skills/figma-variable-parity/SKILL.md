@@ -56,7 +56,7 @@ the skill could not run. Verified 2026-08-16: the working file holds
 Colors-Primitives [Light|Dark] 92, Colors-Semantics [Light] 61, Tokens 38,
 Component Texts 2, plus the 22 KoinX/* text styles.)
 The Semantics collection is 61 tokens
-(25 Surface / 13 Content / 7 Border) and uses a `-solid`/`-subtle` naming
+(24 Surface / 13 Content / 8 Border / 16 Label — verified 2026-08-16) and uses a `-solid`/`-subtle` naming
 scheme (NOT `-hover`/`-disabled`). Figma mixes `_` and `-` in leaf names
 (e.g. `surface-success_subtle`) — code normalizes all to kebab-case hyphens.
 

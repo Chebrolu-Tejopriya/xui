@@ -70,10 +70,14 @@
       "red-12": "#6b0819",
       "absolute-white": "#ffffff",
       "absolute-black": "#000000",
-      "overlay-sm": "#00000014",
-      "overlay-md": "#00000029",
-      "overlay-lg": "#0000003d",
-      "overlay-popup": "#00000080",
+      "scrim-overlay-sm": "#00000014",
+      "scrim-overlay-md": "#00000029",
+      "scrim-overlay-lg": "#0000003d",
+      "scrim-overlay-popup": "#00000080",
+      "scrim-locked-overlay": "#ffffff80",
+      "scrim-elevation-sm": "#1e293b17",
+      "scrim-elevation-md": "#1e293b1f",
+      "scrim-elevation-lg": "#1e293b2e",
       "accent-blue": "#0082ff",
       "accent-yellow": "#faa002",
       "accent-green": "#0fba83",
@@ -81,6 +85,10 @@
       "accent-gray": "#b0c5d4"
     },
     "dark": {
+      "scrim-locked-overlay": "#00000080",
+      "scrim-elevation-sm": "#eff5ff00",
+      "scrim-elevation-md": "#eff5ff00",
+      "scrim-elevation-lg": "#eff5ff00",
       "gray-01": "#171a26",
       "gray-02": "#0a0a12",
       "gray-03": "#212538",
@@ -325,20 +333,24 @@
       "dark": "gray-01"
     },
     "overlay-sm": {
-      "primitive": "overlay-sm",
-      "dark": "overlay-sm"
+      "primitive": "scrim-overlay-sm",
+      "dark": "scrim-overlay-sm"
     },
     "overlay-md": {
-      "primitive": "overlay-md",
-      "dark": "overlay-md"
+      "primitive": "scrim-overlay-md",
+      "dark": "scrim-overlay-md"
     },
     "overlay-lg": {
-      "primitive": "overlay-lg",
-      "dark": "overlay-lg"
+      "primitive": "scrim-overlay-lg",
+      "dark": "scrim-overlay-lg"
     },
     "overlay-popup": {
-      "primitive": "overlay-popup",
-      "dark": "overlay-popup"
+      "primitive": "scrim-overlay-popup",
+      "dark": "scrim-overlay-popup"
+    },
+    "overlay-locked": {
+      "primitive": "scrim-locked-overlay",
+      "dark": "scrim-locked-overlay"
     },
     "label-positive-bg": {
       "primitive": null,
@@ -491,7 +503,8 @@
       "light": {
         "#ffffff": [
           "gray-01",
-          "absolute-white"
+          "absolute-white",
+          "scrim-locked-overlay"
         ],
         "#f1f5f9": [
           "gray-02"
@@ -521,7 +534,10 @@
           "gray-10"
         ],
         "#1e293b": [
-          "gray-11"
+          "gray-11",
+          "scrim-elevation-sm",
+          "scrim-elevation-md",
+          "scrim-elevation-lg"
         ],
         "#0f172a": [
           "gray-12"
@@ -673,10 +689,10 @@
         ],
         "#000000": [
           "absolute-black",
-          "overlay-sm",
-          "overlay-md",
-          "overlay-lg",
-          "overlay-popup"
+          "scrim-overlay-sm",
+          "scrim-overlay-md",
+          "scrim-overlay-lg",
+          "scrim-overlay-popup"
         ],
         "#0082ff": [
           "accent-blue"
@@ -692,6 +708,15 @@
         ]
       },
       "dark": {
+        "#000000": [
+          "scrim-locked-overlay"
+        ],
+        "#eff5ff": [
+          "scrim-elevation-sm",
+          "scrim-elevation-md",
+          "scrim-elevation-lg",
+          "gray-11"
+        ],
         "#171a26": [
           "gray-01"
         ],
@@ -721,9 +746,6 @@
         ],
         "#bdc3d9": [
           "gray-10"
-        ],
-        "#eff5ff": [
-          "gray-11"
         ],
         "#ffffff": [
           "gray-12"
@@ -982,17 +1004,20 @@
       "gray-05": [
         "border-secondary"
       ],
-      "overlay-sm": [
+      "scrim-overlay-sm": [
         "overlay-sm"
       ],
-      "overlay-md": [
+      "scrim-overlay-md": [
         "overlay-md"
       ],
-      "overlay-lg": [
+      "scrim-overlay-lg": [
         "overlay-lg"
       ],
-      "overlay-popup": [
+      "scrim-overlay-popup": [
         "overlay-popup"
+      ],
+      "scrim-locked-overlay": [
+        "overlay-locked"
       ]
     }
   },
