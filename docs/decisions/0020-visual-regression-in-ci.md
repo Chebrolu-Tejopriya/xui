@@ -90,17 +90,27 @@ a build config — none of which would have made a shortlist written in advance.
   browser. It runs in parallel with `verify`, so wall-clock cost is bounded by
   the slower of the two, not the sum.
 - Comparison runs at **zero pixel tolerance** with a per-pixel `threshold` of
-  0.05. Both numbers came from deliberately breaking the gate, not from
-  judgement: at Playwright's defaults, swapping Select's border from
-  `--border-primary` to `--border-secondary` — a real one-step move on the
-  grey ramp — was reported as **zero differing pixels**, and passed. The
-  default per-pixel threshold of 0.2 is wider than the gap between adjacent
-  greys in this palette. At 0.05 the same change measures 554 pixels, which is
-  *ratio 0.01* — exactly the 1% a "tolerate anti-aliasing" setting would have
-  allowed through. A ratio is the wrong unit regardless: it scales with canvas
-  size, so a large story gets a proportionally larger licence to change.
-  The full 148-shot suite passes at zero tolerance, so there is no
-  anti-aliasing noise being bought off. If CI proves flaky, the fix is
-  `maxDiffPixels` (absolute), never a ratio.
+  **0.02**. That number was tightened twice, each time because the previous
+  one was caught letting a real change through — which is the honest record of
+  how hard this is to set:
+
+  | threshold | what it missed |
+  |---|---|
+  | 0.2 (default) | Select's border moving one step along the grey ramp — zero pixels |
+  | 0.05 | the Input field changing surface in **light** mode |
+  | 0 | unusable — AA on one button's circles alone is 28,434 pixels |
+  | **0.02** | nothing known; zero false positives across all 154 shots |
+
+  The 0.05 failure is the instructive one. `#f1f5f9` to `#ffffff` is a whole
+  surface swap, but their YIQ distance is 0.042, so it counted as zero
+  differing pixels in light while dark (0.061) failed. The suite reporting a
+  change in one theme and not the other is the only reason it was noticed.
+  Adjacent surfaces in this palette sit ~0.04 apart, so **any threshold at or
+  above 0.03 is blind to a surface swap** and must not be used.
+
+  `maxDiffPixelRatio` stays 0: a ratio scales with canvas size, so a large
+  story gets a proportionally larger licence to change. If CI proves flaky,
+  the fix is `maxDiffPixels` (absolute), never a ratio.
+
 - `animations: 'disabled'` freezes spinners and transitions at their end state,
   so this suite proves nothing about motion. Motion remains unverified.

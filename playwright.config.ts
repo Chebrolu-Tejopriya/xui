@@ -41,26 +41,29 @@ export default defineConfig({
 
   expect: {
     toHaveScreenshot: {
-      // These two numbers were set by experiment, not by taste. With the
-      // defaults, a real regression — Select's border swapped from
-      // --border-primary (#cbd5e1) to --border-secondary (#dbe2ec) — passed
-      // the suite silently. Both knobs had to be tightened before the gate
-      // had any teeth:
+      // Set by experiment, and tightened twice — each time because the
+      // previous value was caught letting a real change through.
       //
-      //   threshold (per-pixel colour distance, YIQ). Default 0.2 is wide
-      //   enough to swallow one step on the grey ramp, so that border change
-      //   registered as ZERO differing pixels. At 0.05 it reads as 554.
+      //   0.2  (Playwright's default) missed Select's border moving one step
+      //        along the grey ramp: ZERO differing pixels.
+      //   0.05 missed the Input field changing surface in LIGHT mode.
+      //        #f1f5f9 -> #ffffff is a whole surface swap, but the YIQ gap is
+      //        only 0.042, so it too counted zero pixels. Dark caught it
+      //        (0.061) — the suite reported the change in one theme and not
+      //        the other, which is how it was noticed at all.
+      //   0    is unusable: anti-aliasing on the icon-only button's circles
+      //        alone registers 28,434 pixels.
+      //   0.02 catches both of the above and produces zero false positives
+      //        across all 154 shots.
       //
-      //   maxDiffPixelRatio. That same 554px change is ratio 0.01 — exactly
-      //   the 1% that "tolerates anti-aliasing" would have allowed. A ratio
-      //   is the wrong unit anyway: it scales with canvas size, so a large
-      //   story (the icon gallery) gets a proportionally huge budget and can
-      //   change wholesale while a small one cannot.
+      // This palette's adjacent surfaces are ~0.04 apart in YIQ, so anything
+      // at or above 0.03 is blind to a surface swap. Do not loosen it.
       //
-      // The full 148-shot suite passes at zero tolerance, so there is no AA
-      // noise to buy off. If CI ever proves flaky, raise maxDiffPixels (an
-      // absolute count) rather than reintroducing a ratio.
-      threshold: 0.05,
+      // maxDiffPixelRatio stays 0 — a ratio scales with canvas size, so a
+      // large story (the icon gallery) would get a proportionally huge budget
+      // while a small one gets none. If CI ever proves flaky, raise
+      // maxDiffPixels (an absolute count) instead.
+      threshold: 0.02,
       maxDiffPixelRatio: 0,
       // Freeze CSS animations (spinners, transitions) at their end state,
       // otherwise every run catches them at a different frame.
