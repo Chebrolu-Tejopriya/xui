@@ -82,6 +82,17 @@
   --shadow-lg: 0px 10px 15px -3px #0000001a, 0px 4px 6px -4px #1018281a;
   --modal-shadow: 0px 0px 8px 0px #09112129;
 
+  /* ---- Breakpoints ----
+     XUI has two tiers, mobile and web. 900px is what app.koinx.com actually
+     uses: 23 occurrences across its stylesheets, against one-offs at 450, 599,
+     600, 980, 1024, 1050, 1200 and 1250. See ADR 0019.
+
+     WARNING: this token cannot be used in a media query. `@media (max-width:
+     var(--breakpoint-web))` is invalid and is dropped SILENTLY — no error, the
+     rule simply never applies. Media queries must write 900px literally; this
+     token is for JS (matchMedia) and for reading the value in one place. */
+  --breakpoint-web: 900px;
+
   /* ---- Border radius ---- */
   --radius-none: 0;
   --radius-xxs: 2px;

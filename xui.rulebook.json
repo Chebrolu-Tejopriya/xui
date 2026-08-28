@@ -434,6 +434,7 @@
     }
   },
   "scales": {
+    "breakpoint-web": "900px",
     "radius-none": "0",
     "radius-xxs": "2px",
     "radius-xs": "4px",

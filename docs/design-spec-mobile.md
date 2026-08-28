@@ -1,6 +1,6 @@
 # Mobile spec — MCP Mobile Taxes
 
-**Status:** awaiting teja's ruling on the two open items · **Derived:** 2026-08-16
+**Status:** breakpoint settled (ADR 0019); awaiting the section order · **Derived:** 2026-08-16
 **Source:** Figma `KoinX-Fidisys-Internal` → page **MCP Mobile Taxes** (`9838:39590`)
 **Scope read:** 151 screens at 390px across 9 sections · 31,977 nodes
 
@@ -88,10 +88,12 @@ breakpoint tokens.
 
 ## Open — needed before any code
 
-1. **The breakpoint value.** Two tiers named "mobile" and "web", but the file
-   only gives the two design widths, 390 and 1440. The switch point between
-   them is not in the design and is therefore ours to choose and flag. A
-   `--breakpoint-web` token has to be defined before anything can respond to it.
+1. ~~The breakpoint value.~~ **Settled: 900px**, taken from `app.koinx.com`
+   where it is used 23 times against one-off values at 450/599/600/980/1024/
+   1050/1200/1250. Desktop-first authoring, matching the product. See
+   [ADR 0019](decisions/0019-breakpoint-from-production.md). Note it cannot be
+   used inside a media query — that fails silently.
+
 2. **Which section first.** 151 screens across 9 sections is not one piece of
    work. Overview and Integrations V2 are the two largest.
 
