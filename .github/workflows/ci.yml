@@ -50,3 +50,38 @@ jobs:
 
       - name: Storybook build
         run: npm run build-storybook
+
+  # Renders every story in light and dark and diffs against committed
+  # baselines. The gates above are all textual — they prove the code is
+  # well-formed, never that it still looks right. Baselines are linux PNGs
+  # because font rasterisation is OS-specific; regenerate them with the
+  # "Visual baselines" workflow, never by hand.
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # --with-deps pulls the system libraries headless Chromium needs; the
+      # runner image does not ship them all.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Visual regression
+        run: npm run test:visual
+
+      # The report contains expected/actual/diff triplets — the only way to
+      # see WHAT changed without reproducing the run locally.
+      - name: Upload diff report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff
+          path: playwright-report/
+          retention-days: 7

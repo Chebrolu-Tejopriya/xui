@@ -1,7 +1,7 @@
 {
   "name": "@koinx/xui",
   "version": "1.0.0",
-  "description": "KoinX design system \u2014 components, tokens and icons, derived from Figma.",
+  "description": "KoinX design system — components, tokens and icons, derived from Figma.",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -50,7 +50,9 @@
     "prepare": "npm run build:lib",
     "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs",
     "check:xemantics": "node scripts/check-xemantics.mjs",
-    "mcp": "node mcp/server.mjs"
+    "mcp": "node mcp/server.mjs",
+    "test:visual": "npm run build-storybook && playwright test",
+    "test:visual:update": "npm run build-storybook && playwright test --update-snapshots"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -58,6 +60,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
+    "@playwright/test": "^1.62.1",
     "@storybook/addon-a11y": "^10.5.2",
     "@storybook/addon-docs": "^10.5.2",
     "@storybook/addon-mcp": "^0.7.0",

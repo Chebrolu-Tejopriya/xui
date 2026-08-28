@@ -51,3 +51,4 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0017](0017-version-by-generation.md) | Version by generation, not by change | accepted |
 | [0018](0018-governance.md) | Review concentrated in one or two owners, enforced by CI | accepted |
 | [0019](0019-breakpoint-from-production.md) | The breakpoint is 900px, taken from production | accepted |
+| [0020](0020-visual-regression-in-ci.md) | Visual regression in CI, with Linux baselines | accepted |

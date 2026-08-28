@@ -32,3 +32,13 @@ storybook-static
 
 # local tooling — contains credentials
 .jetro/
+
+# visual regression
+# CI (linux) baselines ARE committed — they are the source of truth.
+# Locally-generated ones are per-developer scratch and must never be pushed,
+# or two machines' font rasterisation ends up arguing in the diff.
+visual/__screenshots__/*-win32.png
+visual/__screenshots__/*-darwin.png
+test-results/
+playwright-report/
+blob-report/

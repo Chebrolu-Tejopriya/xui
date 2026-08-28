@@ -1,0 +1,57 @@
+# Regenerates the committed visual-regression baselines.
+#
+# Run this when a visual change is INTENTIONAL and CI's `visual` job is now
+# failing because the design moved. It is deliberately manual: baselines that
+# refresh themselves would turn the gate into a rubber stamp, quietly
+# accepting the exact regressions it exists to catch.
+#
+# It is also how the baselines are seeded the very first time — until this has
+# run once, the `visual` job has nothing to compare against and will fail.
+#
+# Run it from the branch that contains the change, not from main.
+name: Visual baselines
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'What visual change are you accepting? (goes in the commit message)'
+        required: true
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Regenerate baselines
+        run: npm run test:visual:update
+
+      - name: Commit
+        # `reason` is free text from whoever ran the workflow. Passing it
+        # through env rather than interpolating `${{ }}` into the script keeps
+        # a quote or a backtick from becoming shell.
+        env:
+          REASON: ${{ inputs.reason }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add visual/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Baselines already match the current render — nothing to commit."
+            exit 0
+          fi
+          git commit -m "Visual baselines: $REASON"
+          git push
