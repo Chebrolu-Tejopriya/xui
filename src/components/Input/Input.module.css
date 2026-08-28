@@ -47,6 +47,23 @@
   transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
 }
 
+/* ---- Sizes ----
+   48px is the library's Input_v2 field, and stays on `.field` itself rather
+   than living only in `.medium`: the specialised fields (Date, Password, OTP,
+   Amount, Mobile…) render `.field` directly without a size class, and moving
+   the height out from under them silently shrank all of them.
+
+   44px is what the dashboard filter bar uses (Figma `input` 161x44, ten
+   identical instances), so a search lines up with the 44px selects beside it.
+   Both are real heights in the design; neither corrects the other. */
+.medium {
+  height: 48px;
+}
+
+.small {
+  height: 44px;
+}
+
 /* Figma renders focus/error as a double ring: a 2px colored border, a 2px
    gap of surface color, then the field's own 1px border-primary border.
    Reproduced with a layered box-shadow so it doesn't affect layout. */

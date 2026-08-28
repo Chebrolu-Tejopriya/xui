@@ -4,9 +4,15 @@
 .root {
   position: relative;
   display: inline-block;
-  /* Figma's default size, not a floor. A filter bar sizes these to 79-131px;
-     as a min-width the control overflowed its container and overlapped its
-     neighbours. max-width keeps it inside whatever it is placed in. */
+  /* Figma's default size, not a floor, and not a fixed width: as a flex item
+     this is the basis the control shrinks from, so a row of them fills the
+     container in equal shares — which is what the product does (every filter
+     fills, only the trailing action hugs).
+
+     Do not wrap these in Figma's measured pixel widths. Those numbers were
+     taken off a mock and are 1-3px short of the placeholders they hold, so
+     every label rendered an ellipsis. A label must never be the truncated
+     text; values still may. */
   width: 255px;
   max-width: 100%;
 }
@@ -16,7 +22,13 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 12px;
+  /* 44px, stated rather than accumulated. Figma's `select_multiple` is 44
+     in 183 of its 187 instances; the old `padding: 12px` with no height gave
+     20 (line) + 24 (padding) + 2 (border) = 46, because a Figma stroke takes
+     no layout space and a CSS border does. That 2px was what made the filter
+     row's fields fail to line up. */
+  height: 44px;
+  padding: 0 12px;
   border-radius: var(--radius-sm);
   border: var(--border-width-regular) solid var(--border-primary);
   background: var(--surface-raised);

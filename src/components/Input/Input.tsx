@@ -18,6 +18,12 @@ export interface InputProps
   trailing?: ReactNode;
   /** Element rendered at the start of the field. */
   leading?: ReactNode;
+  /**
+   * Field height. `medium` (48px) is the library's Input_v2 spec and the
+   * default. `small` (44px) is the height the dashboard's filter bar uses, so
+   * the search sits level with the 44px selects beside it.
+   */
+  size?: 'medium' | 'small';
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -30,6 +36,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       error = false,
       trailing,
       leading,
+      size = 'medium',
       className,
       id,
       disabled,
@@ -57,7 +64,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
         <div
-          className={[styles.field, error && styles.error, disabled && styles.disabled]
+          className={[styles.field, styles[size], error && styles.error, disabled && styles.disabled]
             .filter(Boolean)
             .join(' ')}
         >

@@ -907,6 +907,13 @@
           "type": "ReactNode",
           "required": false,
           "description": "Element rendered at the start of the field."
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'small'",
+          "required": false,
+          "default": "medium",
+          "description": "Field height. `medium` (48px) is the library's Input_v2 spec and the default. `small` (44px) is the height the dashboard's filter bar uses, so the search sits level with the 44px selects beside it."
         }
       ],
       "extends": "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>",
@@ -1863,6 +1870,18 @@
     "Badge": [
       "Use the label-* variants for status and category pills; the accent-* variants are for softer inline tags.",
       "Badges are 20px tall; the pill's border is included in that height."
+    ],
+    "Input": [
+      "Two field heights, both from Figma: size=\"medium\" is 48px (the library's Input_v2 field, the default) and size=\"small\" is 44px (what the dashboard filter bar uses).",
+      "In a filter bar use size=\"small\" so the search sits level with the 44px Selects beside it. At the 48px default it overhangs them by 4px.",
+      "Pass an icon to a Button with the iconLeft prop, never as a child — a child lands inside the label span and is laid out inline on the text baseline, which inflates the button past its 44/36/32 height and leaves the icon a couple of px above centre."
+    ],
+    "Select": [
+      "In a filter bar every field FILLS the row in an equal share and only the trailing action hugs — this is the product's pattern (app.koinx.com/transactions). Do not give the fields fixed widths.",
+      "The 255px on Select is a flex BASIS, not a fixed width: drop a row of them into a flex container and they shrink to equal shares on their own, no per-field sizing needed.",
+      "Give every field in that row the SAME flex-basis. A field set to `flex: 1 1 0` next to Selects basing from 255px collapses to zero width once the row overflows, because shrink is distributed in proportion to basis.",
+      "Never wrap these in the pixel widths measured off a Figma filter bar. Those were 1-3px short of the placeholders they hold, so every label rendered an ellipsis. A label must never be the truncated text — it is the only thing saying what the control filters. Values may still ellipsise: a client name is unbounded.",
+      "A selected value renders in Subtitle/2 (500 weight), which is wider than the Body/2 placeholder — a box sized to fit the placeholder will clip the value once one is chosen."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",

@@ -58,3 +58,32 @@ export const Playground: Story = {
     </div>
   ),
 };
+
+/**
+ * Two field heights, both taken from Figma. `medium` (48) is the library's
+ * Input_v2 field. `small` (44) is what the dashboard's filter bar uses, so a
+ * search sits level with the 44px selects beside it — at 48 it overhung them
+ * by 4px, which is what made that row look misaligned.
+ */
+export const Sizes: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 384 }}>
+      {(['medium', 'small'] as const).map((size) => (
+        <div key={size} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <code
+            style={{
+              font: 'var(--type-body-3)',
+              color: 'var(--content-tertiary)',
+              fontFamily: 'monospace',
+              width: 96,
+            }}
+          >
+            {size} · {size === 'medium' ? 48 : 44}px
+          </code>
+          <Input size={size} placeholder="Search..." />
+        </div>
+      ))}
+    </div>
+  ),
+};
