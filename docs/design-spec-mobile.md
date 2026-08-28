@@ -41,7 +41,7 @@ separate things:
 | Element | Size | Detail |
 |---|---|---|
 | **Menu** (top bar) | 390x48, padding 16 | logo 72x48 left, actions 167x24 right (bell + hamburger) |
-| **Bottom Nav** | 390x88 | 58px of nav plus a 30px iPhone home indicator — ours is the 58 |
+| **Bottom Nav** | 393x86 | 54px bar plus a 30px iPhone home indicator — ours is the 54. Items FIXED 74px, SPACE_BETWEEN, padding 12/12/0/12, 24px icon over `Label/4` with 6px between; resting `content-secondary`, selected `content-brand-primary` |
 | **Drawer** | 320x876, from the right | 48px header with a Close icon, then the nav list |
 
 `Sidebar` today has expanded (224) and collapsed (61). Mobile is neither: it is

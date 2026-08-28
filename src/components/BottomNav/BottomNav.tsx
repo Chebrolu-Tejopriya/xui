@@ -14,7 +14,8 @@ export interface BottomNavItemProps extends Omit<HTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Mobile tab bar. 58px tall, items spread evenly.
+ * Mobile tab bar. 54px tall; items are a fixed 74px spread space-between,
+ * with a 24px icon over a Label/4 caption 6px below it.
  *
  *   <BottomNav>
  *     <BottomNavItem icon={OverviewIcon} label="Overview" selected />
@@ -49,7 +50,7 @@ export function BottomNavItem({
       aria-current={selected ? 'page' : undefined}
       {...rest}
     >
-      <Icon size={20} variant={selected ? 'dualtone-selected' : 'dualtone'} />
+      <Icon size={24} variant={selected ? 'dualtone-selected' : 'dualtone'} />
       <span className={styles.label}>{label}</span>
     </button>
   );

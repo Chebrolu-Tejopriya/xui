@@ -1,12 +1,14 @@
-/* XUI BottomNav — the mobile tab bar. Figma "Bottom Nav" is 390x88, but 30px
-   of that is the iPhone home indicator drawn into the mock; the bar itself is
-   the 58px "Menu List" with 12px sides and 12px on top. */
+/* XUI BottomNav — the mobile tab bar. Figma component 9846:88404 is 393x86,
+   but 30px of that is the iPhone home indicator drawn into the mock; the bar
+   is the 54px "Menu List" with 12px sides and 12px on top.
+   Items are a FIXED 74px, spread SPACE_BETWEEN — not flexed — so a nav with
+   three items and one with five keep the same item size. */
 
 .bottomNav {
   display: flex;
   align-items: flex-start;
-  justify-content: space-around;
-  height: 58px;
+  justify-content: space-between;
+  height: 54px;
   flex: none;
   padding: var(--spacing-12) var(--spacing-12) 0;
   background: var(--surface-raised);
@@ -18,14 +20,14 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-2);
-  flex: 1 1 0;
-  min-width: 0;
+  gap: var(--spacing-6);
+  width: 74px;
+  flex: none;
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
-  color: var(--content-tertiary);
+  color: var(--content-secondary);
   font: var(--type-label-4);
   text-align: center;
 }
