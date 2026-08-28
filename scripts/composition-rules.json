@@ -36,7 +36,9 @@
       "Row hover is surface-secondary (grey); row selected is surface-brand-secondary (blue tint). They are DIFFERENT states — selected wins when both apply.",
       "Container has a border-secondary 1px border, radius-mid (8px), and overflow:hidden to clip rows to the corners.",
       "Dividers are inset box-shadows, not borders, so rows stay exactly 52px.",
-      "Give a cell an explicit `width` for fixed columns; omit it for equal-share flexible columns.",
+      "Three column modes, matching Figma's: `width={n}` is fixed; `width={n} fill` starts at n and grows, sharing spare space in proportion to the designed widths; omitting width gives an equal share.",
+      "Use `width={n} fill` for text columns — NOT a bare omitted width. Equal share gives every column the same size, so a long value like \"Comprehensive ITR Filing\" wraps and the row grows past its 52px. Reserve fixed widths for content that cannot reflow: the checkbox (40), a priority meter (80), a row of action icons.",
+      "Do not paste a Figma filter/table width onto every column as a fixed size. That is what stops a table being responsive at all — the columns cannot shrink, so they overflow and get clipped by the container.",
       "A cell containing a checkbox is 40x52 with padding 12/8, in the header row and every body row alike — the component applies this on its own. Do not override it: the generic header (16/12) and body (16/8) paddings differ, which is what put the header checkbox 4px right of the column."
     ],
     "Button": [

@@ -82,23 +82,32 @@ export function TableRow({ selected, className, children, ...rest }: TableRowPro
 }
 
 export interface TableCellProps extends HTMLAttributes<HTMLDivElement> {
-  /** Fixed column width in px. Omit for a flexible column (equal share). */
+  /** Column width in px. Omit for a flexible column (equal share). */
   width?: number;
+  /**
+   * Let the column grow past `width`, using it as the starting size rather
+   * than a cap — Figma's "fill container". Columns then share the spare
+   * space in proportion to their designed widths, so a wide column stays
+   * wide. Without this, a row of equal-share columns gives every column the
+   * same width and the long ones wrap, which breaks the 52px row height.
+   */
+  fill?: boolean;
   /** Horizontal alignment of the content. Defaults to `start`. */
   align?: TableAlign;
   children?: ReactNode;
 }
 
-function widthStyle(width?: number): CSSProperties {
-  return width != null ? { width, flex: '0 0 auto' } : { flex: '1 1 0', minWidth: 0 };
+function widthStyle(width?: number, fill?: boolean): CSSProperties {
+  if (width == null) return { flex: '1 1 0', minWidth: 0 };
+  return fill ? { flex: `1 1 ${width}px`, minWidth: 0 } : { width, flex: '0 0 auto' };
 }
 
-export function TableCell({ width, align = 'start', className, style, children, ...rest }: TableCellProps) {
+export function TableCell({ width, fill, align = 'start', className, style, children, ...rest }: TableCellProps) {
   return (
     <div
       role="cell"
       className={cx(styles.cell, alignClass[align], className)}
-      style={{ ...widthStyle(width), ...style }}
+      style={{ ...widthStyle(width, fill), ...style }}
       {...rest}
     >
       {children}
@@ -106,12 +115,12 @@ export function TableCell({ width, align = 'start', className, style, children, 
   );
 }
 
-export function TableHeaderCell({ width, align = 'start', className, style, children, ...rest }: TableCellProps) {
+export function TableHeaderCell({ width, fill, align = 'start', className, style, children, ...rest }: TableCellProps) {
   return (
     <div
       role="columnheader"
       className={cx(styles.headerCell, alignClass[align], className)}
-      style={{ ...widthStyle(width), ...style }}
+      style={{ ...widthStyle(width, fill), ...style }}
       {...rest}
     >
       {children}
