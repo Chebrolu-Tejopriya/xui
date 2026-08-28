@@ -12,8 +12,13 @@
   background: var(--surface-primary);
   border: var(--border-width-regular) solid var(--border-secondary);
   border-radius: var(--radius-mid);
-  /* Clip rows/header to the rounded corners (Figma clipsContent). */
-  overflow: hidden;
+  /* Clip rows/header to the rounded corners (Figma clipsContent). Horizontally
+     the table scrolls instead of clipping: `fill` columns grow but never
+     shrink, so once the viewport drops below the columns' combined designed
+     width the table scrolls rather than squeezing a long value into a wrap
+     that would push the row past its 52px. */
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .head {
@@ -30,6 +35,9 @@
 
 .body .row {
   background: var(--surface-raised);
+  /* Fields inside a raised surface invert: primary fill, raised ring gap. */
+  --xui-field-surface: var(--surface-primary);
+  --xui-field-gap: var(--surface-raised);
 }
 
 /* Hover = grey wash; selected = brand-secondary (blue tint). Selected is
@@ -44,6 +52,15 @@
 /* The container's own bottom border replaces the last row's divider. */
 .body .row:last-child .cell {
   box-shadow: none;
+}
+
+/* Header, body and rows all size to their content so they scroll together as
+   one sheet — otherwise the rowgroups stay at the scroll container's width and
+   the rows overflow them independently of the header. */
+.head,
+.body,
+.row {
+  min-width: max-content;
 }
 
 .row {

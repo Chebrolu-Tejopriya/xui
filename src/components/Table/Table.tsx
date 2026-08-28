@@ -99,7 +99,9 @@ export interface TableCellProps extends HTMLAttributes<HTMLDivElement> {
 
 function widthStyle(width?: number, fill?: boolean): CSSProperties {
   if (width == null) return { flex: '1 1 0', minWidth: 0 };
-  return fill ? { flex: `1 1 ${width}px`, minWidth: 0 } : { width, flex: '0 0 auto' };
+  // grow, never shrink: below the columns' combined width the table scrolls
+  // rather than squeezing text into a wrap that breaks the 52px row.
+  return fill ? { flex: `1 0 ${width}px`, minWidth: 0 } : { width, flex: '0 0 auto' };
 }
 
 export function TableCell({ width, fill, align = 'start', className, style, children, ...rest }: TableCellProps) {

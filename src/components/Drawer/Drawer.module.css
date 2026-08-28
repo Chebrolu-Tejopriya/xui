@@ -20,6 +20,9 @@
   width: 320px;
   max-width: 100%;
   background: var(--surface-raised);
+  /* Fields inside a raised surface invert: primary fill, raised ring gap. */
+  --xui-field-surface: var(--surface-primary);
+  --xui-field-gap: var(--surface-raised);
   box-shadow: var(--elevation-lg);
   box-sizing: border-box;
 }

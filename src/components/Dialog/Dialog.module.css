@@ -20,6 +20,9 @@
   padding: 24px;
   border-radius: var(--radius-mid);
   background: var(--surface-raised);
+  /* Fields inside a raised surface invert: primary fill, raised ring gap. */
+  --xui-field-surface: var(--surface-primary);
+  --xui-field-gap: var(--surface-raised);
   box-shadow: var(--elevation-md);
 }
 

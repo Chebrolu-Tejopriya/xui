@@ -43,7 +43,16 @@
   padding: 8px 12px;
   border-radius: var(--radius-sm);
   border: var(--border-width-regular) solid var(--border-primary);
-  background: var(--surface-primary);
+  /* A field contrasts with whatever it sits on: raised on a primary page,
+     primary inside a raised card. Figma drew this component on a card, so its
+     default fill was surface-primary — dropped onto the dashboard's
+     surface-primary page, the search vanished into the background.
+
+     --xui-field-gap is the 2px break in the focus ring and takes the
+     CONTAINER's surface, the inverse of the field, so the ring always reads as
+     a gap. Containers that paint surface-raised set both (Dialog, Drawer,
+     Accordion, Table rows). Same pattern as --xui-icon-knockout. */
+  background: var(--xui-field-surface, var(--surface-raised));
   transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
 }
 
@@ -68,27 +77,27 @@
    gap of surface color, then the field's own 1px border-primary border.
    Reproduced with a layered box-shadow so it doesn't affect layout. */
 .field:focus-within {
-  background: var(--surface-raised);
+  background: var(--xui-field-surface, var(--surface-raised));
   border-color: var(--border-primary);
   box-shadow:
-    0 0 0 2px var(--surface-raised),
+    0 0 0 2px var(--xui-field-gap, var(--surface-primary)),
     0 0 0 4px var(--surface-brand-primary);
 }
 
 .error {
   /* Figma error state (918:6708): the field interior lifts to surface-raised,
      matching focused — only default/disabled keep surface-primary. */
-  background: var(--surface-raised);
+  background: var(--xui-field-surface, var(--surface-raised));
   border-color: var(--border-primary);
   box-shadow:
-    0 0 0 2px var(--surface-raised),
+    0 0 0 2px var(--xui-field-gap, var(--surface-primary)),
     0 0 0 4px var(--border-error);
 }
 .error:focus-within {
-  background: var(--surface-raised);
+  background: var(--xui-field-surface, var(--surface-raised));
   border-color: var(--border-primary);
   box-shadow:
-    0 0 0 2px var(--surface-raised),
+    0 0 0 2px var(--xui-field-gap, var(--surface-primary)),
     0 0 0 4px var(--border-error);
 }
 
