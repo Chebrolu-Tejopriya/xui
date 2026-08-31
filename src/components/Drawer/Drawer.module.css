@@ -156,11 +156,10 @@
   user-select: none;
 }
 
-/* XUI file: a full-bleed rule under the header, no horizontal inset. Its own
-   colour was not read from the file — this follows the Drawer's existing
-   divider convention and is worth a designer's glance. */
+/* XUI file 1416:47417: a full-bleed rule under the header, no horizontal
+   inset. `Line 20` strokes #DBE2EC, which is gray-05 = border-secondary. */
 .divider {
   height: 0;
   flex: none;
-  border-top: var(--border-width-regular) solid var(--border-tertiary);
+  border-top: var(--border-width-regular) solid var(--border-secondary);
 }
