@@ -18,34 +18,60 @@ const preview: Preview = {
     },
 
     options: {
-      // NOTE: as of Storybook 10.5 this nested order did not visibly reorder
-      // the sidebar (it falls back to filename-glob order). Kept as the
-      // documented-correct intent; revisit if SB ordering behavior changes.
-      storySort: {
-        method: 'alphabetical',
-        // Within a component group, list explicitly-ordered stories first
-        // (e.g. Input's variant leaves), then anything else alphabetically.
-        order: [
-          'Foundations',
-          'Components',
-          [
-            'Button',
-            ['Primary', 'Secondary', 'Destructive', 'Outline', 'Subtle', 'Ghost', 'Link', 'Icon Only'],
-            'Input',
-            [
-              'Default',
-              'Password',
-              'Secret Key',
-              'Date',
-              'Dropdown',
-              'Dropdown with icon',
-              'Mobile Number',
-              'Amount',
-              'Amount-Static',
-              'OTP',
-            ],
+      /* Components sort alphabetically, which is what a reader scanning a
+         sidebar of 20+ entries expects.
+
+         A comparator rather than the `order` array it replaces: listing a
+         component there to fix its STORY order also pins the COMPONENT to the
+         top, which is why Button and Input used to sit above Accordion. It
+         also had to be edited every time a component was added — the same
+         hand-kept-list problem the visual suite avoids by reading index.json.
+
+         (The old note here said sorting did not work at all. It did; the
+         `order` array was doing exactly what it was told.)
+
+         Three rules, in order:
+           1. Docs first within a component.
+           2. Then STORY_ORDER if that component defines one — Button leads
+              with Primary, not Destructive, because the sidebar should read
+              as a hierarchy, not an index.
+           3. Everything else alphabetical, roots in ROOT_ORDER. */
+      storySort: (a, b) => {
+        const ROOT_ORDER = ['Foundations', 'Components'];
+        const STORY_ORDER = {
+          'Components/Button': [
+            'Primary', 'Secondary', 'Destructive', 'Outline', 'Subtle', 'Ghost', 'Link', 'Icon Only',
           ],
-        ],
+          'Components/Input': [
+            'Default', 'Password', 'Secret Key', 'Date', 'Dropdown', 'Dropdown with icon',
+            'Mobile Number', 'Amount', 'Amount-Static', 'OTP',
+          ],
+        };
+
+        if (a.title === b.title) {
+          if (a.name === 'Docs') return -1;
+          if (b.name === 'Docs') return 1;
+          const order = STORY_ORDER[a.title];
+          if (!order) return 0; // keep the order the story file declares them in
+          // An unlisted story sorts after every listed one rather than jumping
+          // to the front, which is what indexOf's -1 would do.
+          const rank = (n) => (order.indexOf(n) === -1 ? order.length : order.indexOf(n));
+          return rank(a.name) - rank(b.name);
+        }
+
+        const rootOf = (t) => t.split('/')[0];
+        const ra = rootOf(a.title);
+        const rb = rootOf(b.title);
+        if (ra !== rb) {
+          // A root not in ROOT_ORDER goes after the known ones, alphabetically.
+          const ia = ROOT_ORDER.indexOf(ra);
+          const ib = ROOT_ORDER.indexOf(rb);
+          if (ia === -1 && ib === -1) return ra.localeCompare(rb);
+          if (ia === -1) return 1;
+          if (ib === -1) return -1;
+          return ia - ib;
+        }
+        return a.title.localeCompare(b.title, undefined, { numeric: true });
       },
     },
 
