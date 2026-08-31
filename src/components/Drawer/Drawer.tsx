@@ -207,6 +207,7 @@ export function Drawer({
             <CloseIcon size={24} />
           </button>
         </div>
+        <div className={styles.divider} />
         <div className={cx(styles.body, classNames.body)}>{children}</div>
         {footer && <div className={cx(styles.footer, classNames.footer)}>{footer}</div>}
       </div>
