@@ -78,6 +78,12 @@
       "The two action buttons each fill half the row (flex: 1) with a 24px gap. Destructive puts the confirm button first; the other variants put cancel first.",
       "Escape and a scrim click already close it, and `hideClose` removes the top-right X — no extra props needed for those."
     ],
+    "Drawer": [
+      "`placement` is right (default) / left / bottom / full. `bottom` is a sheet: it hugs its content up to 90vh rather than filling the screen, and rounds its corners at 16px.",
+      "`footer` is the call to action. Figma draws every placement both with and without one, so it is optional by design rather than by accident.",
+      "Escape, a scrim click and a body scroll-lock are already wired — do not reimplement them in a screen.",
+      "HEADS UP: two Figma files describe this component and disagree. The XUI file's Drawer section (1416:47417) has a 32px header with 12px sides and no right-hand placement; the working file's mobile nav has 48px with 16px sides, which is what `right` still uses. Ask before assuming either is canonical."
+    ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
       "Set --xui-icon-knockout to the surface an icon sits on if its cut-outs need to blend with something other than surface-raised."

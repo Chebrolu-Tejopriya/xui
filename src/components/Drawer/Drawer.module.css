@@ -11,13 +11,9 @@
 
 .panel {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
   z-index: 41;
   display: flex;
   flex-direction: column;
-  width: 320px;
   max-width: 100%;
   background: var(--surface-raised);
   /* Fields inside a raised surface invert: primary fill, raised ring gap. */
@@ -77,4 +73,47 @@
   flex: none;
   padding: var(--spacing-16);
   border-top: var(--border-width-regular) solid var(--border-tertiary);
+}
+
+/* ---- Placement ----
+   XUI file "Drawer" 1416:47417 draws four: Bottom, FixedBottom, Full Height and
+   one labelled Left. Two things to know about that section:
+
+   1. It contains no right-hand 320px drawer. `right` below is OUR existing
+      mobile-nav geometry, read from the working file, and is left untouched —
+      two Figma sources describe this component and they disagree on the header
+      (48 / px 16 here, 32 / px 12 there) and the radius. Reconciling them is a
+      designer's call, not a silent pick.
+   2. The frame named "Left" is drawn right-aligned — its panel sits at x=74 in
+      a 390 screen, so it touches the right edge. `left` here means what it says;
+      if the label was the intent rather than the drawing, they are one swap
+      apart. */
+.right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+}
+
+.left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 316px;
+  border-radius: 16px;
+}
+
+/* A sheet, so it hugs its content rather than filling the screen. */
+.bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 90vh;
+  border-radius: 16px;
+}
+
+.full {
+  inset: 0;
+  width: 100%;
 }

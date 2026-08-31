@@ -6,6 +6,8 @@ import { CloseIcon } from '../../icons';
 
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(' ');
 
+export type DrawerPlacement = 'right' | 'left' | 'bottom' | 'full';
+
 export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   open: boolean;
   onClose: () => void;
@@ -14,6 +16,12 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   /** Pinned below the list — the theme switcher and profile, as the rail has. */
   footer?: ReactNode;
   children?: ReactNode;
+  /**
+   * Where the panel sits. `right` (default) is the existing mobile-nav
+   * geometry; `left`, `bottom` and `full` come from the XUI file's Drawer
+   * section (1416:47417), where `bottom` is a sheet that hugs its content.
+   */
+  placement?: DrawerPlacement;
 }
 
 /**
@@ -34,6 +42,7 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
 export function Drawer({
   open,
   onClose,
+  placement = 'right',
   title = 'Menu',
   footer,
   className,
@@ -64,7 +73,7 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : 'Navigation'}
-        className={cx(styles.panel, className)}
+        className={cx(styles.panel, styles[placement], className)}
         {...rest}
       >
         <div className={styles.header}>

@@ -595,10 +595,30 @@
           "name": "children",
           "type": "ReactNode",
           "required": false
+        },
+        {
+          "name": "placement",
+          "type": "DrawerPlacement",
+          "required": false,
+          "options": [
+            "right",
+            "left",
+            "bottom",
+            "full"
+          ],
+          "default": "right",
+          "description": "Where the panel sits. `right` (default) is the existing mobile-nav geometry; `left`, `bottom` and `full` come from the XUI file's Drawer section (1416:47417), where `bottom` is a sheet that hugs its content."
         }
       ],
       "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
-      "variants": {}
+      "variants": {
+        "DrawerPlacement": [
+          "right",
+          "left",
+          "bottom",
+          "full"
+        ]
+      }
     },
     "EmptyState": {
       "group": "EmptyState",
@@ -1956,6 +1976,12 @@
       "Do not colour the icon yourself. The component colours it from the variant, read from Figma — default check_solid #0052FE (content-brand-primary), alert warning_amber #FB6F04 (content-warning-primary), destructive delete #F7324C (content-error-primary). Passing a pre-coloured icon is how a destructive dialog ends up with a blue trash can.",
       "The two action buttons each fill half the row (flex: 1) with a 24px gap. Destructive puts the confirm button first; the other variants put cancel first.",
       "Escape and a scrim click already close it, and `hideClose` removes the top-right X — no extra props needed for those."
+    ],
+    "Drawer": [
+      "`placement` is right (default) / left / bottom / full. `bottom` is a sheet: it hugs its content up to 90vh rather than filling the screen, and rounds its corners at 16px.",
+      "`footer` is the call to action. Figma draws every placement both with and without one, so it is optional by design rather than by accident.",
+      "Escape, a scrim click and a body scroll-lock are already wired — do not reimplement them in a screen.",
+      "HEADS UP: two Figma files describe this component and disagree. The XUI file's Drawer section (1416:47417) has a 32px header with 12px sides and no right-hand placement; the working file's mobile nav has 48px with 16px sides, which is what `right` still uses. Ask before assuming either is canonical."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
