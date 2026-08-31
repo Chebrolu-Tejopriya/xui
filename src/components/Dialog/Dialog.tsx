@@ -20,6 +20,16 @@ export interface DialogProps {
   onConfirm?: () => void;
   /** Hide the top-right close icon. */
   hideClose?: boolean;
+  /**
+   * A 64px glyph above the title, which also centres the text — Figma's
+   * "Dialog with Icon" (XUI file, 1138:5672). The colour comes from the
+   * variant and is applied here, so callers pass a plain icon:
+   *
+   *   default     content-brand-primary   (Icons/check_solid)
+   *   alert       content-warning-primary (Icons/warning_amber)
+   *   destructive content-error-primary   (Iconly/delete)
+   */
+  icon?: ReactNode;
 }
 
 export function Dialog({
@@ -33,6 +43,7 @@ export function Dialog({
   cancelLabel = 'Cancel',
   onConfirm,
   hideClose = false,
+  icon,
 }: DialogProps) {
   useEffect(() => {
     if (!open) return;
@@ -62,9 +73,12 @@ export function Dialog({
       <div
         role="dialog"
         aria-modal="true"
-        className={styles.dialog}
+        className={[styles.dialog, styles[variant], icon ? styles.centered : undefined]
+          .filter(Boolean)
+          .join(' ')}
         onClick={(e) => e.stopPropagation()}
       >
+        {icon && <div className={styles.icon}>{icon}</div>}
         <h2 className={styles.title}>{title}</h2>
         {description != null && <p className={styles.description}>{description}</p>}
         {children}

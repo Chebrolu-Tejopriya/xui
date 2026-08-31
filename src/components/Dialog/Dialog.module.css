@@ -65,3 +65,56 @@
 .close:hover {
   color: var(--content-primary);
 }
+
+/* ---- Icon ----
+   Figma "Dialog with Icon" (XUI file 1138:5672): a 64px glyph above the title,
+   which also centres the text. The glyph differs per variant and so does its
+   colour, both read from the file rather than chosen here:
+
+     default      Icons/check_solid    #0052FE  content-brand-primary
+     alert        Icons/warning_amber  #FB6F04  content-warning-primary
+     destructive  Iconly/delete        #F7324C  content-error-primary
+
+   The colour lives here rather than in the caller so a destructive dialog
+   cannot end up with a blue trash can. Icons paint in currentColor, so setting
+   it on the box is enough. */
+.icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  align-self: center;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.default .icon {
+  color: var(--content-brand-primary);
+}
+.alert .icon {
+  color: var(--content-warning-primary);
+}
+.destructive .icon {
+  color: var(--content-error-primary);
+}
+
+/* With an icon the whole stack centres. The title loses its right padding
+   because the close button is absolutely positioned — the reservation only
+   matters when the title is left-aligned and would run under it. */
+.centered {
+  /* text-align only — NOT align-items: center. The panel is a flex column, so
+     centring its items shrinks every child to its content width, which
+     collapsed the actions row from two half-width buttons to two that hug
+     their labels. Figma has them flex: 1 each. The icon centres itself with
+     align-self instead. */
+  text-align: center;
+}
+
+.centered .title {
+  padding-right: 0;
+}

@@ -548,6 +548,12 @@
           "required": false,
           "default": "false",
           "description": "Hide the top-right close icon."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "A 64px glyph above the title, which also centres the text — Figma's \"Dialog with Icon\" (XUI file, 1138:5672). The colour comes from the variant and is applied here, so callers pass a plain icon: default     content-brand-primary   (Icons/check_solid) alert       content-warning-primary (Icons/warning_amber) destructive content-error-primary   (Iconly/delete)"
         }
       ],
       "variants": {
@@ -1944,6 +1950,12 @@
       "`footer` is the \"Tip: …\" line under the actions. It is BEYOND the Figma screens — it exists so the component can express what KoinX's existing InfoComponent already ships. It renders quieter than the description (Subtitle/1 in content-tertiary); that pairing was chosen, not read from Figma.",
       "`className` lands on the root; `classNames` (illustration / text / title / description / actions / footer) reaches the parts it cannot. Prefer neither — reach for them only when a screen genuinely needs to diverge.",
       "Ship the illustrations from @koinx/xui (MaintenanceIllustration, ErrorIllustration, NoDataIllustration). Their paints are bound to the blue ramp, which is theme-reactive, so they render correctly on a dark page. A hand-pasted Figma SVG export will not — it arrives with the screen's white content card baked in and a pale backing circle that becomes a bright disc on black."
+    ],
+    "Dialog": [
+      "Pass `icon` to get Figma's \"Dialog with Icon\" form (XUI file 1138:5672): a 64px glyph above the title, and the text centres.",
+      "Do not colour the icon yourself. The component colours it from the variant, read from Figma — default check_solid #0052FE (content-brand-primary), alert warning_amber #FB6F04 (content-warning-primary), destructive delete #F7324C (content-error-primary). Passing a pre-coloured icon is how a destructive dialog ends up with a blue trash can.",
+      "The two action buttons each fill half the row (flex: 1) with a 24px gap. Destructive puts the confirm button first; the other variants put cancel first.",
+      "Escape and a scrim click already close it, and `hideClose` removes the top-right X — no extra props needed for those."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
