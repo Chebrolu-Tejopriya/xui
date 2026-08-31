@@ -24,7 +24,16 @@ export const Sizes: Story = {
 
 export const WithImage: Story = {
   args: {
-    src: 'https://i.pravatar.cc/128?img=13',
+    /* A data URI, not a remote URL. This was https://i.pravatar.cc/128?img=13,
+       which made the story depend on a third-party server: the visual suite
+       failed it intermittently with ~3,000 differing pixels, because whether
+       the image arrived (and which one) varied per run. A baseline cannot be
+       hostage to someone else's CDN, and Storybook now renders offline. */
+    src:
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E" +
+      "%3Crect width='128' height='128' fill='%23cbe0ff'/%3E" +
+      "%3Ccircle cx='64' cy='48' r='24' fill='%230052fe'/%3E" +
+      "%3Cpath d='M16 128c0-30 21-48 48-48s48 18 48 48z' fill='%230052fe'/%3E%3C/svg%3E",
     alt: 'User avatar',
     size: 'xl',
   },
