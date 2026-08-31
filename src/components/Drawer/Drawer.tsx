@@ -40,6 +40,15 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   overlayBlur?: boolean;
   /** Override the placement's width, e.g. "480px" or "40vw". Ignored by `bottom` and `full`, which span their axis. */
   width?: string;
+  /**
+   * Override the placement's height, e.g. "320px" or "100%".
+   *
+   * BEYOND FIGMA. The XUI file draws `bottom` as a sheet that hugs its
+   * content; this exists because the library KoinX developers already use
+   * distinguishes a fixed-height bottom drawer from a full-height one, and a
+   * sheet that can only hug cannot express either.
+   */
+  height?: string;
   /** Class hooks for the parts `className` cannot reach. */
   classNames?: DrawerClassNames;
 }
@@ -66,6 +75,7 @@ export function Drawer({
   headingIcon,
   overlayBlur = false,
   width,
+  height,
   classNames = {},
   title = 'Menu',
   footer,
@@ -102,7 +112,14 @@ export function Drawer({
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : 'Navigation'}
         className={cx(styles.panel, styles[placement], className)}
-        style={width ? { width, ...rest.style } : rest.style}
+        style={{
+            ...(width ? { width } : null),
+            // An explicit height also lifts the sheet's 90vh cap — otherwise
+            // height="100%" silently renders at 90% and looks like a bug in
+            // the caller's CSS rather than a default here.
+            ...(height ? { height, maxHeight: 'none' } : null),
+            ...rest.style,
+          }}
         {...rest}
       >
         <div className={styles.header}>

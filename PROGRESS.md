@@ -1,8 +1,13 @@
 # XUI Design System — Progress
 
 Status as of **2026-07-20**. React + TypeScript + Vite + Storybook implementation of the
-XUI design system, sourced from the Figma file **XUI (Copy)**
-(`figma.com/design/4O4jP8lf2a2kl1XcQaXEqe`).
+XUI design system.
+
+**Figma source of truth: `figma.com/design/CZHLKqp4fOchbR6FkTcPC8` ("XUI").**
+Confirmed by the team on 2026-08-31. Earlier work here cited
+`4O4jP8lf2a2kl1XcQaXEqe` ("XUI (Copy)") — a copy, not the live file. Anything
+read from that key predates the correction and may have drifted; the Dialog
+icon spec is the known case and is worth re-checking against the main file.
 
 Repository: <https://github.com/Chebrolu-Tejopriya/xui> (branch `main`)
 

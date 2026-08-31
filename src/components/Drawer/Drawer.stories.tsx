@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button';
+import { Input } from '../Input';
 import { InfoIcon } from '../../icons';
 import { Drawer } from './Drawer';
 import type { DrawerPlacement } from './Drawer';
@@ -22,9 +23,10 @@ type DemoProps = {
   headingIcon?: boolean;
   title?: string;
   width?: string;
+  height?: string;
 };
 
-function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width }: DemoProps) {
+function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width, height }: DemoProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -35,6 +37,7 @@ function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title'
         placement={placement}
         overlayBlur={overlayBlur}
         width={width}
+        height={height}
         headingIcon={headingIcon ? <InfoIcon size={20} /> : undefined}
         title={title}
         footer={cta ? <Button fullWidth onClick={() => setOpen(false)}>Got it</Button> : undefined}
@@ -69,6 +72,39 @@ export const Navigation: StoryObj = {
   render: () => <Demo placement="right" cta={false} />,
 };
 
+function FormDemo() {
+  const [open, setOpen] = useState(false);
+  const row = { display: 'flex', gap: 'var(--spacing-12)' } as const;
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open drawer</Button>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        placement="bottom"
+        title="Drawer Title"
+        footer={
+          <div style={row}>
+            <Button variant="outline" fullWidth onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button fullWidth onClick={() => setOpen(false)}>
+              Save
+            </Button>
+          </div>
+        }
+      >
+        <div style={row}>
+          <Input label="First Name" defaultValue="Tech" />
+          <Input label="Last Name" defaultValue="KoinX" />
+        </div>
+        <Input label="Email" placeholder="tech@koinx.com" />
+        <Input label="Phone Number" placeholder="999999999" />
+      </Drawer>
+    </>
+  );
+}
+
 /** Blurs the scrim behind the panel, using the system's only blur value. */
 export const OverlayBlur: StoryObj = {
   render: () => <Demo placement="right" cta={false} overlayBlur />,
@@ -87,4 +123,25 @@ export const WithoutTitle: StoryObj = {
 /** `width` overrides the placement's default — ignored by bottom and full. */
 export const CustomWidth: StoryObj = {
   render: () => <Demo placement="right" cta={false} width="480px" />,
+};
+
+/* ---- Beyond the Figma Drawer section ----
+   The XUI file draws `bottom` as a sheet that hugs its content. These three
+   exist because the library KoinX developers already use distinguishes a
+   fixed-height bottom drawer from a full-height one, and ships a form inside
+   a drawer as its own case. Marked here rather than left to look like design. */
+
+/** BEYOND FIGMA. A bottom sheet pinned to a set height rather than hugging. */
+export const FixedHeightBottom: StoryObj = {
+  render: () => <Demo placement="bottom" cta height="320px" />,
+};
+
+/** BEYOND FIGMA. The sheet taken to the full viewport height. */
+export const FullHeightBottom: StoryObj = {
+  render: () => <Demo placement="bottom" cta height="100%" />,
+};
+
+/** BEYOND FIGMA. A form inside a drawer — the body scrolls, the actions stay put. */
+export const WithInputFields: StoryObj = {
+  render: () => <FormDemo />,
 };
