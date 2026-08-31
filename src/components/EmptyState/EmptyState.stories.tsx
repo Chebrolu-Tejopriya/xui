@@ -8,9 +8,32 @@ import {
   NoDataIllustration,
 } from '../../assets/illustrations';
 
+/**
+ * The three illustrations the design ships, as a dropdown on every story —
+ * so switching between "no connection", "maintenance" and "no details" is one
+ * control rather than the same story written out three more times.
+ */
+const ILLUSTRATIONS = {
+  'No connection': <ErrorIllustration />,
+  Maintenance: <MaintenanceIllustration />,
+  'No details': <NoDataIllustration />,
+  None: undefined,
+};
+
 const meta: Meta<typeof EmptyState> = {
   title: 'Components/EmptyState',
   component: EmptyState,
+  argTypes: {
+    illustration: {
+      name: 'illustration',
+      options: Object.keys(ILLUSTRATIONS),
+      mapping: ILLUSTRATIONS,
+      control: { type: 'select' },
+      description:
+        'Pick one of the three shipped illustrations, or None. `mapping` turns the ' +
+        'label into the component, so the control stays readable instead of showing JSX.',
+    },
+  },
 };
 export default meta;
 
@@ -23,7 +46,9 @@ type Story = StoryObj<typeof EmptyState>;
  */
 export const Default: Story = {
   args: {
-    illustration: <NoDataIllustration />,
+    // The label, not the node: `mapping` resolves it, and the dropdown then
+    // shows which one is selected instead of "[object Object]".
+    illustration: 'No details',
     title: 'No team members found.',
     description: "Looks like you haven't added any team members yet. Invite members to get started.",
     actions: <Button size="large" iconLeft={<AddUserIcon />}>Invite new members</Button>,
@@ -33,7 +58,7 @@ export const Default: Story = {
 
 /** The text still centres and the rhythm holds without artwork — this is the shape that fits inside a card or a table cell. */
 export const WithoutIllustration: Story = {
-  args: { ...Default.args, illustration: undefined },
+  args: { ...Default.args, illustration: 'None' },
 };
 
 /** Nothing for the user to do here — the state is informational. */
@@ -78,7 +103,7 @@ export const WithCustomClasses: Story = {
 /** Copy is Figma's verbatim, including the "maintainance" spelling. */
 export const Maintenance: Story = {
   args: {
-    illustration: <MaintenanceIllustration />,
+    illustration: 'Maintenance',
     title: 'We are under maintainance',
     description: 'Please be patient, our team is working to get this site up again',
   },
@@ -86,7 +111,7 @@ export const Maintenance: Story = {
 
 export const SomethingWentWrong: Story = {
   args: {
-    illustration: <ErrorIllustration />,
+    illustration: 'No connection',
     title: 'Something went wrong',
     description: 'Oh no! Something just broke! Rest assured our awesome team is getting it fixed.',
     actions: (
@@ -103,7 +128,7 @@ export const SomethingWentWrong: Story = {
 /** Figma hides the description on this one — the title and the action carry it. */
 export const NoData: Story = {
   args: {
-    illustration: <NoDataIllustration />,
+    illustration: 'No details',
     title: 'No Details Found',
     actions: (
       <Button size="large" iconLeft={<ArrowBackwardIcon />}>
