@@ -21,7 +21,6 @@
      screens; the XUI file is the design system's own definition and wins. */
   padding-top: 8px;
   gap: 8px;
-  border-radius: 16px;
   background: var(--surface-raised);
   /* Fields inside a raised surface invert: primary fill, raised ring gap. */
   --xui-field-surface: var(--surface-primary);
@@ -99,6 +98,8 @@
   right: 0;
   bottom: 0;
   width: 320px;
+  /* Only the inner edge curves; the three touching the viewport stay square. */
+  border-radius: 16px 0 0 16px;
 }
 
 .left {
@@ -106,6 +107,7 @@
   left: 0;
   bottom: 0;
   width: 316px;
+  border-radius: 0 16px 16px 0;
 }
 
 /* A sheet, so it hugs its content rather than filling the screen. */
@@ -115,6 +117,7 @@
   left: 0;
   width: 100%;
   max-height: 90vh;
+  border-radius: 16px 16px 0 0;
 }
 
 .full {
