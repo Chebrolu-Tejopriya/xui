@@ -3,6 +3,12 @@ import { CopyImportChip, PACKAGE_NAME } from './CopyImportChip';
 import '../src/tokens/index.css';
 
 const preview: Preview = {
+  /* Generates a Docs page per component: description, props table with types
+     and defaults, and every story inline. addon-docs was installed from the
+     start but autodocs was never switched on, so the build produced 77 stories
+     and ZERO docs pages — no API reference existed anywhere in the system. */
+  tags: ['autodocs'],
+
   parameters: {
     controls: {
       matchers: {

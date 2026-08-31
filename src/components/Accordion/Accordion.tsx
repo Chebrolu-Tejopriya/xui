@@ -17,6 +17,16 @@ export interface AccordionProps {
   className?: string;
 }
 
+/**
+ * Stacks titled panels that expand one at a time, or several at once with
+ * `multiple`. Use it to compress a long page — an FAQ, a set of filing
+ * options — into a scannable vertical list.
+ *
+ * Uncontrolled: it owns which panels are open, seeded by `defaultValue`.
+ * Reach for a different component if the panels must stay open while another
+ * opens *and* the parent needs to know about it — that is a controlled API
+ * this one does not offer yet.
+ */
 export function Accordion({ items, multiple = false, defaultValue = [], className }: AccordionProps) {
   const [open, setOpen] = useState<string[]>(defaultValue);
 
