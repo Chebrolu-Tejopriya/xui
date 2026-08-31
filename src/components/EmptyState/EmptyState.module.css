@@ -67,3 +67,15 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.footer {
+  margin: 0;
+  /* BEYOND THE DESIGN. Figma's three empty states have no closing line, so
+     this pairing is chosen rather than read: the description's type, one step
+     quieter in content-tertiary, so a "Tip: …" reads as an aside and not as a
+     second instruction. It sits as a third child of .body, which means it
+     inherits that column's 37px rhythm instead of introducing a new number. */
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+  color: var(--content-tertiary);
+}

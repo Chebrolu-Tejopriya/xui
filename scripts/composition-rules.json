@@ -67,6 +67,9 @@
       "Illustration, title, optional description, optional actions — centred in whatever box it is given, so a page-level 404 and an empty table cell use the same component.",
       "Actions is a slot, not primaryAction/secondaryAction props: Figma's three screens use none, one and two buttons, and a slot covers all three.",
       "Description is optional because Figma hides it on the \"No Details Found\" screen — pass nothing rather than an empty string.",
+      "Five parts: illustration, title, description, actions, footer. Only title is required, and an omitted part is dropped from the DOM rather than rendered empty, so the 37px rhythm closes up instead of leaving a hole.",
+      "`footer` is the \"Tip: …\" line under the actions. It is BEYOND the Figma screens — it exists so the component can express what KoinX's existing InfoComponent already ships. It renders quieter than the description (Subtitle/1 in content-tertiary); that pairing was chosen, not read from Figma.",
+      "`className` lands on the root; `classNames` (illustration / text / title / description / actions / footer) reaches the parts it cannot. Prefer neither — reach for them only when a screen genuinely needs to diverge.",
       "Ship the illustrations from @koinx/xui (MaintenanceIllustration, ErrorIllustration, NoDataIllustration). Their paints are bound to the blue ramp, which is theme-reactive, so they render correctly on a dark page. A hand-pasted Figma SVG export will not — it arrives with the screen's white content card baked in and a pale backing circle that becomes a bright disc on black."
     ],
     "Icons": [

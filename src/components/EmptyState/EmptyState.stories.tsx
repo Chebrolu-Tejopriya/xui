@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { EmptyState } from './EmptyState';
 import { Button } from '../Button';
-import { ArrowBackwardIcon } from '../../icons';
+import { ArrowBackwardIcon, AddUserIcon } from '../../icons';
 import {
   MaintenanceIllustration,
   ErrorIllustration,
@@ -17,10 +17,65 @@ export default meta;
 type Story = StoryObj<typeof EmptyState>;
 
 /**
- * The three screens Figma draws, in the order they appear in
- * "Empty States" 9899:141035 — no actions, two actions, one action. The copy
- * is Figma's verbatim, including the "maintainance" spelling.
+ * The whole anatomy: illustration, title, description, actions, footer.
+ * Every part below the title is optional, and each is dropped from the DOM
+ * rather than rendered empty — the gaps close instead of leaving a hole.
  */
+export const Default: Story = {
+  args: {
+    illustration: <NoDataIllustration />,
+    title: 'No team members found.',
+    description: "Looks like you haven't added any team members yet. Invite members to get started.",
+    actions: <Button size="large" iconLeft={<AddUserIcon />}>Invite new members</Button>,
+    footer: 'Tip: Invite more team members to get more rewards and points.',
+  },
+};
+
+/** The text still centres and the rhythm holds without artwork — this is the shape that fits inside a card or a table cell. */
+export const WithoutIllustration: Story = {
+  args: { ...Default.args, illustration: undefined },
+};
+
+/** Nothing for the user to do here — the state is informational. */
+export const WithoutActions: Story = {
+  args: { ...Default.args, actions: undefined },
+};
+
+/** The common case: a nudge would be noise once there is a clear action. */
+export const WithoutFooter: Story = {
+  args: { ...Default.args, footer: undefined },
+};
+
+/** Title only. Every other part omitted. */
+export const TitleOnly: Story = {
+  args: { title: 'No results' },
+};
+
+/**
+ * `className` lands on the root; `classNames` reaches the parts it cannot.
+ * Here the title is tinted and the footer boxed, to show the hooks are real
+ * rather than declared.
+ */
+export const WithCustomClasses: Story = {
+  render: (args) => (
+    <>
+      <style>{`
+        .es-title { color: var(--content-brand-primary); }
+        .es-footer {
+          padding: var(--spacing-8) var(--spacing-12);
+          border-radius: var(--radius-sm);
+          background: var(--surface-secondary);
+        }
+      `}</style>
+      <EmptyState {...args} classNames={{ title: 'es-title', footer: 'es-footer' }} />
+    </>
+  ),
+  args: Default.args,
+};
+
+/* ---- The three screens Figma draws, in "Empty States" 9899:141035 ---- */
+
+/** Copy is Figma's verbatim, including the "maintainance" spelling. */
 export const Maintenance: Story = {
   args: {
     illustration: <MaintenanceIllustration />,
@@ -45,11 +100,7 @@ export const SomethingWentWrong: Story = {
   },
 };
 
-/**
- * Figma hides the description on this one — the title and the action carry it.
- * The component treats `description` as optional for exactly this reason
- * rather than making callers pass an empty string.
- */
+/** Figma hides the description on this one — the title and the action carry it. */
 export const NoData: Story = {
   args: {
     illustration: <NoDataIllustration />,
@@ -62,22 +113,4 @@ export const NoData: Story = {
   },
 };
 
-/**
- * Without an illustration — the layout still holds, which is what makes this
- * usable inside a table cell or a card rather than only as a full page.
- */
-export const TextOnly: Story = {
-  args: {
-    title: 'No transactions match these filters',
-    description: 'Try widening the date range or clearing a filter.',
-    actions: <Button variant="outline">Clear filters</Button>,
-  },
-};
-
-export const Playground: Story = {
-  args: {
-    illustration: <NoDataIllustration />,
-    title: 'No Details Found',
-    description: "Looks like you haven't added any transactions yet. Add transactions to get started.",
-  },
-};
+export const Playground: Story = { args: Default.args };
