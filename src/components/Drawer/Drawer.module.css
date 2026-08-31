@@ -144,3 +144,10 @@
 .scrimBlur {
   backdrop-filter: blur(var(--blur-locked));
 }
+
+/* While a throw is in progress the panel must track the finger exactly, so no
+   transition. It springs back when the transform is cleared on release. */
+.dragging {
+  transition: none;
+  user-select: none;
+}

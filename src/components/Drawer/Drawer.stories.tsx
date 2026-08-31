@@ -24,9 +24,10 @@ type DemoProps = {
   title?: string;
   width?: string;
   height?: string;
+  draggable?: boolean;
 };
 
-function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width, height }: DemoProps) {
+function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width, height, draggable }: DemoProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -38,6 +39,7 @@ function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title'
         overlayBlur={overlayBlur}
         width={width}
         height={height}
+        draggable={draggable}
         headingIcon={headingIcon ? <InfoIcon size={20} /> : undefined}
         title={title}
         footer={cta ? <Button fullWidth onClick={() => setOpen(false)}>Got it</Button> : undefined}
@@ -144,4 +146,9 @@ export const FullHeightBottom: StoryObj = {
 /** BEYOND FIGMA. A form inside a drawer — the body scrolls, the actions stay put. */
 export const WithInputFields: StoryObj = {
   render: () => <FormDemo />,
+};
+
+/** BEYOND FIGMA. Swipe off, so the panel only closes by button, scrim or Escape. */
+export const NonDraggable: StoryObj = {
+  render: () => <Demo placement="bottom" cta draggable={false} />,
 };

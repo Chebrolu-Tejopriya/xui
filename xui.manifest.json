@@ -639,6 +639,13 @@
           "type": "DrawerClassNames",
           "required": false,
           "description": "Class hooks for the parts `className` cannot reach."
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Swipe the panel away along its own axis — down for `bottom`, right for `right`, left for `left`. On by default, as in the library this mirrors. BEYOND FIGMA, and no gesture library: pointer events, ~40 lines. It stays out of the way of the things it would otherwise break — a drag starting in a text field is ignored, and a scrollable body only hands over the gesture once it is scrolled to the top, so a sheet full of content still scrolls. `full` never drags; there is no edge to throw it towards."
         }
       ],
       "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
@@ -2016,7 +2023,7 @@
       "Props beyond placement: `headingIcon` (a glyph before the title), `overlayBlur` (blurs the scrim, off by default, using --blur-locked), `width` (overrides the placement default; ignored by bottom and full), and `classNames` for titleWrapper / title / closeIcon / body / footer.",
       "The footer is ALREADY pinned — it sits outside the scrolling body as flex:none. There is no separate \"fixed bottom\" mode to reach for; the library this mirrors splits that into variant strings, we get it from the layout.",
       "`height` sets a fixed sheet height and lifts the default 90vh cap, so height=\"100%\" really means full height. BEYOND FIGMA: the file draws `bottom` hugging its content only.",
-      "NOT built: swipe-to-dismiss (their `draggable`, which comes from Vaul). It needs a gesture library and appears nowhere in Figma. Escape, scrim click and the close button all work."
+      "`draggable` (default true) swipes the panel away along its own axis — down for bottom, right for right, left for left. `full` never drags. BEYOND FIGMA, and no gesture library. It yields where it should: a drag starting in a text field is ignored, and a scrollable body keeps the gesture until it is back at the top. Escape, scrim click and the close button work regardless."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",

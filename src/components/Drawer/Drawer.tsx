@@ -1,10 +1,21 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes, PointerEvent as ReactPointerEvent, ReactNode } from 'react';
 import styles from './Drawer.module.css';
 import { CloseIcon } from '../../icons';
 
 const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(' ');
+
+/** The axis a placement is thrown along, and the sign that dismisses it. */
+const DRAG_AXIS: Record<DrawerPlacement, { axis: 'x' | 'y'; sign: 1 | -1 } | null> = {
+  bottom: { axis: 'y', sign: 1 },
+  right: { axis: 'x', sign: 1 },
+  left: { axis: 'x', sign: -1 },
+  full: null,
+};
+
+/** Past a quarter of its own size, a throw is a dismissal rather than a nudge. */
+const DISMISS_FRACTION = 0.25;
 
 export type DrawerPlacement = 'right' | 'left' | 'bottom' | 'full';
 
@@ -51,6 +62,17 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   height?: string;
   /** Class hooks for the parts `className` cannot reach. */
   classNames?: DrawerClassNames;
+  /**
+   * Swipe the panel away along its own axis — down for `bottom`, right for
+   * `right`, left for `left`. On by default, as in the library this mirrors.
+   *
+   * BEYOND FIGMA, and no gesture library: pointer events, ~40 lines. It stays
+   * out of the way of the things it would otherwise break — a drag starting in
+   * a text field is ignored, and a scrollable body only hands over the gesture
+   * once it is scrolled to the top, so a sheet full of content still scrolls.
+   * `full` never drags; there is no edge to throw it towards.
+   */
+  draggable?: boolean;
 }
 
 /**
@@ -77,12 +99,60 @@ export function Drawer({
   width,
   height,
   classNames = {},
+  draggable = true,
   title = 'Menu',
   footer,
   className,
   children,
   ...rest
 }: DrawerProps) {
+  // ---- Swipe to dismiss -------------------------------------------------
+  const panelRef = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ id: number; from: number; scrolled: boolean } | null>(null);
+  const [offset, setOffset] = useState(0);
+  const axis = draggable ? DRAG_AXIS[placement] : null;
+
+  const endDrag = useCallback(
+    (commit: boolean) => {
+      const panel = panelRef.current;
+      const active = drag.current;
+      drag.current = null;
+      if (!panel || !active || !axis) return;
+      const size = axis.axis === 'y' ? panel.offsetHeight : panel.offsetWidth;
+      setOffset(0);
+      if (commit && Math.abs(offset) > size * DISMISS_FRACTION) onClose();
+    },
+    [axis, offset, onClose],
+  );
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!axis || e.button !== 0) return;
+    const t = e.target as HTMLElement;
+    // A drag starting in a field is the user selecting text, not throwing the
+    // panel away.
+    if (t.closest('input, textarea, select, [contenteditable="true"]')) return;
+    // A scrollable body keeps the gesture until it is back at the top, so a
+    // sheet full of content still scrolls.
+    const scroller = t.closest<HTMLElement>(`.${styles.body}`);
+    drag.current = {
+      id: e.pointerId,
+      from: axis.axis === 'y' ? e.clientY : e.clientX,
+      scrolled: !!scroller && scroller.scrollTop > 0,
+    };
+  };
+
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const active = drag.current;
+    if (!active || !axis || active.id !== e.pointerId || active.scrolled) return;
+    const delta = (axis.axis === 'y' ? e.clientY : e.clientX) - active.from;
+    // Only towards the edge it came from; the other way does nothing.
+    const travelled = axis.sign === 1 ? Math.max(0, delta) : Math.min(0, delta);
+    if (travelled !== 0) {
+      e.currentTarget.setPointerCapture(e.pointerId);
+      setOffset(travelled);
+    }
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -111,8 +181,14 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : 'Navigation'}
-        className={cx(styles.panel, styles[placement], className)}
+        ref={panelRef}
+        className={cx(styles.panel, styles[placement], offset !== 0 && styles.dragging, className)}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={() => endDrag(true)}
+        onPointerCancel={() => endDrag(false)}
         style={{
+            ...(offset !== 0 ? { transform: `translate${axis?.axis === 'y' ? 'Y' : 'X'}(${offset}px)` } : null),
             ...(width ? { width } : null),
             // An explicit height also lifts the sheet's 90vh cap — otherwise
             // height="100%" silently renders at 90% and looks like a bug in
