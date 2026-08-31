@@ -8,6 +8,14 @@ const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(' ')
 
 export type DrawerPlacement = 'right' | 'left' | 'bottom' | 'full';
 
+export interface DrawerClassNames {
+  titleWrapper?: string;
+  title?: string;
+  closeIcon?: string;
+  body?: string;
+  footer?: string;
+}
+
 export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   open: boolean;
   onClose: () => void;
@@ -22,6 +30,18 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
    * section (1416:47417), where `bottom` is a sheet that hugs its content.
    */
   placement?: DrawerPlacement;
+  /** A glyph before the title, in the header. */
+  headingIcon?: ReactNode;
+  /**
+   * Blur the scrim behind the panel. Off by default, as in the library this
+   * mirrors. The amount is `--blur-locked` (16px) — the only blur value the
+   * token set defines, reused rather than inventing a second one.
+   */
+  overlayBlur?: boolean;
+  /** Override the placement's width, e.g. "480px" or "40vw". Ignored by `bottom` and `full`, which span their axis. */
+  width?: string;
+  /** Class hooks for the parts `className` cannot reach. */
+  classNames?: DrawerClassNames;
 }
 
 /**
@@ -43,6 +63,10 @@ export function Drawer({
   open,
   onClose,
   placement = 'right',
+  headingIcon,
+  overlayBlur = false,
+  width,
+  classNames = {},
   title = 'Menu',
   footer,
   className,
@@ -68,22 +92,30 @@ export function Drawer({
 
   return createPortal(
     <>
-      <div className={styles.scrim} onClick={onClose} aria-hidden="true" />
+      <div
+        className={cx(styles.scrim, overlayBlur && styles.scrimBlur)}
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <div
         role="dialog"
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : 'Navigation'}
         className={cx(styles.panel, styles[placement], className)}
+        style={width ? { width, ...rest.style } : rest.style}
         {...rest}
       >
         <div className={styles.header}>
-          <span>{title}</span>
-          <button type="button" className={styles.close} onClick={onClose} aria-label="Close menu">
+          <span className={cx(styles.titleWrapper, classNames.titleWrapper)}>
+            {headingIcon && <span className={styles.headingIcon}>{headingIcon}</span>}
+            <span className={cx(styles.title, classNames.title)}>{title}</span>
+          </span>
+          <button type="button" className={cx(styles.close, classNames.closeIcon)} onClick={onClose} aria-label="Close menu">
             <CloseIcon size={24} />
           </button>
         </div>
-        <div className={styles.body}>{children}</div>
-        {footer && <div className={styles.footer}>{footer}</div>}
+        <div className={cx(styles.body, classNames.body)}>{children}</div>
+        {footer && <div className={cx(styles.footer, classNames.footer)}>{footer}</div>}
       </div>
     </>,
     document.body,

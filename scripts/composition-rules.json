@@ -82,7 +82,10 @@
       "`placement` is right (default) / left / bottom / full. `bottom` is a sheet: it hugs its content up to 90vh rather than filling the screen, and rounds its corners at 16px.",
       "`footer` is the call to action. Figma draws every placement both with and without one, so it is optional by design rather than by accident.",
       "Escape, a scrim click and a body scroll-lock are already wired — do not reimplement them in a screen.",
-      "HEADS UP: two Figma files describe this component and disagree. The XUI file's Drawer section (1416:47417) has a 32px header with 12px sides and no right-hand placement; the working file's mobile nav has 48px with 16px sides, which is what `right` still uses. Ask before assuming either is canonical."
+      "HEADS UP: two Figma files describe this component and disagree. The XUI file's Drawer section (1416:47417) has a 32px header with 12px sides and no right-hand placement; the working file's mobile nav has 48px with 16px sides, which is what `right` still uses. Ask before assuming either is canonical.",
+      "Props beyond placement: `headingIcon` (a glyph before the title), `overlayBlur` (blurs the scrim, off by default, using --blur-locked), `width` (overrides the placement default; ignored by bottom and full), and `classNames` for titleWrapper / title / closeIcon / body / footer.",
+      "The footer is ALREADY pinned — it sits outside the scrolling body as flex:none. There is no separate \"fixed bottom\" mode to reach for; the library this mirrors splits that into variant strings, we get it from the layout.",
+      "NOT built: swipe-to-dismiss (their `draggable`, which comes from Vaul). It needs a gesture library and appears nowhere in Figma. Escape, scrim click and the close button all work."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",

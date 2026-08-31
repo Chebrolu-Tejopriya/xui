@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button';
+import { InfoIcon } from '../../icons';
 import { Drawer } from './Drawer';
 import type { DrawerPlacement } from './Drawer';
 
@@ -14,7 +15,16 @@ const BODY =
   'Lorem ipsum dolor sit amet consectetur. Erat pellentesque id lectus velit ac vitae urna mollis. ' +
   'Nam lacus consequat viverra dolor amet. Aliquet nunc bibendum sit aliquam aliquet eu.';
 
-function Demo({ placement, cta }: { placement: DrawerPlacement; cta: boolean }) {
+type DemoProps = {
+  placement: DrawerPlacement;
+  cta: boolean;
+  overlayBlur?: boolean;
+  headingIcon?: boolean;
+  title?: string;
+  width?: string;
+};
+
+function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width }: DemoProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -23,7 +33,10 @@ function Demo({ placement, cta }: { placement: DrawerPlacement; cta: boolean }) 
         open={open}
         onClose={() => setOpen(false)}
         placement={placement}
-        title="Drawer Title"
+        overlayBlur={overlayBlur}
+        width={width}
+        headingIcon={headingIcon ? <InfoIcon size={20} /> : undefined}
+        title={title}
         footer={cta ? <Button fullWidth onClick={() => setOpen(false)}>Got it</Button> : undefined}
       >
         <p style={{ margin: 0, font: 'var(--type-body-1)', color: 'var(--content-primary)' }}>
@@ -54,4 +67,24 @@ export const Placement: StoryObj<{ placement: DrawerPlacement; cta: boolean }> =
 /** The nav panel AppShell opens below 900px. */
 export const Navigation: StoryObj = {
   render: () => <Demo placement="right" cta={false} />,
+};
+
+/** Blurs the scrim behind the panel, using the system's only blur value. */
+export const OverlayBlur: StoryObj = {
+  render: () => <Demo placement="right" cta={false} overlayBlur />,
+};
+
+/** A glyph before the title. */
+export const HeadingIcon: StoryObj = {
+  render: () => <Demo placement="right" cta headingIcon />,
+};
+
+/** The header still holds the close control with no title to sit beside. */
+export const WithoutTitle: StoryObj = {
+  render: () => <Demo placement="right" cta={false} title="" />,
+};
+
+/** `width` overrides the placement's default — ignored by bottom and full. */
+export const CustomWidth: StoryObj = {
+  render: () => <Demo placement="right" cta={false} width="480px" />,
 };

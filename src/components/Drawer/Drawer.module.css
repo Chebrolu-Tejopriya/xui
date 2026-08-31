@@ -117,3 +117,30 @@
   inset: 0;
   width: 100%;
 }
+
+/* ---- Header parts ---- */
+.titleWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.headingIcon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Reuses --blur-locked (16px) rather than inventing a second blur value; it is
+   the only one the token set defines. If drawers want their own amount, that
+   is a token to add, not a number to hardcode here. */
+.scrimBlur {
+  backdrop-filter: blur(var(--blur-locked));
+}
