@@ -63,6 +63,12 @@
       "Never wrap these in the pixel widths measured off a Figma filter bar. Those were 1-3px short of the placeholders they hold, so every label rendered an ellipsis. A label must never be the truncated text — it is the only thing saying what the control filters. Values may still ellipsise: a client name is unbounded.",
       "A selected value renders in Subtitle/2 (500 weight), which is wider than the Body/2 placeholder — a box sized to fit the placeholder will clip the value once one is chosen."
     ],
+    "EmptyState": [
+      "Illustration, title, optional description, optional actions — centred in whatever box it is given, so a page-level 404 and an empty table cell use the same component.",
+      "Actions is a slot, not primaryAction/secondaryAction props: Figma's three screens use none, one and two buttons, and a slot covers all three.",
+      "Description is optional because Figma hides it on the \"No Details Found\" screen — pass nothing rather than an empty string.",
+      "Ship the illustrations from @koinx/xui (MaintenanceIllustration, ErrorIllustration, NoDataIllustration). Their paints are bound to the blue ramp, which is theme-reactive, so they render correctly on a dark page. A hand-pasted Figma SVG export will not — it arrives with the screen's white content card baked in and a pale backing circle that becomes a bright disc on black."
+    ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
       "Set --xui-icon-knockout to the surface an icon sits on if its cut-outs need to blend with something other than surface-raised."

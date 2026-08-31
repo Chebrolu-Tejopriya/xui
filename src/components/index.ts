@@ -8,6 +8,7 @@ export * from './Button';
 export * from './Checkbox';
 export * from './Dialog';
 export * from './Drawer';
+export * from './EmptyState';
 export * from './FileUpload';
 export * from './Input';
 export * from './Pagination';

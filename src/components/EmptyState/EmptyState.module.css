@@ -1,0 +1,69 @@
+/* XUI EmptyState — Figma "Empty States" 9899:141035.
+   Read from the auto-layout of 9899:139524 (the fullest of the three screens:
+   illustration + title + description + two buttons). */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* GAP 21, illustration to text. Off the spacing scale (…16, 20, 24…), so it
+     is written literally rather than snapped to 20 — Figma is the source of
+     truth and a 1px "correction" is still a deviation. Flagged for the
+     designer; if it was a nudge, this becomes var(--spacing-20). */
+  gap: 21px;
+  text-align: center;
+}
+
+.illustration {
+  /* Figma draws the illustrations at 240x204.449. The size travels with the
+     artwork rather than being imposed here, so a consumer can pass a smaller
+     one for an empty table cell without fighting a fixed box. */
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* GAP 37, text to actions. Also off-scale (between 32 and 40) — same flag. */
+  gap: 37px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  /* Figma pins this block at 330 with the description set to nowrap, so the
+     text overflows its own frame and only lines up for that exact string. A
+     real description has to wrap, so the width is a cap instead: 620px is the
+     widest line the design actually draws (the "Something just broke"
+     sentence), not a number invented here. */
+  max-width: 620px;
+}
+
+.title {
+  margin: 0;
+  font: var(--type-heading-2);
+  color: var(--content-primary);
+}
+
+.description {
+  margin: 0;
+  font: var(--type-subtitle-1);
+  letter-spacing: var(--tracking-subtitle-1);
+  color: var(--content-secondary);
+}
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 37px;
+  /* Two buttons and a narrow viewport should stack rather than overflow —
+     beyond the design, which only draws them side by side at 1440. */
+  flex-wrap: wrap;
+  justify-content: center;
+}

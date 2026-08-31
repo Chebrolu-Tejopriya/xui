@@ -14,3 +14,4 @@ import './tokens/index.css';
 
 export * from './components'; // components, and icons via the components barrel
 export * from './assets/brand';
+export * from './assets/illustrations';
