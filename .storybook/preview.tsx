@@ -44,7 +44,9 @@ const preview: Preview = {
               as a hierarchy, not an index.
            3. Everything else alphabetical, roots in ROOT_ORDER. */
       storySort: (a, b) => {
-        const ROOT_ORDER = ['Foundations', 'Components'];
+        const ROOT_ORDER = ['Guides', 'Foundations', 'Components'];
+        // Guides read in an order, not an alphabet: you install before you use.
+        const GUIDE_ORDER = ['Introduction', 'Installation', 'Usage', 'For Agents', 'Contributing'];
         const STORY_ORDER = {
           'Components/Button': [
             'Primary', 'Secondary', 'Destructive', 'Outline', 'Subtle', 'Ghost', 'Link', 'Icon Only',
@@ -77,6 +79,13 @@ const preview: Preview = {
           if (ia === -1) return 1;
           if (ib === -1) return -1;
           return ia - ib;
+        }
+        if (ra === 'Guides') {
+          const rank = (t) => {
+            const i = GUIDE_ORDER.indexOf(t.split('/')[1]);
+            return i === -1 ? GUIDE_ORDER.length : i;
+          };
+          return rank(a.title) - rank(b.title);
         }
         return a.title.localeCompare(b.title, undefined, { numeric: true });
       },

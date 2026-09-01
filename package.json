@@ -52,7 +52,8 @@
     "check:xemantics": "node scripts/check-xemantics.mjs",
     "mcp": "node mcp/server.mjs",
     "test:visual": "npm run build-storybook && playwright test",
-    "test:visual:update": "npm run build-storybook && playwright test --update-snapshots"
+    "test:visual:update": "npm run build-storybook && playwright test --update-snapshots",
+    "check:consumer": "npm run build:lib && tsc -p scripts/consumer-check/tsconfig.json"
   },
   "peerDependencies": {
     "react": ">=19",

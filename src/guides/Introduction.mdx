@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import manifest from '../../xui.manifest.json';
+
+<Meta title="Guides/Introduction" />
+
+# XUI
+
+The KoinX design system. Components, tokens and icons, derived from Figma and
+verified against it.
+
+<p style={{ display: 'flex', gap: 24, font: 'var(--type-subtitle-1)', color: 'var(--content-secondary)' }}>
+  <span><b style={{ color: 'var(--content-primary)' }}>{Object.keys(manifest.components).length}</b> components</span>
+  <span><b style={{ color: 'var(--content-primary)' }}>{manifest.icons.count}</b> icons</span>
+  <span><b style={{ color: 'var(--content-primary)' }}>{Object.values(manifest.tokens).flat().length}</b> tokens</span>
+</p>
+
+Those numbers come from the generated manifest, not from someone remembering to
+update a sentence — the README said 38 components for a while after there were
+43.
+
+## Where to start
+
+- **Installation** — install from GitHub, and what the version number means
+- **Usage** — the two imports, icons, and the one styling rule that matters
+- **For Agents** — the MCP server, so an agent reads the system as tool calls
+- **Contributing** — what gets in, and the checks it has to pass
+
+Every component's own page sits under **Components**, with its props and each
+state. **Foundations** holds the colours, type, icons and labels.

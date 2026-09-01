@@ -48,6 +48,13 @@ jobs:
       - name: Library build
         run: npm run build:lib
 
+      # Everything else in this repo reads the SOURCE — the typecheck builds it,
+      # the playground aliases it. So an export that never reaches dist passes
+      # every other gate and fails only for whoever installs the package. This
+      # compiles a consumer against dist/types instead.
+      - name: Consumer compiles against the built package
+        run: npx tsc -p scripts/consumer-check/tsconfig.json
+
       - name: Storybook build
         run: npm run build-storybook
 

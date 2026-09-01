@@ -1,0 +1,9 @@
+import { Meta, Markdown } from '@storybook/addon-docs/blocks';
+import content from '../../docs/guides/usage.md?raw';
+
+{/* Rendered from docs/guides/usage.md so the repo and the docs site cannot
+    disagree — ADR 0002, derive artefacts rather than hand-maintaining them. */}
+
+<Meta title="Guides/Usage" />
+
+<Markdown>{content}</Markdown>
