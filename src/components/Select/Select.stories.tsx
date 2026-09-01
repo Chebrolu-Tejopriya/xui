@@ -173,7 +173,32 @@ export const WithCustomOptionCreationAllowed: Story = {
   args: { options: FLAT, searchInput: true, isCustomOptionCreationAllowed: true },
 };
 
-/** The query is wiped on close rather than kept for next time. */
+/**
+ * The query is wiped on close rather than kept for next time.
+ *
+ * There is nothing to see standing still — the panel has no close control, so
+ * the behaviour only shows in a sequence. The story spells it out because a
+ * name alone ("With Clear Search On Close") describes something you cannot
+ * observe, which is how this shipped broken: clicking away and Escape both
+ * bypassed the clearing, and only picking an option ran it.
+ */
 export const WithClearSearchOnClose: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
+      <ol
+        style={{
+          margin: 0,
+          paddingLeft: 'var(--spacing-20)',
+          font: 'var(--type-body-2)',
+          color: 'var(--content-secondary)',
+        }}
+      >
+        <li>Open it and type into Search.</li>
+        <li>Close it — click away, press Escape, or pick a row.</li>
+        <li>Open it again: the query is gone. Compare with "With Search Input", which keeps it.</li>
+      </ol>
+      <Select {...args} />
+    </div>
+  ),
   args: { options: GROUPED, searchInput: true, clearSearchOnClose: true },
 };

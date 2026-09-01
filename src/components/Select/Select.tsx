@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import styles from './Select.module.css';
 
@@ -164,27 +164,30 @@ export function Select({
     [options, selectedValue],
   );
 
+  // Every route out of the open state goes through this. Two of them used to
+  // call setOpen(false) directly, which is why clearSearchOnClose only worked
+  // when you picked an option — clicking away or pressing Escape kept the query.
+  const close = useCallback(() => {
+    setOpen(false);
+    setQuery((q) => {
+      if (clearSearchOnClose && q) onSearchChange?.('');
+      return clearSearchOnClose ? '' : q;
+    });
+  }, [clearSearchOnClose, onSearchChange]);
+
   useEffect(() => {
     if (!open) return;
     const onDocClick = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+      if (!rootRef.current?.contains(e.target as Node)) close();
     };
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
     document.addEventListener('mousedown', onDocClick);
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('mousedown', onDocClick);
       document.removeEventListener('keydown', onKey);
     };
-  }, [open]);
-
-  const close = () => {
-    setOpen(false);
-    if (clearSearchOnClose && query) {
-      setQuery('');
-      onSearchChange?.('');
-    }
-  };
+  }, [open, close]);
 
   const pick = (v: string) => {
     if (value === undefined) setInternal(v);
