@@ -1,6 +1,5 @@
 {
   "_comment": "Authored knowledge — the rules an agent needs that are NOT derivable from component signatures. Merged into xui.manifest.json by scripts/gen-manifest.mjs. This is the code-side twin of xemantics' rules.js.",
-
   "principles": [
     "Never use a raw hex, rgb(), or a primitive token (--gray-04) in product code. Always use a semantic token (--surface-tertiary). Primitives exist only to define semantics.",
     "Semantic tokens are theme-reactive: the same token resolves light and dark automatically. Hardcoding a color breaks dark mode.",
@@ -8,7 +7,6 @@
     "Figma strokes take no layout space; CSS borders do. When a spec gives an explicit height AND a border, compensate the padding or draw the divider with an inset box-shadow.",
     "Text sitting on a solid brand/status surface must use content-absolute-white, never a theme-reactive content token (it inverts in dark and disappears)."
   ],
-
   "tokenUsage": {
     "page background": "surface-primary",
     "card / panel / table row background": "surface-raised",
@@ -28,7 +26,6 @@
     "focus ring / active control border": "border-brand",
     "status & category pills": "the label-* pairs (label-<tone>-bg with label-<tone>-content)"
   },
-
   "componentRules": {
     "Table": [
       "Header row uses surface-secondary with a border-secondary underline; header cells are Subtitle/2 (500 weight), padding 16px 12px.",
@@ -102,18 +99,28 @@
       "Set --xui-icon-knockout to the surface an icon sits on if its cut-outs need to blend with something other than surface-raised."
     ]
   },
-
   "layoutPatterns": {
     "data table page": "PageHeader (title + primary action) → filter/search toolbar → Table → Pagination. Selection surfaces a floating action bar.",
     "form": "Label above field, helper or error text below, 20px between fields; primary action bottom-right, secondary to its left.",
     "empty state": "Center a short message in a single full-width table cell using content-tertiary."
   },
-
   "antiPatterns": [
     "Hardcoding #ffffff for a card background instead of surface-raised — it stays white in dark mode.",
     "Using content-primary for a label on a brand-filled button — invisible in one of the two themes.",
     "Adding a CSS border to a fixed-height element without shaving the padding — renders 2px taller than the spec.",
     "Building a bespoke table with divs when Table/TableRow/TableCell already encode the spec.",
     "Using surface-secondary for a selected row — that is the hover treatment; selected is surface-brand-secondary."
-  ]
+  ],
+  "choosing": {
+    "Switch vs Checkbox": "Switch when choosing IS doing — it applies immediately. Checkbox when the value is collected and submitted with a form. If there is a Save button, it is a Checkbox.",
+    "Radio vs Dropdown": "Radio shows every option at once: it costs vertical space and buys comparison. Past roughly five options, or when the options are not worth comparing, use Dropdown.",
+    "Tabs vs a form control": "Tabs does not hold a value a form submits. If the selection changes what is displayed below it, it is Tabs; if it changes what will be saved, it is not.",
+    "Select vs Dropdown": "Both pick one of many, and they are NOT variants of each other. Dropdown is the form field: label, mandatory, helperText, helperIcon, error. Select is the standalone picker for toolbars, filter bars and table controls: search, groups, one level of nesting, isClearable, and \"+ Create New\". If it needs a label and an error state it is Dropdown; if it needs search or groups it is Select.",
+    "PasswordInput vs SecretInput": "Both mask, and that is all they share. A password is something the user knows and may have forgotten, so PasswordInput offers recovery. A secret is something the system issued and the user must read back, so SecretInput offers a reveal toggle. The wrong one gives an API-key field a \"Forgot password?\" link.",
+    "The Input family": "There is one Input and seven specialisations — AmountInput, DateInput, PhoneInput, PasswordInput, SecretInput, Otp, FileUpload. Reach for the specialisation: each carries behaviour you would otherwise rebuild, and all of them share label / mandatory / helperText / helperIcon / error so they line up in a form.",
+    "Toast vs Dialog": "A toast reports; a dialog asks. If the user has no choice to make, do not block them. Toast's single actionLabel/onAction is for undo, not for a decision.",
+    "Dialog vs Drawer": "Length, not importance. Dialog when it fits without scrolling — a confirmation, a short form, a warning. Drawer when the content scrolls, or the user needs the page behind it in mind. On mobile placement=\"bottom\" is the idiom for both; right is the desktop idiom.",
+    "Sidebar vs Tabs": "Not alternatives. Sidebar moves between sections of the product; Tabs moves between views of the thing already being looked at. BottomNav is the mobile form of Sidebar, carrying the same destinations.",
+    "Badge vs PriorityMeter vs Toast vs EmptyState": "Badge is a standing label on a thing (label-* for status and category pills, accent-* for softer inline tags). PriorityMeter is a level rather than a word, in a table column. Toast is a transient event. EmptyState is there being nothing to show."
+  }
 }

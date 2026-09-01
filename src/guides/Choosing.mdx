@@ -1,0 +1,11 @@
+import { Meta, Markdown } from '@storybook/addon-docs/blocks';
+import content from '../../docs/guides/choosing.md?raw';
+
+{/* Rendered from docs/guides/choosing.md so the repo and the docs site cannot
+    disagree — ADR 0002, derive artefacts rather than hand-maintaining them.
+    The same distinctions are served to agents by get_xui_guidelines, from
+    `choosing` in the generated manifest. */}
+
+<Meta title="Guides/Choosing Components" />
+
+<Markdown>{content}</Markdown>

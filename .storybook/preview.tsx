@@ -46,7 +46,10 @@ const preview: Preview = {
       storySort: (a, b) => {
         const ROOT_ORDER = ['Guides', 'Foundations', 'Components'];
         // Guides read in an order, not an alphabet: you install before you use.
-        const GUIDE_ORDER = ['Introduction', 'Installation', 'Usage', 'For Agents', 'Contributing'];
+        const GUIDE_ORDER = [
+          'Introduction', 'Installation', 'Usage', 'Choosing Components',
+          'For Agents', 'FAQ', 'Contributing',
+        ];
         const STORY_ORDER = {
           'Components/Button': [
             'Primary', 'Secondary', 'Destructive', 'Outline', 'Subtle', 'Ghost', 'Link', 'Icon Only',

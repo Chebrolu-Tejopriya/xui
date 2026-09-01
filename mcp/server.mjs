@@ -162,14 +162,19 @@ const TOOLS = [
   {
     name: 'get_xui_guidelines',
     description:
-      'The rules XUI is built on: principles, layout patterns for common screens, and the ' +
-      'anti-patterns that break dark mode or drift from Figma. Read before composing a screen.',
+      'The rules XUI is built on: principles, layout patterns for common screens, which ' +
+      'component to choose when two look alike, and the anti-patterns that break dark mode ' +
+      'or drift from Figma. Read before composing a screen.',
     inputSchema: { type: 'object', properties: {} },
     run: () => {
       const out = [`# ${PKG} — how to build with it`, '', '## Principles'];
       for (const p of manifest.principles ?? []) out.push(`- ${p}`);
       out.push('', '## Layout patterns');
       for (const [k, v] of Object.entries(manifest.layoutPatterns ?? {})) out.push(`- ${k}: ${v}`);
+      // Several components look alike in a Figma frame and behave differently in
+      // a browser. Picking the wrong one is not caught by any other gate here.
+      out.push('', '## Choosing between components that look alike');
+      for (const [k, v] of Object.entries(manifest.choosing ?? {})) out.push(`- **${k}** — ${v}`);
       out.push('', '## Anti-patterns — do NOT do these');
       for (const a of manifest.antiPatterns ?? []) out.push(`- ${a}`);
       return out.join('\n');
