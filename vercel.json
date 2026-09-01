@@ -2,15 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build-storybook",
   "outputDirectory": "storybook-static",
-
   "headers": [
     {
-      "//": "Vercel already serves everything as max-age=0, must-revalidate, which is right for the files that keep their name across builds: index.json, project.json, both HTML entries, and all of sb-manager / sb-addons / sb-common-assets. Stated explicitly so a future change cannot loosen it by accident.",
       "source": "/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
     {
-      "//": "Only /assets is safe to keep: those filenames carry a content hash (Accordion-dndm9R3d.css), so changed content means a new name. This is a load-time improvement, NOT a fix for stale content — it is listed second because Vercel applies matching rules in order.",
       "source": "/assets/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
