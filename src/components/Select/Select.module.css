@@ -92,3 +92,208 @@
 }
 
 /* Menu styles live in src/components/Menu.module.css (Figma Select spec). */
+
+/* ---- Dropdown panel ----
+   XUI file "select options (single)" 583:4488. The panel is the trigger's
+   width, radius 6, a border-secondary hairline and elevation/sm.
+
+   The measurements that are easy to get wrong, all read from that node:
+     panel        radius 6, border-secondary, elevation-sm, clipped
+     heading      pl 32 / pr 8 / py 6, SemiBold 14/20, content-secondary
+     item         pl 32 / pr 8 / py 6, gap 8, Subtitle/2, content-secondary
+     selected     surface-primary, radius 6, px 8 — the check fills the 32
+     disabled     content-quaternary
+     sections     5px of padding, and a rule between groups
+
+   The 32px left inset is not decoration: it is the gap the check occupies on
+   the selected row, held open on every other row so labels do not shift when
+   the selection moves. */
+.panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--surface-raised);
+  border: var(--border-width-regular) solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-sm);
+}
+
+.list,
+.groupList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.group {
+  display: block;
+}
+
+.groupLabel {
+  margin: 0;
+  padding: 6px 8px 6px 32px;
+  font: var(--type-subtitle-2);
+  font-weight: 600;
+  color: var(--content-secondary);
+}
+
+.groupList {
+  padding: 0 5px 5px;
+}
+
+.group:first-child .groupList {
+  padding-top: 5px;
+}
+
+.divider {
+  height: 0;
+  border-top: var(--border-width-regular) solid var(--border-secondary);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px 6px 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  font: var(--type-subtitle-2);
+  color: var(--content-secondary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.item:hover:not(:disabled) {
+  background: var(--surface-secondary);
+}
+
+.item:disabled {
+  color: var(--content-quaternary);
+  cursor: not-allowed;
+}
+
+/* Selected drops the reserved inset because the check now occupies it. */
+.itemSelected {
+  padding-left: var(--spacing-8);
+  background: var(--surface-primary);
+}
+
+/* With the check turned off there is nothing to reserve room for. */
+.itemNoCheck {
+  padding-left: var(--spacing-8);
+}
+
+.check {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: -24px;
+  color: var(--content-primary);
+}
+
+.itemSelected .check {
+  margin-left: 0;
+}
+
+.itemText {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.itemLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemSubLabel {
+  font: var(--type-body-3);
+  color: var(--content-tertiary);
+}
+
+.optionIcon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: var(--content-secondary);
+}
+
+.optionImage {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-max);
+  object-fit: cover;
+}
+
+/* ---- Search ---- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-bottom: var(--border-width-regular) solid var(--border-secondary);
+}
+
+.searchIcon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--content-tertiary);
+}
+
+.searchField {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font: var(--type-subtitle-2);
+  color: var(--content-primary);
+}
+
+.searchField::placeholder {
+  color: var(--content-tertiary);
+}
+
+.empty {
+  margin: 0;
+  padding: var(--spacing-12);
+  font: var(--type-subtitle-2);
+  color: var(--content-tertiary);
+  text-align: center;
+}
+
+/* ---- Clear ---- */
+.clear {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--content-secondary);
+  cursor: pointer;
+}
+
+.clear svg {
+  width: 100%;
+  height: 100%;
+}

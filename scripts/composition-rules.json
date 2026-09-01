@@ -57,6 +57,12 @@
       "Pass an icon to a Button with the iconLeft prop, never as a child — a child lands inside the label span and is laid out inline on the text baseline, which inflates the button past its 44/36/32 height and leaves the icon a couple of px above centre."
     ],
     "Select": [
+      "`options` takes either a flat SelectOption[] or a SelectGroup[] ({ label, options }). Figma's panel (XUI file 583:4488) draws groups as a heading, its run of items, then a rule — pass groups and you get that; pass a flat list and you get one unnamed run.",
+      "An option carries more than a label: subLabel (quieter second line), icon or image on the left, rightIcon, disabled, and keywords to widen what search matches beyond the visible text.",
+      "The 32px left inset on every row is the space the check occupies on the selected one. It is held open deliberately so labels do not shift when the selection moves; `check={false}` removes both.",
+      "`searchInput` adds the filter field, with searchPlaceholder / emptySearchMessage / onSearchChange / clearSearchOnClose. A group whose options all filter out takes its heading with it.",
+      "`isClearable` swaps the chevron for a cross once a non-default value is chosen, and clearing returns to `defaultValue` rather than to nothing.",
+
       "In a filter bar every field FILLS the row in an equal share and only the trailing action hugs — this is the product's pattern (app.koinx.com/transactions). Do not give the fields fixed widths.",
       "The 255px on Select is a flex BASIS, not a fixed width: drop a row of them into a flex container and they shrink to equal shares on their own, no per-field sizing needed.",
       "Give every field in that row the SAME flex-basis. A field set to `flex: 1 1 0` next to Selects basing from 255px collapses to zero width once the row overflows, because shrink is distributed in proportion to basis.",
