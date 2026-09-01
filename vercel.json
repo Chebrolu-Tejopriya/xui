@@ -1,5 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build-storybook",
-  "outputDirectory": "storybook-static"
+  "outputDirectory": "storybook-static",
+
+  "headers": [
+    {
+      "//": "Everything is revalidated by default. Storybook's manager and addon bundles (sb-manager, sb-addons, sb-common-assets, vite-inject-mocker-entry.js) keep the SAME filename across builds, so a cached copy is served into a page that expects the new one — which is what produced 'Illegal invocation' and 'couldn't find story matching id' on days with several deploys.",
+      "source": "/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "//": "Only /assets is safe to keep forever: those filenames carry a content hash (Accordion-dndm9R3d.css), so a change produces a new name rather than new bytes under the old one. This rule is listed last so it wins for that path.",
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
 }
