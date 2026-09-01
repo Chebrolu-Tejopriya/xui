@@ -1471,6 +1471,36 @@
           "required": false,
           "default": "false",
           "description": "Show a cross in the trigger to clear the selection back to `defaultValue`."
+        },
+        {
+          "name": "iconRight",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Replace the trigger's chevron."
+        },
+        {
+          "name": "optionItemRightIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "A glyph at the end of every option that does not carry its own `rightIcon`."
+        },
+        {
+          "name": "isCustomOptionCreationAllowed",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Offer \"+ Create New\" when the query matches nothing exactly, so a value that is not in the list can still be chosen."
+        },
+        {
+          "name": "onCreateOption",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Called with the typed text when that row is used. Falls back to `onChange`."
+        },
+        {
+          "name": "classNames",
+          "type": "SelectClassNames",
+          "required": false
         }
       ],
       "variants": {}
@@ -2057,6 +2087,10 @@
       "The 32px left inset on every row is the space the check occupies on the selected one. It is held open deliberately so labels do not shift when the selection moves; `check={false}` removes both.",
       "`searchInput` adds the filter field, with searchPlaceholder / emptySearchMessage / onSearchChange / clearSearchOnClose. A group whose options all filter out takes its heading with it.",
       "`isClearable` swaps the chevron for a cross once a non-default value is chosen, and clearing returns to `defaultValue` rather than to nothing.",
+      "An option can carry its own `options` to nest one level deeper — Figma draws children bulleted and indented (Assets > Other Current Asset > Asset 123). Search keeps a parent when it matches OR when any descendant does, so a matching child is never orphaned.",
+      "`iconRight` replaces the trigger chevron; `optionItemRightIcon` puts a glyph at the end of every row that has no `rightIcon` of its own.",
+      "`isCustomOptionCreationAllowed` offers \"+ Create New\" when the typed text is not already an option — it is hidden for an exact match so the row never invites a duplicate. Handle it with `onCreateOption`, or let it fall through to `onChange`.",
+      "NOT built: virtualizeOptions, triggerButtonVariant and customCTAProps. The first changes how the list renders and the other two turn the trigger into a Button; both want their own pass.",
       "In a filter bar every field FILLS the row in an equal share and only the trailing action hugs — this is the product's pattern (app.koinx.com/transactions). Do not give the fields fixed widths.",
       "The 255px on Select is a flex BASIS, not a fixed width: drop a row of them into a flex container and they shrink to equal shares on their own, no per-field sizing needed.",
       "Give every field in that row the SAME flex-basis. A field set to `flex: 1 1 0` next to Selects basing from 255px collapses to zero width once the row overflows, because shrink is distributed in proportion to basis.",
