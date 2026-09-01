@@ -25,6 +25,7 @@ interface Entry {
   title: string;
   name: string;
   type?: string;
+  tags?: string[];
 }
 
 const index = JSON.parse(fs.readFileSync(INDEX, 'utf8')) as {
@@ -59,12 +60,32 @@ for (const theme of THEMES) {
       test(story.id, async ({ page }) => {
         test.skip(reason !== undefined, reason);
 
+        // The device picker is a manager feature, and this spec loads
+        // iframe.html directly — so a story that only makes sense on a phone
+        // has to say so here too, or it is photographed at desktop width.
+        if ((story.tags ?? []).includes('phone')) {
+          await page.setViewportSize({ width: 375, height: 667 });
+        }
+
         await page.goto(
           `/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story&globals=theme:${theme}`,
         );
 
         const root = page.locator('#storybook-root');
         await root.waitFor({ state: 'visible' });
+
+        // Drawer and Dialog render into document.body, so their panel is not a
+        // child of #storybook-root and would be out of frame. Their stories
+        // carry `opens-overlay` and a play function that opens them; wait for
+        // the panel, then capture the viewport instead of the story element.
+        // Without this the baseline for a ten-story Drawer was a button.
+        const opensOverlay = (story.tags ?? []).includes('opens-overlay');
+        if (opensOverlay) {
+          await page
+            .locator('[role="dialog"]')
+            .first()
+            .waitFor({ state: 'visible', timeout: 10_000 });
+        }
 
         // Inter is a webfont. Screenshotting before it swaps in captures the
         // fallback face and produces a baseline nobody can reproduce.
@@ -74,7 +95,8 @@ for (const theme of THEMES) {
         // the failure is a visible diff rather than a confusing Playwright
         // error about zero-sized elements.
         const box = await root.boundingBox();
-        const target = box && box.width > 0 && box.height > 0 ? root : page;
+        const target =
+          opensOverlay || !box || box.width === 0 || box.height === 0 ? page : root;
 
         await expect(target).toHaveScreenshot(`${story.id}--${theme}.png`);
       });

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { userEvent, within } from 'storybook/test';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { EditIcon } from '../../icons';
@@ -8,11 +9,25 @@ import { Drawer } from './Drawer';
 import type { DrawerPlacement } from './Drawer';
 
 /**
+ * Every story here opens its overlay before the shot.
+ *
+ * Without this the visual suite photographed a button and nothing else: the
+ * stories start closed, and the panel portals to document.body so it would sit
+ * outside the captured element even when open. The `opens-overlay` tag tells
+ * the suite to wait for it and to capture the whole viewport instead.
+ */
+const openOverlay: NonNullable<Meta['play']> = async ({ canvasElement }) => {
+  await userEvent.click(within(canvasElement).getByRole('button', { name: /^Open/i }));
+};
+
+/**
  * A drawer only makes sense at a phone width, so these open on iPhone 6
  * (375x667). The device picker in the toolbar changes it — every viewport
  * Storybook ships is in the list.
  */
 const meta: Meta<typeof Drawer> = {
+  tags: ['opens-overlay', 'phone'],
+  play: openOverlay,
   title: 'Components/Drawer',
   component: Drawer,
   globals: { viewport: { value: 'iphone6', isRotated: false } },

@@ -1,12 +1,27 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { userEvent, within } from 'storybook/test';
 import { Button } from '../Button';
 import { TickCircleIcon, WarningAlertIcon, DeleteIcon } from '../../icons';
 import { Dialog } from './Dialog';
 import type { ReactNode } from 'react';
 import type { DialogVariant, DialogProps } from './Dialog';
 
+/**
+ * Every story here opens its overlay before the shot.
+ *
+ * Without this the visual suite photographed a button and nothing else: the
+ * stories start closed, and the panel portals to document.body so it would sit
+ * outside the captured element even when open. The `opens-overlay` tag tells
+ * the suite to wait for it and to capture the whole viewport instead.
+ */
+const openOverlay: NonNullable<Meta['play']> = async ({ canvasElement }) => {
+  await userEvent.click(within(canvasElement).getByRole('button', { name: /^Open/i }));
+};
+
 const meta: Meta<typeof Dialog> = {
+  tags: ['opens-overlay'],
+  play: openOverlay,
   title: 'Components/Dialog',
   component: Dialog,
   parameters: { controls: { expanded: true } },

@@ -112,5 +112,20 @@ a build config — none of which would have made a shortlist written in advance.
   story gets a proportionally larger licence to change. If CI proves flaky,
   the fix is `maxDiffPixels` (absolute), never a ratio.
 
+- Components that render through a portal — Dialog and Drawer — were invisible
+  to this suite for its whole first day. Their stories start closed, and the
+  panel attaches to `document.body` rather than inside the story element the
+  suite captures, so both conditions had to be fixed at once: a `play` function
+  opens them, an `opens-overlay` tag tells the suite to wait for the panel and
+  photograph the viewport instead, and a `phone` tag sets a 375x667 page for
+  the ones that only make sense at that width (the device picker is a manager
+  feature and this spec loads `iframe.html` directly).
+
+  The cost of the gap was three bugs in one day — a collapsed action row, a
+  divider one step too light, and a drawer rounding its outer corners — every
+  one of them found by a person looking, while the suite reported green. The
+  fix is verified the same way the thresholds were: reintroducing the divider
+  bug now fails 20 shots at 375 differing pixels.
+
 - `animations: 'disabled'` freezes spinners and transitions at their end state,
   so this suite proves nothing about motion. Motion remains unverified.
