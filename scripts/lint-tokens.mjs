@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Token linter — the code-side mirror of the xemantics Figma plugin.
  *
@@ -7,10 +8,15 @@
  * semantic token that should be used instead, and can rewrite them.
  *
  * Both read the same derived rulebook (xui.rulebook.json), so design and code
- * resolve a colour identically.
+ * resolve a colouct identically.
  *
  *   node scripts/lint-tokens.mjs          # report
  *   node scripts/lint-tokens.mjs --fix    # rewrite the unambiguous ones
+ *
+ * It ships with the package as the `xui-lint-tokens` bin, so a consuming app
+ * runs the same check against its own source without cloning this repo:
+ *
+ *   npx xui-lint-tokens src
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,7 +29,7 @@ const FIX = process.argv.includes('--fix');
  * Which directory to check. Defaults to this repo's src/, but any project
  * consuming XUI can point it at their own:
  *
- *   node ../xui/scripts/lint-tokens.mjs src
+ *   npx xui-lint-tokens src
  *
  * The rule has to travel with the design system, not stay inside it. A raw
  * hex in a consuming app is the same bug as a raw hex here -- it does not
@@ -34,7 +40,11 @@ const target = targetArg ? path.resolve(process.cwd(), targetArg) : path.join(ro
 const scanningSelf = target.startsWith(path.join(root, 'src'));
 
 if (!fs.existsSync(target)) {
-  console.error(`No such directory: ${target}`);
+  console.error(
+    targetArg
+      ? `No such directory: ${target}`
+      : `Pass the directory to check, e.g.  npx xui-lint-tokens src`,
+  );
   process.exit(2);
 }
 const rulebook = JSON.parse(fs.readFileSync(path.join(root, 'xui.rulebook.json'), 'utf8'));
@@ -119,6 +129,21 @@ function ignoredLines(rawSrc) {
  * existed, giving Tooltip and Dialog square corners.
  */
 const DEFINED = new Set();
+
+/**
+ * Where the token definitions live. In this repo that is src/; in an installed
+ * copy only dist/ ships, and its built CSS carries the same custom properties.
+ * Either way DEFINED holds exactly what the consumer can reference at runtime.
+ */
+const TOKEN_SOURCE = fs.existsSync(path.join(root, 'src'))
+  ? path.join(root, 'src')
+  : path.join(root, 'dist');
+
+if (!fs.existsSync(TOKEN_SOURCE)) {
+  console.error(`Cannot find the token definitions (looked in ${TOKEN_SOURCE}).`);
+  process.exit(2);
+}
+
 (function collect(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
@@ -132,7 +157,7 @@ const DEFINED = new Set();
       for (const m of css.matchAll(/--([a-z0-9-]+)\s*:/gi)) DEFINED.add(m[1]);
     }
   }
-})(path.join(root, 'src'));
+})(TOKEN_SOURCE);
 // …and by any CSS in the scanned project, so a consumer's own properties
 // are not reported as undefined.
 if (!scanningSelf) {
@@ -296,7 +321,7 @@ for (const f of findings) {
   const fix = f.candidates.length
     ? `-> var(--${f.candidates[0]})${f.candidates.length > 1 ? `  (or ${f.candidates.slice(1).join(', ')})` : ''}`
     : f.kind === 'undefined-token'
-      ? '(defined nowhere in src/tokens — this declaration is dropped)'
+      ? '(no XUI token by that name — this declaration is dropped)'
       : '(no semantic token resolves this colour — check it is intentional)';
   console.log(`  ${String(f.line).padStart(4)}  ${label[f.kind]} ${f.found}${f.property ? ` on ${f.property}` : ''}  ${fix}`);
 }
