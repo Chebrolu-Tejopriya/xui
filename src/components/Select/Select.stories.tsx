@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Select } from './Select';
 import type { SelectGroup, SelectOption } from './Select';
-import { ArrowDownIcon, ArrowUpIcon, SwapIcon } from '../../icons';
+import { ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, SwapIcon } from '../../icons';
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
@@ -115,3 +115,65 @@ export const WithCrossIcon: Story = {
 export const Selected: Story = { args: { options: FLAT, defaultValue: 'eth' } };
 export const Loading: Story = { args: { options: FLAT, loading: true } };
 export const Disabled: Story = { args: { options: FLAT, disabled: true } };
+
+/* ---- Nesting, trigger and option icons, creation ---- */
+
+/** Figma's nested dropdown: a group heading, rows, and bulleted children beneath them. */
+const NESTED: SelectGroup[] = [
+  {
+    label: 'Assets',
+    options: [
+      { value: 'other-asset', label: 'Other Asset' },
+      {
+        value: 'other-current',
+        label: 'Other Current Asset',
+        options: [{ value: 'asset-123', label: 'Asset 123' }],
+      },
+      { value: 'cash', label: 'Cash' },
+      {
+        value: 'bank',
+        label: 'Bank',
+        options: [{ value: 'descriptions', label: 'Descriptions' }],
+      },
+      { value: 'fixed-asset', label: 'Fixed Asset' },
+    ],
+  },
+];
+
+export const WithNestedOptions: Story = {
+  args: { options: NESTED, searchInput: true },
+};
+
+/**
+ * Headings with no rows of their own. Searching still removes a heading whose
+ * children all filter out, so nothing is left labelling an empty run.
+ */
+export const WithJustHeadings: Story = {
+  args: {
+    searchInput: true,
+    options: [
+      { label: 'Operating', options: [{ value: 'a', label: 'Lorem ipsum' }, { value: 'b', label: 'Lorem ipsum dolor colon' }] },
+      { label: 'Financing', options: [{ value: 'c', label: 'Sales Revenue' }, { value: 'd', label: 'Commission Income' }] },
+    ] satisfies SelectGroup[],
+  },
+};
+
+/** The trigger's chevron replaced. */
+export const CustomRightIcon: Story = {
+  args: { options: FLAT, iconRight: <ArrowForwardIcon size={16} /> },
+};
+
+/** A glyph at the end of every row that does not carry its own. */
+export const CustomRightIconForOptions: Story = {
+  args: { options: FLAT, optionItemRightIcon: <ArrowForwardIcon size={16} /> },
+};
+
+/** Type something absent and the panel offers to take it anyway. */
+export const WithCustomOptionCreationAllowed: Story = {
+  args: { options: FLAT, searchInput: true, isCustomOptionCreationAllowed: true },
+};
+
+/** The query is wiped on close rather than kept for next time. */
+export const WithClearSearchOnClose: Story = {
+  args: { options: GROUPED, searchInput: true, clearSearchOnClose: true },
+};

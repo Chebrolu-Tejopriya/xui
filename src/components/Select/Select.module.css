@@ -165,7 +165,9 @@
   gap: var(--spacing-8);
   width: 100%;
   box-sizing: border-box;
-  padding: 6px 8px 6px 32px;
+  /* Depth is a variable so the selected and no-check rows can keep their own
+     left inset without an inline padding fighting them. */
+  padding: 6px 8px 6px calc(32px + var(--select-depth, 0) * 16px);
   border: none;
   border-radius: var(--radius-sm);
   background: none;
@@ -186,13 +188,13 @@
 
 /* Selected drops the reserved inset because the check now occupies it. */
 .itemSelected {
-  padding-left: var(--spacing-8);
+  padding-left: calc(var(--spacing-8) + var(--select-depth, 0) * 16px);
   background: var(--surface-primary);
 }
 
 /* With the check turned off there is nothing to reserve room for. */
 .itemNoCheck {
-  padding-left: var(--spacing-8);
+  padding-left: calc(var(--spacing-8) + var(--select-depth, 0) * 16px);
 }
 
 .check {
@@ -296,4 +298,38 @@
 .clear svg {
   width: 100%;
   height: 100%;
+}
+
+/* A nested row is marked with a bullet, as Figma draws the second level. */
+.bullet {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-max);
+  background: var(--content-tertiary);
+}
+
+/* The scroll container, so a class hook can reach it without also catching
+   the <ul> that carries the rows. */
+.listWrapper {
+  display: block;
+}
+
+/* "+ Create New", offered above the list when a query matches nothing. */
+.create {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--spacing-8) var(--spacing-12);
+  border: none;
+  border-bottom: var(--border-width-regular) solid var(--border-secondary);
+  background: none;
+  font: var(--type-subtitle-2);
+  color: var(--content-brand-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.create:hover {
+  background: var(--surface-secondary);
 }
