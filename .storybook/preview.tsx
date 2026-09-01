@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { CopyImportChip, PACKAGE_NAME } from './CopyImportChip';
 import '../src/tokens/index.css';
 
@@ -10,6 +11,12 @@ const preview: Preview = {
   tags: ['autodocs'],
 
   parameters: {
+    /* The device picker in the toolbar. Storybook 10 ships viewports in core,
+       so this is the built-in set — the same iPhone list the library KoinX
+       developers use shows. Components that only make sense at a phone width
+       (Drawer, BottomNav) set a default on their own meta. */
+    viewport: { options: INITIAL_VIEWPORTS },
+
     controls: {
       matchers: {
         color: /(background|color)$/i,

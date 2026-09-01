@@ -1,154 +1,153 @@
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { InfoIcon } from '../../icons';
+import { EditIcon } from '../../icons';
 import { Drawer } from './Drawer';
 import type { DrawerPlacement } from './Drawer';
 
+/**
+ * A drawer only makes sense at a phone width, so these open on iPhone 6
+ * (375x667). The device picker in the toolbar changes it — every viewport
+ * Storybook ships is in the list.
+ */
 const meta: Meta<typeof Drawer> = {
   title: 'Components/Drawer',
   component: Drawer,
+  globals: { viewport: { value: 'iphone6', isRotated: false } },
 };
 export default meta;
 
 const BODY =
-  'Lorem ipsum dolor sit amet consectetur. Erat pellentesque id lectus velit ac vitae urna mollis. ' +
-  'Nam lacus consequat viverra dolor amet. Aliquet nunc bibendum sit aliquam aliquet eu.';
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget sapien sem. ' +
+  'Sed viverra vehicula justo, nec dapibus nisl pharetra vel. Cras posuere aliquet justo, ' +
+  'a efficitur justo dictum sed. Nam ullamcorper, purus et consequat sagittis, nisi tortor ' +
+  'efficitur nulla, in fermentum leo lorem quis mauris. Curabitur rhoncus, elit nec blandit ' +
+  'fermentum, eros elit fermentum mi, ac vestibulum neque quam et magna.';
+
+const text = { margin: 0, font: 'var(--type-body-1)', color: 'var(--content-primary)' } as const;
+const row = { display: 'flex', gap: 'var(--spacing-12)' } as const;
 
 type DemoProps = {
-  placement: DrawerPlacement;
-  cta: boolean;
+  placement?: DrawerPlacement;
+  title?: ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
   overlayBlur?: boolean;
   headingIcon?: boolean;
-  title?: string;
-  width?: string;
-  height?: string;
   draggable?: boolean;
+  height?: string;
+  label?: string;
 };
 
-function Demo({ placement, cta, overlayBlur, headingIcon, title = 'Drawer Title', width, height, draggable }: DemoProps) {
+function Demo({
+  placement = 'bottom',
+  title = 'Drawer Title',
+  body = <p style={text}>{BODY}</p>,
+  footer,
+  overlayBlur,
+  headingIcon,
+  draggable,
+  height,
+  label = 'Open Drawer',
+}: DemoProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open {placement} drawer</Button>
+      <Button onClick={() => setOpen(true)}>{label}</Button>
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
         placement={placement}
-        overlayBlur={overlayBlur}
-        width={width}
-        height={height}
-        draggable={draggable}
-        headingIcon={headingIcon ? <InfoIcon size={20} /> : undefined}
         title={title}
-        footer={cta ? <Button fullWidth onClick={() => setOpen(false)}>Got it</Button> : undefined}
+        footer={footer}
+        overlayBlur={overlayBlur}
+        draggable={draggable}
+        height={height}
+        headingIcon={headingIcon ? <EditIcon size={20} /> : undefined}
       >
-        <p style={{ margin: 0, font: 'var(--type-body-1)', color: 'var(--content-primary)' }}>
-          {BODY}
-        </p>
+        {body}
       </Drawer>
     </>
   );
 }
+
+const oneButton = <Button fullWidth>Button</Button>;
+const twoButtons = (
+  <div style={row}>
+    <Button fullWidth>Button</Button>
+    <Button fullWidth variant="outline">
+      Button
+    </Button>
+  </div>
+);
+
+/** A bottom sheet that hugs its content. */
+export const DefaultDrawer: StoryObj = { render: () => <Demo /> };
+
+/** The scrim behind the panel is blurred. */
+export const WithOverlayBlur: StoryObj = {
+  render: () => <Demo overlayBlur label="Open Drawer with overlay blur" />,
+};
+
+/** An extra action in the header, beside the close control. */
+export const DrawerWithExtraHeadingIcon: StoryObj = { render: () => <Demo headingIcon /> };
+
+/** Anchored to the right edge, full height. */
+export const RightDrawer: StoryObj = { render: () => <Demo placement="right" /> };
+
+/** A sheet with its action pinned below the scrolling body. */
+export const FixedBottomDrawer: StoryObj = { render: () => <Demo footer={oneButton} /> };
+
+/** The same pinned actions, on the right-hand panel. */
+export const RightDrawerWithFixedBottom: StoryObj = {
+  render: () => <Demo placement="right" footer={twoButtons} />,
+};
 
 /**
- * Four placements behind one control rather than four near-identical stories.
+ * Fills the viewport.
  *
- * `right` is the existing mobile-nav geometry, read from the working file.
- * `left`, `bottom` and `full` come from the XUI file's Drawer section
- * (1416:47417), where `bottom` is a sheet that hugs its content rather than
- * filling the screen.
+ * NOTE: their `full_height` variant is a right-hand panel at full height,
+ * which is what our `right` already is. `full` spans both axes, so on a phone
+ * the two look alike and on a desktop they do not. Worth a designer's call.
  */
-export const Placement: StoryObj<{ placement: DrawerPlacement; cta: boolean }> = {
-  args: { placement: 'bottom', cta: true },
-  argTypes: {
-    placement: { control: 'inline-radio', options: ['right', 'left', 'bottom', 'full'] },
-    cta: { control: 'boolean', description: 'Figma draws every placement with and without a call to action.' },
-  },
-  render: ({ placement, cta }) => <Demo placement={placement} cta={cta} />,
+export const FullHeightDrawer: StoryObj = { render: () => <Demo placement="full" /> };
+
+/** Swipe off — it closes by button, scrim or Escape only. */
+export const NonDraggableDrawer: StoryObj = {
+  render: () => <Demo draggable={false} label="Open non-draggable drawer" />,
 };
 
-/** The nav panel AppShell opens below 900px. */
-export const Navigation: StoryObj = {
-  render: () => <Demo placement="right" cta={false} />,
+/** The header keeps the close control with no title beside it. */
+export const RightDrawerWithoutTitle: StoryObj = {
+  render: () => (
+    <Demo placement="right" title="" body={<p style={text}>Drawer content</p>} footer={twoButtons} />
+  ),
 };
 
-function FormDemo() {
-  const [open, setOpen] = useState(false);
-  const row = { display: 'flex', gap: 'var(--spacing-12)' } as const;
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Open drawer</Button>
-      <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-        placement="bottom"
-        title="Drawer Title"
-        footer={
+/** A form in the body; the actions stay put while it scrolls. */
+export const DrawerWithInputFields: StoryObj = {
+  render: () => (
+    <Demo
+      body={
+        <>
           <div style={row}>
-            <Button variant="outline" fullWidth onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button fullWidth onClick={() => setOpen(false)}>
-              Save
-            </Button>
+            <Input label="First Name" defaultValue="Tech" />
+            <Input label="Last Name" defaultValue="KoinX" />
           </div>
-        }
-      >
+          <Input label="Email" placeholder="tech@koinx.com" />
+          <Input label="Phone Number" placeholder="999999999" />
+        </>
+      }
+      footer={
         <div style={row}>
-          <Input label="First Name" defaultValue="Tech" />
-          <Input label="Last Name" defaultValue="KoinX" />
+          <Button variant="outline" fullWidth>
+            Cancel
+          </Button>
+          <Button fullWidth>Save</Button>
         </div>
-        <Input label="Email" placeholder="tech@koinx.com" />
-        <Input label="Phone Number" placeholder="999999999" />
-      </Drawer>
-    </>
-  );
-}
-
-/** Blurs the scrim behind the panel, using the system's only blur value. */
-export const OverlayBlur: StoryObj = {
-  render: () => <Demo placement="right" cta={false} overlayBlur />,
-};
-
-/** A glyph before the title. */
-export const HeadingIcon: StoryObj = {
-  render: () => <Demo placement="right" cta headingIcon />,
-};
-
-/** The header still holds the close control with no title to sit beside. */
-export const WithoutTitle: StoryObj = {
-  render: () => <Demo placement="right" cta={false} title="" />,
-};
-
-/** `width` overrides the placement's default — ignored by bottom and full. */
-export const CustomWidth: StoryObj = {
-  render: () => <Demo placement="right" cta={false} width="480px" />,
-};
-
-/* ---- Beyond the Figma Drawer section ----
-   The XUI file draws `bottom` as a sheet that hugs its content. These three
-   exist because the library KoinX developers already use distinguishes a
-   fixed-height bottom drawer from a full-height one, and ships a form inside
-   a drawer as its own case. Marked here rather than left to look like design. */
-
-/** BEYOND FIGMA. A bottom sheet pinned to a set height rather than hugging. */
-export const FixedHeightBottom: StoryObj = {
-  render: () => <Demo placement="bottom" cta height="320px" />,
-};
-
-/** BEYOND FIGMA. The sheet taken to the full viewport height. */
-export const FullHeightBottom: StoryObj = {
-  render: () => <Demo placement="bottom" cta height="100%" />,
-};
-
-/** BEYOND FIGMA. A form inside a drawer — the body scrolls, the actions stay put. */
-export const WithInputFields: StoryObj = {
-  render: () => <FormDemo />,
-};
-
-/** BEYOND FIGMA. Swipe off, so the panel only closes by button, scrim or Escape. */
-export const NonDraggable: StoryObj = {
-  render: () => <Demo placement="bottom" cta draggable={false} />,
+      }
+    />
+  ),
 };

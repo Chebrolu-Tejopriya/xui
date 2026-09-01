@@ -166,3 +166,12 @@
   flex: none;
   border-top: var(--border-width-regular) solid var(--border-secondary);
 }
+
+/* The right-hand cluster: any extra heading action, then close. Their library
+   puts the extra icon here rather than before the title. */
+.headerActions {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-8);
+}

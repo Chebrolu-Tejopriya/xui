@@ -200,12 +200,14 @@ export function Drawer({
       >
         <div className={styles.header}>
           <span className={cx(styles.titleWrapper, classNames.titleWrapper)}>
-            {headingIcon && <span className={styles.headingIcon}>{headingIcon}</span>}
             <span className={cx(styles.title, classNames.title)}>{title}</span>
           </span>
-          <button type="button" className={cx(styles.close, classNames.closeIcon)} onClick={onClose} aria-label="Close menu">
-            <CloseIcon size={24} />
-          </button>
+          <span className={styles.headerActions}>
+            {headingIcon && <span className={styles.headingIcon}>{headingIcon}</span>}
+            <button type="button" className={cx(styles.close, classNames.closeIcon)} onClick={onClose} aria-label="Close menu">
+              <CloseIcon size={24} />
+            </button>
+          </span>
         </div>
         <div className={styles.divider} />
         <div className={cx(styles.body, classNames.body)}>{children}</div>
