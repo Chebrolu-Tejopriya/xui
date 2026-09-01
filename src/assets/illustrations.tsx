@@ -20,6 +20,13 @@ import type { SVGProps } from 'react';
  * it rendered as a white box behind the artwork. The one white rect that stays
  * is inside a <clipPath>, where it is a mask rather than a fill.
  *
+ * The card's shadow outlived the card the first time round: the rect went but
+ * the filter="url(#filter0_d_*)" on the group wrapping it did not, so a 1312x803
+ * card shadow rendered around a 240x205 illustration. It was also a frozen
+ * #1e293b at 9% rather than a scrim-elevation token, so unlike every other
+ * shadow in XUI it stayed put in dark mode. Filters and their now-empty <defs>
+ * are gone; artwork carries no elevation of its own.
+ *
  * Generated once from the Figma exports; edit in Figma, not here.
  */
 
@@ -32,7 +39,7 @@ export function MaintenanceIllustration(props: SVGProps<SVGSVGElement>) {
           <g id="404">
             <g id="Frame 1973341053">
               <g id="Frame 1973341052">
-                <g id="Frame 26888" filter="url(#filter0_d_ixmaint)">
+                <g id="Frame 26888">
                   <g id="Frame 27476">
                     <g id="Group">
                       <g id="Group_2">
@@ -113,17 +120,6 @@ export function MaintenanceIllustration(props: SVGProps<SVGSVGElement>) {
           </g>
         </g>
       </g>
-      <defs>
-        <filter id="filter0_d_ixmaint" x="-536" y="-78" width="1312" height="803" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-          <feOffset dy="2" />
-          <feGaussianBlur stdDeviation="8" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.117647 0 0 0 0 0.160784 0 0 0 0 0.231373 0 0 0 0.09 0" />
-          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_ixmaint" />
-          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_ixmaint" result="shape" />
-        </filter>
-      </defs>
     </svg>
   );
 }
@@ -137,7 +133,7 @@ export function ErrorIllustration(props: SVGProps<SVGSVGElement>) {
           <g id="Something just broke">
             <g id="Frame 1973341053">
               <g id="Frame 1973341052">
-                <g id="Frame 26888" filter="url(#filter0_d_ixerror)">
+                <g id="Frame 26888">
                   <g id="Frame 27476">
                     <g id="Group">
                       <g id="Frame" clipPath="url(#clip0_ixerror)">
@@ -294,15 +290,6 @@ export function ErrorIllustration(props: SVGProps<SVGSVGElement>) {
         </g>
       </g>
       <defs>
-        <filter id="filter0_d_ixerror" x="-536" y="-78" width="1312" height="803" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-          <feOffset dy="2" />
-          <feGaussianBlur stdDeviation="8" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.117647 0 0 0 0 0.160784 0 0 0 0 0.231373 0 0 0 0.09 0" />
-          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_ixerror" />
-          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_ixerror" result="shape" />
-        </filter>
         <clipPath id="clip0_ixerror">
           <rect width="201" height="224" fill="white" transform="translate(7.55078 202.906) rotate(-90)" />
         </clipPath>
@@ -320,7 +307,7 @@ export function NoDataIllustration(props: SVGProps<SVGSVGElement>) {
           <g id="Something just broke">
             <g id="Frame 1973341054">
               <g id="Frame 1973341052">
-                <g id="Frame 26888" filter="url(#filter0_d_ixnodata)">
+                <g id="Frame 26888">
                   <g id="Frame 1973340836">
                     <g id="Info">
                       <g id="Frame 72">
@@ -388,17 +375,6 @@ export function NoDataIllustration(props: SVGProps<SVGSVGElement>) {
           </g>
         </g>
       </g>
-      <defs>
-        <filter id="filter0_d_ixnodata" x="-536" y="-95" width="1312" height="785" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-          <feOffset dy="2" />
-          <feGaussianBlur stdDeviation="8" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.117647 0 0 0 0 0.160784 0 0 0 0 0.231373 0 0 0 0.09 0" />
-          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_ixnodata" />
-          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_ixnodata" result="shape" />
-        </filter>
-      </defs>
     </svg>
   );
 }
