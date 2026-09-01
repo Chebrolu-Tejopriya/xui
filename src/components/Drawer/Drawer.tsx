@@ -54,10 +54,11 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
   /**
    * Override the placement's height, e.g. "320px" or "100%".
    *
-   * BEYOND FIGMA. The XUI file draws `bottom` as a sheet that hugs its
-   * content; this exists because the library KoinX developers already use
-   * distinguishes a fixed-height bottom drawer from a full-height one, and a
-   * sheet that can only hug cannot express either.
+   * Beyond Figma — the XUI file draws `bottom` as a sheet that hugs its
+   * content — and approved by the designer: a fixed height, with the body
+   * scrolling once the content outgrows it. That scrolling is the body's
+   * `overflow-y: auto` plus `min-height: 0`; the header and footer are
+   * `flex: none`, so only the middle moves.
    */
   height?: string;
   /** Class hooks for the parts `className` cannot reach. */
@@ -66,7 +67,8 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title
    * Swipe the panel away along its own axis — down for `bottom`, right for
    * `right`, left for `left`. On by default, as in the library this mirrors.
    *
-   * BEYOND FIGMA, and no gesture library: pointer events, ~40 lines. It stays
+   * Beyond Figma and approved by the designer. No gesture library: pointer
+   * events, ~40 lines. It stays
    * out of the way of the things it would otherwise break — a drag starting in
    * a text field is ignored, and a scrollable body only hands over the gesture
    * once it is scrolled to the top, so a sheet full of content still scrolls.

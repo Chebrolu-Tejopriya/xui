@@ -632,7 +632,7 @@
           "name": "height",
           "type": "string",
           "required": false,
-          "description": "Override the placement's height, e.g. \"320px\" or \"100%\". BEYOND FIGMA. The XUI file draws `bottom` as a sheet that hugs its content; this exists because the library KoinX developers already use distinguishes a fixed-height bottom drawer from a full-height one, and a sheet that can only hug cannot express either."
+          "description": "Override the placement's height, e.g. \"320px\" or \"100%\". Beyond Figma — the XUI file draws `bottom` as a sheet that hugs its content — and approved by the designer: a fixed height, with the body scrolling once the content outgrows it. That scrolling is the body's `overflow-y: auto` plus `min-height: 0`; the header and footer are `flex: none`, so only the middle moves."
         },
         {
           "name": "classNames",
@@ -645,7 +645,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "description": "Swipe the panel away along its own axis — down for `bottom`, right for `right`, left for `left`. On by default, as in the library this mirrors. BEYOND FIGMA, and no gesture library: pointer events, ~40 lines. It stays out of the way of the things it would otherwise break — a drag starting in a text field is ignored, and a scrollable body only hands over the gesture once it is scrolled to the top, so a sheet full of content still scrolls. `full` never drags; there is no edge to throw it towards."
+          "description": "Swipe the panel away along its own axis — down for `bottom`, right for `right`, left for `left`. On by default, as in the library this mirrors. Beyond Figma and approved by the designer. No gesture library: pointer events, ~40 lines. It stays out of the way of the things it would otherwise break — a drag starting in a text field is ignored, and a scrollable body only hands over the gesture once it is scrolled to the top, so a sheet full of content still scrolls. `full` never drags; there is no edge to throw it towards."
         }
       ],
       "extends": "Omit<HTMLAttributes<HTMLDivElement>, 'title'>",
@@ -2116,11 +2116,11 @@
       "`placement` is right (default) / left / bottom / full. `bottom` is a sheet: it hugs its content up to 90vh rather than filling the screen, and rounds its corners at 16px.",
       "`footer` is the call to action. Figma draws every placement both with and without one, so it is optional by design rather than by accident.",
       "Escape, a scrim click and a body scroll-lock are already wired — do not reimplement them in a screen.",
-      "Geometry is the XUI file's (1416:47417): panel padded 8 at the top, children 8 apart, 16px radius on every placement, a 32px header with 12px sides, a full-bleed rule under it, and body sides of 12. The working file's mobile screens draw a 48px/16 header for the nav panel; the XUI file is the design system's own definition and wins.",
+      "Geometry: panel padded 8 at the top, children 8 apart, 16px radius, a full-bleed rule under the header. The close control is a 32x32 box (XUI 1416:47417 draws `Icon / Close` at 32x32 in all eight frames) with a 24px glyph inside — that box, not the type, is what sets the header row height. The title is Subtitle/1, matching Figma's 22px text. Header and body both use 16px sides so the title shares a left edge with the body text. That 16 is a designer's call that OVERRIDES the file, which lays header content out at x=12; it is the one place this component knowingly departs from Figma. The footer's 16 is Figma's own.",
       "Props beyond placement: `headingIcon` (a glyph before the title), `overlayBlur` (blurs the scrim, off by default, using --blur-locked), `width` (overrides the placement default; ignored by bottom and full), and `classNames` for titleWrapper / title / closeIcon / body / footer.",
       "The footer is ALREADY pinned — it sits outside the scrolling body as flex:none. There is no separate \"fixed bottom\" mode to reach for; the library this mirrors splits that into variant strings, we get it from the layout.",
-      "`height` sets a fixed sheet height and lifts the default 90vh cap, so height=\"100%\" really means full height. BEYOND FIGMA: the file draws `bottom` hugging its content only.",
-      "`draggable` (default true) swipes the panel away along its own axis — down for bottom, right for right, left for left. `full` never drags. BEYOND FIGMA, and no gesture library. It yields where it should: a drag starting in a text field is ignored, and a scrollable body keeps the gesture until it is back at the top. Escape, scrim click and the close button work regardless."
+      "`height` sets a fixed sheet height and lifts the default 90vh cap, so height=\"100%\" really means full height. Beyond Figma (the file draws `bottom` hugging its content only) and approved: when the content outgrows the fixed height the body scrolls, because it is overflow-y:auto with min-height:0 while the header and footer are flex:none.",
+      "`draggable` (default true) swipes the panel away along its own axis — down for bottom, right for right, left for left. `full` never drags. Beyond Figma and approved. No gesture library. It yields where it should: a drag starting in a text field is ignored, and a scrollable body keeps the gesture until it is back at the top. Escape, scrim click and the close button work regardless."
     ],
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",

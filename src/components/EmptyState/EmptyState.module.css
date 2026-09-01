@@ -6,11 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* GAP 21, illustration to text. Off the spacing scale (…16, 20, 24…), so it
-     is written literally rather than snapped to 20 — Figma is the source of
-     truth and a 1px "correction" is still a deviation. Flagged for the
-     designer; if it was a nudge, this becomes var(--spacing-20). */
-  gap: 21px;
+  /* Illustration to text. Figma draws 21, which is off the spacing scale
+     (…16, 20, 24…). Designer confirmed it was a nudge rather than a value, so
+     it snaps to the scale. */
+  gap: var(--spacing-20);
   text-align: center;
 }
 
@@ -28,8 +27,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* GAP 37, text to actions. Also off-scale (between 32 and 40) — same flag. */
-  gap: 37px;
+  /* Text to actions. Figma draws 37, also off-scale (between 32 and 40).
+     Designer chose 40. */
+  gap: var(--spacing-40);
 }
 
 .text {
@@ -61,7 +61,9 @@
 .actions {
   display: flex;
   align-items: flex-start;
-  gap: 37px;
+  /* Between the two buttons — a second, separate 37 read from the same frame.
+     Designer chose 40 here too, so both off-scale gaps land on the scale. */
+  gap: var(--spacing-40);
   /* Two buttons and a narrow viewport should stack rather than overflow —
      beyond the design, which only draws them side by side at 1440. */
   flex-wrap: wrap;
@@ -70,11 +72,12 @@
 
 .footer {
   margin: 0;
-  /* BEYOND THE DESIGN. Figma's three empty states have no closing line, so
-     this pairing is chosen rather than read: the description's type, one step
-     quieter in content-tertiary, so a "Tip: …" reads as an aside and not as a
-     second instruction. It sits as a third child of .body, which means it
-     inherits that column's 37px rhythm instead of introducing a new number. */
+  /* Beyond the Figma screens, and approved by the designer as it stands.
+     The three empty states draw no closing line, so this pairing was chosen
+     rather than read: the description's type, one step quieter in
+     content-tertiary, so a "Tip: …" reads as an aside and not as a second
+     instruction. It sits as a third child of .body, so it inherits that
+     column's rhythm instead of introducing a new number. */
   font: var(--type-subtitle-1);
   letter-spacing: var(--tracking-subtitle-1);
   color: var(--content-tertiary);

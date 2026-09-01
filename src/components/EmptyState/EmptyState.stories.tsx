@@ -100,11 +100,11 @@ export const WithCustomClasses: Story = {
 
 /* ---- The three screens Figma draws, in "Empty States" 9899:141035 ---- */
 
-/** Copy is Figma's verbatim, including the "maintainance" spelling. */
+/** Figma's copy, with its "maintainance" spelling corrected — designer's call. */
 export const Maintenance: Story = {
   args: {
     illustration: 'Maintenance',
-    title: 'We are under maintainance',
+    title: 'We are under maintenance',
     description: 'Please be patient, our team is working to get this site up again',
   },
 };

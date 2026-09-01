@@ -29,24 +29,40 @@
   box-sizing: border-box;
 }
 
-/* Figma: 48px, title left, close right, 16px sides. */
+/* Title left, close right, 16px on all four sides.
+
+   The sides are a designer's call and they OVERRIDE the file: XUI 1416:47417
+   lays its header content out at x=12 in all eight frames, and production
+   measures 16. 16 was chosen, so header and body both use it and the title
+   shares a left edge with the body text. Flagged here because it is the one
+   place this component knowingly departs from the file.
+
+   The height is not pinned — the 32x32 close instance sets the row, exactly as
+   Figma draws it, so this comes out at 16 + 32 + 16. */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 32px;
   flex: none;
-  padding: 0 var(--spacing-12);
+  padding: var(--spacing-16);
   font: var(--type-subtitle-1);
   letter-spacing: var(--tracking-subtitle-1);
   color: var(--content-primary);
   box-sizing: border-box;
 }
 
+/* XUI file 1416:47417 draws `Icon / Close` as a 32x32 instance in every one of
+   its eight frames, with the title text 22 tall beside it — so 32 is what sets
+   the header row's height, not the type. The glyph inside stays 24; the box is
+   the instance. Without it the row collapsed to the glyph and the header came
+   out 8px short of the design. */
 .close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
   border: none;
   background: none;
   padding: 0;
@@ -61,14 +77,20 @@
 }
 
 /* Figma: items are 288 wide inside a 320 panel — 16px each side — 36px tall
-   and 8px apart, exactly as SidebarItem already draws them. */
+   and 8px apart, exactly as SidebarItem already draws them. The sides match
+   the header's 16 so the title and the body text share a left edge; they were
+   12 and drifted 4px apart.
+
+   `overflow-y: auto` with `min-height: 0` is what makes a fixed `height` sheet
+   scroll its content instead of overflowing the panel — flex items refuse to
+   shrink below content size without it. */
 .body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-8);
   flex: 1 1 auto;
   min-height: 0;
-  padding: 0 var(--spacing-12);
+  padding: 0 var(--spacing-16);
   overflow-y: auto;
 }
 
