@@ -136,11 +136,15 @@
       },
       {
         "component": "Icons",
-        "question": "Three glyphs the product needs are not in Icons v2 and so are not in the set of 69: a magnifier, a kebab (vertical dots) and a hamburger. They have to be drawn in Figma before they can be extracted."
+        "question": "Five glyphs the product needs are not in Icons v2, so they are not in the set of 69: a magnifier, a kebab (vertical dots), a hamburger, an office building and a briefcase. The last two were found building Overview > ITR Filing, whose frame reaches for Iconify (ri:building-line, ic:baseline-business-center) rather than XUI. Being added to Figma; until then that screen carries them as exported SVGs."
       },
       {
         "component": "(guides)",
         "question": "Guides > Choosing Components is editorial. Figma draws what a component looks like, not which to reach for, so those distinctions were written rather than read and want a designer's review pass."
+      },
+      {
+        "component": "Icons",
+        "question": "XUI icons are monochrome across four tones. The ITR Filing chips use gradient-filled glyphs (the product file's own Dark/Gradients Orange / Blue / Pink styles), which no XUI tone can express. Either the system grows a gradient treatment or those chips take flat icons and lose the gradients."
       }
     ],
     "notBuilt": [

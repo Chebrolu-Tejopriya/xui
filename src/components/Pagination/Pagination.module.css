@@ -41,11 +41,11 @@
   pointer-events: none;
   color: var(--content-secondary);
 }
-.rowsChevron > svg {
+.rowsChevron > * {
   width: 12px;
   height: 8px;
 }
-.pageChevron > svg {
+.pageChevron > * {
   width: 10px;
   height: 7px;
 }
@@ -128,7 +128,7 @@
   background: var(--surface-primary);
 }
 
-.arrow > svg {
+.arrow > * {
   width: 24px;
   height: 24px;
 }

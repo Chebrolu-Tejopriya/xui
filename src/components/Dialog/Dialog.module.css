@@ -58,7 +58,7 @@
   color: var(--content-secondary);
   cursor: pointer;
 }
-.close > svg {
+.close > * {
   width: 100%;
   height: 100%;
 }
@@ -88,7 +88,7 @@
   align-self: center;
 }
 
-.icon svg {
+.icon > * {
   width: 100%;
   height: 100%;
 }

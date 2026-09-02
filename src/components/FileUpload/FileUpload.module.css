@@ -40,7 +40,7 @@
   display: inline-flex;
   color: var(--content-brand-primary);
 }
-.cloud > svg {
+.cloud > * {
   width: 56px;
   height: 56px;
 }
@@ -86,7 +86,7 @@
   flex: none;
   color: var(--content-tertiary);
 }
-.attachIcon > svg {
+.attachIcon > * {
   width: 20px;
   height: 20px;
 }
@@ -112,7 +112,7 @@
   color: var(--content-tertiary);
   cursor: not-allowed;
 }
-.deleteButton > svg {
+.deleteButton > * {
   width: 20px;
   height: 20px;
 }
@@ -156,7 +156,7 @@
   flex: none;
   color: var(--content-brand-primary);
 }
-.compactCloud > svg {
+.compactCloud > * {
   width: 24px;
   height: 24px;
 }

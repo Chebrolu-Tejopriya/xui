@@ -48,15 +48,15 @@
   font: var(--type-button-3);
 }
 
-.large .icon > svg {
+.large .icon > * {
   width: 18px;
   height: 18px;
 }
-.medium .icon > svg {
+.medium .icon > * {
   width: 16px;
   height: 16px;
 }
-.small .icon > svg {
+.small .icon > * {
   width: 14px;
   height: 14px;
 }

@@ -55,7 +55,7 @@
 .icon {
   display: inline-flex;
 }
-.icon > svg {
+.icon > * {
   width: 20px;
   height: 20px;
 }
