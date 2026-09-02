@@ -1,0 +1,21 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" fill="#AAAAAA"/>
+<g id="Coin Type">
+<rect x="-922.492" y="-74.5005" width="1413" height="460" rx="4.5" fill="white"/>
+<rect x="-922.492" y="-74.5005" width="1413" height="460" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
+<g id="Property 1=Deposit, Property 2=Mining">
+<g id="Frame 27498">
+<circle id="Ellipse 709" cx="20.0029" cy="20" r="20" fill="#4F677E"/>
+<g id="eos-icons:data-mining" clip-path="url(#clip0_210_16135)">
+<path id="Vector" d="M24 17.7041C23.3292 15.445 21.7782 13.534 19.681 12.3826L18.56 11.7567L19.1999 10.6614L16.9604 9.4083L16.3206 10.5049L11.8404 8L10.5607 10.1907L15.0409 12.6956L14.3997 13.7909L13.1201 15.9829L8 24.7482L10.2395 26L15.3608 17.2347L16.6405 15.044L17.2803 13.9474L18.4001 14.5733L24 17.7041Z" fill="#26D0FF"/>
+<path id="Vector_2" d="M18 19V22H30V19H18ZM29 21H25V20H29V21ZM18 24V27H30V24H18ZM29 26H25V25H29V26ZM18 29V32H30V29H18ZM29 31H25V30H29V31Z" fill="#2BFF95"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_210_16135">
+<rect width="24" height="24" fill="white" transform="translate(8 8)"/>
+</clipPath>
+</defs>
+</svg>

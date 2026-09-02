@@ -137,6 +137,15 @@ const iconCats = [...new Set([...iconsSrc.matchAll(/category: "([^"]+)"/g)].map(
 const rulebook = JSON.parse(fs.readFileSync(path.join(root, 'xui.rulebook.json'), 'utf8'));
 const byPrefix = (re) => Object.keys(rulebook.semantics).filter((t) => re.test(t)).sort();
 
+// The coin-icon registry, read from the file gen-coin-icons.mjs just wrote, so
+// the manifest cannot disagree with what actually ships.
+const coinSrc = fs.readFileSync(path.join(root, 'src/icons/coin-icons.tsx'), 'utf8');
+const coinIconNames = [...coinSrc.matchAll(/^export const (\w+Coin\d*) =/gm)].map((m) => m[1]);
+const coinIconCategories = Object.fromEntries(
+  [...coinSrc.matchAll(/^\/\/ ---- (.+) ----$/gm)].map((m) => [m[1], true]),
+);
+if (coinIconNames.length === 0) throw new Error('no coin icons found — run gen-coin-icons.mjs first');
+
 const rules = JSON.parse(fs.readFileSync(path.join(root, 'scripts/composition-rules.json'), 'utf8'));
 delete rules._comment;
 
@@ -171,6 +180,15 @@ const manifest = {
     tones: ['outlined', 'solid', 'dualtone', 'dualtone-selected'],
     usage: `import { WalletIcon } from '${PKG}'; <WalletIcon variant="dualtone" size={24} />`,
     names: iconNames,
+  },
+  // A separate family from Icons v2, and an agent needs to be told so: a fixed
+  // 40x40 multi-colour badge with its own palette, not a currentColor glyph.
+  coinIcons: {
+    count: coinIconNames.length,
+    categories: Object.keys(coinIconCategories),
+    usage: `import { AirdropCoin } from '${PKG}'; <AirdropCoin size={40} />`,
+    note: 'Transaction-type badges from the Figma "Coin Type" set. They take `size` but ignore `color` — their palette is raw hex from the file and does NOT follow the theme. Do not reach for these as general-purpose icons.',
+    names: coinIconNames,
   },
   ...rules,
 };

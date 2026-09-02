@@ -2028,6 +2028,66 @@
       "VerifiedIcon"
     ]
   },
+  "coinIcons": {
+    "count": 48,
+    "categories": [
+      "Deposit",
+      "Withdrawal",
+      "Expense"
+    ],
+    "usage": "import { AirdropCoin } from '@koinx/xui'; <AirdropCoin size={40} />",
+    "note": "Transaction-type badges from the Figma \"Coin Type\" set. They take `size` but ignore `color` — their palette is raw hex from the file and does NOT follow the theme. Do not reach for these as general-purpose icons.",
+    "names": [
+      "ExternalDepositCoin",
+      "BorrowCoin",
+      "LendSettlementCoin",
+      "FixedDepositUnlockCoin",
+      "ReceiveFromPoolCoin",
+      "RewardCoin",
+      "RefundCoin",
+      "StakingInterestCoin",
+      "AirdropCoin",
+      "ReceiveLoanCoin",
+      "CollateralUnlockCoin",
+      "FundingInterestCoin",
+      "FuturesRealisedProfitCoin",
+      "SpendCoin",
+      "LiquidityInCoin",
+      "LiquidityOutCoin",
+      "OptionsRealisedProfitCoin",
+      "SalaryCoin",
+      "ConsultancyIncomeCoin",
+      "MiningCoin",
+      "UnStakeCoin",
+      "BridgeTransactionCoin",
+      "ReceivedFromBridgeCoin",
+      "SentToBridgeCoin",
+      "ExternalWithdrawalCoin",
+      "LendCoin",
+      "BorrowSettlementCoin",
+      "FixedDepositLockCoin",
+      "SendToPoolCoin",
+      "CollateralLockCoin",
+      "RepayLoanCoin",
+      "FundingFeeCoin",
+      "FuturesRealisedLossCoin",
+      "OptionsRealisedLossCoin",
+      "DonationCoin",
+      "LostCoin",
+      "Lost1Coin",
+      "DustCoin",
+      "Dust2Coin",
+      "BurnCoin",
+      "MintCoin",
+      "FuturesFeeCoin",
+      "OptionsFeeCoin",
+      "BrokerageOrGasFeeCoin",
+      "MarginInterestPaymentCoin",
+      "MiningExpenseCoin",
+      "ConsultancyExpenseCoin",
+      "StakeCoin"
+    ]
+  },
   "principles": [
     "Never use a raw hex, rgb(), or a primitive token (--gray-04) in product code. Always use a semantic token (--surface-tertiary). Primitives exist only to define semantics.",
     "Semantic tokens are theme-reactive: the same token resolves light and dark automatically. Hardcoding a color breaks dark mode.",
@@ -2173,6 +2233,22 @@
       {
         "component": "Icons",
         "question": "XUI icons are monochrome across four tones. The ITR Filing chips use gradient-filled glyphs (the product file's own Dark/Gradients Orange / Blue / Pink styles), which no XUI tone can express. Either the system grows a gradient treatment or those chips take flat icons and lose the gradients."
+      },
+      {
+        "component": "Coin Icons",
+        "question": "The Figma \"Coin Type\" set (2441:12895) binds NO variables — all 369 fills are raw hex. Its palette (#4F677E disc, #26D0FF / #2AFF95 glyph) has no equivalent anywhere in the XUI ramp, so unlike Icons v2 these 48 badges do not follow the theme. Ship as fixed brand artwork, or bind the palette to tokens?"
+      },
+      {
+        "component": "Coin Icons",
+        "question": "Three palette strays in the same set: #2BFF95 on 4 fills against #2AFF95 on 62 (one hex digit apart), and #1CD278 on 2. Almost certainly slips rather than intent."
+      },
+      {
+        "component": "Coin Icons",
+        "question": "Naming in the set: two components are both called \"Dust\", and there is a \"Lost\" beside a \"Lost1\". Code disambiguates the second Dust as DustCoin2 so the set can be generated at all; the file should be fixed rather than the workaround kept."
+      },
+      {
+        "component": "Coin Icons",
+        "question": "Category disagreements between Figma and xui.koinx.com: Spend, Liquidity Out and UnStake sit under Deposit in the set while the reference site lists Spend under Withdrawal; Mint and Burn are Expense in the set and Deposit/Withdrawal on the site. Code follows the Figma set. Also note the site's \"CollatoralUnlockCoin\" — the set spells it Collateral, which is what ships."
       }
     ],
     "notBuilt": [
