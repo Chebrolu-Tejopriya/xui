@@ -48,7 +48,8 @@ const preview: Preview = {
         // Guides read in an order, not an alphabet: you install before you use.
         const GUIDE_ORDER = [
           'Introduction', 'Installation', 'Usage', 'Choosing Components',
-          'For Agents', 'FAQ', 'Contributing',
+          'Figma to Code', 'For Agents', 'Generating UI', 'Status', 'FAQ',
+          'Contributing',
         ];
         const STORY_ORDER = {
           'Components/Button': [

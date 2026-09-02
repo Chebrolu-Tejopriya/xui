@@ -1,0 +1,123 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import manifest from '../../xui.manifest.json';
+
+{/* Every table on this page is computed from the generated manifest — ADR 0002.
+    A hand-kept status list is the first thing to rot, and a status list nobody
+    trusts is worse than none. Edit scripts/composition-rules.json. */}
+
+<Meta title="Guides/Status" />
+
+export const status = manifest.status ?? {};
+export const open = status.openQuestions ?? [];
+export const notBuilt = status.notBuilt ?? [];
+export const beyond = status.beyondFigma ?? [];
+export const overrides = status.overrides ?? [];
+
+export const named = new Set(
+  [...open, ...notBuilt, ...beyond, ...overrides]
+    .map((r) => r.component)
+    .filter((c) => manifest.components[c]),
+);
+export const settled = Object.keys(manifest.components).filter((c) => !named.has(c)).sort();
+
+export const cell = { padding: '8px 12px', borderBottom: '1px solid var(--border-secondary)', verticalAlign: 'top' };
+export const head = { ...cell, font: 'var(--type-subtitle-2)', textAlign: 'left', background: 'var(--surface-secondary)' };
+export const table = { width: '100%', borderCollapse: 'collapse', font: 'var(--type-body-2)', margin: '16px 0 32px' };
+export const who = { ...cell, whiteSpace: 'nowrap', font: 'var(--type-subtitle-2)' };
+
+# Component status
+
+What is settled, and what is still moving. Every number and row below is read
+from the generated manifest rather than kept by hand, so this page cannot
+quietly fall behind the code.
+
+<p style={{ display: 'flex', gap: 24, flexWrap: 'wrap', font: 'var(--type-subtitle-1)', color: 'var(--content-secondary)' }}>
+  <span><b style={{ color: 'var(--content-primary)' }}>{settled.length}</b> settled</span>
+  <span><b style={{ color: 'var(--content-primary)' }}>{named.size}</b> with something outstanding</span>
+  <span><b style={{ color: 'var(--content-primary)' }}>{open.length}</b> open questions</span>
+</p>
+
+## Open questions
+
+Waiting on a designer. Until these are answered the component works, but the
+answer could change how it behaves.
+
+<table style={table}>
+  <thead><tr><th style={head}>Component</th><th style={head}>Question</th></tr></thead>
+  <tbody>
+    {open.map((r, i) => (
+      <tr key={i}><td style={who}>{r.component}</td><td style={cell}>{r.question}</td></tr>
+    ))}
+  </tbody>
+</table>
+
+## Not built
+
+Named in the design or in the library XUI mirrors, and deliberately not
+implemented yet. Do not plan around these.
+
+<table style={table}>
+  <thead><tr><th style={head}>Component</th><th style={head}>What</th><th style={head}>Why not</th></tr></thead>
+  <tbody>
+    {notBuilt.map((r, i) => (
+      <tr key={i}><td style={who}>{r.component}</td><td style={cell}><code>{r.what}</code></td><td style={cell}>{r.why}</td></tr>
+    ))}
+  </tbody>
+</table>
+
+## Beyond Figma
+
+Behaviour the design file does not describe. Some of it Figma *cannot* describe
+— a static frame has no scroll, no dismissal, no gesture — and some is an
+addition that a designer has since approved.
+
+<table style={table}>
+  <thead><tr><th style={head}>Component</th><th style={head}>What</th><th style={head}>State</th><th style={head}>Note</th></tr></thead>
+  <tbody>
+    {beyond.map((r, i) => (
+      <tr key={i}>
+        <td style={who}>{r.component}</td>
+        <td style={cell}><code>{r.what}</code></td>
+        <td style={{ ...cell, whiteSpace: 'nowrap', color: r.state === 'approved' ? 'var(--content-success-primary)' : 'var(--content-secondary)' }}>
+          {r.state === 'approved' ? 'approved' : 'ours to decide'}
+        </td>
+        <td style={cell}>{r.note}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## Knowing departures
+
+Places where the code does not match the file **on purpose**. These are listed
+so they are found here rather than discovered later and "fixed" back.
+
+<table style={table}>
+  <thead><tr><th style={head}>Component</th><th style={head}>What</th><th style={head}>Why</th></tr></thead>
+  <tbody>
+    {overrides.map((r, i) => (
+      <tr key={i}><td style={who}>{r.component}</td><td style={cell}>{r.what}</td><td style={cell}>{r.note}</td></tr>
+    ))}
+  </tbody>
+</table>
+
+## Settled
+
+Everything else. These match Figma with nothing outstanding — build on them
+freely.
+
+{/* A flex row, not a paragraph: .map() emits adjacent elements with no
+    whitespace between them, so an inline run has no break opportunity and
+    stretches the page to the width of all 38 chips. */}
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, font: 'var(--type-body-2)', margin: '16px 0 32px' }}>
+  {settled.map((c) => (
+    <code key={c} style={{ background: 'var(--surface-secondary)', color: 'var(--content-secondary)', padding: '2px 8px', borderRadius: 'var(--radius-xs)', whiteSpace: 'nowrap' }}>{c}</code>
+  ))}
+</div>
+
+---
+
+"Settled" means nothing is *known* to be outstanding — it is the absence of a
+flag, not a proof. What backs it is the visual suite: every story, both themes,
+diffed against a committed baseline on every pull request, so a component that
+drifts fails CI rather than reaching you.

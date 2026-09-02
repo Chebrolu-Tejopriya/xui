@@ -2150,5 +2150,88 @@
     "Dialog vs Drawer": "Length, not importance. Dialog when it fits without scrolling — a confirmation, a short form, a warning. Drawer when the content scrolls, or the user needs the page behind it in mind. On mobile placement=\"bottom\" is the idiom for both; right is the desktop idiom.",
     "Sidebar vs Tabs": "Not alternatives. Sidebar moves between sections of the product; Tabs moves between views of the thing already being looked at. BottomNav is the mobile form of Sidebar, carrying the same destinations.",
     "Badge vs PriorityMeter vs Toast vs EmptyState": "Badge is a standing label on a thing (label-* for status and category pills, accent-* for softer inline tags). PriorityMeter is a level rather than a word, in a table column. Toast is a transient event. EmptyState is there being nothing to show."
+  },
+  "status": {
+    "_comment": "Per-component status, so a consumer can tell what is settled from what is still moving. A component absent from every list below matches Figma with nothing outstanding. Guides/Status renders this; keep it here rather than in prose so the page cannot drift.",
+    "openQuestions": [
+      {
+        "component": "Drawer",
+        "question": "The frame named \"Left\" in XUI 1416:47417 is drawn right-aligned — its panel sits at x=74 in a 390 screen, so it touches the right edge. `left` was built to mean left. Is the label the intent, or the drawing? They are one swap apart."
+      },
+      {
+        "component": "Drawer",
+        "question": "`full_height` in the library KoinX already uses is a right-hand panel at full height, which is what our `right` is. Our `full` spans both axes. On a phone the two look alike; on a desktop they do not. Which mapping was meant?"
+      },
+      {
+        "component": "Icons",
+        "question": "Three glyphs the product needs are not in Icons v2 and so are not in the set of 69: a magnifier, a kebab (vertical dots) and a hamburger. They have to be drawn in Figma before they can be extracted."
+      },
+      {
+        "component": "(guides)",
+        "question": "Guides > Choosing Components is editorial. Figma draws what a component looks like, not which to reach for, so those distinctions were written rather than read and want a designer's review pass."
+      }
+    ],
+    "notBuilt": [
+      {
+        "component": "Select",
+        "what": "virtualizeOptions, triggerButtonVariant, customCTAProps",
+        "why": "The first changes how the list renders; the other two turn the trigger into a Button. Both want their own pass."
+      },
+      {
+        "component": "Select",
+        "what": "\"Inside Drawer\" and \"Inside Popup\" presentations",
+        "why": "Drawn in the reference library; not yet reconciled with XUI's own Drawer."
+      },
+      {
+        "component": "Table",
+        "what": "row-as-card at narrow widths",
+        "why": "The mobile treatment for a data table has not been designed in XUI."
+      }
+    ],
+    "beyondFigma": [
+      {
+        "component": "Drawer",
+        "what": "`height` — a fixed-height sheet",
+        "state": "approved",
+        "note": "Figma draws `bottom` hugging its content only. Approved with the body scrolling once content outgrows the height."
+      },
+      {
+        "component": "Drawer",
+        "what": "`draggable` — swipe to dismiss",
+        "state": "approved",
+        "note": "On by default. No gesture library; it yields to text fields and to a scrolled body."
+      },
+      {
+        "component": "Drawer",
+        "what": "Escape, scrim click and body scroll-lock",
+        "state": "ours",
+        "note": "Dismissal is an interaction spec, and Figma carries none. Decided here."
+      },
+      {
+        "component": "EmptyState",
+        "what": "`footer` — the \"Tip: …\" line",
+        "state": "approved",
+        "note": "None of the three Figma screens has one; it exists so the component covers what KoinX's InfoComponent already ships."
+      },
+      {
+        "component": "EmptyState",
+        "what": "actions wrap at narrow widths",
+        "state": "ours",
+        "note": "Figma draws the two buttons side by side at 1440 only."
+      },
+      {
+        "component": "AppShell",
+        "what": "the rail stays put while content scrolls",
+        "state": "ours",
+        "note": "A static frame cannot express scroll behaviour."
+      }
+    ],
+    "overrides": [
+      {
+        "component": "Drawer",
+        "what": "16px sides on the header and body",
+        "note": "XUI 1416:47417 lays header content out at x=12 in all eight frames. 16 was chosen from a measurement of production, so the title shares a left edge with the body text. The one place this component knowingly departs from the file."
+      }
+    ]
   }
 }
