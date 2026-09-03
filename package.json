@@ -45,7 +45,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-coin-icons.mjs && node scripts/gen-manifest.mjs",
+    "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-coin-icons.mjs && node scripts/gen-general-icons.mjs && node scripts/gen-manifest.mjs",
     "ds:check": "npm run ds:build && npm run lint:tokens",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "prepare": "npm run build:lib",
