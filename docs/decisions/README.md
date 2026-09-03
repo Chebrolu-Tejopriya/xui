@@ -52,3 +52,6 @@ Status values: `accepted`, `superseded by NNNN`, `deprecated`.
 | [0018](0018-governance.md) | Review concentrated in one or two owners, enforced by CI | accepted |
 | [0019](0019-breakpoint-from-production.md) | The breakpoint is 900px, taken from production | accepted |
 | [0020](0020-visual-regression-in-ci.md) | Visual regression in CI, with Linux baselines | accepted |
+| [0021](0021-the-rules-travel-with-the-package.md) | The rules travel with the package, not just the components | accepted |
+| [0022](0022-coin-icons-are-a-second-family.md) | Coin icons are a second family, kept faithful rather than tokenised | accepted |
+| [0023](0023-icon-slots-size-the-child-not-the-svg.md) | Icon slots size whatever they are given, not only an `<svg>` | accepted |
