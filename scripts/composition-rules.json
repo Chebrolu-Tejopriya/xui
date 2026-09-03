@@ -136,7 +136,7 @@
       },
       {
         "component": "Icons",
-        "question": "Five glyphs the product needs are not in Icons v2, so they are not in the set of 69: a magnifier, a kebab (vertical dots), a hamburger, an office building and a briefcase. The last two were found building Overview > ITR Filing, whose frame reaches for Iconify (ri:building-line, ic:baseline-business-center) rather than XUI. Being added to Figma; until then that screen carries them as exported SVGs."
+        "question": "Two glyphs the product needs exist in no XUI library: an office building and a briefcase. (The magnifier, kebab and hamburger previously listed here DO exist — they were in the General Icon Library, not Icons v2, and now ship as SearchIcon, MoreVertIcon and MenuIcon.)"
       },
       {
         "component": "(guides)",
@@ -161,6 +161,22 @@
       {
         "component": "Coin Icons",
         "question": "Category disagreements between Figma and xui.koinx.com: Spend, Liquidity Out and UnStake sit under Deposit in the set while the reference site lists Spend under Withdrawal; Mint and Burn are Expense in the set and Deposit/Withdrawal on the site. Code follows the Figma set. Also note the site's \"CollatoralUnlockCoin\" — the set spells it Collateral, which is what ships."
+      },
+      {
+        "component": "General Icons",
+        "question": "Five icons in the Icon Library are painted #FF0000 — Figma's default red — on glyphs with no reason to be red: Link, Realized Gains, a cog-transfer, a window-with-wrench, and two unnamed components. Every other icon in the library is monochrome, so this reads as a leftover override. They ship as drawn, which makes them obvious in Foundations > General Icons."
+      },
+      {
+        "component": "General Icons",
+        "question": "The library uses THREE different values for one monochrome: black, #0F172A (gray-12) and #334155 (gray-10). All three are mapped to currentColor so they behave identically, but the file should pick one."
+      },
+      {
+        "component": "General Icons",
+        "question": "Names reused inside the library for DIFFERENT drawings: Deposit (Arrows & controls vs Transactions), ArrowForward (Arrows vs File types), perm_device_information (Insights vs Communication). Plus exact duplicates: `cancel` twice and `Category` twice. The generator suffixes the later one; the fix is a rename."
+      },
+      {
+        "component": "General Icons",
+        "question": "Four components are not shipped and need a decision. `KoinX AI` is gradient-filled with a <use> transform, so it cannot be a currentColor glyph — same question as the coin chips. `Component 56` and `Component 57` carry Figma's default names, so there is nothing to call them. Five more are Iconify paste-ins that were renamed to what they draw (Spinner, BulletedList, Transaction Card, List Card, WindowSettings, SettingsTransfer) — worth confirming those names."
       }
     ],
     "notBuilt": [
