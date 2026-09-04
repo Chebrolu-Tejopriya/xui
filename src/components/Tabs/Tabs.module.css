@@ -24,6 +24,14 @@
    only Large. Medium is not just shorter: its item is 28 rather than 34, which
    it reaches by dropping to Subtitle/2 (a 20 line, not 22) AND 4px padding.
    3 + 28 + 3 + 2 = 36, Figma's number. */
+/* Medium's icon is 16, not 20 — Figma's Tabs/WithIcons draws 20x20 at Large and
+   16x16 at Medium. Missed when the size axis was added, which changed the
+   padding and the type and left the icon alone. */
+.medium .icon > * {
+  width: 16px;
+  height: 16px;
+}
+
 .medium .tab {
   padding: 4px 12px;
   /* Subtitle/2 carries no tracking token — only subtitle-1, button-1 and

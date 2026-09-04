@@ -2316,6 +2316,10 @@
       {
         "component": "Switch",
         "question": "Checkbox, Radio and Switch all gained `width: fit-content` — their labels were stretching to the whole column inside any flex parent (968px measured) because CSS blockifies a flex item's `inline-flex`. Switch is the one worth a second look: a settings row with the label left and the control right, clickable across its width, is a real pattern, and it now hugs like the others. Override with a className if a screen wants the full-width row."
+      },
+      {
+        "component": "Icons",
+        "question": "Icons v2 glyphs have no consistent optical size inside their box, so a row of them reads as misaligned even when it is not. Measured in Components/Tabs > With icons, every icon in an identical 20px box: File paints 12x15 (45% of the box), Edit 13.3x13.7 (46%), Settings 16x16 (64%) and Profile 18.6x20.2 (94%, slightly overflowing). Profile is twice the ink of File. Alignment is exact — Figma centres both icon and label and XUI matches, both centring on 17 in a 34px tab — so this is the icon set, not the components using it. A designer's call on whether the glyphs get a shared optical size / padding inside the viewBox."
       }
     ],
     "notBuilt": [
