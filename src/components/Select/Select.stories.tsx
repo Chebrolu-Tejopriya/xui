@@ -12,6 +12,13 @@ export default meta;
 
 type Story = StoryObj<typeof Select>;
 
+const ACTIONS: SelectOption[] = [
+  { value: 'download', label: 'Download CSV' },
+  { value: 'bulk', label: 'Bulk edit transactions' },
+  { value: 'add', label: 'Add transactions' },
+  { value: 'accounts', label: 'Potential accounts' },
+];
+
 const FLAT: SelectOption[] = [
   { value: 'btc', label: 'Bitcoin' },
   { value: 'eth', label: 'Ethereum' },
@@ -223,4 +230,43 @@ export const Sizes: Story = {
     </div>
   ),
   args: { options: FLAT, placeholder: 'Select an option' },
+};
+
+/**
+ * Select IS the action menu — there is no separate Menu component and none is
+ * needed. `value={null}` keeps it controlled at nothing so the trigger never
+ * adopts what was picked (onChange is a dispatch, not a binding), and
+ * `check={false}` drops the tick and the 32px inset it reserves for it.
+ *
+ * `menuWidth="content"` is what makes it usable: the trigger says "Actions" and
+ * the rows are far longer, so a panel pinned to the trigger would truncate them.
+ */
+export const AsAnActionMenu: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-32)', alignItems: 'flex-start' }}>
+      <div>
+        <p style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>menuWidth="trigger" — truncates</p>
+        <Select
+          value={null}
+          onChange={() => undefined}
+          placeholder="Actions"
+          check={false}
+          width="140px"
+          options={ACTIONS}
+        />
+      </div>
+      <div>
+        <p style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>menuWidth="content" — grows</p>
+        <Select
+          value={null}
+          onChange={() => undefined}
+          placeholder="Actions"
+          check={false}
+          width="140px"
+          menuWidth="content"
+          options={ACTIONS}
+        />
+      </div>
+    </div>
+  ),
 };

@@ -54,6 +54,12 @@ export interface SelectProps {
    * 44 and the default, `medium` is 36 and what a filter bar uses.
    */
   size?: 'large' | 'medium';
+  /**
+   * How wide the panel opens. `trigger` (default) matches the field, which is
+   * what Figma draws. `content` grows to the widest row, for the action-menu
+   * case where the trigger label is short and the rows are not.
+   */
+  menuWidth?: 'trigger' | 'content';
   /** Trigger width. Figma's default is 204px. */
   width?: string;
   /** Show the check against the selected row. On by default, as Figma draws it. */
@@ -129,6 +135,7 @@ export function Select({
   loading = false,
   className,
   size = 'large',
+  menuWidth = 'trigger',
   width,
   check = true,
   searchInput = false,
@@ -320,7 +327,7 @@ export function Select({
       </button>
 
       {open && (
-        <div className={styles.panel}>
+        <div className={cx(styles.panel, menuWidth === 'content' && styles.panelContent)}>
           {searchInput && (
             <div className={styles.search}>
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className={styles.searchIcon}>

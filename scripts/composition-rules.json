@@ -70,7 +70,7 @@
       "A selected value renders in Subtitle/2 (500 weight), which is wider than the Body/2 placeholder — a box sized to fit the placeholder will clip the value once one is chosen.",
       "`size` is Figma's Size axis on `select` (600:7833): `large` 44 (default) and `medium` 36. Medium is not merely shorter — its value line drops from 20 to 16, which is how Figma's own 10/12 padding lands on 36. Use medium in a filter bar.",
       "Select IS the action menu — there is no separate Menu component and none is needed. `value={null}` keeps it controlled at nothing so the trigger never adopts what was picked (onChange becomes a dispatch, not a binding), and `check={false}` drops the tick and the 32px inset it reserves. Options already carry a left `icon`, a `rightIcon` and a `subLabel`.",
-      "The panel is `width: 100%` of the trigger. Correct for a filter-bar picker, wrong for an action menu: a short trigger label with long rows truncates them. Menu.module.css already has `width: max-content` for exactly this and Select's own `.panel` does not use it — widening the trigger is the only lever today."
+      "`menuWidth` is 'trigger' by default — Figma's canvas shows menu width = trigger width for a Select FIELD. Pass 'content' for the action-menu case, where the trigger reads \"Actions\" and the rows are long enough to truncate against it: the panel then grows to its widest row, never narrower than the trigger, capped at 420. BEYOND FIGMA and additive — the drawn case is untouched."
     ],
     "EmptyState": [
       "Illustration, title, optional description, optional actions — centred in whatever box it is given, so a page-level 404 and an empty table cell use the same component.",
@@ -195,7 +195,11 @@
       },
       {
         "component": "Select",
-        "question": "Two small things stop Select fully serving as an action menu. (1) `triggerButtonVariant` — Figma turns the trigger into a Button; XUI's is always a field, so an 'Actions' control reads as an input rather than the filled button the product draws. Already on the not-built list. (2) The panel is pinned to the trigger width, so a short trigger with long rows truncates; Menu.module.css already supports max-content and Select's own .panel does not use it. Found building Transactions > Bulk edit."
+        "question": "`triggerButtonVariant` — Figma turns the Select trigger into a Button and XUI's is always a field, so an \"Actions\" control reads as an input where the product draws a filled button. Already on the not-built list. (The other half of this, the panel truncating against a short trigger, is fixed: Select gained `menuWidth`.)"
+      },
+      {
+        "component": "FileUpload",
+        "question": "The Compact variants carry an \"Error Message\" text layer, but it sits inside a HIDDEN ancestor in every variant and is filled #666666 — a placeholder grey, not an error colour. So XUI has no error state for FileUpload and Figma does not actually define one. Is an error state intended? A CSV import will want one."
       }
     ],
     "notBuilt": [

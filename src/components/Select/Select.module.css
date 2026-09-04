@@ -124,6 +124,12 @@
   top: calc(100% + 4px);
   left: 0;
   width: 100%;
+  /* Figma's canvas shows menu width = trigger width for a Select FIELD, which
+     is what this is. `menuWidth="content"` opts out for the action-menu case,
+     where the trigger reads "Actions" and the rows are long enough to truncate
+     against it. Menu.module.css has carried the same two modes all along; this
+     rule just never used them. BEYOND FIGMA, and additive: the drawn case is
+     untouched because `trigger` stays the default. */
   box-sizing: border-box;
   overflow: hidden;
   background: var(--surface-raised);
@@ -321,6 +327,14 @@
 
 /* The scroll container, so a class hook can reach it without also catching
    the <ul> that carries the rows. */
+/* Grow to the widest row instead, never narrower than the trigger. `right: auto`
+   keeps it left-anchored so it opens under the trigger rather than away from it. */
+.panelContent {
+  width: max-content;
+  min-width: 100%;
+  max-width: 420px;
+}
+
 .listWrapper {
   display: block;
 }
