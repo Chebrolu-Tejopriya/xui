@@ -5,7 +5,20 @@ import manifest from '../../xui.manifest.json';
     A hand-kept status list is the first thing to rot, and a status list nobody
     trusts is worse than none. Edit scripts/composition-rules.json. */}
 
-<Meta title="Guides/Status" />
+{/* Hidden. This page is the working list of what is still waiting on a
+    designer - useful to us, noise to someone reading the docs to learn the
+    system, so it does not belong in the Guides list.
+
+    `!dev` removes the `dev` tag, and that hides the page COMPLETELY: no
+    sidebar entry, and the URL renders "No Preview" in dev and in a static
+    build alike. Verified both ways - do not assume it stays linkable.
+
+    Nothing is lost by that. The questions live in
+    scripts/composition-rules.json, which is their source of truth, and they
+    ship in xui.manifest.json, so the MCP server still serves them to agents.
+    This page is only a rendering. Delete the tag to put it back. */}
+
+<Meta title="Guides/Status" tags={['!dev']} />
 
 export const status = manifest.status ?? {};
 export const open = status.openQuestions ?? [];

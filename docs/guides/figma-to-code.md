@@ -124,7 +124,7 @@ be, so they are decisions to make and flag rather than values to read:
 - What happens between 375 and 1440
 - Motion of any kind
 
-XUI records these as "beyond Figma" on the **Status** page, split into what a
+XUI records these as "beyond Figma" in `scripts/composition-rules.json`, split into what a
 designer has approved and what is still ours to decide. Add to that list rather
 than deciding quietly.
 
