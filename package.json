@@ -51,6 +51,7 @@
     "prepare": "npm run build:lib",
     "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs",
     "check:xemantics": "node scripts/check-xemantics.mjs",
+    "check:axes": "node scripts/check-variant-axes.mjs",
     "mcp": "node mcp/server.mjs",
     "test:visual": "npm run build-storybook && playwright test",
     "test:visual:update": "npm run build-storybook && playwright test --update-snapshots",
