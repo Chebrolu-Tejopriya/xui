@@ -42,3 +42,31 @@ visual/__screenshots__/*-darwin.png
 test-results/
 playwright-report/
 blob-report/
+
+# Jetro's installer writes agent config into the repo for every vendor it knows
+# about, and none of it belongs in git.
+#
+#   .mcp.json, .cursor/mcp.json, .codex/config.toml — absolute paths into one
+#   machine's C:\Users\...\.jetro install, plus that machine's whole PATH.
+#
+#   CLAUDE.md, AGENT.md, .windsurfrules, .cursor/rules/agent.mdc,
+#   .agents/rules/agent.md, .github/copilot-instructions.md — six copies of the
+#   same 1032-byte "You are an assistant for the Jetro research platform" blurb,
+#   which says nothing about XUI. AGENTS.md is this repo's real one.
+#
+#   .agents/skills/ — a stale mirror of .claude/skills/. Four of the six matched
+#   when this was written and two had drifted, which is the whole argument: a
+#   duplicate that goes out of date is worse than no duplicate, because an agent
+#   reading the stale copy follows superseded instructions and thinks it complied.
+.mcp.json
+.cursor/
+.codex/
+.agents/
+.windsurfrules
+AGENT.md
+CLAUDE.md
+.github/copilot-instructions.md
+
+# ad-hoc debugging screenshots and the throwaway scripts that take them
+screenshot.png
+shot-*.png
