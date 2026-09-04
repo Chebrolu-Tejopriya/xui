@@ -103,7 +103,8 @@
     ],
     "Tabs": [
       "`size` is Figma's Size axis on `Tabs/Default` (1128:16648): `large` 42 (default) and `medium` 36. Medium drops the label to Subtitle/2 as well as trimming padding — that is how the item reaches 28, not padding alone.",
-      "The container was 44 until the variant-axis gate found the Size axis; 42 is Figma's number, and the 2px was a CSS border taking layout space where a Figma stroke does not. Its vertical padding is 3, not the 4 Figma draws, for that reason."
+      "The container was 44 until the variant-axis gate found the Size axis; 42 is Figma's number, and the 2px was a CSS border taking layout space where a Figma stroke does not. Its vertical padding is 3, not the 4 Figma draws, for that reason.",
+      "The bar hugs its tabs via `width: fit-content`, not `display: inline-flex` alone. CSS BLOCKIFIES a flex item's display, so inside any flex parent `inline-flex` computes to `flex` and the bar stretches to the whole column — which is what the showcase stories did, 560px against a 278px content box. Override with a className if a screen wants a full-width bar."
     ]
   },
   "layoutPatterns": {
@@ -116,7 +117,8 @@
     "Using content-primary for a label on a brand-filled button — invisible in one of the two themes.",
     "Adding a CSS border to a fixed-height element without shaving the padding — renders 2px taller than the spec.",
     "Building a bespoke table with divs when Table/TableRow/TableCell already encode the spec.",
-    "Using surface-secondary for a selected row — that is the hover treatment; selected is surface-brand-secondary."
+    "Using surface-secondary for a selected row — that is the hover treatment; selected is surface-brand-secondary.",
+    "Relying on `display: inline-flex` to make a component hug. A flex item's display is blockified to `flex`, so it stretches inside any flex parent. Say `width: fit-content` if hugging is the spec."
   ],
   "choosing": {
     "Switch vs Checkbox": "Switch when choosing IS doing — it applies immediately. Checkbox when the value is collected and submitted with a form. If there is a Save button, it is a Checkbox.",
@@ -200,6 +202,10 @@
       {
         "component": "FileUpload",
         "question": "The Compact variants carry an \"Error Message\" text layer, but it sits inside a HIDDEN ancestor in every variant and is filled #666666 — a placeholder grey, not an error colour. So XUI has no error state for FileUpload and Figma does not actually define one. Is an error state intended? A CSV import will want one."
+      },
+      {
+        "component": "Checkbox / Radio / Switch",
+        "question": "The same blockification trap as Tabs, but with a behavioural cost. Their root labels are `inline-flex`, which computes to `flex` inside a flex parent, so the label stretches: measured 968px in Components/Checkbox > States, and clicking 20px from its RIGHT edge — 948px from the control — toggles the checkbox. Fix is `width: fit-content`, same as Tabs. Held back because Switch is genuinely ambiguous: a settings row with the label left and the control right, clickable across its width, is a real pattern. Checkbox and Radio in a list are not. Needs one call."
       }
     ],
     "notBuilt": [

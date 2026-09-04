@@ -2,6 +2,13 @@
 
 .tabs {
   display: inline-flex;
+  /* `inline-flex` is NOT enough to hug. CSS blockifies a flex item's display, so
+     the moment this sits inside any flex parent it computes to `flex` and
+     stretches to the full column — which is exactly what the showcase stories
+     did, 560px wide against a 278px content box. Figma draws Tabs hugging, so
+     say so in a way that survives the parent. Override with a className if a
+     screen genuinely wants a full-width bar. */
+  width: fit-content;
   align-items: flex-start;
   /* Figma draws 4, and the container is 42 tall: 4 + 34 + 4, because a Figma
      stroke takes no layout space. The CSS border does, so the vertical padding
