@@ -5,11 +5,18 @@
 // badges (coin-icons.tsx) carry a fixed palette. These are single-tone 24px
 // glyphs that DO follow the theme — black becomes currentColor, white cut-outs
 // become the knockout token. Two icons keep an off-ramp literal; see below.
+//
+// Flat, deliberately. This file used to export a generalIconCategories record
+// as well, and the gallery grouped by it - but the groups were mine, not
+// Figma's. They came from whichever JSON chunk an icon happened to be read in,
+// so "Arrows & controls" ended up holding a calendar, a paperclip and a copy
+// glyph. A wrong taxonomy is worse than none: it sends you to the wrong shelf
+// and then convinces you the icon does not exist. Search the flat list instead.
+// If Figma ever names real groups, generate them from that and not from here.
 import { createGeneralIcon } from './createGeneralIcon';
 import type { ComponentType } from 'react';
 import type { GeneralIconProps } from './createGeneralIcon';
 
-// ---- Arrows & controls ----
 export const ExpandMoreIcon = /*#__PURE__*/ createGeneralIcon("ExpandMoreIcon", (
   <>
     <path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="currentColor" />
@@ -244,7 +251,6 @@ export const QuestionIcon = /*#__PURE__*/ createGeneralIcon("QuestionIcon", (
   </>
 ));
 
-// ---- Transactions ----
 export const Deposit2Icon = /*#__PURE__*/ createGeneralIcon("Deposit2Icon", (
   <>
     <path fillRule="evenodd" clipRule="evenodd" d="M17.5657 5.35021C17.8477 5.63225 17.8477 6.08954 17.5657 6.37158L7.45459 16.4827C7.17254 16.7647 6.71526 16.7647 6.43321 16.4827C6.15117 16.2006 6.15117 15.7434 6.43321 15.4613L16.5443 5.35021C16.8264 5.06816 17.2837 5.06816 17.5657 5.35021Z" fill="currentColor" />
@@ -360,7 +366,6 @@ export const UpgradeIcon = /*#__PURE__*/ createGeneralIcon("UpgradeIcon", (
   </>
 ));
 
-// ---- Actions ----
 export const CategoryIcon = /*#__PURE__*/ createGeneralIcon("CategoryIcon", (
   <>
     <path d="M11 13.5V21.5H3V13.5H11ZM9 15.5H5V19.5H9V15.5ZM12 2L17.5 11H6.5L12 2ZM12 5.86L10.08 9H13.92L12 5.86ZM17.5 13C20 13 22 15 22 17.5C22 20 20 22 17.5 22C15 22 13 20 13 17.5C13 15 15 13 17.5 13ZM17.5 15C16.837 15 16.2011 15.2634 15.7322 15.7322C15.2634 16.2011 15 16.837 15 17.5C15 18.163 15.2634 18.7989 15.7322 19.2678C16.2011 19.7366 16.837 20 17.5 20C18.163 20 18.7989 19.7366 19.2678 19.2678C19.7366 18.7989 20 18.163 20 17.5C20 16.837 19.7366 16.2011 19.2678 15.7322C18.7989 15.2634 18.163 15 17.5 15Z" fill="currentColor" />
@@ -488,7 +493,6 @@ export const AccessTimeIcon = /*#__PURE__*/ createGeneralIcon("AccessTimeIcon", 
   </>
 ));
 
-// ---- Actions (continued) ----
 export const HistoryIcon = /*#__PURE__*/ createGeneralIcon("HistoryIcon", (
   <>
     <path d="M13.5 3C8.53 3 4.5 7.03 4.5 12H1.5L5.39 15.89L5.46 16.03L9.5 12H6.5C6.5 8.13 9.63 5 13.5 5C17.37 5 20.5 8.13 20.5 12C20.5 15.87 17.37 19 13.5 19C11.57 19 9.82 18.21 8.56 16.94L7.14 18.36C8.77 19.99 11.01 21 13.5 21C18.47 21 22.5 16.97 22.5 12C22.5 7.03 18.47 3 13.5 3ZM12.5 8V13L16.75 15.52L17.52 14.24L14 12.15V8H12.5Z" fill="currentColor" />
@@ -615,7 +619,6 @@ export const SecureIcon = /*#__PURE__*/ createGeneralIcon("SecureIcon", (
   </>
 ));
 
-// ---- Insights & media ----
 export const PortfolioInsightsIcon = /*#__PURE__*/ createGeneralIcon("PortfolioInsightsIcon", (
   <>
     <path d="M14.06 10.69L12 9.75L14.06 8.81L15 6.75L15.94 8.81L18 9.75L15.94 10.69L15 12.75L14.06 10.69ZM4 14.75L4.94 12.69L7 11.75L4.94 10.81L4 8.75L3.06 10.81L1 11.75L3.06 12.69L4 14.75ZM8.5 9.75L9.59 7.34L12 6.25L9.59 5.16L8.5 2.75L7.41 5.16L5 6.25L7.41 7.34L8.5 9.75ZM4.5 21.25L10.5 15.24L14.5 19.24L23 9.68L21.59 8.27L14.5 16.24L10.5 12.24L3 19.75L4.5 21.25Z" fill="currentColor" />
@@ -711,7 +714,6 @@ export const Forward10Icon = /*#__PURE__*/ createGeneralIcon("Forward10Icon", (
   </>
 ));
 
-// ---- Insights & media (continued) ----
 export const BarChartGeneralIcon = /*#__PURE__*/ createGeneralIcon("BarChartGeneralIcon", (
   <>
     <path d="M8 9H4V20H8V9Z" fill="currentColor" />
@@ -803,7 +805,6 @@ export const HideIcon = /*#__PURE__*/ createGeneralIcon("HideIcon", (
   </>
 ));
 
-// ---- Currency ----
 export const CurrencyRupeeIcon = /*#__PURE__*/ createGeneralIcon("CurrencyRupeeIcon", (
   <>
     <path d="M13.66 7C13.1 5.82 11.9 5 10.5 5H6V3H18V5H14.74C15.22 5.58 15.58 6.26 15.79 7H18V9H15.98C15.73 11.8 13.37 14 10.5 14H9.77L16.5 21H13.73L7 14V12H10.5C12.26 12 13.72 10.7 13.96 9H6V7H13.66Z" fill="currentColor" />
@@ -843,7 +844,6 @@ export const CurrencyAusdollarIcon = /*#__PURE__*/ createGeneralIcon("CurrencyAu
   </>
 ));
 
-// ---- Navigation ----
 export const DashboardIcon = /*#__PURE__*/ createGeneralIcon("DashboardIcon", (
   <>
     <path d="M19 5V7H15V5H19ZM9 5V11H5V5H9ZM19 13V19H15V13H19ZM9 17V19H5V17H9ZM21 3H13V9H21V3ZM11 3H3V13H11V3ZM21 11H13V21H21V11ZM11 15H3V21H11V15Z" fill="currentColor" />
@@ -862,7 +862,6 @@ export const GuidesIcon = /*#__PURE__*/ createGeneralIcon("GuidesIcon", (
   </>
 ));
 
-// ---- File types ----
 export const JPEGIcon = /*#__PURE__*/ createGeneralIcon("JPEGIcon", (
   <>
     <path d="M19 5V19H5V5H19ZM19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM14.14 11.86L11.14 15.73L9 13.14L6 17H18L14.14 11.86Z" fill="currentColor" />
@@ -908,7 +907,6 @@ export const ArrowForwardGeneral2Icon = /*#__PURE__*/ createGeneralIcon("ArrowFo
   </>
 ));
 
-// ---- States ----
 export const NoRecentActivityIcon = /*#__PURE__*/ createGeneralIcon("NoRecentActivityIcon", (
   <>
     <path d="M21.6555 12.2896C21.5055 13.6696 21.0355 14.9596 20.3255 16.0796L18.8555 14.6096C19.2355 13.8996 19.5055 13.1196 19.6255 12.2896H21.6555ZM9.38547 5.12961C10.3755 4.59961 11.5155 4.28961 12.7155 4.28961C15.0855 4.28961 17.1855 5.47961 18.4555 7.28961H15.7155V9.28961H21.7155V3.28961H19.7155V5.64961C18.0655 3.60961 15.5455 2.28961 12.7155 2.28961C10.9555 2.28961 9.31547 2.79961 7.93547 3.67961L9.38547 5.12961ZM11.7155 6.28961V7.45961L13.7155 9.45961V6.28961H11.7155ZM20.4955 21.8996L17.4955 18.8996C16.1055 19.7696 14.4755 20.2896 12.7155 20.2896C7.74547 20.2896 3.71547 16.2596 3.71547 11.2896C3.71547 9.52961 4.22547 7.88961 5.10547 6.50961L2.10547 3.50961L3.51547 2.09961L21.8955 20.4796L20.4955 21.8996ZM16.0355 17.4396L6.55547 7.95961C6.02547 8.94961 5.71547 10.0896 5.71547 11.2896C5.71547 15.1496 8.85547 18.2896 12.7155 18.2896C13.9155 18.2896 15.0555 17.9796 16.0355 17.4396Z" fill="currentColor" />
@@ -922,7 +920,6 @@ export const DataMissingIcon = /*#__PURE__*/ createGeneralIcon("DataMissingIcon"
   </>
 ));
 
-// ---- Communication & devices ----
 export const TripOriginIcon = /*#__PURE__*/ createGeneralIcon("TripOriginIcon", (
   <>
     <path d="M2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12ZM12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18Z" fill="currentColor" />
@@ -1213,190 +1210,6 @@ export type GeneralIconName =
   | "RealizedGainsIcon"
   | "SettingsTransferIcon"
   | "LinkIcon";
-
-/** Grouped as the Figma library groups them. Drives the gallery. */
-export const generalIconCategories: Record<string, GeneralIconName[]> = {
-  "Arrows & controls": [
-    "ExpandMoreIcon",
-    "MenuIcon",
-    "KeyboardArrowUpIcon",
-    "KeyboardArrowRightIcon",
-    "KeyboardArrowLeftIcon",
-    "ArrowForwardGeneralIcon",
-    "ArrowUpwardIcon",
-    "ArrowDownwardIcon",
-    "ArrowBackIcon",
-    "WithdrawalIcon",
-    "DepositIcon",
-    "ArrowDropDownIcon",
-    "ArrowDropUpIcon",
-    "ArrowLeftIcon",
-    "ArrowRightIcon",
-    "CalendarMonthIcon",
-    "TimeIcon",
-    "CalendarTodayIcon",
-    "AttachFileIcon",
-    "CancelIcon",
-    "Cancel2Icon",
-    "CancelSolidIcon",
-    "CheckSolidIcon",
-    "ErrorSolidIcon",
-    "SkippedIcon",
-    "CloseGeneralIcon",
-    "CheckGeneralIcon",
-    "ContentCopyIcon",
-    "CopyAllIcon",
-    "FileCopyIcon",
-    "SearchIcon",
-    "MoreVertIcon",
-    "MoreHorizIcon",
-    "WarningAmberIcon",
-    "SpamGeneralIcon",
-    "SpamOffIcon",
-    "InfoGeneralIcon",
-    "QuestionIcon",
-  ],
-  "Transactions": [
-    "Deposit2Icon",
-    "WithdrawIcon",
-    "TransferIcon",
-    "TradeIcon",
-    "MarginTradeIcon",
-    "FuturesTradeIcon",
-    "ExpenseIcon",
-    "ListIcon",
-    "AutomationIcon",
-    "ProfileIcon",
-    "InviteUserIcon",
-    "CoinIcon",
-    "TransactionCardIcon",
-    "ListCardIcon",
-    "AIIcon",
-    "UpgradeIcon",
-  ],
-  "Actions": [
-    "CategoryIcon",
-    "EditOffIcon",
-    "EditGeneralIcon",
-    "AddIcon",
-    "SubtractIcon",
-    "SpinnerIcon",
-    "LoadingIcon",
-    "LockIcon",
-    "LockOpenIcon",
-    "DeleteGeneralIcon",
-    "AutoDeleteIcon",
-    "DeleteForeverIcon",
-    "SyncDisabledIcon",
-    "SyncGeneralIcon",
-    "FileDownloadIcon",
-    "ExportUploadIcon",
-    "FileDownloadOffIcon",
-    "SyncAltIcon",
-    "SwapVertIcon",
-    "AccessTimeIcon",
-  ],
-  "Actions (continued)": [
-    "HistoryIcon",
-    "FilterAltIcon",
-    "FilterAltOffIcon",
-    "FilterListIcon",
-    "FilterListOffIcon",
-    "BookmarkBorderIcon",
-    "ShareIcon",
-    "WalletGeneralIcon",
-    "AccountBalanceWalletIcon",
-    "MoneyIcon",
-    "UploadFileIcon",
-    "ArchivedIcon",
-    "FilterClearIcon",
-    "NewTabIcon",
-    "AddIntegrationIcon",
-    "LightbulbIcon",
-    "SendIcon",
-    "BadgeIcon",
-    "SecureIcon",
-  ],
-  "Insights & media": [
-    "PortfolioInsightsIcon",
-    "TaxInsightsIcon",
-    "AuditIcon",
-    "BookmarkAddedIcon",
-    "BookmarkAddIcon",
-    "BookmarkRemoveIcon",
-    "BookmarksIcon",
-    "PauseCircleIcon",
-    "PlayCircleIcon",
-    "StopCircleIcon",
-    "RecordIcon",
-    "SkipNextIcon",
-    "SkipPreviousIcon",
-    "Replay10Icon",
-    "Forward10Icon",
-  ],
-  "Insights & media (continued)": [
-    "BarChartGeneralIcon",
-    "VerifiedGeneralIcon",
-    "CheckCircleIcon",
-    "MedicalServicesIcon",
-    "FolderIcon",
-    "FolderClosedIcon",
-    "FolderOpenIcon",
-    "PermDeviceInformationIcon",
-    "OpenInNewTabIcon",
-    "BulletedListIcon",
-    "ResetIcon",
-    "SettingsGeneralIcon",
-    "ShowIcon",
-    "HideIcon",
-  ],
-  "Currency": [
-    "CurrencyRupeeIcon",
-    "CurrencyDollarIcon",
-    "CurrencyPoundIcon",
-    "CurrencyAusdollarIcon",
-  ],
-  "Navigation": [
-    "DashboardIcon",
-    "PortfolioReportsIcon",
-    "GuidesIcon",
-  ],
-  "File types": [
-    "JPEGIcon",
-    "PNGIcon",
-    "PDFIcon",
-    "CSVIcon",
-    "XLSIcon",
-    "ArrowForwardGeneral2Icon",
-  ],
-  "States": [
-    "NoRecentActivityIcon",
-    "DataMissingIcon",
-  ],
-  "Communication & devices": [
-    "TripOriginIcon",
-    "NextPlanIcon",
-    "PermDeviceInformation2Icon",
-    "EmailGeneralIcon",
-    "MarkEmailReadIcon",
-    "MarkEmailUnreadIcon",
-    "LaptopMacIcon",
-    "DesktopIcon",
-    "TextSnippetIcon",
-    "AddCardIcon",
-    "WindowSettingsIcon",
-    "EditCalendarIcon",
-    "CloudUploadIcon",
-    "CloudDownloadIcon",
-    "CloudDoneIcon",
-    "CloudQueueIcon",
-    "CloudOffIcon",
-    "UnlinkIcon",
-    "RealizedGainsIcon",
-    "SettingsTransferIcon",
-    "LinkIcon",
-  ],
-};
 
 /** The six the Figma "Trade Types" section (974:395) draws — the same components. */
 export const tradeTypeIconNames = [

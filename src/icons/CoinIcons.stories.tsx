@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { coinIcons, coinIconCategories } from '../icons';
-import type { CoinIconName } from '../icons';
+import { coinIcons, coinIconCategories } from './index';
+import type { CoinIconName } from './index';
 
 /**
  * The Figma "Coin Type" set (XUI 2441:12895), grouped as it groups itself.
@@ -12,8 +12,8 @@ import type { CoinIconName } from '../icons';
  * share a page.
  */
 const meta: Meta = {
-  title: 'Foundations/Coin Icons',
-  parameters: { layout: 'fullscreen' },
+  title: 'Icons Library/Coin Icons',
+  parameters: { layout: 'fullscreen', copyImport: "import { coinIcons, coinIconCategories } from '@koinx/xui';" },
 };
 export default meta;
 

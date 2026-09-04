@@ -46,7 +46,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-coin-icons.mjs && node scripts/gen-general-icons.mjs && node scripts/gen-manifest.mjs",
-    "ds:check": "npm run ds:build && npm run lint:tokens",
+    "ds:check": "npm run ds:build && npm run lint:tokens && npm run check:story-icons",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "prepare": "npm run build:lib",
     "release": "npm run ds:check && npm run typecheck && npm run lint && npm run build:lib && node scripts/tag-release.mjs",
@@ -55,7 +55,8 @@
     "mcp": "node mcp/server.mjs",
     "test:visual": "npm run build-storybook && playwright test",
     "test:visual:update": "npm run build-storybook && playwright test --update-snapshots",
-    "check:consumer": "npm run build:lib && tsc -p scripts/consumer-check/tsconfig.json"
+    "check:consumer": "npm run build:lib && tsc -p scripts/consumer-check/tsconfig.json",
+    "check:story-icons": "node scripts/check-story-icons.mjs"
   },
   "peerDependencies": {
     "react": ">=19",

@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { iconRegistry, ICON_VARIANTS } from '../icons';
-import type { IconVariant } from '../icons';
+import { iconRegistry, ICON_VARIANTS } from './index';
+import type { IconVariant } from './index';
 
 const meta: Meta = {
-  title: 'Foundations/Icons',
-  parameters: { layout: 'fullscreen' },
+  title: 'Icons Library/Icons V2',
+  parameters: { layout: 'fullscreen', copyImport: "import { iconRegistry } from '@koinx/xui';" },
 };
 export default meta;
 

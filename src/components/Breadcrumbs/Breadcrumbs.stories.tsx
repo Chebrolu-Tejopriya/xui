@@ -1,23 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Breadcrumbs } from './Breadcrumbs';
+import { FolderIcon } from '../../icons';
 
-const FolderIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <path
-      d="M2.5 5.5A1.5 1.5 0 0 1 4 4h4l2 2h6a1.5 1.5 0 0 1 1.5 1.5v7A1.5 1.5 0 0 1 16 16H4a1.5 1.5 0 0 1-1.5-1.5v-9Z"
-      stroke="currentColor"
-      strokeWidth="1.4"
-    />
-  </svg>
-);
-
+/* Real library icons, not drawings of them. These were freehand <svg>s until a row
+   of hand-drawn tab icons turned out to be optically ragged - one painted 45% of
+   its box, another 94% and overflowed it. The library's glyphs sit in a 43-63%
+   band because they came off one grid, so a story that draws its own is both
+   misrepresenting the system and dodging the only set anything keeps honest. */
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'Components/Breadcrumbs',
   component: Breadcrumbs,
   args: {
     items: [
-      { label: 'Home', href: '#', icon: FolderIcon },
-      { label: 'Portfolio', href: '#', icon: FolderIcon },
+      { label: 'Home', href: '#', icon: <FolderIcon /> },
+      { label: 'Portfolio', href: '#', icon: <FolderIcon /> },
       { label: 'Holdings' },
     ],
   },

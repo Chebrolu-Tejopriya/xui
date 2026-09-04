@@ -44,7 +44,7 @@ const preview: Preview = {
               as a hierarchy, not an index.
            3. Everything else alphabetical, roots in ROOT_ORDER. */
       storySort: (a, b) => {
-        const ROOT_ORDER = ['Guides', 'Foundations', 'Components'];
+        const ROOT_ORDER = ['Guides', 'Foundations', 'Icons Library', 'Components'];
         // Guides read in an order, not an alphabet: you install before you use.
         const GUIDE_ORDER = [
           'Introduction', 'Installation', 'Usage', 'Choosing Components',
@@ -136,10 +136,17 @@ const preview: Preview = {
       // is the reliable source; `.name` stays only as a last resort.
       const fromTitle = context.title?.split('/').pop();
       const componentName = component?.displayName || fromTitle || component?.name;
+      // Only Components/* have a single export named after the page. Deriving
+      // from the title everywhere printed imports that do not exist -
+      // `import { Colors }`, `import { General Icons }` (with a space in it) -
+      // on every foundation and icon page. A page outside Components states its
+      // import explicitly via parameters.copyImport or shows none.
+      const derivable = context.title?.startsWith('Components/');
       const importCode =
         override === false
           ? null
-          : (override ?? (componentName ? `import { ${componentName} } from '${PACKAGE_NAME}';` : null));
+          : (override ??
+            (derivable && componentName ? `import { ${componentName} } from '${PACKAGE_NAME}';` : null));
 
       return (
         <>

@@ -67,7 +67,7 @@ picks it up.
 ## Consequences
 
 - 48 components, tree-shakeable, plus `coinIconCategories` and `coinIcons` for
-  the gallery to iterate. `Foundations > Coin Icons` renders them grouped as the
+  the gallery to iterate. `Icons Library > Coin Icons` renders them grouped as the
   set groups them.
 - **They do not respond to `data-theme`.** On a dark page they are the same
   slate disc as on a light one. That is faithful; whether it is right is the

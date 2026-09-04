@@ -1,22 +1,28 @@
 import { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { generalIcons, generalIconCategories } from '../icons';
-import type { GeneralIconName } from '../icons';
+import { generalIcons } from './index';
+import type { GeneralIconName } from './index';
 
 /**
- * The Figma "Icon Library" (XUI 261:140), grouped as it groups itself.
+ * The Figma "Icon Library" (XUI 261:140) — 158 glyphs, as one flat searchable list.
  *
  * The third icon family, and the middle case of the three. Icons v2 carries four
- * tones; the coin badges carry their own fixed palette. These are single-tone
- * 24px glyphs that render in `currentColor` — so they follow the theme and take
- * a colour from whatever they sit inside, which the swatches below demonstrate.
+ * tones; the coin badges carry their own fixed palette. These are single-tone 24px
+ * glyphs that render in `currentColor` — so they follow the theme and take a colour
+ * from whatever they sit inside, which the swatches below demonstrate.
  *
- * Where a name is already an Icons v2 export, v2 keeps the plain name and the
- * one here is suffixed `GeneralIcon`. They are different drawings.
+ * Flat on purpose. This gallery used to group by category, but the categories were
+ * ours rather than Figma's — an artefact of which batch each icon was read in — so
+ * "Arrows & controls" held a calendar, a paperclip and a copy glyph. A wrong
+ * taxonomy is worse than none: it sends you to the wrong shelf and then convinces
+ * you the icon isn't there. Search instead; the names are the Figma layer names.
+ *
+ * Where a name is already an Icons v2 export, v2 keeps the plain name and the one
+ * here is suffixed `GeneralIcon`. They are different drawings.
  */
 const meta: Meta = {
-  title: 'Foundations/General Icons',
-  parameters: { layout: 'fullscreen' },
+  title: 'Icons Library/General Icons',
+  parameters: { layout: 'fullscreen', copyImport: "import { generalIcons } from '@koinx/xui';" },
 };
 export default meta;
 
@@ -51,24 +57,19 @@ const control = {
   color: 'var(--content-primary)',
 } as const;
 
+/* Sorted once at module scope: the order must not depend on the query. */
+const ALL = (Object.keys(generalIcons) as GeneralIconName[]).sort((a, b) => a.localeCompare(b));
+
 function Gallery() {
   const [query, setQuery] = useState('');
   const [size, setSize] = useState<number>(24);
   const [color, setColor] = useState<string>('var(--content-primary)');
   const [copied, setCopied] = useState<string | null>(null);
 
-  const groups = useMemo(() => {
+  const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return Object.entries(generalIconCategories)
-      .map(
-        ([cat, names]) =>
-          [cat, names.filter((n) => !q || n.toLowerCase().includes(q) || cat.toLowerCase().includes(q))] as const,
-      )
-      .filter(([, names]) => names.length > 0);
+    return q ? ALL.filter((n) => n.toLowerCase().includes(q)) : ALL;
   }, [query]);
-
-  const total = Object.keys(generalIcons).length;
-  const shown = groups.reduce((n, [, names]) => n + names.length, 0);
 
   const onCopy = (name: string) => {
     copyText(`import { ${name} } from '@koinx/xui';`);
@@ -82,7 +83,7 @@ function Gallery() {
       <p style={{ font: 'var(--type-body-2)', color: 'var(--content-secondary)', maxWidth: 720 }}>
         The Figma “Icon Library”. Single-tone 24px glyphs that render in <code>currentColor</code>, so
         they inherit colour and follow the theme — change the swatch to see it. Click one to copy its
-        import.
+        import. Names are the Figma layer names, so searching for what the design calls it works.
       </p>
 
       <div
@@ -97,7 +98,7 @@ function Gallery() {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Filter by name or category…"
+          placeholder="Search 158 icons…"
           style={{
             flex: '1 1 255px',
             maxWidth: 320,
@@ -143,66 +144,59 @@ function Gallery() {
           ))}
         </div>
         <span style={{ font: 'var(--type-body-3)', color: 'var(--content-tertiary)' }}>
-          {shown} of {total}
+          {shown.length} of {ALL.length}
         </span>
       </div>
 
-      {groups.map(([cat, names]) => (
-        <section key={cat} style={{ marginBottom: 'var(--spacing-40)' }}>
-          <h2
-            style={{
-              font: 'var(--type-heading-5)',
-              color: 'var(--content-primary)',
-              margin: '0 0 var(--spacing-16)',
-            }}
-          >
-            {cat} <span style={{ color: 'var(--content-tertiary)' }}>({names.length})</span>
-          </h2>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
-              gap: 'var(--spacing-12)',
-            }}
-          >
-            {names.map((name) => {
-              const Icon = generalIcons[name as GeneralIconName];
-              return (
-                <button
-                  key={name}
-                  type="button"
-                  onClick={() => onCopy(name)}
-                  title={`import { ${name} } from '@koinx/xui';`}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 'var(--spacing-8)',
-                    padding: 'var(--spacing-16) var(--spacing-8)',
-                    borderRadius: 'var(--radius-mid)',
-                    border: '1px solid var(--border-secondary)',
-                    background: 'var(--surface-raised)',
-                    cursor: 'pointer',
-                    color,
-                  }}
-                >
-                  <Icon size={size} />
-                  <span
-                    style={{
-                      font: 'var(--type-body-3)',
-                      color: 'var(--content-primary)',
-                      textAlign: 'center',
-                      wordBreak: 'break-word',
-                    }}
-                  >
-                    {copied === name ? 'Copied!' : name}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      ))}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
+          gap: 'var(--spacing-12)',
+        }}
+      >
+        {shown.map((name) => {
+          const Icon = generalIcons[name];
+          return (
+            <button
+              key={name}
+              type="button"
+              onClick={() => onCopy(name)}
+              title={`import { ${name} } from '@koinx/xui';`}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 'var(--spacing-8)',
+                padding: 'var(--spacing-16) var(--spacing-8)',
+                borderRadius: 'var(--radius-mid)',
+                border: '1px solid var(--border-secondary)',
+                background: 'var(--surface-raised)',
+                cursor: 'pointer',
+                color,
+              }}
+            >
+              <Icon size={size} />
+              <span
+                style={{
+                  font: 'var(--type-body-3)',
+                  color: 'var(--content-primary)',
+                  textAlign: 'center',
+                  wordBreak: 'break-word',
+                }}
+              >
+                {copied === name ? 'Copied!' : name}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {shown.length === 0 && (
+        <p style={{ font: 'var(--type-body-2)', color: 'var(--content-tertiary)' }}>
+          Nothing matches “{query}”.
+        </p>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { generalIcons, tradeTypeIconNames } from '../icons';
-import type { GeneralIconName } from '../icons';
+import { generalIcons, tradeTypeIconNames } from './index';
+import type { GeneralIconName } from './index';
 
 /**
  * The Figma "Trade Types" section (XUI 974:395).
@@ -12,8 +12,8 @@ import type { GeneralIconName } from '../icons';
  * components in the package and let them drift apart.
  */
 const meta: Meta = {
-  title: 'Foundations/Trade Type Icons',
-  parameters: { layout: 'fullscreen' },
+  title: 'Icons Library/Trade Type Icons',
+  parameters: { layout: 'fullscreen', copyImport: "import { generalIcons, tradeTypeIconNames } from '@koinx/xui';" },
 };
 export default meta;
 

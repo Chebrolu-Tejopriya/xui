@@ -9,11 +9,17 @@ import {
   PriorityMeter,
 } from './Table';
 import type { PriorityLevel } from './Table';
+import { MoreVertIcon } from '../../icons';
 import { Checkbox } from '../Checkbox';
 import { Badge } from '../Badge';
 import type { BadgeVariant } from '../Badge';
 import { AddUserIcon } from '../../icons';
 
+/* Real library icons, not drawings of them. These were freehand <svg>s until a row
+   of hand-drawn tab icons turned out to be optically ragged - one painted 45% of
+   its box, another 94% and overflowed it. The library's glyphs sit in a 43-63%
+   band because they came off one grid, so a story that draws its own is both
+   misrepresenting the system and dodging the only set anything keeps honest. */
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
   component: Table,
@@ -53,21 +59,11 @@ const SAMPLE: Filing[] = [
 ];
 
 /** Vertical 3-dot "more" affordance (no exact match in the icon set yet). */
-function MoreVert() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="5" r="1.7" fill="currentColor" />
-      <circle cx="12" cy="12" r="1.7" fill="currentColor" />
-      <circle cx="12" cy="19" r="1.7" fill="currentColor" />
-    </svg>
-  );
-}
-
 function RowActions() {
   return (
     <span style={{ display: 'inline-flex', gap: 16, alignItems: 'center', color: 'var(--content-tertiary)' }}>
       <AddUserIcon size={18} aria-label="Assign" />
-      <MoreVert />
+      <MoreVertIcon size={18} />
     </span>
   );
 }

@@ -1,32 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { Button } from './Button';
+import { EmailIcon, AddPlusIcon, ArrowForwardIcon } from '../../icons';
 import type { ButtonProps, ButtonVariant } from './Button';
 import { StateShowcase } from '../Input/storyLayout';
 
-/* Icons matching the Figma "with icon" button variants (Icons/email, Icons/Add). */
-const EmailIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <rect x="2.5" y="4" width="15" height="12" rx="1.6" stroke="currentColor" strokeWidth="1.5" />
-    <path d="m3.5 5.5 6.5 5 6.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  </svg>
-);
-
-const PlusIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-  </svg>
-);
-
-const ArrowRightIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <path d="M3.5 10h13m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+/* Real library icons, not drawings of them. These were freehand <svg>s until a row
+   of hand-drawn tab icons turned out to be optically ragged - one painted 45% of
+   its box, another 94% and overflowed it. The library's glyphs sit in a 43-63%
+   band because they came off one grid, so a story that draws its own is both
+   misrepresenting the system and dodging the only set anything keeps honest. */
+const MailIcon = <EmailIcon />;
+const PlusIcon = <AddPlusIcon />;
+const ArrowRightIcon = <ArrowForwardIcon />;
 
 const iconMap: Record<string, ReactNode> = {
   None: undefined,
-  Email: EmailIcon,
+  Email: MailIcon,
   Plus: PlusIcon,
   Arrow: ArrowRightIcon,
 };
@@ -131,7 +121,7 @@ function variantRows(variant: ButtonVariant, args: ButtonProps) {
       label: 'Icon left / icon right',
       node: (
         <Row>
-          <Button {...args} variant={variant} iconLeft={EmailIcon} />
+          <Button {...args} variant={variant} iconLeft={MailIcon} />
           <Button {...args} variant={variant} iconRight={ArrowRightIcon} />
         </Row>
       ),

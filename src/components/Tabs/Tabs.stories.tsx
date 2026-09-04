@@ -2,31 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tabs } from './Tabs';
 import type { TabItem } from './Tabs';
 import { StateShowcase } from '../Input/storyLayout';
-
-/* Icons approximating the Figma Tabs/WithIcons frame (report/edit/verified/settings). */
-const FileIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <rect x="4" y="2.5" width="12" height="15" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M7 7h6M7 10h6M7 13h4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
-const EditIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <path d="m12.8 3.7 3.5 3.5L7 16.5l-4 .9.5-4.4 9.3-9.3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-  </svg>
-);
-const VerifiedIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <path d="m10 1.8 2 1.9 2.7-.4 1 2.6 2.5 1.1-.6 2.7 1.7 2.2-1.7 2.2.6 2.7-2.5 1.1-1 2.6-2.7-.4-2 1.9-2-1.9-2.7.4-1-2.6-2.5-1.1.6-2.7L.7 12l1.7-2.2-.6-2.7 2.5-1.1 1-2.6 2.7.4 2-1.9Z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
-    <path d="m7 10 2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-const SettingsIcon = (
-  <svg viewBox="0 0 20 20" fill="none">
-    <circle cx="10" cy="10" r="2.6" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M10 2v2.4M10 15.6V18M18 10h-2.4M4.4 10H2m13.1-5.1-1.7 1.7M6.6 13.4l-1.7 1.7m0-10.2 1.7 1.7m6.8 6.8 1.7 1.7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
+import { ReportsIcon, EditIcon, UserIcon, SettingsIcon } from '../../icons';
 
 const items: TabItem[] = [
   { value: 'file', label: 'File' },
@@ -42,11 +18,18 @@ const itemsHover: TabItem[] = [
   { value: 'settings', label: 'Settings' },
 ];
 
+/* Real Icons v2, not drawings of them.
+   This story used to build its four icons inline — freehand <svg>s with a comment
+   admitting they "approximate" the Figma frame. They did not approximate it well:
+   in an identical 20px box the file glyph painted 12x15 and the profile one
+   18.6x20.2, overflowing the box, so a row of them read as ragged no matter how
+   exactly the tab centred it. The library's own glyphs sit in a 43-63% band and
+   line up, which is the argument for a story never drawing its own. */
 const itemsWithIcons: TabItem[] = [
-  { value: 'file', label: 'File', icon: FileIcon },
-  { value: 'edit', label: 'Edit', icon: EditIcon },
-  { value: 'profile', label: 'Profile', icon: VerifiedIcon },
-  { value: 'settings', label: 'Settings', icon: SettingsIcon },
+  { value: 'file', label: 'File', icon: <ReportsIcon /> },
+  { value: 'edit', label: 'Edit', icon: <EditIcon /> },
+  { value: 'profile', label: 'Profile', icon: <UserIcon /> },
+  { value: 'settings', label: 'Settings', icon: <SettingsIcon /> },
 ];
 
 const underlineItems: TabItem[] = [
