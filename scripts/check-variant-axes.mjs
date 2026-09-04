@@ -105,6 +105,20 @@ const PROP_FOR = {
  * decision on the record; an axis missing from both here and the code is an
  * unanswered question, which is what this gate exists to surface.
  */
+/**
+ * Figma sets that are NOT part of the system — drawn, but not something XUI is
+ * meant to grow. teja's call. They stay out of the backlog the report prints so
+ * that list means "still to build" rather than "everything Figma contains".
+ *
+ * The file half-agrees: Scrollbar sits in a section still called "Section 2",
+ * Figma's default name for one nobody titled. Slider has its own named section,
+ * so that one is a decision rather than a signal.
+ */
+const OUT_OF_SCOPE = {
+  Slider: 'Not part of the system.',
+  Scrollbar: 'Not part of the system — and it lives in an untitled "Section 2" in the file.',
+};
+
 const ACCEPTED = {
   'Tooltip.Type': 'Figma encodes placement as Type; XUI has `placement` with the same four values plus its own naming.',
   'Checkbox.Property 2': 'Unnamed axis carrying states — checked/disabled are DOM, and Parital-Selected is `indeterminate`.',
@@ -130,6 +144,8 @@ for (const set of snapshot.sets) {
     findings.push({ kind: 'unmapped', set: set.figma, detail: 'not in MAP — add it or map it to null' });
     continue;
   }
+
+  if (OUT_OF_SCOPE[set.figma]) continue;
 
   if (component === null) {
     const axes = Object.keys(set.axes).filter((a) => !NOT_A_PROP.has(a));
@@ -183,7 +199,8 @@ const blocking = [...grouped.values()];
 const info = findings.filter((f) => f.kind === 'no-component');
 
 if (info.length) {
-  console.log('Figma sets with no XUI component (not blocking — a backlog, not a regression):');
+  console.log('Figma sets with no XUI component — a backlog, not a regression.');
+  console.log(`(${Object.keys(OUT_OF_SCOPE).length} more are out of scope and not listed: ${Object.keys(OUT_OF_SCOPE).join(', ')}.)`);
   for (const f of info) console.log(`  ${f.set.padEnd(30)} ${f.detail}`);
   console.log('');
 }

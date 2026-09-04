@@ -2296,7 +2296,7 @@
       },
       {
         "component": "(components)",
-        "question": "Figma defines variant axes for components XUI has not built at all: a Slider (Percentage), a select-shaped Select Date and Select Date Range (Size=[Large|Medium] — note these are 44/36, the SELECT scale, not DateInput's 48/44), a standalone menu item, a Day cell, Calendar pickers, Line and Bar charts, a Scrollbar and a stepper. `npm run check:axes` lists them as a backlog rather than failing on them."
+        "question": "Figma defines these with no XUI component behind them, and teja confirms all are wanted: a select-shaped Select Date and Select Date Range (Size=[Large|Medium] at 44/36 — the SELECT scale, NOT DateInput's 48/44, so they are a different component), Calendar + Date Picker and Date Range Picker with their Day cell, Line Chart and Bar Chart, a standalone menu item, and a Stepper. Slider and Scrollbar are OUT OF SCOPE — not part of the system — and the gate no longer lists them. `npm run check:axes` prints the rest as a backlog rather than failing on it."
       },
       {
         "component": "Tabs",
