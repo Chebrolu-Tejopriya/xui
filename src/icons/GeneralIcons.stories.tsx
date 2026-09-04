@@ -9,7 +9,7 @@ import type { GeneralIconName } from './index';
  * The third icon family, and the middle case of the three. Icons v2 carries four
  * tones; the coin badges carry their own fixed palette. These are single-tone 24px
  * glyphs that render in `currentColor` — so they follow the theme and take a colour
- * from whatever they sit inside, which the swatches below demonstrate.
+ * from whatever they sit inside.
  *
  * Flat on purpose. This gallery used to group by category, but the categories were
  * ours rather than Figma's — an artefact of which batch each icon was read in — so
@@ -40,12 +40,6 @@ async function copyText(text: string) {
 }
 
 const SIZES = [16, 20, 24, 32] as const;
-const COLORS = [
-  ['Primary', 'var(--content-primary)'],
-  ['Secondary', 'var(--content-secondary)'],
-  ['Brand', 'var(--content-brand-primary)'],
-  ['Error', 'var(--content-error-primary)'],
-] as const;
 
 const control = {
   height: 44,
@@ -63,7 +57,6 @@ const ALL = (Object.keys(generalIcons) as GeneralIconName[]).sort((a, b) => a.lo
 function Gallery() {
   const [query, setQuery] = useState('');
   const [size, setSize] = useState<number>(24);
-  const [color, setColor] = useState<string>('var(--content-primary)');
   const [copied, setCopied] = useState<string | null>(null);
 
   const shown = useMemo(() => {
@@ -82,8 +75,9 @@ function Gallery() {
       <h1 style={{ font: 'var(--type-heading-2)', color: 'var(--content-primary)', margin: 0 }}>General icons</h1>
       <p style={{ font: 'var(--type-body-2)', color: 'var(--content-secondary)', maxWidth: 720 }}>
         The Figma “Icon Library”. Single-tone 24px glyphs that render in <code>currentColor</code>, so
-        they inherit colour and follow the theme — change the swatch to see it. Click one to copy its
-        import. Names are the Figma layer names, so searching for what the design calls it works.
+        each one takes its colour from whatever it sits inside and follows the theme. Click one to
+        copy its import. Names are the Figma layer names, so searching for what the design calls it
+        works.
       </p>
 
       <div
@@ -127,22 +121,6 @@ function Gallery() {
             </button>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: 'var(--spacing-4)' }}>
-          {COLORS.map(([label, value]) => (
-            <button
-              key={label}
-              type="button"
-              onClick={() => setColor(value)}
-              style={{
-                ...control,
-                border: `1px solid ${value === color ? 'var(--border-brand)' : 'var(--border-primary)'}`,
-                color: value,
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
         <span style={{ font: 'var(--type-body-3)', color: 'var(--content-tertiary)' }}>
           {shown.length} of {ALL.length}
         </span>
@@ -173,7 +151,6 @@ function Gallery() {
                 border: '1px solid var(--border-secondary)',
                 background: 'var(--surface-raised)',
                 cursor: 'pointer',
-                color,
               }}
             >
               <Icon size={size} />
