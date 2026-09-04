@@ -49,6 +49,11 @@ export interface SelectProps {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
+  /**
+   * Trigger height, from Figma's Size axis on `select` (600:7833): `large` is
+   * 44 and the default, `medium` is 36 and what a filter bar uses.
+   */
+  size?: 'large' | 'medium';
   /** Trigger width. Figma's default is 204px. */
   width?: string;
   /** Show the check against the selected row. On by default, as Figma draws it. */
@@ -123,6 +128,7 @@ export function Select({
   disabled = false,
   loading = false,
   className,
+  size = 'large',
   width,
   check = true,
   searchInput = false,
@@ -274,6 +280,7 @@ export function Select({
         aria-expanded={open}
         className={cx(
           styles.trigger,
+          size === 'medium' && styles.medium,
           open && styles.open,
           selected && styles.hasValue,
           loading && styles.loading,

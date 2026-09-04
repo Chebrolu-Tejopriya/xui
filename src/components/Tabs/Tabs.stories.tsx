@@ -146,3 +146,20 @@ export const Underline: Story = {
     />
   ),
 };
+
+/**
+ * Figma's `Tabs/Default` set (1128:16648) carries Size=[Large|Medium]. Large is
+ * 42, not the 44 XUI shipped — a Figma stroke takes no layout space and the CSS
+ * border does, so the container's vertical padding is shaved by 1. Medium is 36,
+ * reached by dropping the label to Subtitle/2 as well as trimming padding.
+ */
+export const Sizes: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', alignItems: 'flex-start' }}>
+      <span style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>large — 42px, the default</span>
+      <Tabs {...args} size="large" />
+      <span style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>medium — 36px</span>
+      <Tabs {...args} size="medium" />
+    </div>
+  ),
+};

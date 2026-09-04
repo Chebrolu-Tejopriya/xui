@@ -44,7 +44,10 @@ const MAP = {
   button: 'Button',
   select: 'Select',
   select_multiple: 'Select',
-  'Select Date': 'DateInput',
+  // NOT DateInput. Figma's `Select Date` is 44/36 — the SELECT scale — while
+  // XUI's DateInput is the Input family at 48/44. A select-shaped date picker
+  // is a component XUI does not have; the input-shaped one it does.
+  'Select Date': null,
   'Select Date Range': null,
   'Tabs/Default': 'Tabs',
   'Tabs/WithIcons': 'Tabs',

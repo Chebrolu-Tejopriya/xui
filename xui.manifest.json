@@ -1415,6 +1415,13 @@
           "required": false
         },
         {
+          "name": "size",
+          "type": "'large' | 'medium'",
+          "required": false,
+          "default": "large",
+          "description": "Trigger height, from Figma's Size axis on `select` (600:7833): `large` is 44 and the default, `medium` is 36 and what a filter bar uses."
+        },
+        {
           "name": "width",
           "type": "string",
           "required": false,
@@ -1795,6 +1802,13 @@
           "description": "Disables the whole tablist (Figma Property 1=Disabled)."
         },
         {
+          "name": "size",
+          "type": "'large' | 'medium'",
+          "required": false,
+          "default": "large",
+          "description": "Height, from Figma's Size axis on `Tabs/Default` (1128:16648): `large` is 42 and the default, `medium` is 36. Medium also drops the label to Subtitle/2 — that is how Figma reaches 28 on the item, not padding alone."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false
@@ -2155,7 +2169,8 @@
       "The 255px on Select is a flex BASIS, not a fixed width: drop a row of them into a flex container and they shrink to equal shares on their own, no per-field sizing needed.",
       "Give every field in that row the SAME flex-basis. A field set to `flex: 1 1 0` next to Selects basing from 255px collapses to zero width once the row overflows, because shrink is distributed in proportion to basis.",
       "Never wrap these in the pixel widths measured off a Figma filter bar. Those were 1-3px short of the placeholders they hold, so every label rendered an ellipsis. A label must never be the truncated text — it is the only thing saying what the control filters. Values may still ellipsise: a client name is unbounded.",
-      "A selected value renders in Subtitle/2 (500 weight), which is wider than the Body/2 placeholder — a box sized to fit the placeholder will clip the value once one is chosen."
+      "A selected value renders in Subtitle/2 (500 weight), which is wider than the Body/2 placeholder — a box sized to fit the placeholder will clip the value once one is chosen.",
+      "`size` is Figma's Size axis on `select` (600:7833): `large` 44 (default) and `medium` 36. Medium is not merely shorter — its value line drops from 20 to 16, which is how Figma's own 10/12 padding lands on 36. Use medium in a filter bar."
     ],
     "EmptyState": [
       "Illustration, title, optional description, optional actions — centred in whatever box it is given, so a page-level 404 and an empty table cell use the same component.",
@@ -2185,6 +2200,10 @@
     "Icons": [
       "Four tones: outlined, solid, dualtone, dualtone-selected. Outlined/solid inherit currentColor; dualtone defaults to content-tertiary and dualtone-selected to content-brand-primary.",
       "Set --xui-icon-knockout to the surface an icon sits on if its cut-outs need to blend with something other than surface-raised."
+    ],
+    "Tabs": [
+      "`size` is Figma's Size axis on `Tabs/Default` (1128:16648): `large` 42 (default) and `medium` 36. Medium drops the label to Subtitle/2 as well as trimming padding — that is how the item reaches 28, not padding alone.",
+      "The container was 44 until the variant-axis gate found the Size axis; 42 is Figma's number, and the 2px was a CSS border taking layout space where a Figma stroke does not. Its vertical padding is 3, not the 4 Figma draws, for that reason."
     ]
   },
   "layoutPatterns": {
@@ -2265,6 +2284,14 @@
       {
         "component": "General Icons",
         "question": "Four components are not shipped and need a decision. `KoinX AI` is gradient-filled with a <use> transform, so it cannot be a currentColor glyph — same question as the coin chips. `Component 56` and `Component 57` carry Figma's default names, so there is nothing to call them. Five more are Iconify paste-ins that were renamed to what they draw (Spinner, BulletedList, Transaction Card, List Card, WindowSettings, SettingsTransfer) — worth confirming those names."
+      },
+      {
+        "component": "(components)",
+        "question": "Figma defines variant axes for components XUI has not built at all: a Slider (Percentage), a select-shaped Select Date and Select Date Range (Size=[Large|Medium] — note these are 44/36, the SELECT scale, not DateInput's 48/44), a standalone menu item, a Day cell, Calendar pickers, Line and Bar charts, a Scrollbar and a stepper. `npm run check:axes` lists them as a backlog rather than failing on them."
+      },
+      {
+        "component": "Tabs",
+        "question": "Tabs shipped at 44 where Figma draws 42 — a CSS border taking layout space where a stroke does not. Fixed by shaving the container's vertical padding from 4 to 3. Worth a designer confirming the visual inset still reads right, since the padding no longer matches the file literally even though the height now does."
       }
     ],
     "notBuilt": [

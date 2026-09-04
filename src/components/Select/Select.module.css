@@ -39,6 +39,16 @@
   transition: border-color 120ms ease;
 }
 
+/* Figma `select` 600:7833 carries Size=[Large|Medium] — 44 and 36 — and XUI
+   shipped only Large. The two differ by more than height: Large's value line is
+   20 and Medium's is 16, which is what lets Figma's 10/12 padding land on 36.
+   Stated rather than accumulated, like the 44 above, because a CSS border takes
+   layout space where a Figma stroke does not. */
+.medium {
+  height: 36px;
+  font: var(--type-body-3);
+}
+
 .trigger:disabled {
   cursor: not-allowed;
   color: var(--content-tertiary);

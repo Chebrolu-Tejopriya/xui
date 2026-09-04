@@ -27,6 +27,12 @@ export interface TabsProps {
   variant?: 'boxed' | 'underline';
   /** Disables the whole tablist (Figma Property 1=Disabled). */
   disabled?: boolean;
+  /**
+   * Height, from Figma's Size axis on `Tabs/Default` (1128:16648): `large` is
+   * 42 and the default, `medium` is 36. Medium also drops the label to
+   * Subtitle/2 — that is how Figma reaches 28 on the item, not padding alone.
+   */
+  size?: 'large' | 'medium';
   className?: string;
 }
 
@@ -38,6 +44,7 @@ export function Tabs({
   variant = 'boxed',
   disabled = false,
   className,
+  size = 'large',
 }: TabsProps) {
   const [internal, setInternal] = useState(defaultValue ?? items[0]?.value);
   const selected = value ?? internal;
@@ -51,7 +58,7 @@ export function Tabs({
   return (
     <div
       role="tablist"
-      className={[styles.tabs, variant === 'underline' && styles.underline, className]
+      className={[styles.tabs, size === 'medium' && styles.medium, variant === 'underline' && styles.underline, className]
         .filter(Boolean)
         .join(' ')}
     >

@@ -36,6 +36,13 @@ jobs:
       - name: Tokens — no raw colours, stray primitives or undefined tokens
         run: npm run lint:tokens
 
+      # Completeness, not fidelity: every other gate here checks that what was
+      # built matches its frame. This one asks whether Figma defines a variant
+      # axis nothing implements — which is how Select and Tabs shipped without
+      # their Medium size. Reads a committed snapshot; CI has no Figma access.
+      - name: Variant axes — every Figma axis is implemented or accepted
+        run: npm run check:axes
+
       # The rulebook and manifest are generated from source and are the
       # contract agents and the Figma plugin read. If a PR changes tokens or
       # components without regenerating them, the contract silently lies.

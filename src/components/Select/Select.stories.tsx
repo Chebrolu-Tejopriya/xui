@@ -202,3 +202,25 @@ export const WithClearSearchOnClose: Story = {
   ),
   args: { options: GROUPED, searchInput: true, clearSearchOnClose: true },
 };
+
+/**
+ * Figma's `select` set (600:7833) carries Size=[Large|Medium]; XUI shipped only
+ * Large until the variant-axis gate found it. Medium is the filter-bar height —
+ * and it is not just shorter: its value line drops from 20 to 16, which is what
+ * lets Figma's own 10/12 padding land on 36.
+ */
+export const Sizes: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)', maxWidth: 320 }}>
+      <label style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>
+        large — 44px, the default
+        <Select {...args} size="large" />
+      </label>
+      <label style={{ font: 'var(--type-body-3)', color: 'var(--content-secondary)' }}>
+        medium — 36px
+        <Select {...args} size="medium" />
+      </label>
+    </div>
+  ),
+  args: { options: FLAT, placeholder: 'Select an option' },
+};

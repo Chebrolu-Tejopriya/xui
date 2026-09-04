@@ -3,10 +3,27 @@
 .tabs {
   display: inline-flex;
   align-items: flex-start;
-  padding: 4px 5px;
+  /* Figma draws 4, and the container is 42 tall: 4 + 34 + 4, because a Figma
+     stroke takes no layout space. The CSS border does, so the vertical padding
+     is shaved by 1 each side and the box lands on 42 rather than 44. XUI
+     shipped 44 — a 2px overshoot, the exact trap the FAQ warns about. */
+  padding: 3px 5px;
   background: var(--surface-raised);
   border: var(--border-width-regular) solid var(--border-primary);
   border-radius: var(--radius-sm);
+}
+
+/* Figma `Tabs/Default` 1128:16648 carries Size=[Large|Medium] and XUI shipped
+   only Large. Medium is not just shorter: its item is 28 rather than 34, which
+   it reaches by dropping to Subtitle/2 (a 20 line, not 22) AND 4px padding.
+   3 + 28 + 3 + 2 = 36, Figma's number. */
+.medium .tab {
+  padding: 4px 12px;
+  /* Subtitle/2 carries no tracking token — only subtitle-1, button-1 and
+     label-1 have one — so the letter-spacing that Large sets has to be undone
+     rather than replaced. */
+  font: var(--type-subtitle-2);
+  letter-spacing: normal;
 }
 
 .tab {
