@@ -98,7 +98,13 @@
 .underline .tab {
   padding: 8px 16px;
   border-radius: 0;
-  background: var(--surface-raised);
+  /* Figma paints these #ffffff, which is surface-raised — correct, because the
+     file draws this bar sitting on a white card. Asserting it means the tabs
+     stay white on any OTHER surface, and on the grey page they read as white
+     blocks rather than a tab bar. Transparent inherits instead: white on a card,
+     page-coloured on a page, right in both. Hover still tints, since
+     surface-secondary (#ecf1f7) differs from surface-primary (#f1f5f9). */
+  background: transparent;
 }
 
 .underline .tab:hover:not(:disabled):not(.active),

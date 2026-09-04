@@ -2,6 +2,11 @@
 
 .root {
   display: inline-flex;
+  /* Hug, and keep hugging inside a flex parent. `inline-flex` alone does not:
+     CSS blockifies a flex item's display, so the label stretched to the whole
+     column — 968px in the States story — and clicking 948px from the control
+     still toggled it. */
+  width: fit-content;
   align-items: center;
   gap: var(--spacing-xs);
   cursor: pointer;
