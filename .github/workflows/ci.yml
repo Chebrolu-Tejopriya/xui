@@ -99,3 +99,25 @@ jobs:
           name: visual-diff
           path: playwright-report/
           retention-days: 7
+
+      # A red diff is only half the job; the other half is accepting it when
+      # the change was intentional. Playwright already wrote the new render as
+      # `<name>-actual.png` beside the diff, and that file IS the replacement
+      # baseline - same browser, same runner, same fonts as a regeneration
+      # would produce. Collecting it costs nothing; recreating it costs a
+      # second Storybook build and a second full render.
+      #
+      # This only ever ADDS information. The "Visual baselines" workflow stays
+      # manual, because a gate that accepts its own changes is not a gate.
+      - name: Collect proposed baselines
+        if: failure()
+        run: node scripts/collect-proposed-baselines.mjs
+
+      - name: Upload proposed baselines
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines-proposed
+          path: visual/__proposed__/
+          retention-days: 7
+          if-no-files-found: ignore

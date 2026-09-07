@@ -5,6 +5,14 @@
 # refresh themselves would turn the gate into a rubber stamp, quietly
 # accepting the exact regressions it exists to catch.
 #
+# You should not be running this blind. The failing `visual` job now writes a
+# summary naming every story that moved, and attaches two artifacts:
+#
+#   visual-diff                 expected / actual / diff triplets
+#   visual-baselines-proposed   the new renders, already named as baselines
+#
+# Look at those first. This workflow is the accept button, not the diff viewer.
+#
 # It is also how the baselines are seeded the very first time — until this has
 # run once, the `visual` job has nothing to compare against and will fail.
 #

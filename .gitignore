@@ -39,6 +39,8 @@ storybook-static
 # or two machines' font rasterisation ends up arguing in the diff.
 visual/__screenshots__/*-win32.png
 visual/__screenshots__/*-darwin.png
+# CI-only staging for the proposed-baselines artifact.
+visual/__proposed__/
 test-results/
 playwright-report/
 blob-report/
