@@ -15,10 +15,19 @@
 */
 import type { SVGProps } from 'react';
 
-/** Full "KoinX Books" lockup with the Beta pill — 147 x 20. */
+/**
+ * Full "KoinX Books" lockup with the Beta pill — 148 x 20.
+ *
+ * 148, not the 147 Figma reports, because the Beta pill is STROKED and a Figma
+ * frame does not count a stroke in its bounds. The pill's geometry already ends
+ * at x=147.443, and its 0.797 centre stroke paints to 147.842 — so a 147-wide
+ * viewBox sliced the right edge off the pill and the outline read as flat.
+ * Measured, not guessed. Same trap as Tabs shipping at 44 where Figma drew 42:
+ * a stroke takes no layout space in Figma and very much does everywhere else.
+ */
 export function KoinXWordmark(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg width="147" height="20" viewBox="0 0 147 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KoinX Books, Beta" {...props}>
+    <svg width="148" height="20" viewBox="0 0 148 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KoinX Books, Beta" {...props}>
       <g clipPath="url(#kx_clip)">
         <path d="M6.55427 10.3622L12.6554 3.8252H9.41086L2.93118 10.6316V3.8252H0.015625V17.3598H2.93118V14.1688L4.63444 12.401L8.69175 17.3598H12.1154L6.96699 10.8818L6.55427 10.3616V10.3622Z" fill="#0052FE" />
         <path d="M22.0583 9.84041C21.1512 8.40165 19.4871 7.51172 17.4582 7.51172C15.2898 7.51172 13.5293 8.52894 12.6707 10.1407C12.2999 10.8312 12.0977 11.6329 12.0977 12.5085C12.0977 15.4302 14.3602 17.5054 17.4582 17.5054C20.5561 17.5054 22.8016 15.4302 22.8016 12.5085C22.8016 11.5018 22.5344 10.5948 22.0583 9.84041ZM17.4582 15.196C16.0453 15.196 14.9581 14.1859 14.9581 12.5085C14.9581 11.0659 15.7604 10.117 16.884 9.88009C17.0675 9.83986 17.2598 9.82002 17.4582 9.82002C17.5976 9.82002 17.7315 9.82884 17.8632 9.85033C19.0694 10.0245 19.9395 10.9948 19.9395 12.5085C19.9395 14.1859 18.871 15.196 17.4582 15.196Z" fill="#0052FE" />

@@ -21,7 +21,7 @@ export default meta;
  */
 const LOCKUPS = [
   { name: 'KoinXMark', node: '—', size: '21×20', El: KoinXMark },
-  { name: 'KoinXWordmark', node: '—', size: '147×20', El: KoinXWordmark },
+  { name: 'KoinXWordmark', node: '—', size: '148×20', El: KoinXWordmark },
   { name: 'KoinXProfessionalsWordmark', node: '9897:139343', size: '187×24', El: KoinXProfessionalsWordmark },
   { name: 'KoinXTaxesWordmark', node: '9897:126326', size: '96×24', El: KoinXTaxesWordmark },
 ] as const;
@@ -60,22 +60,6 @@ export const Lockups: StoryObj = {
           </div>
         </div>
       ))}
-    </div>
-  ),
-};
-
-/**
- * The two lockups Figma exported with identical gradient ids
- * (`paint0..5_linear_9677_261004`). SVG ids are document-global, so rendered
- * together the second would silently adopt the first's gradients — the orange
- * X would take the wrong ramp. They are namespaced `_kxpro` / `_kxtax`, and
- * this story is what proves it: both must show the same orange.
- */
-export const GradientIsolation: StoryObj = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-      <KoinXProfessionalsWordmark />
-      <KoinXTaxesWordmark />
     </div>
   ),
 };
