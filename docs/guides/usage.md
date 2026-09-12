@@ -55,7 +55,7 @@ React 19+ is a peer dependency — the package never bundles its own copy.
 ### Where to build
 
 Trying an idea rather than shipping a feature? Build it in the **Console**
-(<https://xuiground.vercel.app>) — the shared prototyping repo, where every demo lives at its own URL and
+(<https://xui-playground.vercel.app>) — the shared prototyping repo, where every demo lives at its own URL and
 everyone can see what everyone else is exploring. It consumes this package the
 way any consumer does, so whatever works there works in production.
 
