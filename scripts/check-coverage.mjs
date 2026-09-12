@@ -85,7 +85,13 @@ if (!fs.existsSync(indexFile)) {
   const entries = Object.values(index.entries ?? index.stories ?? {});
   // Docs entries render MDX, not a component; the visual suite skips them on
   // purpose, so counting them here would invent failures it will never have.
-  const stories = entries.filter((e) => (e.type ?? 'story') === 'story');
+  // Behaviour stories are excluded here for the same reason visual/stories.spec.ts
+  // excludes them: they exist to be clicked and assert what happened, not to be
+  // photographed. Demanding a baseline for one would make this gate contradict
+  // the suite it is supposed to be checking.
+  const stories = entries
+    .filter((e) => (e.type ?? 'story') === 'story')
+    .filter((e) => !(e.tags ?? []).includes('behaviour'));
 
   const have = new Set(baselineFiles.map((f) => f.replace(/--(light|dark)-linux\.png$/, '')));
   const live = new Set(stories.map((s) => s.id));

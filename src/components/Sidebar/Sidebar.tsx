@@ -194,6 +194,12 @@ export function SidebarItem({
       className={cx(styles.item, selected && styles.itemSelected, className)}
       data-selected={selected || undefined}
       aria-current={selected ? 'page' : undefined}
+      // Collapsed, this button renders ONLY the icon - and icons are
+      // aria-hidden - so without this the whole rail is unnamed buttons and a
+      // screen reader reads "button, button, button". The visible tooltip
+      // carries the label for sighted users; this is its counterpart. Found by
+      // the behaviour test, which could not locate the item by name.
+      aria-label={collapsed ? label : undefined}
       aria-expanded={hasSub ? open : undefined}
       aria-controls={open ? listId : undefined}
       onClick={(e) => {

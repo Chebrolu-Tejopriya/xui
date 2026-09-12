@@ -75,6 +75,15 @@ jobs:
       - name: Coverage — every component has a story, every story a baseline
         run: npm run check:coverage
 
+      # Renders every story in real Chromium and runs its play function. This
+      # suite already existed, already passed, and ran nowhere — the only test
+      # CI knew about was the visual one. It is the only gate here that CLICKS
+      # anything: every other check photographs a component sitting still,
+      # which is why a checkbox whose label swallowed 968px of a row, and a
+      # sidebar flyout that would not dismiss, both passed everything.
+      - name: Behaviour — stories render, and the interactive ones still work
+        run: npm test
+
   # Renders every story in light and dark and diffs against committed
   # baselines. The gates above are all textual — they prove the code is
   # well-formed, never that it still looks right. Baselines are linux PNGs

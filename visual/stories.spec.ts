@@ -38,7 +38,16 @@ const all = Object.values(index.entries ?? index.stories ?? {});
 // `docs` entries render an MDX page, not a component — they are documentation
 // about the stories already covered below, so snapshotting them only adds
 // churn whenever prose is edited.
-const stories = all.filter((e) => (e.type ?? 'story') === 'story').sort((a, b) => a.id.localeCompare(b.id));
+// Behaviour stories are excluded. A story tagged `behaviour` exists to be
+// CLICKED - its play function opens a menu, toggles a control, dismisses a
+// dialog - and then asserts what happened. Photographing the state it happens
+// to end in adds a baseline that has to be re-recorded every time the script
+// changes, and proves nothing the assertions do not already prove. They still
+// run under `npm test`; they just are not pictures.
+const stories = all
+  .filter((e) => (e.type ?? 'story') === 'story')
+  .filter((e) => !(e.tags ?? []).includes('behaviour'))
+  .sort((a, b) => a.id.localeCompare(b.id));
 
 if (stories.length === 0) {
   throw new Error('index.json contained no stories — is the Storybook build complete?');
