@@ -2325,6 +2325,10 @@
       {
         "component": "General Icons",
         "question": "The 158 general icons ship as one flat list because Figma names no groups for them - the categories the gallery used to show were ours, assigned by which batch each icon was read in, and they were wrong enough to mislead (a calendar and a paperclip under \"Arrows & controls\"). If the library should be browsable by category rather than only searchable, the grouping needs to be named in Figma; we will generate from it rather than invent it again."
+      },
+      {
+        "component": "(tokens)",
+        "question": "XUI has no motion tokens - no duration, no easing, nothing. Transitions are hardcoded in the component CSS and have already drifted to four different values for what looks like one idea: 120ms (8 declarations), 140ms, 150ms and 160ms, all `ease`. The token linter cannot catch this because there is nothing to compare against; it only knows colour. Figma carries no motion spec either, so this needs a designer decision: how many durations does the system have, what are they for (state change vs move vs overlay), and what easing? Surfaced while assessing DialKit, which exists to tune exactly these values live."
       }
     ],
     "notBuilt": [
