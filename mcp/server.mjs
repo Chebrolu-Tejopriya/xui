@@ -28,6 +28,7 @@ const read = (f) => JSON.parse(fs.readFileSync(path.resolve(here, '..', f), 'utf
 const manifest = read('xui.manifest.json');
 const rulebook = read('xui.rulebook.json');
 const iconIndex = read('xui.icons.json');
+const figmaMap = read('xui.figma-map.json');
 
 const PKG = manifest.name;
 
@@ -369,6 +370,100 @@ const TOOLS = [
           'what should be recorded.',
       );
       return out.join('\n');
+    },
+  },
+  {
+    name: 'figma_to_xui',
+    description:
+      'Given a Figma component — by its component-set NAME ("button", "Tabs/WithIcons", "select") ' +
+      'or node id — say what it is in XUI: the component, the exact import, and which Figma ' +
+      'variant axis maps to which prop. Call this when implementing a Figma design, BEFORE ' +
+      'choosing a component yourself. It is what Figma Code Connect would tell you, and Code ' +
+      'Connect is not available on this Figma plan. Axes that are only hover/disabled states ' +
+      'are CSS, not props, and it says so. A set with no XUI component is reported as a gap — ' +
+      'do not build a local stand-in for it.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'The Figma COMPONENT_SET name, e.g. "button", "Tabs/WithIcons", "Radio Button".',
+        },
+        nodeId: {
+          type: 'string',
+          description: 'A component-set node id such as "536:5758". Instances and single variants will not match — use their parent set.',
+        },
+      },
+    },
+    run: ({ name, nodeId }) => {
+      const sets = figmaMap.sets;
+      const norm = (s) => String(s ?? '').trim().toLowerCase();
+      const id = nodeId ? String(nodeId).replace('-', ':') : null;
+
+      let hits = [];
+      if (id) hits = sets.filter((s) => (s.ids ?? []).includes(id));
+      if (!hits.length && name) {
+        const q = norm(name);
+        hits = sets.filter((s) => norm(s.figma) === q);
+        // "Tabs" should find Tabs, Tabs/Default and Tabs/WithIcons — Figma often
+        // splits one XUI component across several sets.
+        if (!hits.length) hits = sets.filter((s) => norm(s.figma).includes(q) || norm(s.xui).includes(q));
+      }
+      const components = new Set(hits.map((s) => s.xui).filter(Boolean));
+      if (components.size) {
+        const seen = new Set(hits.map((s) => s.figma));
+        for (const s of sets) if (components.has(s.xui) && !seen.has(s.figma)) hits.push(s);
+      }
+
+      if (!hits.length) {
+        const known = sets.map((s) => s.figma).join(', ');
+        return [
+          `No Figma set matches ${id ? `node "${id}"` : `"${name}"`}.`,
+          '',
+          id
+            ? 'A node id only matches a COMPONENT_SET. If you have an instance or one variant, read its ' +
+              'parent set (get_metadata) and pass that set’s name instead.'
+            : 'Pass the component-set name exactly as Figma shows it.',
+          '',
+          `Known sets: ${known}`,
+        ].join('\n');
+      }
+
+      const out = [];
+      for (const s of hits) {
+        out.push(`## Figma "${s.figma}"`);
+        if (s.status === 'not-built') {
+          out.push('', `No XUI component. ${s.note}`);
+        } else if (s.status === 'out-of-scope') {
+          out.push('', `Out of scope for XUI: ${s.note}`);
+        } else if (s.status === 'unmapped') {
+          out.push('', s.note);
+        } else {
+          out.push('', `**${s.xui}**`, '', '```tsx', s.import, '```');
+          if (s.props.length) {
+            out.push('', 'Figma axis → XUI prop:');
+            for (const p of s.props) {
+              const vals = Array.isArray(p.values) ? p.values.join(' | ') : `${p.values} values`;
+              out.push(`- \`${p.axis}\` → \`${p.prop ?? '(no prop)'}\`   (${vals})`);
+            }
+            out.push(
+              '',
+              'Values are usually the lowercase of Figma’s (Large → "large"). Confirm with ' +
+                `get_xui_component("${s.xui}") before writing them.`,
+            );
+          }
+          if (s.states.length) {
+            out.push(
+              '',
+              `Not props — states the component handles itself: ${s.states.map((x) => `\`${x.axis}\``).join(', ')}. ` +
+                'Figma draws hover and disabled as variants only because a static frame cannot show them.',
+            );
+          }
+          for (const a of s.accepted) out.push('', `\`${a.axis}\` is deliberately not a prop: ${a.why}`);
+        }
+        out.push('');
+      }
+      return out.join('\n').trim();
     },
   },
   {

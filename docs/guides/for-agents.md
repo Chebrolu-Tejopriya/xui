@@ -14,7 +14,7 @@ same answer every time.
 Drop that into `.mcp.json`, `.cursor/mcp.json`, or your editor's MCP settings.
 It has **no dependencies** and starts in milliseconds.
 
-### The six tools
+### The eight tools
 
 | Tool | Arguments | When to call it |
 |---|---|---|
@@ -23,6 +23,8 @@ It has **no dependencies** and starts in milliseconds.
 | `get_xui_tokens` | `category?`, `hex?` | Instead of choosing a colour |
 | `find_xui_icon` | `query`, `limit?` | **Every time** a UI needs an icon |
 | `get_xui_status` | `component?` | Before assuming a gap is a bug |
+| `get_xui_learnings` | `topic?` | Before building — what previous sessions were corrected on |
+| `figma_to_xui` | `name` or `nodeId` | When implementing a Figma design, before choosing a component |
 | `get_xui_guidelines` | — | Before composing a whole screen |
 
 **`list_xui_components`** returns every component grouped by family, with its
@@ -70,6 +72,17 @@ Call it before concluding something is broken. Several entries are traps that
 look exactly like defects — a Drawer frame named "Left" that is drawn
 right-aligned, icon families that bind no variables at all. An open question is
 a decision nobody has made yet; surface it rather than guessing an answer.
+
+**`figma_to_xui`** answers "what is this Figma component in XUI?" — the
+component, the import, and which Figma variant axis maps to which prop. It is
+what Figma Code Connect would put in Dev Mode, and Code Connect is gated to
+Organization and Enterprise plans. Ask it by component-set name, and it returns
+every set that maps to the same component: Figma splits Tabs across four sets,
+and only two of them carry the Size axis.
+
+**`get_xui_learnings`** returns what previous sessions were corrected on — the
+same files that ship in `.claude/learnings/`, served to any MCP client so Cursor
+and Codex get them too.
 
 **`get_xui_guidelines`** returns the principles, the layout patterns for common
 screens (data-table page, form, empty state), and the anti-patterns — the
