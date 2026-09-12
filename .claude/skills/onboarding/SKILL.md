@@ -64,7 +64,7 @@ A designer almost never wants the XUI repo itself.
 
 | they want to | send them to |
 |---|---|
-| build a screen, try an idea | **xui-playground** (`npm run dev`, :5174) |
+| build a screen, try an idea | **the Console** — `xui-playground`, `npm run dev` on :5174, deployed at https://xuiground.vercel.app |
 | see what components exist | **Storybook** (`npm run storybook`, :6006) |
 | find an icon | `npx xui-find-icon "<what you mean>"` |
 
