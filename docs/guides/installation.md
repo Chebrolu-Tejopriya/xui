@@ -1,22 +1,96 @@
 # Installation
 
-### Working on XUI itself? Double-click one file.
+There are three ways in, and they are for different jobs. Pick the row, not the
+page.
 
-If you have cloned this repo rather than installing it as a dependency — and
-especially if you do not use a terminal — you do not have to read any of the
-below:
+| I want to… | Get | Ends up at |
+| --- | --- | --- |
+| **Build a prototype** — a screen, a flow, an idea | the **Console** (`xui-playground`) | [xui-playground.vercel.app](https://xui-playground.vercel.app) |
+| **Change the design system** — a component, token or icon | **XUI** (`xui`) | [xui.koinx.com](https://xui.koinx.com) |
+| **Use XUI in my own app** | the npm package | your product |
+
+Most people want the first. **You do not need the design system repo to build
+with the design system** — the Console installs XUI the way any project would.
+
+---
+
+## 1 · Build a prototype — the Console
+
+**For:** anyone. Deliberately the path that needs no terminal.
+
+**1. Get it.**
+
+```bash
+git clone https://github.com/Chebrolu-Tejopriya/xui-playground.git
+```
+
+**2. Double-click one file.** Not a command — double-click.
 
 | your machine | double-click |
 | --- | --- |
 | Windows | `start.cmd` |
 | macOS | `start.command` |
 
-It checks Node, Git and GitHub CLI, sets your name for commits, installs
-everything here and in the playground, and prints the one command to run next.
-Anything it cannot do itself, it names with the exact fix. Your AI assistant can
-walk you through it — ask it to help you get set up.
+A window opens and does the rest: checks Node and Git, asks your name, installs
+everything. It ends with either **Ready** or a short list of what it needs from
+you, each with the exact command. Your AI assistant can walk you through it —
+just ask it to help you get set up.
 
-### Install
+**3. Build.** `npm run dev` → <http://localhost:5174>, or tell your assistant
+what you want and it will start. Your work goes in
+`src/demos/<your-name>/<demo>/` — your own folder, nobody else's. Nothing
+registers it; the Console finds it because it is there.
+
+**4. Share it, when you want to.**
+
+```bash
+npm run share                # every demo you have changed
+npm run share checkout-v3    # only that one
+```
+
+It saves your work, collects everyone else's, publishes, and prints the URL.
+About a minute later it is live for the team. **You never have to learn git** —
+removing that requirement is the whole point of the command.
+
+**Keeping one to yourself:** start the folder name with an underscore.
+
+```
+src/demos/you/checkout-v3/     shared when you run share
+src/demos/you/_checkout-v3/    private — only ever on your machine
+```
+
+A `_` folder is gitignored, shows in your own Console badged **Local only**, and
+cannot be published by accident.
+
+---
+
+## 2 · Change the design system — XUI
+
+**For:** one or two people. Approval is deliberately concentrated (ADR 0018) —
+anyone can ask, and the change becomes a PR.
+
+```bash
+git clone https://github.com/Chebrolu-Tejopriya/xui.git
+```
+
+Then the same double-click — `start.cmd` or `start.command`. It sets this repo
+up **and clones the Console next door**, because the two are built to sit side
+by side: with both present, your prototypes read XUI's source directly and an
+edit shows up instantly.
+
+`npm run storybook` → <http://localhost:6006>
+
+Read **Contributing** before opening a PR, and `.claude/learnings/` before
+writing anything — they hold what previous sessions were corrected on.
+
+> **The trap.** With both folders side by side, a local XUI edit appears in your
+> prototype immediately. The deployed Console does **not** see it — it installs
+> the real published XUI. So a demo can look right on your laptop and wrong on
+> the site. If that happens, check `git status` in the xui folder first.
+
+---
+
+## 3 · Use XUI in your own app
 
 No registry account needed — install straight from GitHub. The package builds
 itself on install:
@@ -29,7 +103,18 @@ npm install github:Chebrolu-Tejopriya/xui
 npm install github:Chebrolu-Tejopriya/xui#v1.0.0
 ```
 
-### Fonts
+Two imports, and the second is easy to forget:
+
+```js
+import { Button, AppShell } from '@koinx/xui';
+import '@koinx/xui/styles.css';
+```
+
+Without the stylesheet every token is undefined and nothing is styled.
+
+---
+
+## Fonts
 
 XUI sets its type in **Inter**, and `styles.css` fetches it for you — its
 first line is:
@@ -55,7 +140,7 @@ names `Inter` with a system fallback stack, so no override is needed.
 The failure is worth stating plainly because it is quiet: nothing throws, and
 the only symptom is that every heading looks slightly wrong.
 
-### Keep the token rule in your own code
+## Keep the token rule in your own code
 
 A raw hex in your app is the same bug as a raw hex in XUI: it does not follow
 the theme. The linter that enforces this ships with the package, so the rule
@@ -77,7 +162,7 @@ and the four after it; always say why.
 
 Exit code is 1 when there are findings, so it works as a CI step.
 
-### Versioning
+## Versioning
 
 XUI versions by **generation**, not per change — the way Material has M1/M2/M3.
 The number moves when the design system does, not when a component does, so
@@ -85,3 +170,6 @@ The number moves when the design system does, not when a component does, so
 
 Day to day, tracking `main` is the intended mode and updates arrive as commits.
 Pin to a tag if you need a build that will not move under you.
+
+In the Console this is pinned in the lockfile, so a deploy never drifts. Move it
+forward deliberately with `npm run update-xui`.
