@@ -249,6 +249,68 @@ const TOOLS = [
     },
   },
   {
+    name: 'get_xui_status',
+    description:
+      'What in XUI is SETTLED and what is still moving: questions waiting on a designer, ' +
+      'things drawn in Figma but deliberately not built, decisions taken BEYOND what Figma ' +
+      'specifies, and places code intentionally departs from the file. Read this before ' +
+      'assuming a gap is a bug or that a component is finished — several of these are ' +
+      'traps that look like defects (a Drawer frame named "Left" that is drawn ' +
+      'right-aligned; icon families that bind no variables). Filter by component when you ' +
+      'are working on one.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        component: {
+          type: 'string',
+          description: 'Only entries for this component, e.g. "Drawer" or "Select". Omit for everything.',
+        },
+      },
+    },
+    run: ({ component }) => {
+      const status = manifest.status ?? {};
+      const want = component ? String(component).toLowerCase() : null;
+      const pick = (rows) =>
+        (rows ?? []).filter((r) => !want || String(r.component ?? '').toLowerCase() === want);
+
+      const sections = [
+        ['Open questions — waiting on a designer', pick(status.openQuestions), 'question'],
+        ['Drawn in Figma, deliberately NOT built', pick(status.notBuilt), 'why'],
+        ['Decided BEYOND Figma — Figma does not specify these', pick(status.beyondFigma), 'reason'],
+        ['Where code intentionally departs from the file', pick(status.overrides), 'reason'],
+      ];
+
+      const total = sections.reduce((n, [, rows]) => n + rows.length, 0);
+      if (!total) {
+        return want
+          ? `Nothing recorded for "${component}". That means no OPEN question — not that it is verified.`
+          : 'No status recorded. That is surprising; xui.manifest.json may be stale (npm run ds:build).';
+      }
+
+      const out = [`# XUI status${want ? ` — ${component}` : ''}`, ''];
+      for (const [title, rows, field] of sections) {
+        if (!rows.length) continue;
+        out.push(`## ${title} (${rows.length})`, '');
+        for (const r of rows) {
+          const head = r.component ? `**${r.component}**` : '';
+          // Rows are not uniformly shaped: openQuestions carry `question`,
+          // notBuilt `why`, beyondFigma and overrides `note`. Falling through
+          // them all beats printing JSON at whoever asked.
+          const body = r[field] ?? r.question ?? r.note ?? r.why ?? r.reason ?? JSON.stringify(r);
+          const state = r.state ? ` _(${r.state})_` : '';
+          out.push(`- ${head}${r.what ? ` — \`${r.what}\`` : ''}${state}${head || r.what ? ': ' : ''}${body}`);
+        }
+        out.push('');
+      }
+      out.push(
+        'Source: scripts/composition-rules.json, generated into xui.manifest.json. An open ' +
+          'question is a decision nobody has made yet — do not resolve one by guessing; ' +
+          'surface it to the user.',
+      );
+      return out.join('\n');
+    },
+  },
+  {
     name: 'get_xui_guidelines',
     description:
       'The rules XUI is built on: principles, layout patterns for common screens, which ' +

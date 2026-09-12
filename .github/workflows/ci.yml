@@ -65,6 +65,16 @@ jobs:
       - name: Storybook build
         run: npm run build-storybook
 
+      # Connectedness, not correctness. Every other gate asks whether a thing is
+      # RIGHT; this asks whether anything is checking it at all - a component
+      # with no story, a story with no baseline, a baseline whose story was
+      # renamed out from under it. All three had happened and none was caught,
+      # because the counts stay balanced while the coverage rots.
+      #
+      # Needs the Storybook build above, which is why it sits here.
+      - name: Coverage — every component has a story, every story a baseline
+        run: npm run check:coverage
+
   # Renders every story in light and dark and diffs against committed
   # baselines. The gates above are all textual — they prove the code is
   # well-formed, never that it still looks right. Baselines are linux PNGs

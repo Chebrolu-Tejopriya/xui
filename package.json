@@ -58,7 +58,8 @@
     "test:visual": "npm run build-storybook && playwright test",
     "test:visual:update": "npm run build-storybook && playwright test --update-snapshots",
     "check:consumer": "npm run build:lib && tsc -p scripts/consumer-check/tsconfig.json",
-    "check:story-icons": "node scripts/check-story-icons.mjs"
+    "check:story-icons": "node scripts/check-story-icons.mjs",
+    "check:coverage": "node scripts/check-coverage.mjs"
   },
   "peerDependencies": {
     "react": ">=19",
