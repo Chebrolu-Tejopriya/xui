@@ -5,6 +5,32 @@ Format: see `README.md`.
 
 ---
 
+## Editing XUI locally changes your prototype but not the published one
+
+> gotcha · 2026-09-12 · claude · confident
+
+The Console aliases `@koinx/xui` at `../xui/src` whenever the design system repo
+is sitting next door, so a local edit to XUI shows up in a prototype instantly
+over HMR. That is deliberate and it is what makes the two-folder setup fast.
+
+It is also a trap for anyone who does not know it. **The deployed Console
+installs the real published XUI**, pinned by the lockfile — so a demo that reads
+correctly on someone's laptop can look different on the website, and nothing
+says why.
+
+Two cases, and they need different answers:
+
+- **They meant to change XUI.** Say so plainly: it is a change to the system,
+  it affects everyone, and it goes through a PR on the xui repo. Do not let a
+  local edit ride along inside a prototype.
+- **They did not realise they had.** Check `git status` in the xui folder before
+  helping them debug a prototype that "looks wrong on the site". This is the
+  first thing to rule out and it is invisible from the playground.
+
+Moving the published version forward is `npm run update-xui` in the Console, and
+that is deliberately a separate act — a pinned version that moves on its own is
+not pinned.
+
 ## `inline-flex` is NOT a hug inside a flex parent
 
 > gotcha · 2026-09-04 · claude · confident
