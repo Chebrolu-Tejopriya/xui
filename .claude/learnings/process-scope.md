@@ -4,6 +4,22 @@ How to work here, and what belongs in this repo at all. Format: see `README.md`.
 
 ---
 
+## An offer declined by silence is not closed
+
+> owner-correction · 2026-09-12 · teja · confident
+
+I flagged that nothing forces a learning to be written, offered to fix it with a
+hook, and teja's next message moved to something else. I treated that as the
+matter being dropped and never raised it again — until it surfaced days later in
+the Notion doc as an open gap, which is the first they had heard of it since.
+
+*"isn't the issue fixed, why haven't flagged this issue to me"* — fair.
+
+**An offer that gets overtaken is still open.** If a real gap is named and not
+explicitly closed, carry it forward and say so, rather than letting the next
+topic bury it. Same rule as a half-finished task: scaling work down is teja's
+call, and silence is not that call.
+
 ## This repo is the design system only
 
 > owner-correction · 2026-09-02 · teja · confident
