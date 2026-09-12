@@ -36,6 +36,13 @@ jobs:
       - name: Tokens — no raw colours, stray primitives or undefined tokens
         run: npm run lint:tokens
 
+      # A story that hand-draws an <svg> is invisible to every other gate: the
+      # token linter sees no token in an inline path, and it typechecks fine.
+      # This was written, wired into ds:check, and then never ran on a PR
+      # because CI calls ds:build and lint:tokens separately.
+      - name: Stories import icons rather than drawing them
+        run: npm run check:story-icons
+
       # Completeness, not fidelity: every other gate here checks that what was
       # built matches its frame. This one asks whether Figma defines a variant
       # axis nothing implements — which is how Select and Tabs shipped without

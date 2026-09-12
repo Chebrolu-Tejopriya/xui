@@ -2,7 +2,7 @@
 
 Things we had to be told, written down so we only have to be told once.
 
-**Read these at the start of a session.** They are short on purpose.
+**Read these at the start of a session.** Seven files, short on purpose.
 
 ## Why this exists, and why the repo rather than memory
 
@@ -71,6 +71,7 @@ is **not** derivable from the code.
 | `figma-to-code.md` | reading the file, and what to do when it is ambiguous |
 | `icons.md` | four families, collisions, and how to pick |
 | `gotchas.md` | technical traps, mostly CSS and Figma's geometry |
+| `tooling-ci.md` | the gates, the baselines, and what each one cannot see |
 
 ## The manual half is the whole thing, for now
 
