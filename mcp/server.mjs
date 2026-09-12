@@ -311,6 +311,67 @@ const TOOLS = [
     },
   },
   {
+    name: 'get_xui_learnings',
+    description:
+      'What previous sessions were CORRECTED on, so you do not repeat it. Read this before ' +
+      'building UI with XUI and before touching an unfamiliar area. These are the things not ' +
+      'derivable from the code: which component to reach for (Select IS the menu — do not ' +
+      'build one), what not to invent (type styles, tokens, icons), and technical traps that ' +
+      'cost real time. An entry marked owner-correction is settled — do not relitigate it. ' +
+      'Filter by topic to read one bucket.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        topic: {
+          type: 'string',
+          description:
+            'One bucket: components, icons, tokens-styling, figma-to-code, gotchas, ' +
+            'process-scope, tooling-ci. Omit for all of them.',
+        },
+      },
+    },
+    run: ({ topic }) => {
+      // Ships inside the package (package.json `files`), so this works from an
+      // install as well as from the repo. It is the SAME directory Claude Code
+      // reads as .claude/learnings/ — one source, delivered to every MCP client,
+      // which is what makes it reach Cursor and Codex without any copying.
+      const dir = path.resolve(here, '..', '.claude', 'learnings');
+      if (!fs.existsSync(dir)) {
+        return 'No learnings found in this install. They ship with @koinx/xui from 1.0.0; reinstall it.';
+      }
+      const buckets = fs
+        .readdirSync(dir)
+        .filter((f) => f.endsWith('.md') && f !== 'README.md')
+        .map((f) => f.replace(/\.md$/, ''))
+        .sort();
+
+      const want = topic ? String(topic).trim().toLowerCase().replace(/\.md$/, '') : null;
+      if (want && !buckets.includes(want)) {
+        return `No bucket called "${topic}". There are: ${buckets.join(', ')}.`;
+      }
+
+      const read = (name) => fs.readFileSync(path.join(dir, `${name}.md`), 'utf8').trim();
+      const chosen = want ? [want] : buckets;
+      const out = [
+        want
+          ? `# XUI learnings — ${want}`
+          : `# XUI learnings — all ${buckets.length} buckets`,
+        '',
+        'Format of each entry: `kind · date · who · confidence`. An `owner-correction` is the',
+        'design system owner saying no; treat it as settled.',
+        '',
+      ];
+      for (const b of chosen) out.push(read(b), '', '---', '');
+      out.push(
+        'When the user corrects YOU, add an entry to the matching bucket: kind ' +
+          '`owner-correction`, today, the author from `git config user.name`, a confidence, and ' +
+          'the words actually used. If you cannot write to the xui repo from here, tell the user ' +
+          'what should be recorded.',
+      );
+      return out.join('\n');
+    },
+  },
+  {
     name: 'get_xui_guidelines',
     description:
       'The rules XUI is built on: principles, layout patterns for common screens, which ' +

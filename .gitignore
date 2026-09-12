@@ -61,9 +61,15 @@ blob-report/
 #   duplicate that goes out of date is worse than no duplicate, because an agent
 #   reading the stale copy follows superseded instructions and thinks it complied.
 .mcp.json
-.cursor/
 .codex/
-.agents/
+# Jetro's files inside the vendor folders, by name. The folders themselves are
+# tracked now: .cursor/rules/xui-*.mdc and .agents/skills/ are GENERATED from
+# .claude/skills/ by scripts/gen-agent-rules.mjs so Cursor and Codex users get
+# the same skills Claude Code does. Ignoring the whole folder would have hidden
+# them too.
+.cursor/mcp.json
+.cursor/rules/agent.mdc
+.agents/rules/
 .windsurfrules
 AGENT.md
 CLAUDE.md

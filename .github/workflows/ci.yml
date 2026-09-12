@@ -56,7 +56,7 @@ jobs:
       - name: Derived artefacts are current
         run: |
           npm run ds:build
-          git diff --exit-code -- xui.rulebook.json xui.manifest.json \
+          git diff --exit-code -- xui.rulebook.json xui.manifest.json xui.icons.json .cursor/rules .agents/skills \
             || { echo "::error::Run 'npm run ds:build' and commit the result."; exit 1; }
 
       - name: Library build
