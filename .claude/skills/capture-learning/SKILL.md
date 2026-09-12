@@ -35,6 +35,10 @@ work) · `decision` (settled choice) · `gotcha` (technical trap) · `hardcoded`
 
 **confidence**: `confident` · `likely` · `unverified`.
 
+**who**: read it, do not guess it — `git config user.name`. The
+[[onboarding]] script sets it on a new machine precisely so this field is
+accurate for whoever is actually at the keyboard, not whoever you assume.
+
 ## When
 
 - **teja corrects you → always.** This is the whole point. Six corrections were
