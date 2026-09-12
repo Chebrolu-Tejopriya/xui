@@ -1,5 +1,21 @@
 # Installation
 
+### Working on XUI itself? Double-click one file.
+
+If you have cloned this repo rather than installing it as a dependency — and
+especially if you do not use a terminal — you do not have to read any of the
+below:
+
+| your machine | double-click |
+| --- | --- |
+| Windows | `start.cmd` |
+| macOS | `start.command` |
+
+It checks Node, Git and GitHub CLI, sets your name for commits, installs
+everything here and in the playground, and prints the one command to run next.
+Anything it cannot do itself, it names with the exact fix. Your AI assistant can
+walk you through it — ask it to help you get set up.
+
 ### Install
 
 No registry account needed — install straight from GitHub. The package builds

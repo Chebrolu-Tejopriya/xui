@@ -17,12 +17,38 @@ import '@koinx/xui/styles.css';
 </AppShell>
 ```
 
-Icons carry four tones:
+### Icons
+
+XUI ships **275 icons in four families**. Icons v2 is the primary set and carries
+four tones:
 
 ```tsx
 import { WalletIcon } from '@koinx/xui';
 <WalletIcon size={20} variant="dualtone" />  // outlined | solid | dualtone | dualtone-selected
 ```
+
+Beside it sit the 158-glyph general library, the trade-type set, and the coin
+badges — the last being transaction *artwork* with a fixed palette that does not
+follow the theme, so they are not general-purpose icons.
+
+**Don't guess a name — search by meaning.** The names come from Figma's layers
+and are inconsistent by inheritance, so `ActionsIcon` and `MoreVertIcon` are the
+same idea in two families and nobody types either when they want a kebab menu:
+
+```bash
+npx xui-find-icon "three dots"     # -> ActionsIcon, MoreVertIcon, MoreHorizIcon
+npx xui-find-icon gear             # -> SettingsIcon
+npx xui-find-icon "incoming payment"
+```
+
+It prints the import line, flags the 13 cases where Figma reuses one name for
+different drawings, and is available to agents as the `find_xui_icon` MCP tool.
+Browse them all under **Icons Library** in the sidebar.
+
+If it finds nothing, that is a gap in the set worth reporting — not a reason to
+hand-write an `<svg>`. Five component stories once did, and in identical 20px
+boxes the glyphs painted between 45% and 94% of the box, so the row read as
+ragged however precisely it was centred.
 
 React 19+ is a peer dependency — the package never bundles its own copy.
 
