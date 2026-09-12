@@ -38,8 +38,13 @@ Everything here is an answer to that.
 |---|---|---|
 | **XUI** | The design system: tokens → components → icons → patterns, in Storybook | One implementation, theme-correct, parity-verified |
 | **xemantics** | A Figma plugin that rewrites primitive colours to semantic tokens | Drift at the *design* source, where it starts |
-| **XUI Code Connect** | Figma components mapped to real code components | The agent reads a design and knows what to import |
+| **The Console** | A shared prototyping app that installs XUI like any consumer, deployed | Designers build and share real screens without a terminal |
 | **The agent contract** | A generated manifest + rulebook + skills | The agent composes correctly without being re-taught |
+
+> **Code Connect is not a piece we have.** It sat in this table for months as though it were
+> built, with nothing behind it. It is also **plan-gated**: Figma's Code Connect tool refuses
+> with *"You need a Dev or Full seat on an Organization or Enterprise plan"*, and XUI lives on a
+> Student team. The unblock is moving the file into a KoinX Organization or Enterprise workspace.
 
 They only matter *together*. The plugin fixes design-side drift; the linter
 fixes the same drift in code; both read the **same rulebook**, so a colour
