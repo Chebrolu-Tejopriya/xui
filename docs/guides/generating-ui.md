@@ -33,7 +33,13 @@ Almost every bad output traces to one of these:
 2. **"Use semantic tokens, never raw colours."** Otherwise you get `#ffffff`,
    which looks right until someone turns on dark mode.
 
-A third, if the screen has any overlay or picker: **"Call
+A third, the moment the screen needs an icon: **"Call `find_xui_icon` — never
+write an `<svg>`."** An agent that cannot find `FileIcon` concludes there is no
+file icon and draws one, and a hand-drawn glyph is the single most visible kind
+of drift: five stories in this repo once shipped them, and in identical 20px
+boxes they painted between 45% and 94% of the box.
+
+A fourth, if the screen has any overlay or picker: **"Call
 `get_xui_component` before using a component."** That is what carries the rules
 a prop list cannot — that `Dialog` colours its own icon from the variant, that a
 `Drawer` footer is already pinned, that `Select`'s 255px is a flex basis.
@@ -51,6 +57,9 @@ output.
 | Gives a destructive dialog a blue icon | Passed a pre-coloured icon | "call `get_xui_component` for Dialog" |
 | Pastes 1440px column widths | Read a frame literally | "the table must be responsive" |
 | Reaches for `Dropdown` in a filter bar | Both pick one of many | point it at **Choosing Components** |
+| Hand-writes an `<svg>` for an icon | Could not find one by guessing a name | "call `find_xui_icon`" |
+| Builds a menu component | Did not know `Select` already is one | "call `list_xui_components` first" |
+| Reports a drawn-but-unbuilt thing as a bug | Cannot see what is deliberate | "call `get_xui_status`" |
 
 ### A prompt that works
 
@@ -65,6 +74,7 @@ Build a transactions page with XUI.
 Rules:
 - Call list_xui_components before writing anything, and get_xui_component
   before using one.
+- Call find_xui_icon for every icon. Never write an <svg>.
 - Semantic tokens only — no raw hex.
 - The table must stay usable at 375px, not just 1440.
 ```
@@ -80,6 +90,11 @@ Prompting improves the odds. It does not guarantee anything, so check:
 npx xui-lint-tokens src   # raw colours, primitives, tokens that do not exist
 npx tsc --noEmit          # wrong props, missing required ones
 ```
+
+Then read it for the one thing no linter sees: **a hand-drawn `<svg>`**. It
+carries no token, so the linter has nothing to object to, and it typechecks
+perfectly. Search the output for `<svg` — anything that is not a real chart or
+illustration should have been an import.
 
 The linter is the honest gate here — it does not care how good the prompt was.
 Then read the output for the things no tool checks:
