@@ -18,7 +18,11 @@
     "xui.manifest.json",
     "xui.rulebook.json",
     "scripts/find-icon.mjs",
-    "xui.icons.json"
+    "xui.icons.json",
+    ".claude/learnings",
+    ".claude/skills/find-icon",
+    ".claude/skills/capture-learning",
+    ".claude/skills/pixel-parity-verify"
   ],
   "sideEffects": [
     "**/*.css",
