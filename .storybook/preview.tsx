@@ -47,7 +47,7 @@ const preview: Preview = {
         const ROOT_ORDER = ['Guides', 'Foundations', 'Icons Library', 'Components'];
         // Guides read in an order, not an alphabet: you install before you use.
         const GUIDE_ORDER = [
-          'Introduction', 'Installation', 'Usage', 'Choosing Components',
+          'Introduction', 'Which Repo', 'Installation', 'Usage', 'Choosing Components',
           'Figma to Code', 'For Agents', 'Generating UI', 'Status', 'FAQ',
           'Contributing',
         ];
