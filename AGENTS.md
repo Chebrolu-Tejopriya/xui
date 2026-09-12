@@ -13,6 +13,14 @@ xui.manifest.json   the contract   components + props + variants + tokens + rule
 Both are **generated** (`npm run ds:build`) from `src/tokens/*.css` and
 `src/components/**`, so they cannot drift from the code. Never edit them by hand.
 
+**Read [`.claude/learnings/`](./.claude/learnings/) first.** Six short files
+holding things we had to be told — corrections, preferences, and traps that cost
+real time. They are the part that is *not* derivable from the code, which is
+exactly why they are written down. An `owner-correction` there is settled; do
+not relitigate it.
+
+When you are corrected, add one. The `capture-learning` skill has the format.
+
 ## The three rules that matter most
 
 1. **Never write a raw colour.** No `#hex`, no `rgb()`, and no primitive
