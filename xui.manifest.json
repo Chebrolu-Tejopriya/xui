@@ -1977,6 +1977,7 @@
       "dualtone-selected"
     ],
     "usage": "import { WalletIcon } from '@koinx/xui'; <WalletIcon variant=\"dualtone\" size={24} />",
+    "note": "Icons v2 only — the primary family, and one of four. XUI ships 275 icons in total (Icons v2, the 158-glyph general library, trade types, and coin badges). Do NOT conclude an icon is missing from this list alone: search all of them by meaning with the find_xui_icon MCP tool, or `npx xui-find-icon \"<what you mean>\"`. Never hand-write an <svg> for an icon.",
     "names": [
       "OverviewIcon",
       "PortfolioIcon",

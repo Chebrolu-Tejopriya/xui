@@ -27,6 +27,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.resolve(here, '..', f), 'utf8'));
 const manifest = read('xui.manifest.json');
 const rulebook = read('xui.rulebook.json');
+const iconIndex = read('xui.icons.json');
 
 const PKG = manifest.name;
 
@@ -156,6 +157,94 @@ const TOOLS = [
         out.push(`${group}: ${[].concat(names).join(', ')}`);
       }
       out.push('', manifest.usage.tokens, manifest.usage.theming);
+      return out.join('\n');
+    },
+  },
+  {
+    name: 'find_xui_icon',
+    description:
+      `Search all ${iconIndex.count} XUI icons by MEANING and get the exact import line. ` +
+      'Call this EVERY time a UI needs an icon, before writing any <svg> of your own. It ' +
+      'searches export names plus curated synonyms across all four families, so "three ' +
+      'dots" finds ActionsIcon and "gear" finds SettingsIcon. If it returns nothing, the ' +
+      'set genuinely lacks that glyph — say so; do NOT draw one. Hand-drawn glyphs do not ' +
+      'share the set’s optical sizing and read as ragged beside real ones, and the ' +
+      'check:story-icons gate rejects them outright.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description:
+            'What the icon MEANS, in plain words — "settings", "three dots menu", "trash", "incoming payment".',
+        },
+        limit: { type: 'number', description: 'Max results (default 8, max 25).' },
+      },
+      required: ['query'],
+    },
+    run: ({ query, limit }) => {
+      const q = String(query ?? '').trim().toLowerCase();
+      if (!q) return 'Pass a `query` describing what the icon means.';
+      const words = q.split(/\s+/).filter(Boolean);
+
+      // Deliberately the same ranking as scripts/find-icon.mjs: a person and an
+      // agent asking the same question should get the same answer.
+      const score = (icon) => {
+        const name = icon.name.toLowerCase();
+        let s = 0;
+        if (name === q || name === `${q}icon`) s += 1000;
+        if (name.startsWith(q)) s += 200;
+        if (name.includes(q.replace(/\s+/g, ''))) s += 120;
+        for (const w of words) {
+          if (icon.terms.includes(w)) s += 100;
+          else if (icon.terms.some((t) => t.startsWith(w))) s += 40;
+          else if (w.length >= 5 && icon.terms.some((t) => t.includes(w))) s += 15;
+          else s -= 25;
+        }
+        if (icon.synonyms.some((syn) => syn.toLowerCase() === q)) s += 300;
+        if (icon.family === 'v2') s += 12;
+        if (icon.family === 'coin') s -= 30;
+        return s;
+      };
+
+      const hits = iconIndex.icons
+        .map((i) => ({ ...i, score: score(i) }))
+        .filter((i) => i.score > 0)
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+
+      if (!hits.length) {
+        return [
+          `No XUI icon matches "${q}".`,
+          '',
+          'Try a plainer word first. If the concept truly has no glyph, that is a gap in the',
+          'icon set: tell the user and record it on Guides > Status.',
+          '',
+          'Do NOT write an <svg> instead. Five component stories once shipped hand-drawn',
+          'icons; one row painted between 45% and 94% of the same box and read as ragged,',
+          'which a human caught by eye after ten automated gates had passed.',
+        ].join('\n');
+      }
+
+      const shown = hits.slice(0, Math.max(1, Math.min(Number(limit) || 8, 25)));
+      const out = [`${hits.length} match(es) for "${q}" — showing ${shown.length}.`, ''];
+      for (const icon of shown) {
+        const fam = iconIndex.families[icon.family];
+        out.push(`${icon.name}  (${fam.label})`);
+        if (icon.synonyms.length) out.push(`  also: ${icon.synonyms.join(', ')}`);
+        out.push(`  ${icon.import}`);
+        out.push(`  ${icon.usage}`);
+        if (icon.family === 'coin') out.push(`  NOTE: ${fam.note}`);
+        out.push('');
+      }
+
+      // Figma reuses one name for different drawings and code disambiguates with
+      // a suffix; whoever is choosing needs to know the other one exists.
+      const stems = new Set(shown.map((i) => i.name.replace(/(General)?(Icon|Coin)\d*$/, '')));
+      const clashes = Object.entries(iconIndex.collisions).filter(([stem]) => stems.has(stem));
+      if (clashes.length) {
+        out.push('Same name, DIFFERENT drawings (Figma reuses these) — check you picked the right one:');
+        for (const [stem, names] of clashes) out.push(`  ${stem}: ${names.join('  ')}`);
+      }
       return out.join('\n');
     },
   },

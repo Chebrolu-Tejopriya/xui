@@ -174,11 +174,23 @@ const manifest = {
     typography: Object.keys(rulebook.typography).filter((t) => t.startsWith('type-')).sort(),
   },
   components,
+  // Icons v2 ONLY. This block listed 69 icons while the system had 275, and the
+  // 158 general icons appeared in the contract nowhere at all - so an agent
+  // asked for a "file" icon found none, concluded XUI had none, and drew one.
+  // The full searchable set is xui.icons.json (gen-icon-index.mjs), reached via
+  // the find_xui_icon MCP tool or `npx xui-find-icon`. `note` says so here
+  // because anything reading only the manifest would otherwise never learn it.
   icons: {
     count: iconNames.length,
     categories: iconCats,
     tones: ['outlined', 'solid', 'dualtone', 'dualtone-selected'],
     usage: `import { WalletIcon } from '${PKG}'; <WalletIcon variant="dualtone" size={24} />`,
+    note:
+      'Icons v2 only — the primary family, and one of four. XUI ships 275 icons in total ' +
+      '(Icons v2, the 158-glyph general library, trade types, and coin badges). Do NOT ' +
+      'conclude an icon is missing from this list alone: search all of them by meaning ' +
+      'with the find_xui_icon MCP tool, or `npx xui-find-icon "<what you mean>"`. Never ' +
+      'hand-write an <svg> for an icon.',
     names: iconNames,
   },
   // A separate family from Icons v2, and an agent needs to be told so: a fixed

@@ -16,7 +16,9 @@
     "mcp",
     "scripts/lint-tokens.mjs",
     "xui.manifest.json",
-    "xui.rulebook.json"
+    "xui.rulebook.json",
+    "scripts/find-icon.mjs",
+    "xui.icons.json"
   ],
   "sideEffects": [
     "**/*.css",
@@ -45,7 +47,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-coin-icons.mjs && node scripts/gen-general-icons.mjs && node scripts/gen-manifest.mjs",
+    "ds:build": "node scripts/build-rulebook.mjs && node scripts/gen-coin-icons.mjs && node scripts/gen-general-icons.mjs && node scripts/gen-icon-index.mjs && node scripts/gen-manifest.mjs",
     "ds:check": "npm run ds:build && npm run lint:tokens && npm run check:story-icons",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "prepare": "npm run build:lib",
@@ -87,6 +89,7 @@
   },
   "bin": {
     "xui-mcp": "./mcp/server.mjs",
-    "xui-lint-tokens": "./scripts/lint-tokens.mjs"
+    "xui-lint-tokens": "./scripts/lint-tokens.mjs",
+    "xui-find-icon": "scripts/find-icon.mjs"
   }
 }
