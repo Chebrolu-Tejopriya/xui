@@ -163,14 +163,30 @@ if (fs.existsSync(playground)) {
     } else ok('Playground dependencies already installed');
   }
 } else {
-  warn('Not found');
-  // The alias in the playground's vite config is `../xui`, so the two folders
-  // are not independent - they have to be siblings or nothing resolves.
-  console.log(`  ${C.d}The playground expects to sit NEXT TO this folder:${C.x}`);
-  console.log(`  ${C.d}  <parent>/xui              <- you are here${C.x}`);
-  console.log(`  ${C.d}  <parent>/xui-playground   <- and it goes here${C.x}`);
-  console.log(`  ${C.d}It aliases @koinx/xui straight at this folder's source, so edits show${C.x}`);
-  console.log(`  ${C.d}up live with no build step. Ask teja for it if you do not have it.${C.x}`);
+  // It is a public repo, so stop telling people to go and ask for it.
+  warn('Not found — cloning it');
+  console.log('');
+  const cloned = run(
+    'git',
+    ['clone', '--quiet', 'https://github.com/Chebrolu-Tejopriya/xui-playground.git', playground],
+    path.resolve(root, '..'),
+  );
+  if (cloned) {
+    ok('Cloned the Console');
+    console.log('');
+    if (run('npm', ['install'], playground)) ok('Playground dependencies');
+    else warn('Playground install failed — run `npm install` in xui-playground');
+  } else {
+    warn('Could not clone it automatically');
+    // The alias in the playground's vite config is `../xui`, so the two folders
+    // are not independent - they have to be siblings or nothing resolves.
+    console.log(`  ${C.d}The playground expects to sit NEXT TO this folder:${C.x}`);
+    console.log(`  ${C.d}  <parent>/xui              <- you are here${C.x}`);
+    console.log(`  ${C.d}  <parent>/xui-playground   <- and it goes here${C.x}`);
+    console.log(`  ${C.d}It aliases @koinx/xui straight at this folder's source, so edits show${C.x}`);
+    console.log(`  ${C.d}up live with no build step. Clone it yourself with:${C.x}`);
+    console.log(`  ${C.d}  git clone https://github.com/Chebrolu-Tejopriya/xui-playground.git${C.x}`);
+  }
 }
 
 /* ---- 5. tell the agent about XUI ------------------------------------------ */
