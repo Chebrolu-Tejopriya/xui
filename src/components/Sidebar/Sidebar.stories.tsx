@@ -8,7 +8,7 @@ import {
   SidebarItem,
   SidebarSubItem,
 } from './Sidebar';
-import { KoinXWordmark, KoinXMark } from '../../assets/brand';
+import { KoinXLogo, KoinXMark } from '../../assets/brand';
 import {
   OverviewIcon,
   WalletIcon,
@@ -50,7 +50,7 @@ const NAV = [
 ] as const;
 
 function Logo({ collapsed }: { collapsed: boolean }) {
-  return collapsed ? <KoinXMark /> : <KoinXWordmark />;
+  return collapsed ? <KoinXMark /> : <KoinXLogo />;
 }
 
 function ThemeSwitch() {

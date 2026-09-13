@@ -56,3 +56,19 @@ axes and fails when one is unimplemented and unexcused.
 Exporting a single component brings the set's `#AAAAAA` background rect and a
 `#9747FF` dashed frame at 1413×803. Take only the `<g id="Property 1=…">`
 group. The first coin-icon pass shipped the chrome.
+
+---
+
+## Brand art can be token-bound — read the bindings before calling it fixed
+
+> gotcha · 2026-09-13 · claude · confident
+
+brand.tsx declared the logos "fixed brand colours" and hardcoded them. Figma
+disagreed: in the Books lockup "Koin" is bound to `surface-brand-primary`
+(`#0052fe` → `#4a78ff` on dark), and the Beta pill is a **Badge instance** —
+`surface-warning-tertiary` / `border-warning` / `content-primary`. Hardcoded,
+all of it stayed light-mode on a dark page: a cream pill with near-black text.
+
+Only the X's gradients and `#f69300` are genuinely fixed. Check with
+`get_variable_defs` on the node, or `boundVariables` on each paint via the
+Plugin API — an unbound paint is fixed art, a bound one is a token.

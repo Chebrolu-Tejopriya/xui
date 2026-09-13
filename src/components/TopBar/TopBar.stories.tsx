@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TopBar } from './TopBar';
-import { KoinXWordmark } from '../../assets/brand';
+import { KoinXLogo } from '../../assets/brand';
 import { NotificationDotIcon, MenuIcon } from '../../icons';
 
 /**
@@ -52,7 +52,7 @@ export const Default: Story = {
         </button>
       }
     >
-      <KoinXWordmark />
+      <KoinXLogo />
     </TopBar>
   ),
 };
@@ -72,7 +72,7 @@ export const MultipleActions: Story = {
         </>
       }
     >
-      <KoinXWordmark />
+      <KoinXLogo />
     </TopBar>
   ),
 };
@@ -81,7 +81,7 @@ export const MultipleActions: Story = {
 export const BrandOnly: Story = {
   render: () => (
     <TopBar>
-      <KoinXWordmark />
+      <KoinXLogo />
     </TopBar>
   ),
 };

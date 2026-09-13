@@ -79,3 +79,21 @@ same proof twice. Removed.
 
 General shape: a story whose only job another story already does is upkeep, not
 coverage.
+
+---
+
+## The logo comes from the requirement — Books is not the default
+
+> owner-correction · 2026-09-13 · teja · confident
+
+*"everytime you use don't always mention koinx books logo default understand
+where is the requirement comming from if not just use koinx logo"*
+
+Use `KoinXLogo` (plain "KoinX"). A product lockup only when the requirement
+names that product: `KoinXBooksWordmark`, `KoinXTaxesWordmark`,
+`KoinXProfessionalsWordmark`. If the brief does not say, it is the plain logo.
+
+How it went wrong: the Books lockup was exported as `KoinXWordmark`, so it read
+as *the* KoinX logo and landed on every sidebar — the generic AppShell, Sidebar
+and TopBar stories, the Playground's product frame, and a demo titled "KoinX
+for Professionals". `KoinXWordmark` survives only as a deprecated alias.

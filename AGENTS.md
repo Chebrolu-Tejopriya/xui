@@ -88,6 +88,11 @@ is `componentRules` in the manifest):
   square/circle), not the variant squared off; pass the icon as `children` and
   always set `aria-label`. `secondary` is the orange family, intentionally.
 - **Badge** — use `label-*` variants for status pills; they're 20px tall.
+- **Logo** — `KoinXLogo` unless the requirement names a product. Then its own
+  lockup: `KoinXBooksWordmark`, `KoinXTaxesWordmark`,
+  `KoinXProfessionalsWordmark`. Books is **not** the default — it was only the
+  first lockup XUI had. `KoinXMark` for a collapsed rail. (`KoinXWordmark` is
+  the Books lockup under an old name; do not use it.)
 - **Icons** — 275, in four families. **Search, never draw:** the
   `find_xui_icon` tool or `npx xui-find-icon "<meaning>"`. Icons v2 has four
   tones: `outlined`, `solid`, `dualtone` (defaults to `content-tertiary`),

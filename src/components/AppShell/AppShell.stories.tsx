@@ -7,7 +7,7 @@ import { Drawer } from '../Drawer';
 import {
   Sidebar, SidebarHeader, SidebarNav, SidebarFooter, SidebarItem, SidebarSubItem,
 } from '../Sidebar';
-import { KoinXWordmark, KoinXMark } from '../../assets/brand';
+import { KoinXLogo, KoinXMark } from '../../assets/brand';
 import {
   OverviewIcon, WalletIcon, TransactionsIcon, JournalIcon,
   PurchasesIcon, TaxesIcon, SettingsIcon, SyncIcon, NotificationIcon, ActionsIcon,
@@ -58,7 +58,7 @@ function Demo({ startCollapsed = false }: { startCollapsed?: boolean }) {
   return (
     <AppShell style={{ height: '100vh' }}>
       <Sidebar collapsed={collapsed} onToggleCollapsed={() => setCollapsed((c) => !c)}>
-        <SidebarHeader>{collapsed ? <KoinXMark /> : <KoinXWordmark />}</SidebarHeader>
+        <SidebarHeader>{collapsed ? <KoinXMark /> : <KoinXLogo />}</SidebarHeader>
         <SidebarNav>
           {NAV.map((item) => (
             <SidebarItem
@@ -117,7 +117,7 @@ function MobileDemo() {
     <AppShell style={{ height: '100vh' }}>
       {/* web only */}
       <Sidebar>
-        <SidebarHeader><KoinXWordmark /></SidebarHeader>
+        <SidebarHeader><KoinXLogo /></SidebarHeader>
         <SidebarNav>
           {NAV.map((i) => (
             <SidebarItem key={i.id} icon={i.icon} label={i.label} selected={active === i.id} onClick={() => setActive(i.id)} />
@@ -143,7 +143,7 @@ function MobileDemo() {
           </>
         }
       >
-        <KoinXWordmark />
+        <KoinXLogo />
       </TopBar>
 
       <AppShellMain data-testid="main">

@@ -13,7 +13,7 @@ export interface TopBarProps extends HTMLAttributes<HTMLElement> {
  * the right.
  *
  *   <TopBar actions={<button onClick={open}>…</button>}>
- *     <KoinXWordmark />
+ *     <KoinXLogo />
  *   </TopBar>
  *
  * Hides itself above 900px, where the Sidebar rail takes over — so a screen
