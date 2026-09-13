@@ -170,7 +170,7 @@
       },
       {
         "component": "Coin Icons",
-        "question": "Category disagreements between Figma and xui.koinx.com: Spend, Liquidity Out and UnStake sit under Deposit in the set while the reference site lists Spend under Withdrawal; Mint and Burn are Expense in the set and Deposit/Withdrawal on the site. Code follows the Figma set. Also note the site's \"CollatoralUnlockCoin\" — the set spells it Collateral, which is what ships."
+        "question": "Category disagreements between Figma and KoinX's internal reference library (xui.koinx.com, the SSO-gated components site — not this repo's docs): Spend, Liquidity Out and UnStake sit under Deposit in the set while the reference site lists Spend under Withdrawal; Mint and Burn are Expense in the set and Deposit/Withdrawal on the site. Code follows the Figma set. Also note the site's \"CollatoralUnlockCoin\" — the set spells it Collateral, which is what ships."
       },
       {
         "component": "General Icons",

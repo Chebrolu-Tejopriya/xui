@@ -6,7 +6,7 @@ page.
 | I want to… | Get | Ends up at |
 | --- | --- | --- |
 | **Build a prototype** — a screen, a flow, an idea | the **Console** (`xui-playground`) | [xui-playground.vercel.app](https://xui-playground.vercel.app) |
-| **Change the design system** — a component, token or icon | **XUI** (`xui`) | [xui.koinx.com](https://xui.koinx.com) |
+| **Change the design system** — a component, token or icon | **XUI** (`xui`) | [xui-five.vercel.app](https://xui-five.vercel.app) |
 | **Use XUI in my own app** | the npm package | your product |
 
 Most people want the first. **You do not need the design system repo to build

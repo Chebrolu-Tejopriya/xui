@@ -4,6 +4,31 @@ How to work here, and what belongs in this repo at all. Format: see `README.md`.
 
 ---
 
+## Our docs are xui-five.vercel.app — xui.koinx.com is someone else's
+
+> owner-correction · 2026-09-13 · teja · confident
+
+*"the website is navigating to xui.koinx.app but ours is https://xui-five.vercel.app/"*
+
+I had been writing `xui.koinx.com` as XUI's home in the Installation guide, the
+Console's sidebar link and the playground's AGENTS.md. It is not ours. It
+redirects to KoinX's Cloudflare Access login — an SSO-gated deployment of KoinX's
+own internal components library, the one compared against Blade early on.
+
+So the "XUI design system" link sent people to a login wall, and past it, to a
+different system.
+
+There are two design-system sites, and a sentence that says "the XUI docs" has to
+mean one of them:
+
+| | what it is |
+|---|---|
+| `xui-five.vercel.app` | **this repo's Storybook.** Link here. |
+| `xui.koinx.com` | KoinX's internal reference library, behind SSO. Mention only when contrasting with it. |
+
+Check a URL resolves to what you think it is before writing it down. `curl -I`
+takes a second; a wrong link sits in docs for weeks.
+
 ## An offer declined by silence is not closed
 
 > owner-correction · 2026-09-12 · teja · confident
