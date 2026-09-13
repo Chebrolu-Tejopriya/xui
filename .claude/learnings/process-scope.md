@@ -137,3 +137,22 @@ needed."* If something has been done twice by hand, it belongs in
 *"this is the reason i don't prefer github pages"* (it kept flagging the deploy
 as suspicious) and *"we anyway don't use this design system in pages or
 chromatic."* The docs are on Vercel.
+
+---
+
+## Fix what was asked; do not reopen what was accepted
+
+> owner-correction · 2026-09-13 · teja · confident
+
+*"colors that are there currently are fine don't touch those just fix the size"*
+
+Asked to fix the KoinX logo's size, I started re-auditing the logos' colour
+bindings in Figma — and found the three lockups bind their blue differently —
+on the way to "fixing" colours teja had already signed off an hour earlier.
+When the request names one property, change that property. Something noticed
+along the way is a one-line mention at the end, not a second task started
+unasked; and colours the owner has accepted stay as they are.
+
+The size itself: a logo cut out of a lockup comes at its IN-lockup size. The
+KoinX logo is 55x14 inside the Books lockup and 80x20 where Figma draws it
+alone (letters 20 tall, as in the Tax Reports and Professionals sidebars).

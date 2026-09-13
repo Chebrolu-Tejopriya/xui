@@ -27,11 +27,18 @@ import type { SVGProps } from 'react';
 
 /**
  * The KoinX logo — "Koin" and the X, no product name. Figma `9186:58266`
- * ("1. KoinX Logo"), 55.104 x 13.776: the artwork every product lockup starts
- * with, so it is cut from the Books lockup's own paths rather than redrawn.
+ * ("1. KoinX Logo"): the artwork every product lockup starts with, so it is cut
+ * from the Books lockup's own paths rather than redrawn.
  *
  * THE DEFAULT. Reach for a product lockup only when the screen belongs to that
  * product; when the requirement does not say, it is this.
+ *
+ * 80 x 20, not the 55 x 14 of the frame it was cut from. 55 x 14 is its size
+ * INSIDE the Books lockup, sharing a 20px row with "Books" and the pill; alone
+ * in a sidebar it read as tiny. Where Figma draws the KoinX logo on its own
+ * (the Tax Reports sidebar, Section 3 of KoinX-Fidisys-Internal) the letters
+ * are 20 tall, as they are in the Professionals lockup. The artwork is exactly
+ * 4:1, so 20 tall is exactly 80 wide.
  *
  * The viewBox starts at y=3.72363 because that is where the logo sits inside
  * the lockup it came from — the paths keep their coordinates. Gradient ids are
@@ -40,7 +47,7 @@ import type { SVGProps } from 'react';
  */
 export function KoinXLogo(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg width="55.104" height="13.776" viewBox="0 3.72363 55.104 13.776" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KoinX" {...props}>
+    <svg width="80" height="20" viewBox="0 3.72363 55.104 13.776" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KoinX" {...props}>
       <path d="M6.55427 10.3622L12.6554 3.8252H9.41086L2.93118 10.6316V3.8252H0.015625V17.3598H2.93118V14.1688L4.63444 12.401L8.69175 17.3598H12.1154L6.96699 10.8818L6.55427 10.3616V10.3622Z" style={{ fill: 'var(--surface-brand-primary)' }} />
       <path d="M22.0583 9.84041C21.1512 8.40165 19.4871 7.51172 17.4582 7.51172C15.2898 7.51172 13.5293 8.52894 12.6707 10.1407C12.2999 10.8312 12.0977 11.6329 12.0977 12.5085C12.0977 15.4302 14.3602 17.5054 17.4582 17.5054C20.5561 17.5054 22.8016 15.4302 22.8016 12.5085C22.8016 11.5018 22.5344 10.5948 22.0583 9.84041ZM17.4582 15.196C16.0453 15.196 14.9581 14.1859 14.9581 12.5085C14.9581 11.0659 15.7604 10.117 16.884 9.88009C17.0675 9.83986 17.2598 9.82002 17.4582 9.82002C17.5976 9.82002 17.7315 9.82884 17.8632 9.85033C19.0694 10.0245 19.9395 10.9948 19.9395 12.5085C19.9395 14.1859 18.871 15.196 17.4582 15.196Z" style={{ fill: 'var(--surface-brand-primary)' }} />
       <path d="M27.5088 7.65625H24.6836V17.3606H27.5088V7.65625Z" style={{ fill: 'var(--surface-brand-primary)' }} />

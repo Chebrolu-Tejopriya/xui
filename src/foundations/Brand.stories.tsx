@@ -23,7 +23,7 @@ export default meta;
  * both surfaces so one that fails in dark mode shows up here.
  */
 const LOCKUPS = [
-  { name: 'KoinXLogo', node: '9186:58266', size: '55×14', El: KoinXLogo },
+  { name: 'KoinXLogo', node: '9186:58266', size: '80×20', El: KoinXLogo },
   { name: 'KoinXMark', node: '—', size: '21×20', El: KoinXMark },
   { name: 'KoinXBooksWordmark', node: '9186:58265', size: '148×20', El: KoinXBooksWordmark },
   { name: 'KoinXProfessionalsWordmark', node: '9897:139343', size: '187×24', El: KoinXProfessionalsWordmark },
