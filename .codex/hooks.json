@@ -1,4 +1,5 @@
 {
+  "description": "GENERATED from the hooks in .claude/settings.json by scripts/gen-agent-rules.mjs. Do not edit - edit the source and run npm run ds:build.",
   "hooks": {
     "PostToolUse": [
       {

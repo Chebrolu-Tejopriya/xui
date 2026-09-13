@@ -21,6 +21,9 @@
 //     -> .cursor/rules/xui-<name>.mdc       Cursor, "agent requested" rule
 //     -> .agents/skills/<name>/SKILL.md     Codex
 //
+//   .claude/settings.json  "hooks"          the one source; edit this
+//     -> .codex/hooks.json                  Codex (Cursor has no equivalent)
+//
 //   node scripts/gen-agent-rules.mjs
 import fs from 'node:fs';
 import path from 'node:path';
@@ -84,7 +87,52 @@ for (const s of skills) {
   fs.writeFileSync(path.join(out, 'SKILL.md'), `${fm}\n${banner(from)}${body.trimStart()}`);
 }
 
+// ---- hooks -----------------------------------------------------------------
+//
+// Codex reads <repo>/.codex/hooks.json in the same shape as the "hooks" key of
+// Claude Code's settings: the same event names, the same handler fields, and it
+// accepts "Write" as a matcher for its apply_patch edits. So this is a copy —
+// generated, because the hand-made one had already drifted: it was missing the
+// learning-nudge hook added after it, and nobody noticed for a month.
+//
+// The scripts themselves carry the difference between the two (see
+// scripts/hooks/parity-reminder.mjs). What cannot be carried is SHELL SYNTAX:
+// Claude Code runs a hook command through bash, Codex does not say which shell
+// it uses. So a command here must be a plain `node scripts/hooks/<name>.mjs`,
+// and a script that must not fail handles that itself.
+const settings = JSON.parse(fs.readFileSync(path.join(root, '.claude/settings.json'), 'utf8'));
+let hookCount = 0;
+for (const [event, groups] of Object.entries(settings.hooks ?? {})) {
+  for (const group of groups) {
+    for (const h of group.hooks) {
+      hookCount++;
+      if (/\|\||&&|[|<>;`$]/.test(h.command)) {
+        throw new Error(
+          `.claude/settings.json ${event} hook uses shell syntax: ${h.command}\n` +
+            'It is copied to .codex/hooks.json, and Codex does not run hooks through bash. ' +
+            'Make it a plain "node scripts/hooks/<name>.mjs" and handle errors inside the script.',
+        );
+      }
+    }
+  }
+}
+fs.mkdirSync(path.join(root, '.codex'), { recursive: true });
+fs.writeFileSync(
+  path.join(root, '.codex/hooks.json'),
+  JSON.stringify(
+    {
+      // Codex's own top-level field; the only place a JSON file can say this.
+      description:
+        'GENERATED from the hooks in .claude/settings.json by scripts/gen-agent-rules.mjs. ' +
+        'Do not edit - edit the source and run npm run ds:build.',
+      hooks: settings.hooks,
+    },
+    null,
+    2,
+  ) + '\n',
+);
+
 console.log(
   `agent rules: ${skills.length} skills -> .cursor/rules/xui-*.mdc and .agents/skills/ ` +
-    `(${skills.map((s) => s.name).join(', ')})`,
+    `(${skills.map((s) => s.name).join(', ')}); ${hookCount} hooks -> .codex/hooks.json`,
 );

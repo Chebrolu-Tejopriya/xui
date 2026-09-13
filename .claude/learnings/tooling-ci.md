@@ -97,3 +97,26 @@ start, so we gitignored those names — and with them the only places a project
 can configure its own agent. XUI's MCP server was therefore configured nowhere.
 Jetro was uninstalled; the four files are ours and committed now, and CI fails
 a commit that carries Jetro's copies. If the files ever revert, it is back.
+
+---
+
+## A hook command is `node <script>` — no Python, no shell syntax
+
+> gotcha · 2026-09-13 · confident
+
+The parity reminder was a `python -c` one-liner. It worked on teja's laptop and
+nowhere else: most designers have no Python, and on Windows `python` is a
+Microsoft Store stub, so the hook failed — silently, because it ended in
+`|| true`. Now `scripts/hooks/parity-reminder.mjs`; Node is the one runtime
+this repo can assume.
+
+The same hooks run in Codex (`.codex/hooks.json`, generated from
+`.claude/settings.json`), which does not say which shell it uses. So a command
+is exactly `node scripts/hooks/<name>.mjs`: no `2>/dev/null`, no `||`. A script
+that must never break the session exits 0 on every path itself.
+`gen-agent-rules` refuses a command with shell syntax.
+
+Codex describes an edit differently: `apply_patch`, with the patch text in
+`tool_input.command` rather than a `file_path`. It accepts `"Write"` as a
+matcher, which is what lets one config serve both — but a hook that reads only
+`file_path` will match in Codex and never fire.
