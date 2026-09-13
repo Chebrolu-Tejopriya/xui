@@ -9,11 +9,11 @@ Format: see `README.md`.
 
 > gotcha · 2026-09-12 · claude · confident
 
-The Console aliases `@koinx/xui` at `../xui/src` whenever the design system repo
+The Playground aliases `@koinx/xui` at `../xui/src` whenever the design system repo
 is sitting next door, so a local edit to XUI shows up in a prototype instantly
 over HMR. That is deliberate and it is what makes the two-folder setup fast.
 
-It is also a trap for anyone who does not know it. **The deployed Console
+It is also a trap for anyone who does not know it. **The deployed Playground
 installs the real published XUI**, pinned by the lockfile — so a demo that reads
 correctly on someone's laptop can look different on the website, and nothing
 says why.
@@ -27,7 +27,7 @@ Two cases, and they need different answers:
   helping them debug a prototype that "looks wrong on the site". This is the
   first thing to rule out and it is invisible from the playground.
 
-Moving the published version forward is `npm run update-xui` in the Console, and
+Moving the published version forward is `npm run update-xui` in the Playground, and
 that is deliberately a separate act — a pinned version that moves on its own is
 not pinned.
 

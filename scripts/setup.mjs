@@ -172,7 +172,7 @@ if (fs.existsSync(playground)) {
     path.resolve(root, '..'),
   );
   if (cloned) {
-    ok('Cloned the Console');
+    ok('Cloned the Playground');
     console.log('');
     if (run('npm', ['install'], playground)) ok('Playground dependencies');
     else warn('Playground install failed — run `npm install` in xui-playground');

@@ -5,16 +5,16 @@ page.
 
 | I want to… | Get | Ends up at |
 | --- | --- | --- |
-| **Build a prototype** — a screen, a flow, an idea | the **Console** (`xui-playground`) | [xui-playground.vercel.app](https://xui-playground.vercel.app) |
+| **Build a prototype** — a screen, a flow, an idea | the **Playground** (`xui-playground`) | [xui-playground.vercel.app](https://xui-playground.vercel.app) |
 | **Change the design system** — a component, token or icon | **XUI** (`xui`) | [xui-five.vercel.app](https://xui-five.vercel.app) |
 | **Use XUI in my own app** | the npm package | your product |
 
 Most people want the first. **You do not need the design system repo to build
-with the design system** — the Console installs XUI the way any project would.
+with the design system** — the Playground installs XUI the way any project would.
 
 ---
 
-## 1 · Build a prototype — the Console
+## 1 · Build a prototype — the Playground
 
 **For:** anyone. Deliberately the path that needs no terminal.
 
@@ -39,7 +39,7 @@ just ask it to help you get set up.
 **3. Build.** `npm run dev` → <http://localhost:5174>, or tell your assistant
 what you want and it will start. Your work goes in
 `src/demos/<your-name>/<demo>/` — your own folder, nobody else's. Nothing
-registers it; the Console finds it because it is there.
+registers it; the Playground finds it because it is there.
 
 **4. Share it, when you want to.**
 
@@ -59,7 +59,7 @@ src/demos/you/checkout-v3/     shared when you run share
 src/demos/you/_checkout-v3/    private — only ever on your machine
 ```
 
-A `_` folder is gitignored, shows in your own Console badged **Local only**, and
+A `_` folder is gitignored, shows in your own Playground badged **Local only**, and
 cannot be published by accident.
 
 ---
@@ -74,7 +74,7 @@ git clone https://github.com/Chebrolu-Tejopriya/xui.git
 ```
 
 Then the same double-click — `start.cmd` or `start.command`. It sets this repo
-up **and clones the Console next door**, because the two are built to sit side
+up **and clones the Playground next door**, because the two are built to sit side
 by side: with both present, your prototypes read XUI's source directly and an
 edit shows up instantly.
 
@@ -84,7 +84,7 @@ Read **Contributing** before opening a PR, and `.claude/learnings/` before
 writing anything — they hold what previous sessions were corrected on.
 
 > **The trap.** With both folders side by side, a local XUI edit appears in your
-> prototype immediately. The deployed Console does **not** see it — it installs
+> prototype immediately. The deployed Playground does **not** see it — it installs
 > the real published XUI. So a demo can look right on your laptop and wrong on
 > the site. If that happens, check `git status` in the xui folder first.
 
@@ -171,5 +171,5 @@ The number moves when the design system does, not when a component does, so
 Day to day, tracking `main` is the intended mode and updates arrive as commits.
 Pin to a tag if you need a build that will not move under you.
 
-In the Console this is pinned in the lockfile, so a deploy never drifts. Move it
+In the Playground this is pinned in the lockfile, so a deploy never drifts. Move it
 forward deliberately with `npm run update-xui`.

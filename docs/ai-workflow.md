@@ -38,7 +38,7 @@ Everything here is an answer to that.
 |---|---|---|
 | **XUI** | The design system: tokens → components → icons → patterns, in Storybook | One implementation, theme-correct, parity-verified |
 | **xemantics** | A Figma plugin that rewrites primitive colours to semantic tokens | Drift at the *design* source, where it starts |
-| **The Console** | A shared prototyping app that installs XUI like any consumer, deployed | Designers build and share real screens without a terminal |
+| **The Playground** | A shared prototyping app that installs XUI like any consumer, deployed | Designers build and share real screens without a terminal |
 | **The agent contract** | A generated manifest + rulebook + skills | The agent composes correctly without being re-taught |
 
 > **Code Connect is not a piece we have.** It sat in this table for months as though it were

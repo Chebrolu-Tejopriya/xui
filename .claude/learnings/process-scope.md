@@ -4,6 +4,28 @@ How to work here, and what belongs in this repo at all. Format: see `README.md`.
 
 ---
 
+## It is the Playground, never the Console
+
+> owner-correction · 2026-09-13 · teja · confident
+
+*"only use name playground don't use console"*
+
+I named the prototyping app "the Console" after Pocket FM's, and it spread into
+the UI, the Installation guide, the skills, the scripts, the Notion doc and a
+component file called Console.tsx. The repo was always `xui-playground`, so the
+product had two names and the second one was borrowed.
+
+Call it **the Playground** — capitalised as a name. Two things are NOT this and
+must keep their word:
+
+- `console.log` / `.error` / `.warn` — the JavaScript global.
+- *"figma console mcp"* in figma-to-code.md is the Figma Console MCP, a real
+  product, and a quote. The FAQ's *"the console is clean"* is the browser's
+  DevTools console.
+
+A blind find-and-replace breaks all three. Match the word as a name, and protect
+`console.` as a method call.
+
 ## Our docs are xui-five.vercel.app — xui.koinx.com is someone else's
 
 > owner-correction · 2026-09-13 · teja · confident
@@ -11,7 +33,7 @@ How to work here, and what belongs in this repo at all. Format: see `README.md`.
 *"the website is navigating to xui.koinx.app but ours is https://xui-five.vercel.app/"*
 
 I had been writing `xui.koinx.com` as XUI's home in the Installation guide, the
-Console's sidebar link and the playground's AGENTS.md. It is not ours. It
+Playground's sidebar link and the playground's AGENTS.md. It is not ours. It
 redirects to KoinX's Cloudflare Access login — an SSO-gated deployment of KoinX's
 own internal components library, the one compared against Blade early on.
 
