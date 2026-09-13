@@ -10,7 +10,16 @@ same answer every time.
 **In the Playground and in this repo, it is already configured** — `.mcp.json`
 (Claude Code), `.cursor/mcp.json` (Cursor) and `.codex/config.toml` (Codex) are
 committed. The first time, your tool asks whether to allow the `xui` server; say
-yes. Nothing else to do.
+yes. Nothing else to do. (Codex does not even ask: every tool only reads, so
+they are pre-approved.)
+
+**Codex users, one extra step for the hooks.** This repo's hooks — the reminder
+to run pixel-parity after editing a component, and the nudge to record a
+learning when corrected — run in Codex only after **you** trust them, and the
+VS Code panel never asks. Run Codex once in a terminal, in the xui folder; it
+shows *Hooks need review* → choose **Trust all and continue**. That is stored in
+your own Codex config, so it holds for the VS Code panel too. It asks again
+whenever the hooks change, which is the point of the check.
 
 **In your own app**, add it the same way:
 

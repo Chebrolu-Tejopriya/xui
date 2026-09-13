@@ -120,3 +120,28 @@ Codex describes an edit differently: `apply_patch`, with the patch text in
 `tool_input.command` rather than a `file_path`. It accepts `"Write"` as a
 matcher, which is what lets one config serve both — but a hook that reads only
 `file_path` will match in Codex and never fire.
+
+---
+
+## Codex runs a repo's hooks only after each person trusts them
+
+> gotcha · 2026-09-13 · confident
+
+The first real Codex test (0.154 alpha, VS Code panel): the MCP server worked,
+both hooks stayed silent. Not a bug in them — Codex's `hooks` feature is on,
+but every project hook starts as *review required*, stores `enabled` +
+`trusted_hash` per user once trusted, and re-asks when the hook changes. The
+VS Code panel never shows that review; the terminal Codex does ("Hooks need
+review" → Trust all and continue). Tell: the session log has **no hook events
+at all** — an untrusted hook is skipped, not run and empty.
+
+Two more from the same test:
+- **Run the test in the right folder.** The first attempt ran in the
+  Playground, which has no hooks; Codex then *created* a Badge.tsx to satisfy
+  the prompt. Check `cwd` in `~/.codex/sessions/.../rollout-*.jsonl` first.
+- **Codex writes tool approvals into the project config.** "Always allow" on
+  `find_xui_icon` added a table to the committed `.codex/config.toml`. Every
+  XUI tool is read-only, so they are pre-approved there — generated from
+  `mcp/server.mjs` in this repo — and Codex has nothing to write.
+- The learning nudge ignores messages over 600 characters, so two test prompts
+  pasted as one never trigger it. Send them separately.
