@@ -103,3 +103,23 @@ editor tool and splice it in. Do not fight the quoting.
 
 `.jetro/daemon/credentials.json` sat untracked in the tree. Always stage
 explicit paths. `.jetro/` is gitignored now, but the habit is the protection.
+
+---
+
+## AppShell goes mobile under 900px — including inside a shrunk preview
+
+> gotcha · 2026-09-13 · confident
+
+AppShell hides the sidebar below 900px (ADR 0019), and it measures the
+**viewport it is in**. A scaled-down preview — a 1440px iframe with
+`transform: scale(0.2)` — is only laid out at 1440 if nothing shrinks it first.
+In a flex row it is a flex item, so it shrinks to the card; every web thumbnail
+in the Playground showed the mobile layout, sidebar gone, and looked merely
+"small" rather than wrong.
+
+`flex: none` on the iframe. `transform` changes how it is painted, never how it
+is laid out — so the box has to be the full width before the scale is applied.
+
+Same family: the Playground's `body` kept the browser's default 8px margin,
+because XUI's stylesheet (rightly) does not reset the page it lands in. Every
+demo sat 8px off the window edge and scrolled by 16px. A consumer resets `body`.

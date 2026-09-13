@@ -41,6 +41,11 @@ what you want and it will start. Your work goes in
 `src/demos/<your-name>/<demo>/` — your own folder, nobody else's. Nothing
 registers it; the Playground finds it because it is there.
 
+A web screen shows **inside KoinX** — the product's sidebar on the left, your
+screen beside it — once its `meta.ts` names the nav item it belongs to:
+`nav: { item: 'Transactions', icon: TransactionsIcon }`. Copy
+`src/demos/examples/empty-page/` to start; it already does this.
+
 **4. Share it, when you want to.**
 
 ```bash
