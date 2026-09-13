@@ -58,3 +58,20 @@ output is not a gate.
 *"depending upon the content, we will probably hide a few columns, or sometimes
 we have a horizontal scroll, or convert each row into a card."* Mobile is for
 the taxes platform only.
+
+---
+
+## A generated file must not contain today's date
+
+> gotcha · 2026-09-13 · confident
+
+`xui.icons.json` stamped `"generated": "<today>"`. CI regenerates every
+generated file and fails on any diff, so the stamp passed on the day it was
+committed and would have failed **every push on every later day** — a gate that
+breaks on the calendar, not on the code. Found as a one-line diff nobody made.
+
+Output must depend on the source alone: no dates, no timestamps, no machine
+paths, no unordered object keys. `gen-manifest` and `build-rulebook` already
+wrote a fixed string; `gen-icon-index` now does too. If a date is genuinely
+wanted, derive it from git (`git log -1 --format=%cs -- <path>`), which is
+the same on every machine.
