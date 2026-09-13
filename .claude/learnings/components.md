@@ -97,3 +97,22 @@ How it went wrong: the Books lockup was exported as `KoinXWordmark`, so it read
 as *the* KoinX logo and landed on every sidebar — the generic AppShell, Sidebar
 and TopBar stories, the Playground's product frame, and a demo titled "KoinX
 for Professionals". `KoinXWordmark` survives only as a deprecated alias.
+
+---
+
+## The Playground's own UI is built from XUI too — tokens are not enough
+
+> owner-correction · 2026-09-13 · teja · confident
+
+*"these two not xui components, how did u miss it"* — the gallery's search box
+and "All designers" dropdown were a raw `<input>` and a native `<select>`.
+
+They passed every check, because the only check was `lint:tokens`, and they used
+tokens. Nothing asks "does XUI already have this?" — so a hand-styled control
+with the right colours looks finished and is still a miss. It is rule 3 of
+AGENTS.md, and it applies to the tooling around the system as much as to demos.
+
+Before writing any control, check the manifest: `Input` (`size="small"` is the
+44px filter-bar height), `Select` (default 44), `Button iconOnly`, `Tabs`,
+`Avatar`, `Badge`, `EmptyState`. The same audit found five more hand-built
+pieces in the gallery; see the git log for what was swapped.
