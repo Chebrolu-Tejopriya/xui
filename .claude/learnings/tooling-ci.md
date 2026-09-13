@@ -75,3 +75,25 @@ paths, no unordered object keys. `gen-manifest` and `build-rulebook` already
 wrote a fixed string; `gen-icon-index` now does too. If a date is genuinely
 wanted, derive it from git (`git log -1 --format=%cs -- <path>`), which is
 the same on every machine.
+
+---
+
+## Claude Code never read AGENTS.md — and Jetro owned CLAUDE.md
+
+> gotcha · 2026-09-13 · confident
+
+Claude Code reads `CLAUDE.md`, **not** `AGENTS.md` (its docs say so outright).
+Both repos had only `AGENTS.md`, so no Claude session ever saw it: on teja's
+machine Claude read the Jetro extension's `CLAUDE.md` ("You are an assistant
+for the Jetro research platform") instead, and on a fresh clone it read nothing.
+Cursor and Codex were fine all along — they read `AGENTS.md`.
+
+The fix is a `CLAUDE.md` that is one line, `@AGENTS.md`, so every tool reads
+one file. Do not copy the content across; import it.
+
+The deeper cause: the Jetro VS Code extension **overwrote** `CLAUDE.md`,
+`.mcp.json` and `.cursor/mcp.json` in every folder VS Code opened, on every
+start, so we gitignored those names — and with them the only places a project
+can configure its own agent. XUI's MCP server was therefore configured nowhere.
+Jetro was uninstalled; the four files are ours and committed now, and CI fails
+a commit that carries Jetro's copies. If the files ever revert, it is back.

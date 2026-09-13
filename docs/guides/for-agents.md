@@ -7,12 +7,21 @@ than a document an agent may or may not open. That is the whole point: a
 document can be skipped, summarised or half-remembered. A tool call returns the
 same answer every time.
 
+**In the Playground and in this repo, it is already configured** — `.mcp.json`
+(Claude Code), `.cursor/mcp.json` (Cursor) and `.codex/config.toml` (Codex) are
+committed. The first time, your tool asks whether to allow the `xui` server; say
+yes. Nothing else to do.
+
+**In your own app**, add it the same way:
+
 ```json
-{ "mcpServers": { "xui": { "command": "npx", "args": ["-y", "xui-mcp"] } } }
+{ "mcpServers": { "xui": { "command": "node", "args": ["node_modules/@koinx/xui/mcp/server.mjs"] } } }
 ```
 
-Drop that into `.mcp.json`, `.cursor/mcp.json`, or your editor's MCP settings.
-It has **no dependencies** and starts in milliseconds.
+`node` and a path rather than `npx xui-mcp`: on Windows an editor cannot launch
+`npx` without a `cmd /c` wrapper, and this works everywhere unchanged. In
+Cursor, write the path as `${workspaceFolder}/node_modules/…`. It has **no
+dependencies** and starts in milliseconds.
 
 ### The eight tools
 

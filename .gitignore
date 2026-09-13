@@ -45,35 +45,27 @@ test-results/
 playwright-report/
 blob-report/
 
-# Jetro's installer writes agent config into the repo for every vendor it knows
-# about, and none of it belongs in git.
+# The Jetro VS Code extension used to write agent config into every folder it
+# opened, overwriting whatever was there. It was uninstalled on 2026-09-13 and
+# the files it squatted on are OURS now, and tracked:
 #
-#   .mcp.json, .cursor/mcp.json, .codex/config.toml — absolute paths into one
-#   machine's C:\Users\...\.jetro install, plus that machine's whole PATH.
+#   CLAUDE.md          imports AGENTS.md — Claude Code never reads AGENTS.md
+#   .mcp.json          XUI's MCP server, for Claude Code
+#   .cursor/mcp.json   the same, for Cursor
+#   .codex/config.toml the same, for Codex
 #
-#   CLAUDE.md, AGENT.md, .windsurfrules, .cursor/rules/agent.mdc,
-#   .agents/rules/agent.md, .github/copilot-instructions.md — six copies of the
-#   same 1032-byte "You are an assistant for the Jetro research platform" blurb,
-#   which says nothing about XUI. AGENTS.md is this repo's real one.
-#
-#   .agents/skills/ — a stale mirror of .claude/skills/. Four of the six matched
-#   when this was written and two had drifted, which is the whole argument: a
-#   duplicate that goes out of date is worse than no duplicate, because an agent
-#   reading the stale copy follows superseded instructions and thinks it complied.
-.mcp.json
-.codex/
-# Jetro's files inside the vendor folders, by name. The folders themselves are
-# tracked now: .cursor/rules/xui-*.mdc and .agents/skills/ are GENERATED from
-# .claude/skills/ by scripts/gen-agent-rules.mjs so Cursor and Codex users get
-# the same skills Claude Code does. Ignoring the whole folder would have hidden
-# them too.
-.cursor/mcp.json
-.cursor/rules/agent.mdc
-.agents/rules/
+# Jetro's OTHER file names stay ignored, so a machine that still has it cannot
+# commit them by accident. If it comes back it will overwrite the four above
+# too: CI fails any commit whose copies mention Jetro.
 .windsurfrules
 AGENT.md
-CLAUDE.md
+.cursor/rules/agent.mdc
+.agents/rules/
 .github/copilot-instructions.md
+# Everything in .codex/ except the config above — hooks.json there is
+# per-machine and has never been shared.
+.codex/*
+!.codex/config.toml
 
 # ad-hoc debugging screenshots and the throwaway scripts that take them
 screenshot.png

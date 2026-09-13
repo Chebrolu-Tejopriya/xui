@@ -50,6 +50,17 @@ jobs:
       - name: Variant axes — every Figma axis is implemented or accepted
         run: npm run check:axes
 
+      # The Jetro VS Code extension overwrites these on every start, with its
+      # own server, one machine's PATH and, when signed in, a login token. Only
+      # ours should ever be committed. CLAUDE.md is ours exactly when it still
+      # imports AGENTS.md — Jetro replaces the whole file, so the line goes.
+      - name: Agent config is XUI's, not Jetro's
+        run: |
+          if grep -il jetro .mcp.json .cursor/mcp.json .codex/config.toml || ! grep -q '^@AGENTS.md' CLAUDE.md; then
+            echo "::error::Jetro overwrote the agent config above. Uninstall the extension and 'git checkout' those files."
+            exit 1
+          fi
+
       # The rulebook and manifest are generated from source and are the
       # contract agents and the Figma plugin read. If a PR changes tokens or
       # components without regenerating them, the contract silently lies.

@@ -13,13 +13,22 @@ xui.manifest.json   the contract   components + props + variants + tokens + rule
 Both are **generated** (`npm run ds:build`) from `src/tokens/*.css` and
 `src/components/**`, so they cannot drift from the code. Never edit them by hand.
 
-**Read [`.claude/learnings/`](./.claude/learnings/) first.** Six short files
-holding things we had to be told — corrections, preferences, and traps that cost
+**Read [`.claude/learnings/`](./.claude/learnings/) first.** Short files, one
+per topic, holding things we had to be told — corrections, preferences, and traps that cost
 real time. They are the part that is *not* derivable from the code, which is
 exactly why they are written down. An `owner-correction` there is settled; do
 not relitigate it.
 
 When you are corrected, add one. The `capture-learning` skill has the format.
+
+## The MCP server
+
+This repo configures XUI's own MCP server for Claude Code (`.mcp.json`), Cursor
+(`.cursor/mcp.json`) and Codex (`.codex/config.toml`) — the first time, your
+tool asks whether to allow it; say yes. Its eight tools read the same generated
+contract as this page, so prefer them over guessing a name:
+`list_xui_components`, `get_xui_component`, `get_xui_tokens`, `find_xui_icon`,
+`get_xui_status`, `get_xui_learnings`, `figma_to_xui`, `get_xui_guidelines`.
 
 ## The three rules that matter most
 
@@ -62,7 +71,7 @@ Spacing, radius, and typography have tokens too (`--radius-mid`,
 
 ```tsx
 import { Table, TableHead, TableBody, TableRow, TableCell, TableHeaderCell,
-         Badge, Checkbox, Button, WalletIcon } from 'xui';
+         Badge, Checkbox, Button, WalletIcon } from '@koinx/xui';
 ```
 
 A data-table page is: page header (title + primary action) → filter/search
@@ -79,8 +88,10 @@ is `componentRules` in the manifest):
   square/circle), not the variant squared off; pass the icon as `children` and
   always set `aria-label`. `secondary` is the orange family, intentionally.
 - **Badge** — use `label-*` variants for status pills; they're 20px tall.
-- **Icons** — four tones: `outlined`, `solid`, `dualtone` (defaults to
-  `content-tertiary`), `dualtone-selected` (brand). 69 icons, 11 categories.
+- **Icons** — 275, in four families. **Search, never draw:** the
+  `find_xui_icon` tool or `npx xui-find-icon "<meaning>"`. Icons v2 has four
+  tones: `outlined`, `solid`, `dualtone` (defaults to `content-tertiary`),
+  `dualtone-selected` (brand).
 
 ## Anti-patterns
 

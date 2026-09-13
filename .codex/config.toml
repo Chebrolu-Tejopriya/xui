@@ -1,0 +1,6 @@
+# XUI's MCP server, for Codex. Codex reads a project's .codex/config.toml only
+# once you trust the project. Same server as .mcp.json (Claude Code) and
+# .cursor/mcp.json (Cursor): zero dependencies, reads the generated contract.
+[mcp_servers.xui]
+command = "node"
+args = ["mcp/server.mjs"]

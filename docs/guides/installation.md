@@ -37,7 +37,9 @@ you, each with the exact command. Your AI assistant can walk you through it —
 just ask it to help you get set up.
 
 **3. Build.** `npm run dev` → <http://localhost:5174>, or tell your assistant
-what you want and it will start. Your work goes in
+what you want and it will start. The first time, your assistant asks whether to
+allow the **`xui`** server — say yes. It is how the assistant looks components,
+icons and colours up in XUI instead of guessing them. Your work goes in
 `src/demos/<your-name>/<demo>/` — your own folder, nobody else's. Nothing
 registers it; the Playground finds it because it is there.
 
