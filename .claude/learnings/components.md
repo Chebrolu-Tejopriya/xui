@@ -4,6 +4,20 @@ Which one to reach for, and what not to build. Format: see `README.md`.
 
 ---
 
+## Preserve the KoinX shell height, gutters and navigation
+
+> owner-correction · 2026-10-22 · teja · confident
+
+"why the layout is not same as how we have for koinx liek the top spacing, navigation etc... why ui is not proper" — after the Source of Funds prototype added a custom header, doubled outer padding and a sidebar that stopped above the account footer.
+
+For a standalone product screen, give AppShell a definite viewport height (height: '100vh'), not only minHeight: '100vh': Sidebar uses height: 100%, and AppShellMain owns content scrolling. In an embedded frame, use its definite available height instead; do not force another viewport inside it.
+
+AppShell already supplies the 24px desktop horizontal gutters; AppShellMain supplies the 16px top/bottom inset. Do not add a second outer page-padding layer or another large header band. Compose breadcrumbs, page title and actions compactly inside that content column, following the existing product layout. Keep prototype controls out of the primary page-header stack.
+
+Reuse Sidebar, SidebarNav, SidebarFooter and the existing responsive navigation patterns. Use KoinXMark in the collapsed rail. If the Playground already provides the shell through meta.ts nav, render only page content; a demo that explicitly needs its own multi-item navigation leaves nav unset. Never nest shells or sidebars. Verify full-height navigation, the account footer, independent content scrolling, collapsed navigation and tablet layout before calling the screen complete.
+
+---
+
 ## Select IS the menu — do not build one
 
 > owner-correction · 2026-09-04 · teja · confident
